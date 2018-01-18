@@ -148,7 +148,7 @@
 				<directory>FitNesseRoot</directory>
 				<filtering>true</filtering>
 				<includes>
-					<include>TheDivaTests/</include>
+					<include>TheDiVATests/</include>
 					<include>properties</include>
 				</includes>
 				<excludes>
