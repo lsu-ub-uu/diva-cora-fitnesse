@@ -140,6 +140,7 @@
 				<filtering>true</filtering>
 				<includes>
 					<include>TheDiVATests/</include>
+					<include>FrontPage.wiki</include>
 					<include>properties</include>
 				</includes>
 				<excludes>
