@@ -1,0 +1,64 @@
+---
+Test
+---
+!contents -R2 -g -p -f -h
+!1 Testing recordType divaPerson
+It should be possible to read the recordType for person from the REST API.
+
+!***> Read divaPerson recordType
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | recordType | divaPerson | | OK |
+
+*!
+It should be possible to read the top level metadata group for a new person from the REST API
+!***> Load personNewGroup for person to use in tests
+
+!| RecordEndpointFixture |
+| type | id | testReadRecordAndStoreJson? |
+| metadataGroup | divaPersonNewGroup | |
+
+*!
+Tests for metadata for creating a new person
+!***> Check children of divaPersonNewGroup
+
+!| MetadataLinkFixture |
+| linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
+| metadataGroup | recordInfoDivaNewGroup | 1 | 1 |
+| metadataGroup | divaIdentifierPersonGroup | 0 | X |
+| metadataGroup | namePersonAuthorizedGroup | 1 | 1 |
+| metadataGroup | namePersonAlternativeGroup | 0 | X |
+| metadataGroup | divaLifeEventsGroup | 0 | 1 |
+| metadataTextVariable | noteHistoryTextVar | 0 | 1 |
+| metadataGroup | externalLinkGroup | 0 | X |
+| metadataRecordLink | relatedPersonLink | 0 | X |
+| metadataRecordLink | relatedOtherOrganisationLink | 0 | X |
+| metadataRecordLink | profilePictureLink | not found | not found |
+
+*!
+It should be possible to read the top level metadata group for an existing person from the REST API
+!***> Load divaPersonGroup for person to use in tests
+
+!| RecordEndpointFixture |
+| type | id | testReadRecordAndStoreJson? |
+| metadataGroup | divaPersonGroup | |
+
+*!
+Tests for metadata for updating a person
+!***> Check children of divaPersonGroup
+
+!| MetadataLinkFixture |
+| linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
+| metadataGroup | recordInfoDivaGroup | 1 | 1 |
+| metadataGroup | divaIdentifierPersonGroup | 0 | X |
+| metadataGroup | namePersonAuthorizedGroup | 1 | 1 |
+| metadataGroup | namePersonAlternativeGroup | 0 | X |
+| metadataGroup | divaLifeEventsGroup | 0 | 1 |
+| metadataTextVariable | noteHistoryTextVar | 0 | 1 |
+| metadataGroup | externalLinkGroup | 0 | X |
+| metadataRecordLink | relatedPersonLink | 0 | X |
+| metadataRecordLink | relatedOtherOrganisationLink | 0 | X |
+| metadataRecordLink | profilePictureLink | 0 | 1 |
+
+*!
