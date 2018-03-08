@@ -38,6 +38,7 @@
 <!-- 		<jersey.version>2.23.2</jersey.version> -->
 		<fitnesse.version>20161106</fitnesse.version>
 		<fitnesseintegration.version>0.1-SNAPSHOT</fitnesseintegration.version>
+		<divatocorastorage.version>0.1-SNAPSHOT</divatocorastorage.version>
 	</properties>
 
 	<scm>
@@ -87,6 +88,12 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
+			<groupId>se.uu.ub.cora</groupId>
+			<artifactId>divatocorastorage</artifactId>
+			<version>${divatocorastorage.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
 			<groupId>javax.ws.rs</groupId>
 			<artifactId>javax.ws.rs-api</artifactId>
 			<version>${javax.ws.rs.version}</version>
@@ -128,6 +135,11 @@
 		  	<artifactId>httpclient</artifactId>
 		  	<version>4.5.2</version>
 			<scope>compile</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-text</artifactId>
+		    <version>1.2</version>
 		</dependency>
 	</dependencies>
 
