@@ -1,0 +1,44 @@
+---
+Test
+---
+!contents -R2 -g -p -f -h
+!1 Testing recordType project
+It should be possible to create, update, read and delete the projects from the REST API.
+
+!2 Test with new project
+!***> Create data of recordType project
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecordCreatedType? | getStatusType? |
+| $adminAuthToken | project | {"name":"project","children":[{"name":"recordInfo","children":[{"name":"id","value":"aProject"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"formOfGrant","value":"projectGrantEU"},{"name":"projectTitles","children":[{"name":"projectTitleLanguage","children":[{"name":"language","value":"sv"},{"name":"projectTitle","value":"En titel"}],"repeatId":"0"}]}]} | project | CREATED |
+
+*!
+!***> Update data of recordType project
+
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | project | aProject | {"name":"project","children":[{"name":"recordInfo","children":[{"name":"id","value":"aProject"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"formOfGrant","value":"projectGrantEU"},{"name":"projectTitles","children":[{"name":"projectTitleLanguage","children":[{"name":"language","value":"sv"},{"name":"projectTitle","value":"En titel"}],"repeatId":"0"},{"name":"projectTitleLanguage","children":[{"name":"language","value":"en"},{"name":"projectTitle","value":"An english title"}],"repeatId":"1"}]}]} | | OK |
+
+*!
+!***> Read project aProject
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | project | aProject |  | OK |
+
+*!
+!***> List recordType project
+
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $adminAuthToken | project | =~/"toNo":"1"/ | OK |
+
+*!
+!2 Clean up created data
+!***> Clean up created data
+
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $adminAuthToken | project | aProject | | OK |
+
+*!
