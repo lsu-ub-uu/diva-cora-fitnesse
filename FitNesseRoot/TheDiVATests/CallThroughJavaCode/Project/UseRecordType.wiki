@@ -9,22 +9,38 @@ It should be possible to create, update, read and delete the projects from the R
 !***> Create data of recordType project
 
 !| RecordEndpointFixture |
-| authToken | type | json | testCreateRecordCreatedType? | getStatusType? |
-| $adminAuthToken | project | {"name":"project","children":[{"name":"recordInfo","children":[{"name":"id","value":"aProject"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"formOfGrant","value":"projectGrantEU"},{"name":"projectTitles","children":[{"name":"projectTitleLanguage","children":[{"name":"language","value":"sv"},{"name":"projectTitle","value":"En titel"}],"repeatId":"0"}]}]} | project | CREATED |
+| authToken | type | json | testCreateRecordCreatedType? | getStatusType? | getCreatedId? |
+| $adminAuthToken | project | {"name":"project","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"formOfGrant","value":"projectGrantEU"}]} | project | CREATED | $createdId= |
+
+*!
+!***> Create data of recordType project
+
+!| comment |
+| RecordEndpointFixture | |
+| authToken | type | json | testCreateRecordCreatedType? | getStatusType? | getCreatedId? |
+| $adminAuthToken | project | {"name":"project","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"formOfGrant","value":"projectGrantEU"},{"name":"projectTitles","children":[{"name":"projectTitleLanguage","children":[{"name":"language","value":"sv"},{"name":"projectTitle","value":"En titel"}],"repeatId":"0"}]}]} | project | CREATED | $createdId= |
 
 *!
 !***> Update data of recordType project
 
 !| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | project | aProject | {"name":"project","children":[{"name":"recordInfo","children":[{"name":"id","value":"aProject"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"formOfGrant","value":"projectGrantEU"},{"name":"projectTitles","children":[{"name":"projectTitleLanguage","children":[{"name":"language","value":"sv"},{"name":"projectTitle","value":"En titel"}],"repeatId":"0"},{"name":"projectTitleLanguage","children":[{"name":"language","value":"en"},{"name":"projectTitle","value":"An english title"}],"repeatId":"1"}]}]} | | OK |
+| $adminAuthToken | project | $createdId | {"name":"project","children":[{"name":"recordInfo","children":[{"name":"id","value":"$createdId"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"project"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}]},{"name":"tsCreated","value":"2017-10-01 00:00:00.0"}]},{"name":"formOfGrant","value":"projectGrantInternationalCooperation"}]} | | OK |
+
+*!
+!***> Update data of recordType project
+
+!| comment |
+| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | project | $createdId | {"name":"project","children":[{"name":"recordInfo","children":[{"name":"id","value":"$createdId"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"project"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}]},{"name":"tsCreated","value":"2017-10-01 00:00:00.0"}]},{"name":"formOfGrant","value":"projectGrantEU"},{"name":"projectTitles","children":[{"name":"projectTitleLanguage","children":[{"name":"language","value":"sv"},{"name":"projectTitle","value":"En titel"}],"repeatId":"0"},{"name":"projectTitleLanguage","children":[{"name":"language","value":"en"},{"name":"projectTitle","value":"An english title"}],"repeatId":"1"}]}]} | | OK |
 
 *!
 !***> Read project aProject
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | project | aProject |  | OK |
+| $adminAuthToken | project | $createdId | | OK |
 
 *!
 !***> List recordType project
@@ -39,6 +55,6 @@ It should be possible to create, update, read and delete the projects from the R
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| $adminAuthToken | project | aProject | | OK |
+| $adminAuthToken | project | $createdId | | OK |
 
 *!
