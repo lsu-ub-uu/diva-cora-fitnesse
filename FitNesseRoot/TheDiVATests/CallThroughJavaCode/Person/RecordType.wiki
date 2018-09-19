@@ -7,23 +7,28 @@ It should be possible to read the recordType for person from the REST API.
 
 !***> Read divaPerson recordType
 
-!| RecordEndpointFixture |
+!| comment |
+| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
 | $adminAuthToken | recordType | divaPerson | | OK |
 
 *!
 It should be possible to read the top level metadata group for a new person from the REST API
+
 !***> Load personNewGroup for person to use in tests
 
-!| RecordEndpointFixture |
+!| comment |
+| RecordEndpointFixture |
 | type | id | testReadRecordAndStoreJson? |
 | metadataGroup | divaPersonNewGroup | |
 
 *!
 Tests for metadata for creating a new person
+
 !***> Check children of divaPersonNewGroup
 
-!| MetadataLinkFixture |
+!| comment |
+| MetadataLinkFixture |
 | linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
 | metadataGroup | recordInfoDivaNewGroup | 1 | 1 |
 | metadataGroup | divaIdentifierPersonGroup | 0 | X |
@@ -38,17 +43,21 @@ Tests for metadata for creating a new person
 
 *!
 It should be possible to read the top level metadata group for an existing person from the REST API
+
 !***> Load divaPersonGroup for person to use in tests
 
-!| RecordEndpointFixture |
+!| comment |
+| RecordEndpointFixture |
 | type | id | testReadRecordAndStoreJson? |
 | metadataGroup | divaPersonGroup | |
 
 *!
 Tests for metadata for updating a person
+
 !***> Check children of divaPersonGroup
 
-!| MetadataLinkFixture |
+!| comment |
+| MetadataLinkFixture |
 | linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
 | metadataGroup | recordInfoDivaGroup | 1 | 1 |
 | metadataGroup | divaIdentifierPersonGroup | 0 | X |

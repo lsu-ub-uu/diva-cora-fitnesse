@@ -5,6 +5,7 @@ Test
 !1 Testing conversion of recordType place
 !***> Convert place:22 from XML stored in Fedora to Coras Json format
 
+| comment |
 | Diva To Cora Format Fixture |
 | type | DivaXML | getJson? |
 | divaPerson | tramsXML | can not convert xml:se.uu.ub.cora.diva.tocorastorage.ParseException: Error converting person to Cora person: Can not read xml: Content is not allowed in prolog. |
