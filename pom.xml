@@ -23,22 +23,21 @@
 	<parent>
 		<groupId>se.uu.ub.cora</groupId>
 		<artifactId>cora-parent</artifactId>
-		<version>0.6-SNAPSHOT</version>
+		<version>0.7-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>divacorafitnesse</artifactId>
 	<packaging>jar</packaging>
-	<version>0.1-SNAPSHOT</version>
+	<version>0.2-SNAPSHOT</version>
 	<name>DiVA Cora Fitnesse</name>
 
 	<properties>
-	<json.version>0.3-SNAPSHOT</json.version>
-		<httphandler.version>0.3-SNAPSHOT</httphandler.version>
-		<javax.ws.rs.version>2.0.1</javax.ws.rs.version>
-<!-- 		<jersey.version>2.23.2</jersey.version> -->
-		<fitnesse.version>20161106</fitnesse.version>
-		<fitnesseintegration.version>0.1-SNAPSHOT</fitnesseintegration.version>
-		<divatocorastorage.version>0.1-SNAPSHOT</divatocorastorage.version>
+	<json.version>0.4-SNAPSHOT</json.version>
+		<httphandler.version>0.4-SNAPSHOT</httphandler.version>
+		<javax.ws.rs.version>2.1.1</javax.ws.rs.version>
+		<fitnesse.version>20180127</fitnesse.version>
+		<fitnesseintegration.version>0.2-SNAPSHOT</fitnesseintegration.version>
+		<divatocorastorage.version>0.2-SNAPSHOT</divatocorastorage.version>
 	</properties>
 
 	<scm>
@@ -46,21 +45,6 @@
 		<developerConnection>scm:git:https://github.com/lsu-ub-uu/diva-cora-fitnesse.git</developerConnection>
 		<url>https://github.com/lsu-ub-uu/diva-cora-fitnesse.git</url>
 	</scm>
-
-	<repositories>
-		<repository>
-			<id>maven-public</id>
-			<name>LSU Nexus Repository</name>
-			<url>http://epc.ub.uu.se/nexus/repository/maven-public/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<updatePolicy>daily</updatePolicy>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
 
 	<dependencies>
 		<dependency>
@@ -109,7 +93,7 @@
 		<dependency>
 			<groupId>smartrics.restfixture</groupId>
 			<artifactId>smartrics-RestFixture</artifactId>
-			<version>4.0</version>
+			<version>4.4</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
@@ -121,25 +105,25 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.11</version>
+			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 		  	<groupId>org.apache.httpcomponents</groupId>
 		  	<artifactId>httpmime</artifactId>
-		  	<version>4.5.2</version>
+		  	<version>4.5.6</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 		  	<groupId>org.apache.httpcomponents</groupId>
 		  	<artifactId>httpclient</artifactId>
-		  	<version>4.5.2</version>
+		  	<version>4.5.6</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 		    <groupId>org.apache.commons</groupId>
 		    <artifactId>commons-text</artifactId>
-		    <version>1.2</version>
+		    <version>1.4</version>
 		</dependency>
 	</dependencies>
 
@@ -164,7 +148,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
-				<version>2.4.3</version>
+				<version>3.2.0</version>
 				<executions>
 					<execution>
 						<phase>package</phase>
@@ -187,7 +171,7 @@
 				<plugin>
 					<groupId>org.eclipse.jetty</groupId>
 					<artifactId>jetty-maven-plugin</artifactId>
-					<version>9.3.7.v20160115</version>
+					<version>9.4.12.v20180830</version>
 					<configuration>
 						<stopKey>STOP</stopKey>
 						<stopPort>9999</stopPort>
@@ -245,7 +229,7 @@
 							<dependency>
 								<groupId>org.apache.maven.surefire</groupId>
 								<artifactId>surefire-junit47</artifactId>
-								<version>2.18.1</version>
+								<version>2.22.0</version>
 							</dependency>
 						</dependencies>
 						<executions>
