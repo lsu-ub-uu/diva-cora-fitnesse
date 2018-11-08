@@ -136,7 +136,7 @@
 				<filtering>true</filtering>
 				<includes>
 					<include>TheDiVATests/</include>
-					<include>FrontPage.wiki</include>
+					<include>FrontPage/</include>
 					<include>properties</include>
 				</includes>
 				<excludes>
