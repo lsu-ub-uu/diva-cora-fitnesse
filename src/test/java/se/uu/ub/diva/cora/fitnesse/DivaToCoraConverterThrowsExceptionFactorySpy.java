@@ -1,7 +1,7 @@
 package se.uu.ub.diva.cora.fitnesse;
 
-import se.uu.ub.cora.diva.tocorastorage.DivaToCoraConverter;
-import se.uu.ub.cora.diva.tocorastorage.DivaToCoraConverterFactory;
+import se.uu.ub.cora.diva.tocorastorage.fedora.DivaToCoraConverter;
+import se.uu.ub.cora.diva.tocorastorage.fedora.DivaToCoraConverterFactory;
 
 public class DivaToCoraConverterThrowsExceptionFactorySpy implements DivaToCoraConverterFactory {
 

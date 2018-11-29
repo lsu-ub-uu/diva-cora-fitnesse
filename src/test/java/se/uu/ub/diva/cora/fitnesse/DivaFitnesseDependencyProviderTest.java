@@ -22,9 +22,8 @@ import static org.testng.Assert.assertTrue;
 
 import org.testng.annotations.Test;
 
-import se.uu.ub.cora.diva.tocorastorage.DivaToCoraConverterFactory;
-import se.uu.ub.cora.diva.tocorastorage.DivaToCoraConverterFactoryImp;
-import se.uu.ub.diva.cora.fitnesse.DivaFitnesseDependencyProvider;
+import se.uu.ub.cora.diva.tocorastorage.fedora.DivaToCoraConverterFactory;
+import se.uu.ub.cora.diva.tocorastorage.fedora.DivaToCoraConverterFactoryImp;
 
 public class DivaFitnesseDependencyProviderTest {
 	@Test
@@ -47,7 +46,7 @@ public class DivaFitnesseDependencyProviderTest {
 	@Test
 	public void testFactorHttpHandler() {
 		DivaFitnesseDependencyProvider.setConverterFactoryClassName(
-				"se.uu.ub.cora.diva.tocorastorage.DivaToCoraConverterFactoryImp");
+				"se.uu.ub.cora.diva.tocorastorage.fedora.DivaToCoraConverterFactoryImp");
 		DivaToCoraConverterFactory converterFactory = DivaFitnesseDependencyProvider
 				.getConverterFactory();
 		assertTrue(converterFactory instanceof DivaToCoraConverterFactoryImp);

@@ -23,8 +23,8 @@ import org.apache.commons.text.StringEscapeUtils;
 import se.uu.ub.cora.bookkeeper.data.DataGroup;
 import se.uu.ub.cora.bookkeeper.data.converter.DataToJsonConverter;
 import se.uu.ub.cora.bookkeeper.data.converter.DataToJsonConverterFactoryImp;
-import se.uu.ub.cora.diva.tocorastorage.DivaToCoraConverter;
-import se.uu.ub.cora.diva.tocorastorage.DivaToCoraConverterFactory;
+import se.uu.ub.cora.diva.tocorastorage.fedora.DivaToCoraConverter;
+import se.uu.ub.cora.diva.tocorastorage.fedora.DivaToCoraConverterFactory;
 import se.uu.ub.cora.json.builder.JsonBuilderFactory;
 import se.uu.ub.cora.json.builder.org.OrgJsonBuilderFactoryAdapter;
 
