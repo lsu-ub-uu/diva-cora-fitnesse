@@ -12,7 +12,7 @@
 
 
 !| script | DivaFitnesseDependencyProvider |
-| setConverterFactoryClassName | se.uu.ub.cora.diva.tocorastorage.DivaToCoraConverterFactoryImp |
+| setConverterFactoryClassName | se.uu.ub.cora.diva.tocorastorage.fedora.DivaToCoraConverterFactoryImp |
 
 !2 Login
 !***> Login for admin

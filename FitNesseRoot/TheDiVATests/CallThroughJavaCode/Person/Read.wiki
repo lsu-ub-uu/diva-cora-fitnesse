@@ -1,5 +1,5 @@
 ---
-Help: Reading a place from Alvin
+Help: Reading a person
 Test
 ---
 !contents -R2 -g -p -f -h
