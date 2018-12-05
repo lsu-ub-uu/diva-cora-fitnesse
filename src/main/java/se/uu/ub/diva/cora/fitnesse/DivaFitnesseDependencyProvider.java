@@ -20,7 +20,7 @@ package se.uu.ub.diva.cora.fitnesse;
 
 import java.lang.reflect.Constructor;
 
-import se.uu.ub.cora.diva.tocorastorage.DivaToCoraConverterFactory;
+import se.uu.ub.cora.diva.tocorastorage.fedora.DivaToCoraConverterFactory;
 
 public class DivaFitnesseDependencyProvider {
 	private static DivaToCoraConverterFactory converterFactory;
