@@ -65,7 +65,7 @@ Tests for metadata for creating a new project
 | metadataTextVariable | divaOrganisationCityTextVar | 0 | 1 |
 | metadataCollectionVariable | divaOrganisationCountryCollectionVar | 1 | 1 |
 | metadataTextVariable | divaOrganisationURLTextVar | 0 | 1 |
-| metadataCollectionVariable | divaOrganisationOrgTypeCollectionVar | 1 | 1 |
+| metadataCollectionVariable | divaOrganisationOrgTypeCollectionVar | 0 | 1 |
 | metadataTextVariable | divaOrganisationOrgCodeTextVar | 0 | 1 |
 | metadataTextVariable | divaOrganisationOrgNumberTextVar | 0 | 1 |
 | metadataCollectionVariable | divaOrganisationEligibleCollectionVar | 1 | 1 |
