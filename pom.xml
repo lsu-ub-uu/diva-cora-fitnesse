@@ -14,37 +14,37 @@
   ~     GNU General Public License for more details.
   ~
   ~     You should have received a copy of the GNU General Public License
-  ~     along with Cora.  If not, see <http://www.gnu.org/licenses/>.
+  ~     along with Cora.  If not, see <http://www.gnu.org/licenses />.
   -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
 		<groupId>se.uu.ub.cora</groupId>
 		<artifactId>cora-parent</artifactId>
-		<version>0.7-SNAPSHOT</version>
+		<version>0.8.6</version>
 	</parent>
 
 	<artifactId>divacorafitnesse</artifactId>
 	<packaging>jar</packaging>
-	<version>0.2-SNAPSHOT</version>
+	<version>0.4-SNAPSHOT</version>
 	<name>DiVA Cora Fitnesse</name>
 
 	<properties>
-	<json.version>0.4-SNAPSHOT</json.version>
-		<httphandler.version>0.4-SNAPSHOT</httphandler.version>
+		<json.version>0.5.7</json.version>
+		<httphandler.version>0.5.1</httphandler.version>
+		<fitnesseintegration.version>0.3.0</fitnesseintegration.version>
+		<divatocorastorage.version>0.3.0</divatocorastorage.version>
 		<javax.ws.rs.version>2.1.1</javax.ws.rs.version>
 		<fitnesse.version>20180127</fitnesse.version>
-		<fitnesseintegration.version>0.2-SNAPSHOT</fitnesseintegration.version>
-		<divatocorastorage.version>0.2-SNAPSHOT</divatocorastorage.version>
 	</properties>
 
 	<scm>
 		<connection>scm:git:https://github.com/lsu-ub-uu/diva-cora-fitnesse.git</connection>
 		<developerConnection>scm:git:https://github.com/lsu-ub-uu/diva-cora-fitnesse.git</developerConnection>
 		<url>https://github.com/lsu-ub-uu/diva-cora-fitnesse.git</url>
-	</scm>
+	  <tag>HEAD</tag>
+  </scm>
 
 	<dependencies>
 		<dependency>
@@ -103,27 +103,21 @@
 		</dependency>
 		<!-- FitNesse end -->
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.12</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-		  	<groupId>org.apache.httpcomponents</groupId>
-		  	<artifactId>httpmime</artifactId>
-		  	<version>4.5.6</version>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpmime</artifactId>
+			<version>4.5.6</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-		  	<groupId>org.apache.httpcomponents</groupId>
-		  	<artifactId>httpclient</artifactId>
-		  	<version>4.5.6</version>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.6</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-		    <groupId>org.apache.commons</groupId>
-		    <artifactId>commons-text</artifactId>
-		    <version>1.4</version>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-text</artifactId>
+			<version>1.4</version>
 		</dependency>
 	</dependencies>
 
@@ -264,8 +258,7 @@
 								<configuration>
 									<target>
 										<echo taskname="fitnesse" message="Starting FitNesse Wiki..." />
-										<java classname="fitnesseMain.FitNesseMain" classpathref="maven.runtime.classpath"
-											fork="true">
+										<java classname="fitnesseMain.FitNesseMain" classpathref="maven.runtime.classpath" fork="true">
 											<arg line="-p 8090" />
 											<arg line="-d ." />
 										</java>
