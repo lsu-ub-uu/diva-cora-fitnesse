@@ -6,12 +6,12 @@ Test
 !1 Testing reading a place
 It should be possible to read a place from the REST API.
 
-!***> Read authority-person:11685 as Json
+!***> Read authority-person:60566 as Json
 
-authority-person:11685 is a minimal person
+authority-person:60566 is a minimal person
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | person | authority-person:11685 | | OK |
+| $adminAuthToken | person | authority-person:60566 | | OK |
 
 *!

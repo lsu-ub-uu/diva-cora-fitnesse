@@ -1,0 +1,51 @@
+---
+Help: Updating a person to Fedora Commons
+Test
+---
+!contents -R2 -g -p -f -h
+!1 Testing updating a person
+It should be possible to update a person from the REST API.!-
+-!First test reading..
+
+!***> Read person authority-person:60566
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | person | authority-person:60566 | =~/"name":"familyName","value":"Testsson"/ | OK |
+
+*!
+!***> Update authority-person:60566 with new family name
+
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | person | authority-person:60566 | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"person"}],"name":"type"},{"name":"id","value":"authority-person:60566"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"12345"}],"name":"createdBy"},{"name":"tsCreated","value":"2016-09-02 10:59:47.428"},{"repeatId":"0","children":[{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"12345"}],"name":"updatedBy"},{"name":"tsUpdated","value":"2018-02-08 10:16:19.538"}],"name":"updated"}],"name":"recordInfo"},{"name":"public","value":"yes"},{"children":[{"name":"familyName","value":"SomeNewFamilyName"},{"name":"givenName","value":"Test"}],"name":"authorizedName"},{"repeatId":"0","children":[{"name":"familyName","value":"Erixon"},{"name":"givenName","value":"Karl"}],"name":"alternativeName"},{"repeatId":"1","children":[{"name":"familyName","value":"Testsson"},{"name":"givenName","value":"Test"}],"name":"alternativeName"},{"repeatId":"2","children":[{"name":"familyName","value":"Testsson"},{"name":"givenName","value":"Test"}],"name":"alternativeName"}],"name":"authorityPerson"} | | OK |
+
+*!
+!***> Read person again to see that it is updated
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | person | authority-person:60566 | =~/"name":"familyName","value":"SomeNewFamilyName"/ | OK |
+
+*!
+!***> Update authority-person:60566 with new given name
+
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | person | authority-person:60566 | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"person"}],"name":"type"},{"name":"id","value":"authority-person:60566"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"12345"}],"name":"createdBy"},{"name":"tsCreated","value":"2016-09-02 10:59:47.428"},{"repeatId":"0","children":[{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"12345"}],"name":"updatedBy"},{"name":"tsUpdated","value":"2018-02-08 10:16:19.538"}],"name":"updated"}],"name":"recordInfo"},{"name":"public","value":"yes"},{"children":[{"name":"familyName","value":"SomeNewFamilyName"},{"name":"givenName","value":"SomeNewGivenName"}],"name":"authorizedName"},{"repeatId":"0","children":[{"name":"familyName","value":"Erixon"},{"name":"givenName","value":"Karl"}],"name":"alternativeName"},{"repeatId":"1","children":[{"name":"familyName","value":"Testsson"},{"name":"givenName","value":"Test"}],"name":"alternativeName"},{"repeatId":"2","children":[{"name":"familyName","value":"Testsson"},{"name":"givenName","value":"Test"}],"name":"alternativeName"}],"name":"authorityPerson"} | | OK |
+
+*!
+!***> Read person again to see that it is updated
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | person | authority-person:60566 | =~/"name":"givenName","value":"SomeNewGivenName"/ | OK |
+
+*!
+!***> Restore original authority-person:60566 with original name
+
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | person | authority-person:60566 | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"person"}],"name":"type"},{"name":"id","value":"authority-person:60566"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"12345"}],"name":"createdBy"},{"name":"tsCreated","value":"2016-09-02 10:59:47.428"},{"repeatId":"0","children":[{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"12345"}],"name":"updatedBy"},{"name":"tsUpdated","value":"2018-02-08 10:16:19.538"}],"name":"updated"}],"name":"recordInfo"},{"name":"public","value":"yes"},{"children":[{"name":"familyName","value":"Testsson"},{"name":"givenName","value":"Test"}],"name":"authorizedName"},{"repeatId":"0","children":[{"name":"familyName","value":"Erixon"},{"name":"givenName","value":"Karl"}],"name":"alternativeName"},{"repeatId":"1","children":[{"name":"familyName","value":"Testsson"},{"name":"givenName","value":"Test"}],"name":"alternativeName"},{"repeatId":"2","children":[{"name":"familyName","value":"Testsson"},{"name":"givenName","value":"Test"}],"name":"alternativeName"}],"name":"authorityPerson"} | | OK |
+
+*!

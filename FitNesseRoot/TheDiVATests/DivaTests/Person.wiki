@@ -1,0 +1,5 @@
+---
+Suite
+---
+!1 Tests for persons stored in Fedora Commons
+!contents -R4 -g -p -f -h
