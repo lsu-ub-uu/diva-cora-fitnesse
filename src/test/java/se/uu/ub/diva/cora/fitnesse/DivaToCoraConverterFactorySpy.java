@@ -9,19 +9,19 @@ public class DivaToCoraConverterFactorySpy implements DivaFedoraConverterFactory
 	public String type;
 	public DivaToCoraFitnesseConverterSpy converterSpy;
 
-	// @Override
-	// public DivaFedoraToCoraConverter factor(String type) {
-	// }
+	public static DivaFedoraConverterFactory usingFedoraURL(String fedoraURL) {
+		return new DivaToCoraConverterFactorySpy();
+	}
 
 	@Override
-	public DivaFedoraToCoraConverter factorToCoraConverter(String arg0) {
+	public DivaFedoraToCoraConverter factorToCoraConverter(String type) {
 		this.type = type;
 		converterSpy = new DivaToCoraFitnesseConverterSpy();
 		return converterSpy;
 	}
 
 	@Override
-	public DivaCoraToFedoraConverter factorToFedoraConverter(String arg0) {
+	public DivaCoraToFedoraConverter factorToFedoraConverter(String type) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -18,7 +18,7 @@
  */
 package se.uu.ub.diva.cora.fitnesse;
 
-import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 
 import se.uu.ub.cora.diva.mixedstorage.fedora.DivaFedoraConverterFactory;
 
@@ -31,10 +31,13 @@ public class DivaFitnesseDependencyProvider {
 	}
 
 	public static void setConverterFactoryClassName(String converterFactoryClassName) {
-		Constructor<?> constructor;
 		try {
-			constructor = Class.forName(converterFactoryClassName).getConstructor();
-			converterFactory = (DivaFedoraConverterFactory) constructor.newInstance();
+			Class<?>[] cArg = new Class[1];
+			cArg[0] = String.class;
+			Method constructor = Class.forName(converterFactoryClassName)
+					.getMethod("usingFedoraURL", cArg);
+			converterFactory = (DivaFedoraConverterFactory) constructor.invoke(null,
+					DivaSystemUrl.getFedoraUrl());
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

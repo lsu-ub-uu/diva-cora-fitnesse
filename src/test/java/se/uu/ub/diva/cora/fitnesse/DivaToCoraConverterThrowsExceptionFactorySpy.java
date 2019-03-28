@@ -9,9 +9,9 @@ public class DivaToCoraConverterThrowsExceptionFactorySpy implements DivaFedoraC
 	public String type;
 	public DivaToCoraFitnesseConverterSpy converterSpy;
 
-	// @Override
-	// public DivaToCoraConverter factor(String type) {
-	// }
+	public static DivaFedoraConverterFactory usingFedoraURL(String fedoraURL) {
+		return new DivaToCoraConverterThrowsExceptionFactorySpy();
+	}
 
 	@Override
 	public DivaFedoraToCoraConverter factorToCoraConverter(String arg0) {

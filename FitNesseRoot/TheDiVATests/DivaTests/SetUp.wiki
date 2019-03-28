@@ -10,9 +10,11 @@
 | setHttpHandlerFactoryClassName | se.uu.ub.cora.httphandler.HttpHandlerFactoryImp |
 | setJsonToDataFactoryClassName | se.uu.ub.cora.clientdata.converter.jsontojava.JsonToDataConverterFactoryImp |
 
+!| script | DivaSystemUrl |
+| setFedoraUrl | ${fedoraUrl} |
 
 !| script | DivaFitnesseDependencyProvider |
-| setConverterFactoryClassName | se.uu.ub.cora.diva.tocorastorage.fedora.DivaToCoraConverterFactoryImp |
+| setConverterFactoryClassName | se.uu.ub.cora.diva.mixedstorage.fedora.DivaFedoraConverterFactoryImp |
 
 !2 Login
 !***> Login for admin

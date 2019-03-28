@@ -18,11 +18,11 @@
  */
 package se.uu.ub.diva.cora.fitnesse;
 
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 import org.testng.annotations.Test;
 
-import se.uu.ub.cora.diva.mixedstorage.fedora.DivaFedoraConverterFactory;
 import se.uu.ub.cora.diva.mixedstorage.fedora.DivaFedoraConverterFactoryImp;
 
 public class DivaFitnesseDependencyProviderTest {
@@ -45,11 +45,13 @@ public class DivaFitnesseDependencyProviderTest {
 
 	@Test
 	public void testFactorHttpHandler() {
+		DivaSystemUrl.setFedoraUrl("someFedoraUrl");
 		DivaFitnesseDependencyProvider.setConverterFactoryClassName(
 				"se.uu.ub.cora.diva.mixedstorage.fedora.DivaFedoraConverterFactoryImp");
-		DivaFedoraConverterFactory converterFactory = DivaFitnesseDependencyProvider
+		DivaFedoraConverterFactoryImp converterFactory = (DivaFedoraConverterFactoryImp) DivaFitnesseDependencyProvider
 				.getConverterFactory();
 		assertTrue(converterFactory instanceof DivaFedoraConverterFactoryImp);
+		assertEquals(converterFactory.getFedoraURL(), "someFedoraUrl");
 	}
 
 }
