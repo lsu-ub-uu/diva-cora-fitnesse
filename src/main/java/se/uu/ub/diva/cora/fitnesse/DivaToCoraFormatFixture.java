@@ -23,8 +23,8 @@ import org.apache.commons.text.StringEscapeUtils;
 import se.uu.ub.cora.bookkeeper.data.DataGroup;
 import se.uu.ub.cora.bookkeeper.data.converter.DataToJsonConverter;
 import se.uu.ub.cora.bookkeeper.data.converter.DataToJsonConverterFactoryImp;
-import se.uu.ub.cora.diva.tocorastorage.fedora.DivaToCoraConverter;
-import se.uu.ub.cora.diva.tocorastorage.fedora.DivaToCoraConverterFactory;
+import se.uu.ub.cora.diva.mixedstorage.fedora.DivaFedoraConverterFactory;
+import se.uu.ub.cora.diva.mixedstorage.fedora.DivaFedoraToCoraConverter;
 import se.uu.ub.cora.json.builder.JsonBuilderFactory;
 import se.uu.ub.cora.json.builder.org.OrgJsonBuilderFactoryAdapter;
 
@@ -60,14 +60,14 @@ public class DivaToCoraFormatFixture {
 	}
 
 	private DataGroup convertXMLToDataGroup() {
-		DivaToCoraConverter converter = createConverterForCurrentType();
+		DivaFedoraToCoraConverter converter = createConverterForCurrentType();
 		return converter.fromXML(xml);
 	}
 
-	private DivaToCoraConverter createConverterForCurrentType() {
-		DivaToCoraConverterFactory converterFactory = DivaFitnesseDependencyProvider
+	private DivaFedoraToCoraConverter createConverterForCurrentType() {
+		DivaFedoraConverterFactory converterFactory = DivaFitnesseDependencyProvider
 				.getConverterFactory();
-		return converterFactory.factor(type);
+		return converterFactory.factorToCoraConverter(type);
 	}
 
 	private String convertDataGroupToJson(DataGroup fromXML) {

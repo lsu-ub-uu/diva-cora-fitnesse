@@ -22,8 +22,8 @@ import static org.testng.Assert.assertTrue;
 
 import org.testng.annotations.Test;
 
-import se.uu.ub.cora.diva.tocorastorage.fedora.DivaToCoraConverterFactory;
-import se.uu.ub.cora.diva.tocorastorage.fedora.DivaToCoraConverterFactoryImp;
+import se.uu.ub.cora.diva.mixedstorage.fedora.DivaFedoraConverterFactory;
+import se.uu.ub.cora.diva.mixedstorage.fedora.DivaFedoraConverterFactoryImp;
 
 public class DivaFitnesseDependencyProviderTest {
 	@Test
@@ -35,7 +35,7 @@ public class DivaFitnesseDependencyProviderTest {
 	@Test(expectedExceptions = RuntimeException.class)
 	public void testFactorConverterNonExistingClassName() {
 		DivaFitnesseDependencyProvider.setConverterFactoryClassName(
-				"se.uu.ub.cora.diva.tocorastorage.DoesNotExistFactoryImp");
+				"se.uu.ub.cora.diva.mixedstorage.DoesNotExistFactoryImp");
 	}
 
 	@Test(expectedExceptions = RuntimeException.class)
@@ -46,10 +46,10 @@ public class DivaFitnesseDependencyProviderTest {
 	@Test
 	public void testFactorHttpHandler() {
 		DivaFitnesseDependencyProvider.setConverterFactoryClassName(
-				"se.uu.ub.cora.diva.tocorastorage.fedora.DivaToCoraConverterFactoryImp");
-		DivaToCoraConverterFactory converterFactory = DivaFitnesseDependencyProvider
+				"se.uu.ub.cora.diva.mixedstorage.fedora.DivaFedoraConverterFactoryImp");
+		DivaFedoraConverterFactory converterFactory = DivaFitnesseDependencyProvider
 				.getConverterFactory();
-		assertTrue(converterFactory instanceof DivaToCoraConverterFactoryImp);
+		assertTrue(converterFactory instanceof DivaFedoraConverterFactoryImp);
 	}
 
 }

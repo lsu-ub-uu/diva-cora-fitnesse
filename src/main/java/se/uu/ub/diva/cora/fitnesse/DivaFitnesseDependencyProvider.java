@@ -20,10 +20,10 @@ package se.uu.ub.diva.cora.fitnesse;
 
 import java.lang.reflect.Constructor;
 
-import se.uu.ub.cora.diva.tocorastorage.fedora.DivaToCoraConverterFactory;
+import se.uu.ub.cora.diva.mixedstorage.fedora.DivaFedoraConverterFactory;
 
 public class DivaFitnesseDependencyProvider {
-	private static DivaToCoraConverterFactory converterFactory;
+	private static DivaFedoraConverterFactory converterFactory;
 
 	public DivaFitnesseDependencyProvider() {
 		// needs a public constructor for fitnesse to work
@@ -34,13 +34,13 @@ public class DivaFitnesseDependencyProvider {
 		Constructor<?> constructor;
 		try {
 			constructor = Class.forName(converterFactoryClassName).getConstructor();
-			converterFactory = (DivaToCoraConverterFactory) constructor.newInstance();
+			converterFactory = (DivaFedoraConverterFactory) constructor.newInstance();
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	public static DivaToCoraConverterFactory getConverterFactory() {
+	public static DivaFedoraConverterFactory getConverterFactory() {
 		return converterFactory;
 	}
 }
