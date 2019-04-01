@@ -37,7 +37,7 @@ public class DivaFitnesseDependencyProvider {
 			Method constructor = Class.forName(converterFactoryClassName)
 					.getMethod("usingFedoraURL", cArg);
 			converterFactory = (DivaFedoraConverterFactory) constructor.invoke(null,
-					DivaSystemUrl.getFedoraUrl());
+					"someFakeUrlSinceItsNotUsedHereButCodeRefactoringIsNeededElsewhere");
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

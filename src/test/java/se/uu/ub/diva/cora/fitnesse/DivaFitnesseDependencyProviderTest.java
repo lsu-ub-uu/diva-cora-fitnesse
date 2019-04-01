@@ -45,13 +45,13 @@ public class DivaFitnesseDependencyProviderTest {
 
 	@Test
 	public void testFactorHttpHandler() {
-		DivaSystemUrl.setFedoraUrl("someFedoraUrl");
 		DivaFitnesseDependencyProvider.setConverterFactoryClassName(
 				"se.uu.ub.cora.diva.mixedstorage.fedora.DivaFedoraConverterFactoryImp");
 		DivaFedoraConverterFactoryImp converterFactory = (DivaFedoraConverterFactoryImp) DivaFitnesseDependencyProvider
 				.getConverterFactory();
 		assertTrue(converterFactory instanceof DivaFedoraConverterFactoryImp);
-		assertEquals(converterFactory.getFedoraURL(), "someFedoraUrl");
+		assertEquals(converterFactory.getFedoraURL(),
+				"someFakeUrlSinceItsNotUsedHereButCodeRefactoringIsNeededElsewhere");
 	}
 
 }
