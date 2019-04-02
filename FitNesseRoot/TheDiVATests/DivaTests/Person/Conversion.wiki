@@ -1012,7 +1012,7 @@ Test
     </entry>
   </biographies>
   <publicRecord>true</publicRecord>
-</authorityPerson>}}} | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"person"}],"name":"type"},{"name":"id","value":"authority-person:11685"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"12345"}],"name":"createdBy"},{"name":"tsCreated","value":"2016-09-02 10:59:47.428"},{"repeatId":"0","children":[{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"12345"}],"name":"updatedBy"},{"name":"tsUpdated","value":"2018-02-08 10:16:19.538"}],"name":"updated"}],"name":"recordInfo"},{"children":[{"name":"familyName","value":"Testsson"},{"name":"givenName","value":"Test"}],"name":"authorizedName"},{"repeatId":"0","children":[{"name":"familyName","value":"Erixon"},{"name":"givenName","value":"Karl"}],"name":"alternativeName"},{"repeatId":"1","children":[{"name":"familyName","value":"Testsson"},{"name":"givenName","value":"Test"}],"name":"alternativeName"},{"repeatId":"2","children":[{"name":"familyName","value":"Testsson2"},{"name":"givenName","value":"Test2"}],"name":"alternativeName"}],"name":"person"} |
+</authorityPerson>}}} | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"person"}],"name":"type"},{"name":"id","value":"authority-person:11685"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"12345"}],"name":"createdBy"},{"name":"tsCreated","value":"2016-09-02 10:59:47.428"},{"repeatId":"0","children":[{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"12345"}],"name":"updatedBy"},{"name":"tsUpdated","value":"2018-02-08 10:16:19.538"}],"name":"updated"}],"name":"recordInfo"},{"children":[{"name":"familyName","value":"Testsson"},{"name":"givenName","value":"Test"}],"name":"authorizedName"},{"repeatId":"0","children":[{"name":"familyName","value":"Erixon"},{"name":"givenName","value":"Karl"}],"name":"alternativeName"},{"repeatId":"1","children":[{"name":"familyName","value":"Testsson"},{"name":"givenName","value":"Test"}],"name":"alternativeName"},{"repeatId":"2","children":[{"name":"familyName","value":"Testsson2"},{"name":"givenName","value":"Test2"}],"name":"alternativeName"},{"name":"public","value":"yes"}],"name":"authorityPerson"} |
 | person | {{{ <authorityPerson>
   <type>PERSON</type>
   <pid>authority-person:10000</pid>
@@ -1131,9 +1131,11 @@ Test
   </biographies>
   <publicRecord>true</publicRecord>
 </authorityPerson>
-}}} | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"person"}],"name":"type"},{"name":"id","value":"authority-person:10000"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"12345"}],"name":"createdBy"},{"name":"tsCreated","value":"2018-02-19 10:10:43.448"},{"repeatId":"0","children":[{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"12345"}],"name":"updatedBy"},{"name":"tsUpdated","value":"2018-02-08 10:16:19.538"}],"name":"updated"}],"name":"recordInfo"},{"children":[{"name":"familyName","value":"Svensson"},{"name":"givenName","value":"Sven"}],"name":"authorizedName"},{"repeatId":"0","children":[{"name":"familyName","value":"Karlsson"},{"name":"givenName","value":"Sven"}],"name":"alternativeName"}],"name":"person"} |
+}}} | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"person"}],"name":"type"},{"name":"id","value":"authority-person:10000"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"12345"}],"name":"createdBy"},{"name":"tsCreated","value":"2018-02-19 10:10:43.448"},{"repeatId":"0","children":[{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"12345"}],"name":"updatedBy"},{"name":"tsUpdated","value":"2018-02-08 10:16:19.538"}],"name":"updated"}],"name":"recordInfo"},{"children":[{"name":"familyName","value":"Svensson"},{"name":"givenName","value":"Sven"}],"name":"authorizedName"},{"repeatId":"0","children":[{"name":"familyName","value":"Karlsson"},{"name":"givenName","value":"Sven"}],"name":"alternativeName"},{"name":"public","value":"yes"}],"name":"authorityPerson"} |
 
 *!
+!***> Convert authority-person:11685 from XML and store json to use for validation
+
 | Diva To Cora Format Fixture |
 | type | DivaXML | getJson? |
 | person | {{{<authorityPerson>
@@ -2141,130 +2143,19 @@ Test
   </biographies>
   <publicRecord>true</publicRecord>
 </authorityPerson>}}} | $json= |
-| person | {{{ <authorityPerson>
-  <type>PERSON</type>
-  <pid>authority-person:10000</pid>
-  <recordInfo>
-    <events>
-      <event>
-        <type>CREATE</type>
-        <timestamp>2018-02-19T10:10:43.448Z</timestamp>
-      </event>
-      <event>
-        <type>UPDATE</type>
-        <timestamp>2018-02-19T10:10:43.448Z</timestamp>
-        <name>Kalle Kula</name>
-        <userId>test</userId>
-        <ip>130.238.171.4</ip>
-      </event>
-      <event>
-        <type>UPDATE</type>
-        <timestamp>2018-02-08T10:16:19.538Z</timestamp>
-        <name>Kalle Boll</name>
-        <userId>test2</userId>
-        <ip>130.238.171.4</ip>
-      </event>
-    </events>
-    <recordDeleted>false</recordDeleted>
-  </recordInfo>
-  <defaultName>
-    <lastname>Svensson</lastname>
-    <firstname>Sven</firstname>
-    <addition>Grosshandlare</addition>
-    <number>VI</number>
-  </defaultName>
-  <birthYear>1945</birthYear>
-  <email>sven.svensson@ub.uu.se</email>
-  <alternativeNames>
-    <nameForm>
-      <lastname>Karlsson</lastname>
-      <firstname>Sven</firstname>
-      <addition/>
-      <number/>
-    </nameForm>
-  </alternativeNames>
-  <identifiers>
-    <identifier>
-      <type>LOCAL</type>
-      <domain>uu</domain>
-      <value>test</value>
-      <from/>
-      <until/>
-    </identifier>
-    <identifier>
-      <type>ORCID</type>
-      <domain/>
-      <value>0000-0001-6885-9290</value>
-      <from/>
-      <until/>
-    </identifier>
-  </identifiers>
-  <affiliations>
-    <affiliation>
-      <organisationId>9415</organisationId>
-      <domain>du</domain>
-      <name>Japanska</name>
-      <alternativeName>Japanese</alternativeName>
-      <parents>
-        <affiliation>
-          <organisationId>15901</organisationId>
-          <domain>du</domain>
-          <name>Akademin Humaniora och medier</name>
-          <alternativeName>School of Humanities and Media Studies</alternativeName>
-          <parents>
-            <affiliation>
-              <organisationId>7306</organisationId>
-              <domain>du</domain>
-              <name>Högskolan Dalarna</name>
-              <alternativeName>Dalarna University</alternativeName>
-              <active>true</active>
-              <organisationNumber>202100-2908</organisationNumber>
-            </affiliation>
-          </parents>
-          <active>true</active>
-          <organisationNumber/>
-        </affiliation>
-      </parents>
-      <active>true</active>
-      <organisationNumber/>
-    </affiliation>
-    <affiliation>
-      <name>Säffle högskola</name>
-      <alternativeName/>
-      <from>1998</from>
-      <until>2000</until>
-      <active>false</active>
-      <organisationNumber/>
-    </affiliation>
-  </affiliations>
-  <urls>
-    <url>
-      <label>Min profilsida UU</label>
-      <url>https://mp.uu.se/web/profilsidor/start/-/emp/N99-921</url>
-    </url>
-    <url>
-      <label>ResearchGate</label>
-      <url>https://www.researchgate.net</url>
-    </url>
-  </urls>
-  <biographies class="com.google.gson.internal.LinkedTreeMap" resolves-to="linked-hash-map">
-    <entry>
-      <string>eng</string>
-      <string>&lt;p&gt;A biography is an account of a person's life. If the production is made by the author himself, it is called autobiography or memoirs. The word biography comes from the Greek biography, of bios, "life", and graphō, "write". An author of biographies is called cinema. :)&lt;/p&gt;</string>
-    </entry>
-    <entry>
-      <string>swe</string>
-      <string>&lt;p&gt;En &lt;strong&gt;biografi&lt;/strong&gt; är en redogörelse för en persons liv. Om framställningen är gjord av författaren själv kallas den självbiografi eller memoarer. Ordet &lt;strong&gt;biografi&lt;/strong&gt; kommer av grekiskans biographia, av bios, "liv", och graphō, "skriva". En författare av biografier kallas biograf.&lt;/p&gt;</string>
-    </entry>
-  </biographies>
-  <publicRecord>true</publicRecord>
-</authorityPerson>
-}}} | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"person"}],"name":"type"},{"name":"id","value":"authority-person:10000"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"12345"}],"name":"createdBy"},{"name":"tsCreated","value":"2018-02-19 10:10:43.448"},{"repeatId":"0","children":[{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"12345"}],"name":"updatedBy"},{"name":"tsUpdated","value":"2018-02-08 10:16:19.538"}],"name":"updated"}],"name":"recordInfo"},{"children":[{"name":"familyName","value":"Svensson"},{"name":"givenName","value":"Sven"}],"name":"authorizedName"},{"repeatId":"0","children":[{"name":"familyName","value":"Karlsson"},{"name":"givenName","value":"Sven"}],"name":"alternativeName"}],"name":"person"} |
 
+*!
+!***> Create work order data for the converter record
+
+!| MetadataValidationFixture |
+| dataDivider | validationOrderRecordType | jsonRecordToValidate | validateLinks | testGetValidationOrder? |
+| diva | person | $json | false | $validationOrderJson= |
+
+*!
 !***> Validate the converted data
 
-!| RecordEndpointFixture |
+!| MetadataValidationFixture |
 | authToken | type | json | testValidateRecord? | getValid? | getStatusType? |
-| $adminAuthToken | workOrder | $json= | | true | OK |
+| $adminAuthToken | workOrder | $validationOrderJson | | true | OK |
 
 *!
