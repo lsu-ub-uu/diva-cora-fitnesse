@@ -18,12 +18,12 @@
  */
 package se.uu.ub.diva.cora.fitnesse;
 
-import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 
-import se.uu.ub.cora.diva.tocorastorage.fedora.DivaToCoraConverterFactory;
+import se.uu.ub.cora.diva.mixedstorage.fedora.DivaFedoraConverterFactory;
 
 public class DivaFitnesseDependencyProvider {
-	private static DivaToCoraConverterFactory converterFactory;
+	private static DivaFedoraConverterFactory converterFactory;
 
 	public DivaFitnesseDependencyProvider() {
 		// needs a public constructor for fitnesse to work
@@ -31,16 +31,19 @@ public class DivaFitnesseDependencyProvider {
 	}
 
 	public static void setConverterFactoryClassName(String converterFactoryClassName) {
-		Constructor<?> constructor;
 		try {
-			constructor = Class.forName(converterFactoryClassName).getConstructor();
-			converterFactory = (DivaToCoraConverterFactory) constructor.newInstance();
+			Class<?>[] cArg = new Class[1];
+			cArg[0] = String.class;
+			Method constructor = Class.forName(converterFactoryClassName)
+					.getMethod("usingFedoraURL", cArg);
+			converterFactory = (DivaFedoraConverterFactory) constructor.invoke(null,
+					"someFakeUrlSinceItsNotUsedHereButCodeRefactoringIsNeededElsewhere");
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	public static DivaToCoraConverterFactory getConverterFactory() {
+	public static DivaFedoraConverterFactory getConverterFactory() {
 		return converterFactory;
 	}
 }

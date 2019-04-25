@@ -3,8 +3,8 @@ Help: Reading a person
 Test
 ---
 !contents -R2 -g -p -f -h
-!1 Testing reading a place
-It should be possible to read a place from the REST API.
+!1 Testing reading a person
+It should be possible to read a person from the REST API.
 
 !***> Read authority-person:60566 as Json
 
