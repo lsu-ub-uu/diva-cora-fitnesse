@@ -1,0 +1,14 @@
+---
+Test
+---
+!contents -R2 -g -p -f -h
+!1 Listning och läsning av studentuppsats
+Det skall gå att lista och läsa studentuppsatser via REST API:et.
+
+!***> Läs studentuppsats:1 i  JSON format
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | studentThesis | studentThesis:1557088661494611 | | OK |
+
+*!

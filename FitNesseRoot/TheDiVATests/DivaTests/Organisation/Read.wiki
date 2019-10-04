@@ -2,15 +2,31 @@
 Test
 ---
 !contents -R2 -g -p -f -h
-!1 Testing reading an organisation
-It should be possible to read an organisation from the REST API.
+!1 Listning och läsning av organisation
+Det skall gå att lista och läsa organisationer via REST API:et.
 
-!***> Read organisation:1 as Json
-
-authority-person:11685 is a minimal person
+!***> Läs organisation:1 i  JSON format
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
 | $adminAuthToken | divaOrganisation | 1 | | OK |
+
+*!
+"Admin" användare skall kunna lista organisationer.
+
+!***> Lista organisationer inloggad som "admin" användare
+
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $adminAuthToken | divaOrganisation | | OK |
+
+*!
+Ej inloggade användare skall inte få lista organisationer, därför förväntar sig testet FORBIDDEN om en ej inloggad användare försöker lista organisationer.
+
+!***> Lista organisationer utan att vara inloggad (guestUser)
+
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| | divaOrganisation | | FORBIDDEN |
 
 *!

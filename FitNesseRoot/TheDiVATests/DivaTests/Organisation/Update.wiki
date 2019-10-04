@@ -1,0 +1,41 @@
+---
+Test
+---
+!contents -R2 -g -p -f -h
+!1 Testar uppdatering av Organisation
+Det ska vara möjligt att uppdatera Organisation via REST API.
+
+Testet visar att adminanvändare har möjlighet att uppdatera organisationsposten
+
+!*** Läs organisation divaOrganisation:250 (Avstängd)
+
+!| Comment |
+| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | divaOrganisation | divaOrganisation:250 | =~/"value":"UniversitetsförvaltningenUniversitetsförvaltningen"/ | OK |
+
+*!
+!***> Uppdatera divaOrganisation:250 med nytt namn (Avstängd)
+
+!| Comment |
+| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | divaOrganisation | divaOrganisation:250 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"250"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2015-01-01 00:00:00"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2015-01-01 00:00:00"}],"repeatId":"0"}]},{"name":"organisationName","value":"UniversitetsförvaltningenUniversitetsförvaltningen updated from cora"},{"name":"alternativeName","children":[{"name":"organisationName","value":"UniversitetsförvaltningenUniversitetsförvaltningen"},{"name":"language","value":"en"}]},{"name":"country","value":""},{"name":"organisationType","value":"unit"},{"name":"eligible","value":"yes"},{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"divaOrganisation"},{"name":"linkedRecordId","value":"51"}]}],"repeatId":"0"},{"name":"box","value":""},{"name":"street","value":""},{"name":"postcode","value":""},{"name":"city","value":""},{"name":"URL","value":""},{"name":"organisationCode","value":""},{"name":"organisationNumber","value":""}]} | | OK |
+
+*!
+!*** Läs divaOrganisation:250 igen för att se att den är uppdaterad (Avstängd)
+
+!| Comment |
+| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | divaOrganisation | divaOrganisation:250 | =~/"value":"UniversitetsförvaltningenUniversitetsförvaltningen updated from cora"/ | OK |
+
+*!
+!*** Återställ ursprunglig divaOrganisation:250 (Avstängd)
+
+!| Comment |
+| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | divaOrganisation | divaOrganisation:250 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"250"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2015-01-01   00:00:00"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2015-01-01   00:00:00"}],"repeatId":"0"}]},{"name":"organisationName","value":"UniversitetsförvaltningenUniversitetsförvaltningen"},{"name":"alternativeName","children":[{"name":"organisationName","value":"UniversitetsförvaltningenUniversitetsförvaltningen"},{"name":"language","value":"en"}]},{"name":"country","value":""},{"name":"organisationType","value":"unit"},{"name":"eligible","value":"yes"},{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"divaOrganisation"},{"name":"linkedRecordId","value":"51"}]}],"repeatId":"0"},{"name":"box","value":""},{"name":"street","value":""},{"name":"postcode","value":""},{"name":"city","value":""},{"name":"URL","value":""},{"name":"organisationCode","value":""},{"name":"organisationNumber","value":""}]} | | OK |
+
+*!

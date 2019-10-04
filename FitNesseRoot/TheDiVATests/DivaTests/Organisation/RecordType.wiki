@@ -2,10 +2,10 @@
 Test
 ---
 !contents -R2 -g -p -f -h
-!1 Testing recordType project
+!1 Testar posttyp Organisation
 It should be possible to read the recordType for organisation from the REST API.
 
-!***> Read project recordType
+!***> Läs posttyp Organisation
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |

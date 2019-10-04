@@ -1,0 +1,12 @@
+---
+Test
+---
+!1 Skapa en ny organisation
+!***> Skapa en ny organisation (AVSTÄNGT)
+
+!| comment |
+| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | divaOrganisation | {"name":"divaOrganisation","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"organisationName","value":"Provorganisation"},{"name":"alternativeName","children":[{"name":"organisationName","value":"Test organisation"}]},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}]} | | CREATED |
+
+*!

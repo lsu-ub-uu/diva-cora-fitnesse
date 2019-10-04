@@ -1,0 +1,7 @@
+---
+Suite
+---
+!1 Tester för publikationstyper
+Här återfinns tester för olika publikationstyper i DiVA. Testerna är skapade för att säkerställa funktionaliteten 
+
+!contents -R4 -g -p -f -h
