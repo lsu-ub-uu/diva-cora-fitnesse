@@ -23,10 +23,12 @@ Det skall gå att lista och läsa organisationer via REST API:et.
 *!
 Ej inloggade användare skall inte få lista organisationer, därför förväntar sig testet FORBIDDEN om en ej inloggad användare försöker lista organisationer.
 
-!***> Lista organisationer utan att vara inloggad (guestUser)
+!***> Lista organisationer utan att vara inloggad (guestUser) HAR STÄNGT AV TESTET DÅ DET EJ GÅR IGENOM PÅ BYGGSERVERN, GUEST FÅR DÄR LISTA ORGANISATIONER
 
-!| RecordEndpointFixture |
+!| Comment |
+| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
 | | divaOrganisation | | FORBIDDEN |
 
 *!
+[[Cancel][http://localhost:8092/diva/fitnesse/TheDiVATests.DivaTests.Organisation.Read]]
