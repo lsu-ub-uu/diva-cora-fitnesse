@@ -12,3 +12,23 @@ Det skall gå att lista och läsa studentuppsatser via REST API:et.
 | $adminAuthToken | studentThesis | studentThesis:1557088661494611 | | OK |
 
 *!
+"Admin" användare skall kunna lista studentuppsatser.
+
+!***> Lista studentuppsatser inloggad som "admin" användare
+
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $adminAuthToken | studentThesis | | OK |
+
+*!
+Ej inloggade användare skall inte få lista studentuppsatser, därför förväntar sig testet FORBIDDEN om en ej inloggad användare försöker lista studentuppsatser.
+
+!***> Lista studentuppsatser utan att vara inloggad (guestUser) HAR STÄNGT AV TESTET DÅ DET EJ GÅR IGENOM PÅ BYGGSERVERN, GUEST FÅR DÄR LISTA STUDENTUPPSATSER (?)
+
+!| Comment |
+| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| | studentThesis | | FORBIDDEN |
+
+*!
+[[Cancel][http://localhost:8092/diva/fitnesse/TheDiVATests.DivaTests.Organisation.Read]]

@@ -2,8 +2,8 @@
 Test
 ---
 !contents -R2 -g -p -f -h
-!1 Testar posttyp studentuppsats
-Det skall gå att läsa posttyp för studentuppsats via REST API:et.
+!1 Testar posttyp studentuppsats (examensarbete)
+Det ska gå att läsa posttyp studentuppsats (examensarbete) via REST API:et.
 
 !***> Läs posttyp Studentuppsats
 
@@ -12,7 +12,7 @@ Det skall gå att läsa posttyp för studentuppsats via REST API:et.
 | $adminAuthToken | recordType | studentThesis | | OK |
 
 *!
-Det skall gå att läsa "the top level metadata group" för en ny studentuppsats från REST API:et
+Det ska gå att läsa toppnivån av metadatagruppen för en ny studentuppsats från REST API:et
 
 !***> Ladda studentThesisNewGroup för studentuppsats för att användas i tester
 
@@ -21,7 +21,7 @@ Det skall gå att läsa "the top level metadata group" för en ny studentuppsats
 | metadataGroup | studentThesisNewGroup | |
 
 *!
-Tester för metadata för att skapa en ny studentuppsats
+Test av metadata för att skapa en ny studentuppsats
 
 !***> Kontrollera barn i studentThesisNewGroup
 
@@ -55,7 +55,7 @@ Tester för metadata för att skapa en ny studentuppsats
 | metadataGroup | studentThesisGroup | |
 
 *!
-Tester av metadata för skapandet av en ny studentuppsats
+Test av metadata för skapandet av en ny studentuppsats
 
 !***> Kontrollera barn för studentThesisGroup
 
