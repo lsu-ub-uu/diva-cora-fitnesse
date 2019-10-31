@@ -41,8 +41,8 @@ Test av metadata för att skapa en ny studentuppsats
 | metadataRecordLink | nationalSubjectCategoryLink | 1 | X |
 | metadataGroup | partOfProjectGroup | 0 | X |
 | metadataTextVariable | partOfOtherProjectTextVar | 0 | X |
-| metadataGroup | publicationKeywordsGroup | 0 | X |
-| metadataGroup | abstractGroup | 0 | X |
+| metadataGroup | studentThesisKeywordsGroup | 0 | X |
+| metadataGroup | studentThesisAbstractGroup | 0 | X |
 | metadataGroup | studentThesisSupervisorGroup | 0 | X |
 | metadataGroup | studentThesisExaminerGroup | 0 | X |
 | metadataTextVariable | publicationNoteTextVar | 0 | 1 |
@@ -75,8 +75,8 @@ Test av metadata för skapandet av en ny studentuppsats
 | metadataRecordLink | nationalSubjectCategoryLink | 1 | X |
 | metadataGroup | partOfProjectGroup | 0 | X |
 | metadataTextVariable | partOfOtherProjectTextVar | 0 | X |
-| metadataGroup | publicationKeywordsGroup | 0 | X |
-| metadataGroup | abstractGroup | 0 | X |
+| metadataGroup | studentThesisKeywordsGroup | 0 | X |
+| metadataGroup | studentThesisAbstractGroup | 0 | X |
 | metadataGroup | studentThesisSupervisorGroup | 0 | X |
 | metadataGroup | studentThesisExaminerGroup | 0 | X |
 | metadataTextVariable | publicationNoteTextVar | 0 | 1 |

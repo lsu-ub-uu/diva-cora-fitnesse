@@ -3,6 +3,10 @@ Test
 ---
 !contents -R2 -g -p -f -h
 !1 Skapa en ny studentuppsats (examensarbete)
+Det ska vara möjligt att skapa en ny studentuppsats via REST API:et
+
+Testet visar att adminanvändare har möjlighet att skapa en uppsatsspost
+
 !***> Skapa en ny studentuppsats (examensarbete) (AVSTÄNGT)
 
 !| comment |
