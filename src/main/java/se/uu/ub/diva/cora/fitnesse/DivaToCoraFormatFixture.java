@@ -38,7 +38,7 @@ public class DivaToCoraFormatFixture {
 	}
 
 	private String removeExtraFormatingAddedByFitnesse(String divaXML) {
-		String tempXml = divaXML.replaceAll("<pre>", "").replaceAll("</pre>", "");
+		String tempXml = divaXML.replace("<pre>", "").replace("</pre>", "");
 		return StringEscapeUtils.unescapeHtml4(tempXml);
 	}
 
