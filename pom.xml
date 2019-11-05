@@ -22,7 +22,7 @@
 	<parent>
 		<groupId>se.uu.ub.cora</groupId>
 		<artifactId>cora-parent</artifactId>
-		<version>0.9.0</version>
+		<version>1.0.2</version>
 	</parent>
 
 	<artifactId>divacorafitnesse</artifactId>
@@ -31,12 +31,14 @@
 	<name>DiVA Cora Fitnesse</name>
 
 	<properties>
-		<json.version>1.0.0</json.version>
-		<httphandler.version>1.0.0</httphandler.version>
-		<fitnesseintegration.version>1.0.0</fitnesseintegration.version>
-		<divamixedstorage.version>1.1.0</divamixedstorage.version>
+		<json.version>2.0.1</json.version>
+		<httphandler.version>2.0.0</httphandler.version>
+		<fitnesseintegration.version>2.0.0</fitnesseintegration.version>
+		<divamixedstorage.version>2.0.0</divamixedstorage.version>
 		<javax.ws.rs.version>2.1.1</javax.ws.rs.version>
-		<fitnesse.version>20180127</fitnesse.version>
+		<fitnesse.version>20190716</fitnesse.version>
+		<coradata.version>2.0.0</coradata.version>
+		
 	</properties>
 
 	<scm>
@@ -73,6 +75,12 @@
 		</dependency>
 		<dependency>
 			<groupId>se.uu.ub.cora</groupId>
+			<artifactId>coradata</artifactId>
+			<version>${coradata.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>se.uu.ub.cora</groupId>
 			<artifactId>divamixedstorage</artifactId>
 			<version>${divamixedstorage.version}</version>
 			<scope>compile</scope>
@@ -102,18 +110,6 @@
 			<version>1.9</version>
 		</dependency>
 		<!-- FitNesse end -->
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpmime</artifactId>
-			<version>4.5.6</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.5.6</version>
-			<scope>compile</scope>
-		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-text</artifactId>
@@ -160,118 +156,5 @@
 				</executions>
 			</plugin>
 		</plugins>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.eclipse.jetty</groupId>
-					<artifactId>jetty-maven-plugin</artifactId>
-					<version>9.4.12.v20180830</version>
-					<configuration>
-						<stopKey>STOP</stopKey>
-						<stopPort>9999</stopPort>
-						<scanIntervalSeconds>5</scanIntervalSeconds>
-						<httpConnector>
-							<port>8089</port>
-						</httpConnector>
-						<webApp>
-							<descriptor>src/main/webapp/WEB-INF/jetty/web.xml</descriptor>
-							<contextPath>/cora</contextPath>
-						</webApp>
-					</configuration>
-					<executions>
-						<execution>
-							<id>start-jetty</id>
-							<phase>pre-integration-test</phase>
-							<goals>
-								<goal>stop</goal>
-								<goal>start</goal>
-							</goals>
-							<configuration>
-								<stopKey>STOP</stopKey>
-								<stopPort>9999</stopPort>
-								<scanIntervalSeconds>0</scanIntervalSeconds>
-								<daemon>true</daemon>
-							</configuration>
-						</execution>
-						<execution>
-							<id>stop-jetty</id>
-							<phase>post-integration-test</phase>
-							<goals>
-								<goal>stop</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-antrun-plugin</artifactId>
-					<version>1.8</version>
-				</plugin>
-			</plugins>
-		</pluginManagement>
 	</build>
-
-	<profiles>
-		<profile>
-			<id>fitnesse-junit</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-failsafe-plugin</artifactId>
-						<dependencies>
-							<dependency>
-								<groupId>org.apache.maven.surefire</groupId>
-								<artifactId>surefire-junit47</artifactId>
-								<version>2.22.0</version>
-							</dependency>
-						</dependencies>
-						<executions>
-							<execution>
-								<id>integration-test</id>
-								<goals>
-									<goal>integration-test</goal>
-								</goals>
-							</execution>
-							<execution>
-								<id>verify</id>
-								<goals>
-									<goal>verify</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<profile>
-			<id>wiki</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-antrun-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>start-fitnesse</id>
-								<phase>integration-test</phase>
-								<configuration>
-									<target>
-										<echo taskname="fitnesse" message="Starting FitNesse Wiki..." />
-										<java classname="fitnesseMain.FitNesseMain" classpathref="maven.runtime.classpath" fork="true">
-											<arg line="-p 8090" />
-											<arg line="-d ." />
-										</java>
-									</target>
-								</configuration>
-								<goals>
-									<goal>run</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
 </project>
