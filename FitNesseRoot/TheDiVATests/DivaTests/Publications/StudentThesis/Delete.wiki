@@ -9,7 +9,8 @@ Det ska gå att radera en studentuppsats via REST API:et.
 
 Först skapar vi en studentuppsats, för att sedan kunna radera den
 
-!| RecordEndpointFixture |
+!| comment |
+| RecordEndpointFixture |
 | authToken | type | json | testCreateRecordCreatedType? | getStatusType? | getCreatedId? |
 | $adminAuthToken | studentThesis | | studentThesis | CREATED | $createdId= |
 
@@ -18,7 +19,8 @@ OBS! GJORD ENDAST HIT
 
 !***> Read newly created place as Json
 
-!| RecordEndpointFixture |
+!| comment |
+| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
 | $adminAuthToken | place | $createdId | =~/"value":"Fitnesse place to be deleted"/ | OK |
 
@@ -27,28 +29,32 @@ OBS! GJORD ENDAST HIT
 
 There are 6 places with the newly created place
 
-!| RecordEndpointFixture |
+!| comment |
+| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
 | $adminAuthToken | place | | OK |
 
 *!
 !***> Delete newly created place
 
-!| RecordEndpointFixture |
+!| comment |
+| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
 | $adminAuthToken | place | $createdId | | OK |
 
 *!
 !***> Try to read deleted place
 
-!| RecordEndpointFixture |
+!| comment |
+| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
 | $adminAuthToken | place | $createdId | | NOT_FOUND |
 
 *!
 !***> List places - places with state DELETED is excluded
 
-!| RecordEndpointFixture |
+!| comment |
+| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
 | $adminAuthToken | place | | OK |
 

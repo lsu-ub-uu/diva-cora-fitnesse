@@ -9,7 +9,7 @@ Det skall gå att lista och läsa studentuppsatser via REST API:et.
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | studentThesis | studentThesis:1557088661494611 | | OK |
+| $adminAuthToken | studentThesis | studentThesis:1125266824338358 | | OK |
 
 *!
 "Admin" användare skall kunna lista studentuppsatser.

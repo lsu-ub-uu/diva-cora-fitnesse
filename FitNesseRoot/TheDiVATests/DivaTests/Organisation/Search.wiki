@@ -25,8 +25,8 @@ Test
 !4 Organisation söks med autocomplete i registreringsformuläret
 !***> Test sök i regformulär med "autocomplete" AVSTÄNGT
 
-!| comment Sökstöd autocomplete vid registrering av fält som är baserade på listval [[CORA-1013][https://jira.epc.ub.uu.se/browse/CORA-1013]] |
-| Listvalen |
+!| comment |
+| Sökstöd autocomplete vid registrering av fält som är baserade på listval [[CORA-1013][https://jira.epc.ub.uu.se/browse/CORA-1013]] Listvalen |
 | RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
 | $adminAuthToken | publicOrganisationSearch | !-
