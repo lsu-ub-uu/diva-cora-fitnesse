@@ -9,53 +9,43 @@ Det ska gå att radera en studentuppsats via REST API:et.
 
 Först skapar vi en studentuppsats, för att sedan kunna radera den
 
-!| comment |
-| RecordEndpointFixture |
+!| RecordEndpointFixture |
 | authToken | type | json | testCreateRecordCreatedType? | getStatusType? | getCreatedId? |
-| $adminAuthToken | studentThesis | | studentThesis | CREATED | $createdId= |
+| $adminAuthToken | studentThesis | {"name":"studentThesis","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"author","children":[{"name":"familyName","value":"Testsson"},{"name":"givenName","value":"Test"}],"repeatId":"0"},{"name":"studentThesisCooperation","children":[{"name":"studentThesisExternalCooperation","value":"yesExternalCooperation"}]},{"name":"title","children":[{"name":"mainTitle","value":"Fitnesse student thesis to be deleted"},{"name":"language","value":"eng"}]},{"name":"otherInformation","children":[{"name":"dateIssued","value":"2018"}]},{"name":"nationalSubjectCategory","children":[{"name":"linkedRecordType","value":"nationalSubjectCategory"},{"name":"linkedRecordId","value":"11504"}],"repeatId":"0"}]} | studentThesis | CREATED | $createdId= |
 
 *!
-OBS! GJORD ENDAST HIT
+!***> Läs den nyskapade studentuppsatsen i Json
 
-!***> Read newly created place as Json
-
-!| comment |
-| RecordEndpointFixture |
+!| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | place | $createdId | =~/"value":"Fitnesse place to be deleted"/ | OK |
+| $adminAuthToken | studentThesis | $createdId | =~/"value":"Fitnesse student thesis to be deleted"/ | OK |
 
 *!
-!***> List places
+!***> Lista studentuppsatser
 
-There are 6 places with the newly created place
-
-!| comment |
-| RecordEndpointFixture |
+!| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | place | | OK |
+| $adminAuthToken | studentThesis | | OK |
 
 *!
-!***> Delete newly created place
+!***> Radera den nyskapade studentuppsatsen
 
-!| comment |
-| RecordEndpointFixture |
+!| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| $adminAuthToken | place | $createdId | | OK |
+| $adminAuthToken | studentThesis | $createdId | | OK |
 
 *!
-!***> Try to read deleted place
+!***> Försök läsa den raderade studentuppsatsen
 
-!| comment |
-| RecordEndpointFixture |
+!| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | place | $createdId | | NOT_FOUND |
+| $adminAuthToken | studentThesis | $createdId | | NOT_FOUND |
 
 *!
-!***> List places - places with state DELETED is excluded
+!***> Lista studentuppsatser - studentuppsatser med status DELETED exkluderas
 
-!| comment |
-| RecordEndpointFixture |
+!| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | place | | OK |
+| $adminAuthToken | studentThesis | | OK |
 
 *!
