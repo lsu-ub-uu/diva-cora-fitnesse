@@ -41,7 +41,7 @@ Tests for metadata for creating a new project
 | metadataCollectionVariable | divaOrganisationEligibleCollectionVar | 1 | 1 |
 | metadataGroup | divaOrganisationParentOrgGroup | 0 | X |
 | metadataGroup | divaOrganisationFormerNameGroup | 0 | X |
-| metadataGroup | divaOrganisationClosedGroup | 0 | X |
+| metadataTextVariable | divaOrganisationClosedTextVar | 0 | 1 |
 
 *!
 !***> Load divaOrganisationGroup for organisation to use in tests
@@ -71,6 +71,6 @@ Tests for metadata for creating a new project
 | metadataCollectionVariable | divaOrganisationEligibleCollectionVar | 1 | 1 |
 | metadataGroup | divaOrganisationParentOrgGroup | 0 | X |
 | metadataGroup | divaOrganisationFormerNameGroup | 0 | X |
-| metadataGroup | divaOrganisationClosedGroup | 0 | X |
+| metadataTextVariable | divaOrganisationClosedTextVar | 0 | 1 |
 
 *!
