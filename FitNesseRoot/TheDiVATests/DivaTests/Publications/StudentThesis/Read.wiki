@@ -31,4 +31,3 @@ Ej inloggade användare skall inte få lista studentuppsatser, därför förvän
 | | studentThesis | | FORBIDDEN |
 
 *!
-[[Cancel][http://localhost:8092/diva/fitnesse/TheDiVATests.DivaTests.Organisation.Read]]

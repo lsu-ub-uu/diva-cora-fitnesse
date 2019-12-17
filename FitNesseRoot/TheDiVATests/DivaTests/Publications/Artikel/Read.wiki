@@ -1,0 +1,33 @@
+---
+Test
+---
+!contents -R2 -g -p -f -h
+!1 Listning och läsning av artikel
+Det skall gå att lista och läsa artiklar via REST API:et.
+
+!***> Läs artikel:1 i  JSON format
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | article | | | OK |
+
+*!
+"Admin" användare skall kunna lista artiklar.
+
+!***> Lista artiklar inloggad som "admin" användare
+
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $adminAuthToken | article | | OK |
+
+*!
+Ej inloggade användare skall inte få lista artiklar, därför förväntar sig testet FORBIDDEN om en ej inloggad användare försöker lista artiklar.
+
+!***> Lista artiklar utan att vara inloggad (guestUser) HAR STÄNGT AV TESTET DÅ DET EJ GÅR IGENOM PÅ BYGGSERVERN, GUEST FÅR DÄR LISTA STUDENTUPPSATSER (?)
+
+!| Comment |
+| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| | article | | FORBIDDEN |
+
+*!
