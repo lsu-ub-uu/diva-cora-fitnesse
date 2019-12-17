@@ -1,0 +1,17 @@
+---
+Test
+---
+!contents -R2 -g -p -f -h
+!1 Skapa en ny artikel
+Det ska vara möjligt att skapa en ny artikel via REST API:et
+
+Testet visar att adminanvändare har möjlighet att skapa en artikelpost
+
+!***> Skapa en ny artikel
+
+!| comment |
+| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | article | {"name":"article","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"author","children":[{"name":"familyName","value":"Efternamn"},{"name":"givenName","value":"Förnamn"}],"repeatId":"0"},{"name":"title","children":[{"name":"mainTitle","value":"Detta är en huvudtitel"},{"name":"language","value":"heb"}]},{"name":"contentType","value":"refereed"},{"name":"publicationStatus","value":"published"},{"name":"otherInformation","children":[{"name":"dateIssued","value":"2019"}]},{"name":"nationalSubjectCategory","children":[{"name":"linkedRecordType","value":"nationalSubjectCategory"},{"name":"linkedRecordId","value":"11624"}],"repeatId":"0"}]} | | CREATED |
+
+*!
