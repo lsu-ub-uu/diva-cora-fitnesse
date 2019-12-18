@@ -1,4 +1,5 @@
 ---
+Help: Tester för studentuppsats (examensarbete)
 Suite
 ---
 !1 Tester för publikationstypen studentarbete

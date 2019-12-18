@@ -2,7 +2,7 @@
 Test
 ---
 !contents -R2 -g -p -f -h
-!1 Testing conversion of recordType place
+!1 Testing conversion of recordType person
 !***> Convert authority-person:11685 from XML stored in Fedora to Coras Json format
 
 | Diva To Cora Format Fixture |

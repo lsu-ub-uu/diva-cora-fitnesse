@@ -1,4 +1,5 @@
 ---
+Help: Testar posttyp artikel
 Test
 ---
 !contents -R2 -g -p -f -h
@@ -23,7 +24,7 @@ Det ska gå att läsa toppnivån av metadatagruppen för en ny artikel från RES
 *!
 Test av metadata för att skapa en ny artikel
 
-!***> Kontrollera barn i articleThesisNewGroup
+!***> Kontrollera barn i articleNewGroup
 
 !| MetadataLinkFixture |
 | linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |

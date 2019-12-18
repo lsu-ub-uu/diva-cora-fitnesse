@@ -1,4 +1,5 @@
 ---
+Help: Radera en artikel
 Test
 ---
 !contents -R2 -g -p -f -h
