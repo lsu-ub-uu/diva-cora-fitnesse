@@ -1,7 +1,0 @@
----
-Suite
----
-!1 Tester för publikationstypen artikel
-Publikationstypen artikel används av lärosäten. Det är flera roller som behöver hantera publikationstypen för registrering, granskning och publicering.
-
-!contents -R4 -g -p -f -h

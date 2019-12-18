@@ -1,4 +1,5 @@
 ---
+Help: Radera en studentuppsats (examensarbete)
 Test
 ---
 !contents -R2 -g -p -f -h
