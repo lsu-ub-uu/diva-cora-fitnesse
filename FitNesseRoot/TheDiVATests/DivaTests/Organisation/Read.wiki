@@ -7,9 +7,11 @@ Det skall gå att lista och läsa organisationer via REST API:et.
 
 !***> Läs organisation:1 i  JSON format
 
+Läser och kontrollerar att JSON är korrekt för att bla. se att domain är rätt uppläst ur databasen.
+
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | divaOrganisation | 1 | | OK |
+| $adminAuthToken | divaOrganisation | 1 | {"record":{"data":{"children":[{"children":[{"name":"id","value":"1"},{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}],"name":"type"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}],"name":"createdBy"},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"repeatId":"0","children":[{"children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}],"name":"updatedBy"},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"name":"updated"}],"name":"recordInfo"},{"name":"domain","value":"test"},{"name":"organisationName","value":"Uppsala universitet"},{"children":[{"name":"language","value":"en"},{"name":"organisationName","value":"Uppsala University"}],"name":"alternativeName"},{"name":"organisationType","value":"unit"},{"name":"eligible","value":"no"},{"name":"country","value":"SE"},{"name":"organisationNumber","value":"202100-2932"}],"name":"organisation"},"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"http://localhost:8082/diva/rest/record/divaOrganisation/1","accept":"application/vnd.uub.record+json"},"update":{"requestMethod":"POST","rel":"update","contentType":"application/vnd.uub.record+json","url":"http://localhost:8082/diva/rest/record/divaOrganisation/1","accept":"application/vnd.uub.record+json"},"index":{"requestMethod":"POST","rel":"index","body":{"children":[{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}],"name":"recordType"},{"name":"recordId","value":"1"},{"name":"type","value":"index"}],"name":"workOrder"},"contentType":"application/vnd.uub.record+json","url":"http://localhost:8082/diva/rest/record/workOrder/","accept":"application/vnd.uub.record+json"},"delete":{"requestMethod":"DELETE","rel":"delete","url":"http://localhost:8082/diva/rest/record/divaOrganisation/1"}}}} | OK |
 
 *!
 "Admin" användare skall kunna lista organisationer.
@@ -21,12 +23,11 @@ Det skall gå att lista och läsa organisationer via REST API:et.
 | $adminAuthToken | divaOrganisation | | OK |
 
 *!
-Ej inloggade användare skall inte få lista organisationer, därför förväntar sig testet FORBIDDEN om en ej inloggad användare försöker lista organisationer.
+Ej inloggade användare skall ej få lista organisationer, därför förväntar sig testet FORBIDDEN om en ej inloggad användare försöker lista organisationer.
 
-!***> Lista organisationer utan att vara inloggad (guestUser) HAR STÄNGT AV TESTET DÅ DET EJ GÅR IGENOM PÅ BYGGSERVERN, GUEST FÅR DÄR LISTA ORGANISATIONER
+!***> Lista organisationer utan att vara inloggad (guestUser)
 
-!| Comment |
-| RecordEndpointFixture |
+!| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
 | | divaOrganisation | | FORBIDDEN |
 
