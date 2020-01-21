@@ -4,12 +4,12 @@ Test
 !1 Sök efter organisation
 !4 
 !4 Organisation går att söka på med hjälp av ** (tom söksträng)
-!***> Test sök efter organisation: ** (AVSTÄNGT)
+!***> Test sök efter organisation: 
 
-!| comment |
-| RecordEndpointFixture |
+!| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | {"name":"publicOrganisationSearch","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"publicOrganisationSearchTerm","value":"**"}]}]}]} | | OK |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"St*"},{"name":"divaOrganisationDomainSearchTerm","value":"sh"}]}]}]}!-
+-! | | OK |
 
 *!
 !4 Organisation går att söka på med hjälp av autosök
@@ -34,11 +34,10 @@ Test
 
 *!
 !4 Organisation kan sökas även när tecken å, ä eller ö finns i organisationsnamnet
-!***> Test sök med å, ä eller ö i söksträng AVSTÄNGT
+!***> Test sök med å, ä eller ö i söksträng:
 
-!| comment |
-| RecordEndpointFixture |
+!| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"Denhärhartrettiofyrteckenutanspace"}]}]}]} | | OK |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"*å*"}]}]}]} | | OK |
 
 *!
