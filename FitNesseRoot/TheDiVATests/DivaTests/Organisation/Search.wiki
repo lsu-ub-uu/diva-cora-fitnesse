@@ -29,7 +29,7 @@ Test
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
 | $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"**"}]}]}]} | =~/"name":"id","value":"50".*"name":"id","value":"1350".*"name":"id","value":"1400".*"name":"id","value":"51"/ | OK |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"Stockholms organisation"}]}]}]} | =~/"totalNo":"1"/ | OK |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"Stockholms organisation"}]}]}]} | =~/"name":"id","value":"51"/ | OK |
 | $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"ingenOrganisationSomHarDetHärNamnet"}]}]}]} | =~/"totalNo":"0"/ | OK |
 
 *!
@@ -67,5 +67,20 @@ Test
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
 | $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"*å*"}]}]}]} | | OK |
+
+*!
+!4 Organisation måste ha alternativt namn
+!***> Indexerar organisation som inte har något alternativt namn
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? | getCreatedId? |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"recordId","value":"1452"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+
+*!
+!***> Test sök efter organisationen utan alternativt namn, för att se att sökningen fungerar
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"Organisation som saknar alternativt namn"}]}]}]} | =~/"name":"id","value":"1452"/ | OK |
 
 *!
