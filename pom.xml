@@ -36,7 +36,6 @@
 		<fitnesseintegration.version>2.1.0</fitnesseintegration.version>
 		<divamixedstorage.version>3.6.0</divamixedstorage.version>
 		<javax.ws.rs.version>2.1.1</javax.ws.rs.version>
-		<fitnesse.version>20200205</fitnesse.version>
 		<coradata.version>3.3.0</coradata.version>
 		<commons-text.version>1.8</commons-text.version>
 		<smartrics-RestFixture.version>4.4</smartrics-RestFixture.version>
@@ -93,23 +92,12 @@
 			<scope>compile</scope>
 		</dependency>
 		<!-- FitNesse -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.fitnesse</groupId> -->
-<!-- 			<artifactId>fitnesse</artifactId> -->
-<!-- 			<version>${fitnesse.version}</version> -->
-<!-- 			<scope>runtime</scope> -->
-<!-- 		</dependency> -->
 		<dependency>
 			<groupId>smartrics.restfixture</groupId>
 			<artifactId>smartrics-RestFixture</artifactId>
 			<version>${smartrics-RestFixture.version}</version>
 			<scope>runtime</scope>
 		</dependency>
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.fitnesse.plugins</groupId> -->
-<!-- 			<artifactId>maven-classpath-plugin</artifactId> -->
-<!-- 			<version>1.9</version> -->
-<!-- 		</dependency> -->
 		<!-- FitNesse end -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
