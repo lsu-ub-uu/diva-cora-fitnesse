@@ -10,7 +10,7 @@ public class DivaToCoraFitnesseConverterSpy implements DivaFedoraToCoraConverter
 	@Override
 	public DataGroup fromXML(String xml) {
 		this.xml = xml;
-		return DataGroup.withNameInData("DataGroupReturnedFromSpy");
+		return new DataGroupSpy("DataGroupReturnedFromSpy");
 	}
 
 }

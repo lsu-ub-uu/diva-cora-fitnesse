@@ -20,9 +20,9 @@ package se.uu.ub.diva.cora.fitnesse;
 
 import org.apache.commons.text.StringEscapeUtils;
 
+import se.uu.ub.cora.basicdata.converter.DataToJsonConverterFactoryImp;
 import se.uu.ub.cora.data.DataGroup;
 import se.uu.ub.cora.data.converter.DataToJsonConverter;
-import se.uu.ub.cora.data.converter.DataToJsonConverterFactoryImp;
 import se.uu.ub.cora.diva.mixedstorage.fedora.DivaFedoraConverterFactory;
 import se.uu.ub.cora.diva.mixedstorage.fedora.DivaFedoraToCoraConverter;
 import se.uu.ub.cora.json.builder.JsonBuilderFactory;
