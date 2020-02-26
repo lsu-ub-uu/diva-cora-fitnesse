@@ -8,5 +8,5 @@
 	<Search>true</Search>
 	<Versions>true</Versions>
 	<WhereUsed>true</WhereUsed>
-	<secure-write/>
+	<secure-write>true</secure-write>
 </properties>
