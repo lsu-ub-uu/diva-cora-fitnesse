@@ -29,6 +29,21 @@ Organisation med id 500 har en adress registrerad. Vi läser först den befintli
 | $adminAuthToken | divaOrganisation | 500 | =~/"name":"city","value":"Uppsala".*"name":"street","value":"Some other street".*"name":"box","value":"Box 21".*"name":"postcode","value":"111111"/ | OK |
 
 *!
+!***> Uppdatera organisation 500 med ny adress utan land
+
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | divaOrganisation | 500 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"500"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"testar"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"testar"},{"name":"language","value":"en"}]},{"name":"domain","value":"test"},{"name":"box","value":"Box 9"},{"name":"street","value":"Some nine street"},{"name":"postcode","value":"999999"},{"name":"city","value":"Nine"},{"name":"organisationType","value":"centre"},{"name":"eligible","value":"yes"},{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"divaOrganisation"},{"name":"linkedRecordId","value":"1"}]}],"repeatId":"0"}]} | | OK |
+
+*!
+!***> Läs organisation 500 igen och se att adressen är uppdaterad utan land
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | divaOrganisation | 500 | =~/"name":"city","value":"Nine".*"name":"street","value":"Some nine street".*"name":"box","value":"Box 9".*"name":"postcode","value":"999999"/ | OK |
+
+*!
+
 Organisation med id 1450 har ingen adress från början. Vi läser den och ser att den inte har någon adress. Sen uppdaterar vi organisationen, lägger till en adress och ser att vi har en adress.
 
 !***> Läs organisation 1450
