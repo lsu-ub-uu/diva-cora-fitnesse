@@ -1,0 +1,58 @@
+---
+Test
+---
+!contents -R2 -g -p -f -h
+!1 Testar uppdatering av del av Organisation
+Ett flertal användare kommer att ha rättigheter att uppdatera en organisation, men vissa av fälten är låsta för dessa användare och ska därför inte få uppdateras. Ett fåtal användare kommer ha rättigheter till att uppdatera de "begränsade" fälten.
+
+Testet visar att domänadmins har rättighet att uppdatera en organisation, men inte de "begränsade" fälten, medan systemadmin har rättighet att uppdatera hela posten.
+
+!***> Läs organisation och se att de aktuella fälten är "no"
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | divaOrganisation | 1450 | =~/"name":"showInDefence","value":"no".*"name":"topLevel","value":"no".*"name":"showInPortal","value":"no".*"name":"rootOrganisation","value":"no"/ | OK |
+
+*!
+!***> Uppdatera organisation 1450 med nytt namn
+
+!| comment |
+| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | divaOrganisation | 1450 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1450"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Norska ministerrådet"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"Nordiska ministerrådet"},{"name":"language","value":"en"}]},{"name":"domain","value":"norden"},{"name":"country","value":"SE"},{"name":"URL","value":"http://www.norden.org"},{"name":"organisationType","value":"unit"},{"name":"organisationNumber","value":"3333333333"},{"name":"eligible","value":"yes"},{"name":"showInDefence","value":"no"},{"name":"topLevel","value":"no"},{"name":"showInPortal","value":"no"}]} | | OK |
+
+*!
+!***> Läs organisation 1450 igen för att se att den är uppdaterad
+
+!| comment |
+| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | divaOrganisation | 1450 | =~/"value":"Norska ministerrådet"/ | OK |
+
+*!
+Vi skapar en ny regel som ger rätt till att uppdatera de begränsade fälten i en organisationspost, och därefter lägger vi till den till en roll som domänanvändaren har.
+
+!***> Create a new rule, testStudentThesisRule
+
+!| comment |
+| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | permissionRule | {"name":"permissionRule","children":[{"name":"recordInfo","children":[{"name":"id","value":"testStudentThesisRule"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.*","repeatId":"0"}],"attributes":{"type":"action"}},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.testStudentThesis","repeatId":"0"}],"attributes":{"type":"recordType"}},{"name":"activeStatus","value":"active"}]} | | CREATED |
+
+*!
+!***> Update permissionRole, textAdmin, adding new rule testStudentThesisRule
+
+!| comment |
+| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | permissionRole | fitnesseTextAdmin | {"name":"permissionRole","children":[{"name":"recordInfo","children":[{"name":"id","value":"fitnesseTextAdmin"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"permissionRole"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"systemOneUser"},{"name":"linkedRecordId","value":"12345"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]},{"name":"tsCreated","value":"2017-10-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"systemOneUser"},{"name":"linkedRecordId","value":"12345"}]},{"name":"tsUpdated","value":"2017-11-01 17:51:52.0"}],"repeatId":"0"}]},{"name":"permissionRuleLink","children":[{"name":"linkedRecordType","value":"permissionRule"},{"name":"linkedRecordId","value":"textAdmin"}],"repeatId":"0"},{"name":"permissionRuleLink","children":[{"name":"linkedRecordType","value":"permissionRule"},{"name":"linkedRecordId","value":"nothing"}],"repeatId":"1"},{"name":"permissionRuleLink","children":[{"name":"linkedRecordType","value":"permissionRule"},{"name":"linkedRecordId","value":"testStudentThesisRule"}],"repeatId":"2"},{"name":"activeStatus","value":"active"}]} | | OK |
+
+*!
+!***> Återställ ursprunglig organisation 1450
+
+!| comment |
+| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | divaOrganisation | 1450 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1450"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Nordiska ministerrådet"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"Nordiska ministerrådet"},{"name":"language","value":"en"}]},{"name":"domain","value":"norden"},{"name":"country","value":"SE"},{"name":"URL","value":"http://www.norden.org"},{"name":"organisationType","value":"unit"},{"name":"organisationNumber","value":"3333333333"},{"name":"eligible","value":"yes"},{"name":"showInDefence","value":"no"},{"name":"topLevel","value":"no"},{"name":"showInPortal","value":"no"}]} | | OK |
+
+*!
