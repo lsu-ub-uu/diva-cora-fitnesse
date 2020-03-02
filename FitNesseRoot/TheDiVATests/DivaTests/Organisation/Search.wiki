@@ -40,7 +40,39 @@ Test
 | $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"Uppsala*"}]}]}]} | =~/"name":"id","value":"50".*"name":"id","value":"1750"/ | OK |
 | $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"Uppsala*"},{"name":"divaOrganisationDomainSearchTerm","value":"uu"}]}]}]} | =~/"name":"id","value":"1750"/ | OK |
 
+
 *!
+!***> Test sök organisation med bara id
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationIdSearchTerm","value":"1"}]}]}]} | | OK |
+
+*!
+!***> Test sök organisation med bara organisationstyp
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrgTypeSearchTerm","value":"Enhet"}]}]}]} | | OK |
+
+
+*!
+!***> Test sök organisation med bara organisationsnummer
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrgNumberSearchTerm","value":"3333333333"} ]}]}]} | | OK |
+
+
+*!
+!***> Test sök organisation med både id, organisationstyp och organisationsnummer
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationIdSearchTerm","value":"1450"},{"name":"divaOrgTypeSearchTerm","value":"Enhet"},{"name":"divaOrgNumberSearchTerm","value":"3333333333"} ]}]}]} | | OK |
+
+*!
+
 !4 Organisation går att söka på med hjälp av autosök
 !***> Test sök med "autosök" söksträng AVSTÄNGT
 
