@@ -13,7 +13,8 @@ Test
 | $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"recordId","value":"1400"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
 | $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"recordId","value":"51"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
 | $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"recordId","value":"1750"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"recordId","value":"1450"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"recordId","value":"1"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+
 *!
 !***> Test sök organisation med bara domän
 
@@ -40,39 +41,35 @@ Test
 | $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"Uppsala*"}]}]}]} | =~/"name":"id","value":"50".*"name":"id","value":"1750"/ | OK |
 | $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"Uppsala*"},{"name":"divaOrganisationDomainSearchTerm","value":"uu"}]}]}]} | =~/"name":"id","value":"1750"/ | OK |
 
-
 *!
 !***> Test sök organisation med bara id
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationIdSearchTerm","value":"1750"}]}]}]} |=~/"name":"organisationName","value":"Uppsala universitet"/| OK |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationIdSearchTerm","value":"1750"}]}]}]} | =~/"name":"organisationName","value":"Uppsala universitet"/ | OK |
 
 *!
 !***> Test sök organisation med bara organisationstyp
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrgTypeSearchTerm","value":"unit"}]}]}]} |=~/"name":"organisationName","value":"Nordiska ministerrådet"/| OK |
-
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrgTypeSearchTerm","value":"university"}]}]}]} | =~/"name":"organisationName","value":"Uppsala universitet"/ | OK |
 
 *!
 !***> Test sök organisation med bara organisationsnummer
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrgNumberSearchTerm","value":"202100-2932"}]}]}]} |=~/"name":"organisationName","value":"Uppsala universitet"/| OK |
-
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrgNumberSearchTerm","value":"202100-2932"}]}]}]} | =~/"name":"organisationName","value":"Uppsala universitet"/ | OK |
 
 *!
 !***> Test sök organisation med både id, organisationstyp och organisationsnummer
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationIdSearchTerm","value":"1450"},{"name":"divaOrgTypeSearchTerm","value":"unit"},{"name":"divaOrgNumberSearchTerm","value":"3333333333"} ]}]}]} |=~/"name":"organisationName","value":"Nordiska ministerrådet"/ | OK |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationIdSearchTerm","value":"1"},{"name":"divaOrgTypeSearchTerm","value":"university"},{"name":"divaOrgNumberSearchTerm","value":"202100-2932"}]}]}]} | | OK |
 
 *!
-
 !4 Organisation går att söka på med hjälp av autosök
 !***> Test sök med "autosök" söksträng AVSTÄNGT
 
