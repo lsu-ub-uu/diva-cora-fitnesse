@@ -46,28 +46,28 @@ Test
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationIdSearchTerm","value":"1750"}]}]}]} | =~/"name":"organisationName","value":"Uppsala universitet"/ | OK |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationIdSearchTerm","value":"1750"}]}]}]} | =~/"name":"id","value":"1750"/ | OK |
 
 *!
 !***> Test sök organisation med bara organisationstyp
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrgTypeSearchTerm","value":"university"}]}]}]} | =~/"name":"organisationName","value":"Uppsala universitet"/ | OK |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrgTypeSearchTerm","value":"university"}]}]}]} | =~/"name":"id","value":"1750"/ | OK |
 
 *!
 !***> Test sök organisation med bara organisationsnummer
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrgNumberSearchTerm","value":"202100-2932"}]}]}]} | =~/"name":"organisationName","value":"Uppsala universitet"/ | OK |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrgNumberSearchTerm","value":"202100-2932"}]}]}]} | =~/"name":"id","value":"1"/ | OK |
 
 *!
 !***> Test sök organisation med både id, organisationstyp och organisationsnummer
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationIdSearchTerm","value":"1"},{"name":"divaOrgTypeSearchTerm","value":"university"},{"name":"divaOrgNumberSearchTerm","value":"202100-2932"}]}]}]} | | OK |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationIdSearchTerm","value":"1"},{"name":"divaOrgTypeSearchTerm","value":"university"},{"name":"divaOrgNumberSearchTerm","value":"202100-2932"}]}]}]} | =~/"name":"id","value":"1"/ | OK |
 
 *!
 !4 Organisation går att söka på med hjälp av autosök
