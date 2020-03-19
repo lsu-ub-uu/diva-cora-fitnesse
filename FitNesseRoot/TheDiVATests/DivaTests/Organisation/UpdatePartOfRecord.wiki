@@ -5,7 +5,7 @@ Test
 !1 Testar uppdatering av del av Organisation
 Ett flertal användare kommer att ha rättigheter att uppdatera en organisation, men vissa av fälten är låsta för dessa användare och ska därför inte få uppdateras. Ett fåtal användare kommer ha rättigheter till att uppdatera de "begränsade" fälten.
 
-Testet visar att domänadmins har rättighet att uppdatera en organisation, men inte de "begränsade" fälten, medan systemadmin har rättighet att uppdatera hela posten.
+Testet visar att fitnesseUser (som får symbolisera domänadmin) har rättighet att uppdatera en organisation, men inte de "begränsade" fälten, medan fitnesseAdmin (som får symbolisera systemadmin) har rättighet att uppdatera hela posten.
 
 Vi börjar med att ge fitnesseUser möjlighet att uppdatera en organisation
 
@@ -26,8 +26,8 @@ Vi börjar med att ge fitnesseUser möjlighet att uppdatera en organisation
 !***> Läs organisation och se att de aktuella fälten är "no"
 
 !| RecordEndpointFixture |
-| authToken | type | id | testReadRecord? | getStatusType? |
-| $userAuthToken | divaOrganisation | 1450 | =~/"name":"rootOrganisation","value":"no".*"name":"showInDefence","value":"no".*"name":"topLevel","value":"no".*"name":"showInPortal","value":"no"/ | OK |
+| authToken | type | id | children | testReadRecord? | testReadCheckContainWithValues? | getStatusType? |
+| $userAuthToken | divaOrganisation | 1450 | {"children":[{"type":"atomic","name":"rootOrganisation","value":"no"},{"type":"atomic","name":"showInDefence","value":"no"},{"type":"atomic","name":"topLevel","value":"no"},{"type":"atomic","name":"showInPortal","value":"no"}]} | | OK | OK |
 
 *!
 Uppdatera organisation och sätt de aktuella fälten till "yes", utan att ha rättighet till att ändra fälten. Läs sedan organisationen igen och se att fälten INTE är ändrade.
@@ -42,8 +42,8 @@ Uppdatera organisation och sätt de aktuella fälten till "yes", utan att ha rä
 !***> Läs organisation 1450 igen för att se att fälten INTE är uppdaterade
 
 !| RecordEndpointFixture |
-| authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | divaOrganisation | 1450 | =~/"name":"rootOrganisation","value":"no".*"name":"showInDefence","value":"no".*"name":"topLevel","value":"no".*"name":"showInPortal","value":"no"/ | OK |
+| authToken | type | id | children | testReadRecord? | testReadCheckContainWithValues? | getStatusType? |
+| $userAuthToken | divaOrganisation | 1450 | {"children":[{"type":"atomic","name":"rootOrganisation","value":"no"},{"type":"atomic","name":"showInDefence","value":"no"},{"type":"atomic","name":"topLevel","value":"no"},{"type":"atomic","name":"showInPortal","value":"no"}]} | | OK | OK |
 
 *!
 Vi skapar en ny regel som ger rätt till att uppdatera de begränsade fälten i en organisationspost, och därefter lägger vi till den till en roll som domänanvändaren har.
@@ -52,7 +52,7 @@ Vi skapar en ny regel som ger rätt till att uppdatera de begränsade fälten i 
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
-| $adminAuthToken | permissionRule | {"name":"permissionRule","children":[{"name":"recordInfo","children":[{"name":"id","value":"testOrganisationPartRecordRule"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.*","repeatId":"0"}],"attributes":{"type":"action"}},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.organisation","repeatId":"0"}],"attributes":{"type":"recordType"}},{"name":"activeStatus","value":"active"},{"name":"writeConstraints","children":[{"name":"writeConstraint","value":"organisation.rootOrganisation","repeatId":"0"}]}]} | | CREATED |
+| $adminAuthToken | permissionRule | {"name":"permissionRule","children":[{"name":"recordInfo","children":[{"name":"id","value":"testOrganisationPartRecordRule"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.*","repeatId":"0"}],"attributes":{"type":"action"}},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.divaOrganisation","repeatId":"0"}],"attributes":{"type":"recordType"}},{"name":"activeStatus","value":"active"},{"name":"writePermissions","children":[{"name":"writePermission","value":"organisation.rootOrganisation","repeatId":"0"},{"name":"writePermission","value":"organisation.showInPortal","repeatId":"1"},{"name":"writePermission","value":"organisation.showInDefence","repeatId":"2"},{"name":"writePermission","value":"organisation.topLevel","repeatId":"3"}]}]} | | CREATED |
 
 *!
 !***> Uppdatera permissionRole, textAdmin, lägg till regeln testOrganisationPartRecordRule
@@ -74,8 +74,8 @@ Uppdatera organisation och sätt de aktuella fälten till "yes", nu med rättigh
 !***> Läs organisation 1450 igen för att se att fälten ÄR uppdaterade
 
 !| RecordEndpointFixture |
-| authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | divaOrganisation | 1450 | =~/"name":"rootOrganisation","value":"yes".*"name":"showInDefence","value":"yes".*"name":"topLevel","value":"yes".*"name":"showInPortal","value":"yes"/ | OK |
+| authToken | type | id | children | testReadRecord? | testReadCheckContainWithValues? | getStatusType? |
+| $userAuthToken | divaOrganisation | 1450 | {"children":[{"type":"atomic","name":"rootOrganisation","value":"yes"},{"type":"atomic","name":"showInDefence","value":"yes"},{"type":"atomic","name":"topLevel","value":"yes"},{"type":"atomic","name":"showInPortal","value":"yes"}]} | | OK | OK |
 
 *!
 !2 Ta bort skapat data och återställ ändrat data
