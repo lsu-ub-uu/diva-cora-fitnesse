@@ -33,7 +33,7 @@
 	<properties>
 		<json.version>2.0.1</json.version>
 		<httphandler.version>2.0.0</httphandler.version>
-		<fitnesseintegration.version>2.3.0</fitnesseintegration.version>
+		<fitnesseintegration.version>2.4-SNAPSHOT</fitnesseintegration.version>
 		<divamixedstorage.version>3.6.0</divamixedstorage.version>
 		<javax.ws.rs.version>2.1.1</javax.ws.rs.version>
 		<coradata.version>3.3.0</coradata.version>

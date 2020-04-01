@@ -25,9 +25,9 @@ Vi börjar med att ge fitnesseUser möjlighet att uppdatera en organisation
 *!
 !***> Läs organisation och se att de aktuella fälten är "no"
 
-!| RecordEndpointFixture |
-| authToken | type | id | children | testReadRecord? | testReadCheckContainWithValues? | getStatusType? |
-| $userAuthToken | divaOrganisation | 1450 | {"children":[{"type":"atomic","name":"rootOrganisation","value":"no"},{"type":"atomic","name":"showInDefence","value":"no"},{"type":"atomic","name":"topLevel","value":"no"},{"type":"atomic","name":"showInPortal","value":"no"}]} | | OK | OK |
+!| ComparerFixture |
+| authToken | type | id | children | testReadAndStoreRecord? | testCheckContainWithValues? |
+| $userAuthToken | divaOrganisation | 1450 | {"children":[{"type":"atomic","name":"rootOrganisation","value":"no"},{"type":"atomic","name":"showInDefence","value":"no"},{"type":"atomic","name":"topLevel","value":"no"},{"type":"atomic","name":"showInPortal","value":"no"}]} | | OK |
 
 *!
 Uppdatera organisation och sätt de aktuella fälten till "yes", utan att ha rättighet till att ändra fälten. Läs sedan organisationen igen och se att fälten INTE är ändrade.
@@ -41,9 +41,9 @@ Uppdatera organisation och sätt de aktuella fälten till "yes", utan att ha rä
 *!
 !***> Läs organisation 1450 igen för att se att fälten INTE är uppdaterade
 
-!| RecordEndpointFixture |
-| authToken | type | id | children | testReadRecord? | testReadCheckContainWithValues? | getStatusType? |
-| $userAuthToken | divaOrganisation | 1450 | {"children":[{"type":"atomic","name":"rootOrganisation","value":"no"},{"type":"atomic","name":"showInDefence","value":"no"},{"type":"atomic","name":"topLevel","value":"no"},{"type":"atomic","name":"showInPortal","value":"no"}]} | | OK | OK |
+!| ComparerFixture |
+| authToken | type | id | children | testReadAndStoreRecord? | testCheckContainWithValues? |
+| $userAuthToken | divaOrganisation | 1450 | {"children":[{"type":"atomic","name":"rootOrganisation","value":"no"},{"type":"atomic","name":"showInDefence","value":"no"},{"type":"atomic","name":"topLevel","value":"no"},{"type":"atomic","name":"showInPortal","value":"no"}]} | | OK |
 
 *!
 Vi skapar en ny regel som ger rätt till att uppdatera de begränsade fälten i en organisationspost, och därefter lägger vi till den till en roll som domänanvändaren har.
@@ -73,9 +73,9 @@ Uppdatera organisation och sätt de aktuella fälten till "yes", nu med rättigh
 *!
 !***> Läs organisation 1450 igen för att se att fälten ÄR uppdaterade
 
-!| RecordEndpointFixture |
-| authToken | type | id | children | testReadRecord? | testReadCheckContainWithValues? | getStatusType? |
-| $userAuthToken | divaOrganisation | 1450 | {"children":[{"type":"atomic","name":"rootOrganisation","value":"yes"},{"type":"atomic","name":"showInDefence","value":"yes"},{"type":"atomic","name":"topLevel","value":"yes"},{"type":"atomic","name":"showInPortal","value":"yes"}]} | | OK | OK |
+!| ComparerFixture |
+| authToken | type | id | children | testReadAndStoreRecord? | testCheckContainWithValues? |
+| $userAuthToken | divaOrganisation | 1450 | {"children":[{"type":"atomic","name":"rootOrganisation","value":"yes"},{"type":"atomic","name":"showInDefence","value":"yes"},{"type":"atomic","name":"topLevel","value":"yes"},{"type":"atomic","name":"showInPortal","value":"yes"}]} | | OK |
 
 *!
 !2 Ta bort skapat data och återställ ändrat data
