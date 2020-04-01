@@ -29,7 +29,7 @@ Test
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"**"}]}]}]} | =~/"name":"id","value":"50".*"name":"id","value":"1350".*"name":"id","value":"1400".*"name":"id","value":"51"/ | OK |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"**"}]}]}]} | | OK |
 | $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"Stockholms organisation"}]}]}]} | =~/"name":"id","value":"51"/ | OK |
 | $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"ingenOrganisationSomHarDetHärNamnet"}]}]}]} | =~/"totalNo":"0"/ | OK |
 
