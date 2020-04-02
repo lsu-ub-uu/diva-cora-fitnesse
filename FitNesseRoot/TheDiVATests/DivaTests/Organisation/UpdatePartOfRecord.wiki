@@ -21,7 +21,7 @@ De begränsade fälten är:
 
 Vi börjar med att skapa en ny regel, som ger fitnesseUser tillgång till posttypen organisation, men inte till de fält som har både skriv- och läsbegränsningar.
 
-!***> Create a new rule, testOrganisationRule
+!***> Skapa en ny regel, testOrganisationRule
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
@@ -37,7 +37,7 @@ Vi börjar med att skapa en ny regel, som ger fitnesseUser tillgång till postty
 *!
 Vi skapar en ny regel som ger rätt till att uppdatera de begränsade fälten i en organisationspost, och därefter lägger vi till den till en roll som fitnesseAdmin har.
 
-!***> Create a new rule, testOrganisationPartRecordRule
+!***> Skapa en ny regel, testOrganisationPartRecordRule
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
@@ -81,7 +81,7 @@ Uppdatera organisation och sätt de aktuella fälten till "yes", utan att ha rä
 | $adminAuthToken | divaOrganisation | 2050 | {"children":[{"type":"atomic","name":"rootOrganisation","value":"no"},{"type":"atomic","name":"showInDefence","value":"no"},{"type":"atomic","name":"topLevel","value":"no"},{"type":"atomic","name":"showInPortal","value":"no"}]} | | OK |
 
 *!
-Uppdatera organisation och sätt de aktuella fälten till "yes", nu som fitnesseAdmin, som har rättighet att ändra fälten. Läs sedan organisationen igen och se att fälten ÄR ändrade.
+Uppdatera organisation och sätt de aktuella fälten till "yes", nu som fitnesseAdmin, som har rättighet att ändra fälten. Vi lägger också till ett librisid. Läs sedan organisationen igen och se att fälten ÄR ändrade.
 
 !***> Uppdatera organisation 2050
 
@@ -95,6 +95,7 @@ Uppdatera organisation och sätt de aktuella fälten till "yes", nu som fitnesse
 !| ComparerFixture |
 | authToken | type | id | children | testReadAndStoreRecord? | testCheckContainWithValues? |
 | $adminAuthToken | divaOrganisation | 2050 | {"children":[{"type":"atomic","name":"rootOrganisation","value":"yes"},{"type":"atomic","name":"showInDefence","value":"yes"},{"type":"atomic","name":"topLevel","value":"yes"},{"type":"atomic","name":"showInPortal","value":"yes"},{"type":"atomic","name":"librisId","value":"lib-ltu"}]} | | OK |
+| $userAuthToken | divaOrganisation | 2050 | {"children":[{"type":"atomic","name":"librisId","value":"lib-ltu"}]} | | OK |
 
 *!
 !2 Ta bort skapat data och återställ ändrat data
