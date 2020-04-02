@@ -3,8 +3,10 @@ package se.uu.ub.diva.cora.fitnesse;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import se.uu.ub.cora.data.DataAtomic;
 import se.uu.ub.cora.data.DataAttribute;
@@ -17,7 +19,7 @@ public class DataGroupSpy implements DataGroup {
 	public List<DataElement> children = new ArrayList<>();
 	public Map<String, DataGroup> dataGroups = new HashMap<>();
 	public Map<String, DataAtomic> dataAtomics = new HashMap<>();
-	public Map<String, String> attributes = new HashMap<>();
+	public Set<DataAttribute> attributes = new HashSet<>();
 	private String repeatId;
 	public Map<String, String> atomicValues = new HashMap<>();
 
@@ -72,7 +74,7 @@ public class DataGroupSpy implements DataGroup {
 
 	@Override
 	public void addAttributeByIdWithValue(String id, String value) {
-		attributes.put(id, value);
+		attributes.add(new DataAttributeSpy(id, value));
 	}
 
 	@Override
@@ -90,9 +92,13 @@ public class DataGroupSpy implements DataGroup {
 	}
 
 	@Override
-	public String getAttribute(String attributeId) {
-		// TODO Auto-generated method stub
-		return attributes.get(attributeId);
+	public DataAttribute getAttribute(String attributeId) {
+		for (DataAttribute dataAttribute : attributes) {
+			if (dataAttribute.getNameInData().equals(attributeId)) {
+				return dataAttribute;
+			}
+		}
+		return null;
 	}
 
 	@Override
@@ -102,13 +108,13 @@ public class DataGroupSpy implements DataGroup {
 	}
 
 	@Override
-	public void removeFirstChildWithNameInData(String childNameInData) {
+	public boolean removeFirstChildWithNameInData(String childNameInData) {
 		// TODO Auto-generated method stub
-
+		return false;
 	}
 
 	@Override
-	public Map<String, String> getAttributes() {
+	public Collection<DataAttribute> getAttributes() {
 		// TODO Auto-generated method stub
 		return attributes;
 	}
@@ -116,6 +122,36 @@ public class DataGroupSpy implements DataGroup {
 	@Override
 	public Collection<DataGroup> getAllGroupsWithNameInDataAndAttributes(String childNameInData,
 			DataAttribute... childAttributes) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean hasChildren() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void addChildren(Collection<DataElement> dataElements) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public List<DataElement> getAllChildrenWithNameInData(String nameInData) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean removeAllChildrenWithNameInData(String childNameInData) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public DataAtomic getFirstDataAtomicWithNameInData(String childNameInData) {
 		// TODO Auto-generated method stub
 		return null;
 	}
