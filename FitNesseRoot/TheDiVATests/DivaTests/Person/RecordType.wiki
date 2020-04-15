@@ -53,7 +53,7 @@ Tests for metadata for updating a person
 
 !| MetadataLinkFixture |
 | linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
-| metadataGroup | recordInfoDivaGroup | 1 | 1 |
+| metadataGroup | recordInfoPersonDivaGroup | 1 | 1 |
 | metadataCollectionVariable | personPublicCollectionVar | 1 | 1 |
 | metadataGroup | personNameGroup | 1 | 1 |
 | metadataGroup | personAlternativeNameGroup | 0 | X |
