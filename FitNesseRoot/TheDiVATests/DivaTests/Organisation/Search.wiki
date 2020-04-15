@@ -46,7 +46,7 @@ Test
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationIdSearchTerm","value":"1750"}]}]}]} | =~/"name":"id","value":"1750"/ | OK |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"1750"}]}]}]} | =~/"name":"id","value":"1750"/ | OK |
 
 *!
 !***> Test sök organisation med bara organisationstyp
@@ -60,7 +60,7 @@ Test
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationIdSearchTerm","value":"1"},{"name":"divaOrgTypeSearchTerm","value":"university"},{"name":"divaOrgNumberSearchTerm","value":"202100-2932"}]}]}]} | =~/"name":"id","value":"1"/ | OK |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"1"},{"name":"divaOrgTypeSearchTerm","value":"university"},{"name":"divaOrgNumberSearchTerm","value":"202100-2932"}]}]}]} | =~/"name":"id","value":"1"/ | OK |
 
 *!
 !4 Organisation går att söka på med hjälp av autosök
