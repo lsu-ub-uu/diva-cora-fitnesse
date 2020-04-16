@@ -88,14 +88,14 @@ Om man listar organisationer så ska varje organisation i listan bara innehålla
 
 !| ComparerFixture |
 | authToken | type | testReadRecordListAndStoreRecords? |
-| $adminAuthToken | divaOrganisation | |
+| $userAuthToken | divaOrganisation | |
 
 *!
 !***> Kontrollera barnen i den tidigare upplästa listan
 
 !| ComparerFixture |
 | type | children | listIndexToCompareTo | testReadFromListCheckContain? |
-| divaOrganisation | {"children":[{"name":"rootOrganisation"},{"name":"showInDefence"},{"name":"topLevel"},{"name":"showInPortal"}]} | 0 | Child with nameInData rootOrganisation is missing. Child with nameInData  showInDefence is missing. Child with nameInData topLevel is missing.  Child with nameInData showInPortal is missing. |
+| divaOrganisation | {"children":[{"name":"rootOrganisation"},{"name":"showInDefence"},{"name":"topLevel"},{"name":"showInPortal"}]} | 0 | Child with nameInData rootOrganisation is missing. Child with nameInData showInDefence is missing. Child with nameInData topLevel is missing. Child with nameInData showInPortal is missing. |
 
 *!
 !2 Sök poster
@@ -105,7 +105,7 @@ När man söker efter poster ska varje post i resultatet bara innehålla det dat
 
 !| ComparerFixture |
 | authToken | searchId | json | testSearchAndStoreRecords? |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"2050"}]}]}]} | |
+| $userAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"2050"}]}]}]} | |
 
 *!
 !***> Kontrollera barnen i resultatet av den tidigare gjorda sökningen
