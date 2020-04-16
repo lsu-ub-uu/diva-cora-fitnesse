@@ -81,6 +81,40 @@ Uppdatera organisation 2050 och lägg  till ett librisid. Läs sedan organisatio
 | $userAuthToken | divaOrganisation | 2050 | {"children":[{"type":"atomic","name":"librisId","value":"lib-ltu"}]} | | OK |
 
 *!
+!2 Lista organisationer
+Om man listar organisationer så ska varje organisation i listan bara innehålla det data som användaren har rätt att läsa
+
+!***> Lists organisationer och lagra resultatet för att användas i test nedan
+
+!| ComparerFixture |
+| authToken | type | testReadRecordListAndStoreRecords? |
+| $adminAuthToken | divaOrganisation | |
+
+*!
+!***> Kontrollera barnen i den tidigare upplästa listan
+
+!| ComparerFixture |
+| type | children | listIndexToCompareTo | testReadFromListCheckContain? |
+| divaOrganisation | {"children":[{"name":"rootOrganisation"},{"name":"showInDefence"},{"name":"topLevel"},{"name":"showInPortal"}]} | 0 | Child with nameInData rootOrganisation is missing. Child with nameInData  showInDefence is missing. Child with nameInData topLevel is missing.  Child with nameInData showInPortal is missing. |
+
+*!
+!2 Sök poster
+När man söker efter poster ska varje post i resultatet bara innehålla det data som användaren har rätt att läsa
+
+!***> Sök efter testWorkouts och lagra resultatet för att användas i test nedan
+
+!| ComparerFixture |
+| authToken | searchId | json | testSearchAndStoreRecords? |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"2050"}]}]}]} | |
+
+*!
+!***> Kontrollera barnen i resultatet av den tidigare gjorda sökningen
+
+!| ComparerFixture |
+| type | children | listIndexToCompareTo | testReadFromListCheckContain? |
+| divaOrganisation | {"children":[{"name":"rootOrganisation"},{"name":"showInDefence"},{"name":"topLevel"},{"name":"showInPortal"}]} | 0 | Child with nameInData rootOrganisation is missing. Child with nameInData showInDefence is missing. Child with nameInData topLevel is missing. Child with nameInData showInPortal is missing. |
+
+*!
 !2 Ta bort skapat data och återställ ändrat data
 !***> Återställ ursprunglig organisation 2050
 
