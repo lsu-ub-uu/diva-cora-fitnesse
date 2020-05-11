@@ -52,8 +52,8 @@ Domänsök för person finns inte ännu men bör skapas
 
 *!
 !***> Test sök person med bara ORCID
-
-!| RecordEndpointFixture |
+!|Comment|
+| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
 | $adminAuthToken | publicPersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"personIdSearchTerm","value":"0000-1111-2222-3333"}]}]}]} | =~/"name":"id","value":"person:7693868718030160"/ | OK |
 
