@@ -53,14 +53,14 @@ Vi skapar en ny regel som ger rätt till att uppdatera (vilket indirekt också g
 *!
 !***> Läs organisation och se att  fälten som fitnesseUser inte har rätt att läsa inte heller är med i svaret
 
-!| ComparerFixture |
+!| ChildComparerFixture |
 | authToken | type | id | children | testReadAndStoreRecord? | testCheckContain? |
 | $userAuthToken | divaOrganisation | 2050 | {"children":[{"name":"rootOrganisation"},{"name":"showInDefence"},{"name":"topLevel"},{"name":"showInPortal"}]} | | Child with nameInData rootOrganisation is missing. Child with nameInData showInDefence is missing. Child with nameInData topLevel is missing. Child with nameInData showInPortal is missing. |
 
 *!
 !***> Läs organisation som fitnesseAdmin och se att fälten ÄR med i svaret
 
-!| ComparerFixture |
+!| ChildComparerFixture |
 | authToken | type | id | children | testReadAndStoreRecord? | testCheckContainWithValues? |
 | $adminAuthToken | divaOrganisation | 2050 | {"children":[{"type":"atomic","name":"rootOrganisation","value":"no"},{"type":"atomic","name":"showInDefence","value":"no"},{"type":"atomic","name":"topLevel","value":"no"},{"type":"atomic","name":"showInPortal","value":"no"}]} | | OK |
 
@@ -76,7 +76,7 @@ Uppdatera organisation 2050 och lägg  till ett librisid. Läs sedan organisatio
 *!
 !***> Läs organisation 2050 igen för att se att fälten ÄR uppdaterade
 
-!| ComparerFixture |
+!| ChildComparerFixture |
 | authToken | type | id | children | testReadAndStoreRecord? | testCheckContainWithValues? |
 | $userAuthToken | divaOrganisation | 2050 | {"children":[{"type":"atomic","name":"librisId","value":"lib-ltu"}]} | | OK |
 
@@ -93,7 +93,7 @@ Om man listar organisationer så ska varje organisation i listan bara innehålla
 *!
 !***> Kontrollera barnen i den tidigare upplästa listan
 
-!| ComparerFixture |
+!| ChildComparerFixture |
 | type | children | listIndexToCompareTo | testReadFromListCheckContain? |
 | divaOrganisation | {"children":[{"name":"rootOrganisation"},{"name":"showInDefence"},{"name":"topLevel"},{"name":"showInPortal"}]} | 0 | Child with nameInData rootOrganisation is missing. Child with nameInData showInDefence is missing. Child with nameInData topLevel is missing. Child with nameInData showInPortal is missing. |
 
@@ -110,7 +110,7 @@ När man söker efter poster ska varje post i resultatet bara innehålla det dat
 *!
 !***> Kontrollera barnen i resultatet av den tidigare gjorda sökningen
 
-!| ComparerFixture |
+!| ChildComparerFixture |
 | type | children | listIndexToCompareTo | testReadFromListCheckContain? |
 | divaOrganisation | {"children":[{"name":"rootOrganisation"},{"name":"showInDefence"},{"name":"topLevel"},{"name":"showInPortal"}]} | 0 | Child with nameInData rootOrganisation is missing. Child with nameInData showInDefence is missing. Child with nameInData topLevel is missing. Child with nameInData showInPortal is missing. |
 

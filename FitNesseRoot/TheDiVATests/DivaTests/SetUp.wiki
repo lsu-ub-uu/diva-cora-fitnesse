@@ -1,6 +1,7 @@
 | import |
 | se.uu.ub.cora.fitnesseintegration |
 | se.uu.ub.diva.cora.fitnesse |
+| se.uu.ub.cora.fitnesseintegration.compare |
 
 !| script | SystemUrl |
 | setUrl | ${systemUnderTestUrl} |
@@ -9,7 +10,8 @@
 !| script | DependencyProvider |
 | setHttpHandlerFactoryClassName | se.uu.ub.cora.httphandler.HttpHandlerFactoryImp |
 | setJsonToDataFactoryClassName | se.uu.ub.cora.clientdata.converter.jsontojava.JsonToDataConverterFactoryImp |
-| setChildComparerClassName | se.uu.ub.cora.fitnesseintegration.ChildComparerImp |
+| setChildComparerUsingClassName | se.uu.ub.cora.fitnesseintegration.ChildComparerImp |
+| setPermissionComparerFactoryUsingClassName | se.uu.ub.cora.fitnesseintegration.compare.PermissionComparerFactoryImp |
 
 !| script | DivaFitnesseDependencyProvider |
 | setConverterFactoryClassName | se.uu.ub.cora.diva.mixedstorage.fedora.DivaFedoraConverterFactoryImp |
