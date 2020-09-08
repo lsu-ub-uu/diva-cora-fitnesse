@@ -1,0 +1,69 @@
+---
+Help: A test that checks that idpLogin works as expected
+Test
+---
+!contents -R2 -g -p -f -h
+| import |
+| se.uu.ub.cora.fitnesseintegration |
+
+!| script | SystemUrl |
+| setUrl | ${systemUnderTestUrl} |
+| setAppTokenVerifierUrl | ${appTokenVerifierUrl} |
+| setIdpLoginUrl | ${idpLoginUrl} |
+| setGatekeeperServerUrl | ${gatekeeperServerUrl} |
+
+!| script | DependencyProvider |
+| setHttpHandlerFactoryClassName | se.uu.ub.cora.httphandler.HttpHandlerFactoryImp |
+| setJsonToDataFactoryClassName | se.uu.ub.cora.clientdata.converter.jsontojava.JsonToDataConverterFactoryImp |
+
+!1 !-IdpLoginTest-!
+IdpLogin skydda i test och produktion av apache och är inte åtkomligt utan en lyckad inloggning mot en lokal idp. Vi förväntar oss att parametern  eppn är med när användaren släpps förbi apache och får tillgång till idpLogin servern. Parametern eppn skcikas vidare till gatekeeperServer som letar i databasen efter en användare med matchande eppn. Gatekeeper returnerar en authtoken för användaren och sparar användaren som inloggad. Om ingen matchande användare hittas så skapas och returneras en authToken för systemets gästanvändare.
+
+!2 Hämta authTokens via idpLogin
+!***> Hämta authTokens från idpLogin server
+
+!| IdpLoginServletFixture |
+| EPPN | getAuthTokenForEPPN? | getIdFromLogin? | getResponseCode? | getAuthToken? | getValidForNoSeconds? | getDeleteUrl? |
+| fitnesseAdminDb@user.test.se | | fitnesseAdminDb@user.test.se | OK | $adminAuthToken= | | ${tokenLogoutURL}62 |
+| fitnesseUserDb@user.test.se | | fitnesseUserDb@user.test.se | OK | $userAuthToken= | | ${tokenLogoutURL}63 |
+| userNotInDb@user.uu.se | | | OK | | | ${tokenLogoutURL}12345 |
+
+*!
+!2 Uppdatera en organisation
+!***> Uppdatera organisation 1450 med nytt namn
+
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | divaOrganisation | 1450 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1450"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Norska ministerrådet"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"Nordiska ministerrådet"},{"name":"language","value":"en"}]},{"name":"domain","value":"norden"},{"name":"country","value":"SE"},{"name":"URL","value":"http://www.norden.org"},{"name":"organisationType","value":"unit"},{"name":"organisationNumber","value":"3333333333"},{"name":"eligible","value":"yes"},{"name":"showInDefence","value":"no"},{"name":"topLevel","value":"no"},{"name":"showInPortal","value":"no"}]} | | OK |
+
+*!
+!***> Läs organisation 1450 igen för att se att den är uppdaterad
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | divaOrganisation | 1450 | =~/"value":"Norska ministerrådet"/ | OK |
+
+*!
+!***> Återställ ursprunglig organisation 1450
+
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | divaOrganisation | 1450 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1450"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Nordiska ministerrådet"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"Nordiska ministerrådet"},{"name":"language","value":"en"}]},{"name":"domain","value":"norden"},{"name":"country","value":"SE"},{"name":"URL","value":"http://www.norden.org"},{"name":"organisationType","value":"unit"},{"name":"organisationNumber","value":"3333333333"},{"name":"eligible","value":"yes"},{"name":"showInDefence","value":"no"},{"name":"topLevel","value":"no"},{"name":"showInPortal","value":"no"}]} | | OK |
+
+*!
+!***> Logout
+
+!| AppTokenEndpointFixture |
+| userId | authTokenToLogOut | removeAuthTokenForUser? | getStatusType? |
+| 57 | $adminAuthToken | | OK |
+
+*!
+
+!2 Prova att uppdatera en organisation för att visa att authToken inte är giltig efter utloggning 
+!***> Uppdatera organisation 1450 med nytt namn
+
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | divaOrganisation | 1450 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1450"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Norska ministerrådet"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"Nordiska ministerrådet"},{"name":"language","value":"en"}]},{"name":"domain","value":"norden"},{"name":"country","value":"SE"},{"name":"URL","value":"http://www.norden.org"},{"name":"organisationType","value":"unit"},{"name":"organisationNumber","value":"3333333333"},{"name":"eligible","value":"yes"},{"name":"showInDefence","value":"no"},{"name":"topLevel","value":"no"},{"name":"showInPortal","value":"no"}]} | | OK |
+
+*!
