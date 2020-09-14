@@ -1,0 +1,17 @@
+---
+Help: Skapa en ny forskningsfinansiär
+Test
+---
+!contents -R2 -g -p -f -h!contents -R2 -g -p -f -h
+!1 Skapa en ny forskningsfinansiär
+Det ska vara möjligt att skapa en ny forskningsfinansiär via REST API:et
+
+Testet visar att adminanvändare har möjlighet att skapa en forskningsfinansiärspost
+
+!***> Skapa en ny forskningsfinansiär
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | funder | {"name":"funder","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"name","children":[{"name":"funderName","value":"Fitnesse  funder to be  deleted"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"funderName","value":"Fitnesse  funder to be  deleted"},{"name":"language","value":"en"}]},{"name":"funderAcronym","value":"FFD"},{"name":"funderRegistrationNumber","value":"12365-98753521"},{"name":"funderDOI","value":"01"},{"name":"funderClosed","value":"2010-01-01"}]} | | CREATED |
+
+*!

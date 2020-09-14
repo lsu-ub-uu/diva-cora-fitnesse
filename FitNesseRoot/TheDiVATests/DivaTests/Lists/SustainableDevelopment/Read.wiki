@@ -1,0 +1,34 @@
+---
+Help: Lista och läs en hållbar utvecklingspost
+Test
+---
+!contents -R2 -g -p -f -h
+!1 Listning och läsning av hållbar utveckling
+Det skall gå att lista och läsa hållbar utvecklingspos via REST API:et.
+
+!***> Läs sustainableDevelopment:15052034295944219 i  JSON format
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | sustainableDevelopment | sustainableDevelopment:15052034295944219 | | OK |
+
+*!
+"Admin" användare skall kunna lista hållbar utvecklingsposter.
+
+!***> Lista hållbar utvecklingsposter inloggad som "admin" användare
+
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $adminAuthToken | sustainableDevelopment | | OK |
+
+*!
+Ej inloggade användare skall inte få lista hållbar utvecklingsposter, därför förväntar sig testet FORBIDDEN om en ej inloggad användare försöker lista hållbar utveckling.
+
+!***> Lista hållbar utvecklingsposter utan att vara inloggad (guestUser) HAR STÄNGT AV TESTET DÅ DET EJ GÅR IGENOM PÅ BYGGSERVERN(?)
+
+!| Comment |
+| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| | sustainableDevelopment | | FORBIDDEN |
+
+*!

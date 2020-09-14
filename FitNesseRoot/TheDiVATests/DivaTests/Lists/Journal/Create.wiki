@@ -1,0 +1,17 @@
+---
+Help: Skapa en ny tidskrift
+Test
+---
+!contents -R2 -g -p -f -h!contents -R2 -g -p -f -h
+!1 Skapa en ny tidskrift
+Det ska vara möjligt att skapa en ny tidskrift via REST API:et
+
+Testet visar att adminanvändare har möjlighet att skapa en tidskriftspost
+
+!***> Skapa en ny tidskrift
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | journal | {"name":"journal","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"mainTitle","value":"FitnesseTest för tidskrift"},{"name":"journalOA","value":"trueOA"},{"name":"subTitle","value":"FitnesseTest for journal"},{"name":"ISSN","value":"1234-5678"},{"name":"EISSN","value":"9876-5432"},{"name":"URL","value":"www.journal.com"},{"name":"closedDate","value":"2012-01-01"}]} | | CREATED |
+
+*!

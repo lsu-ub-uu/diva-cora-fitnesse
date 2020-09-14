@@ -1,0 +1,17 @@
+---
+Help: Skapa en ny hållbar utveckling
+Test
+---
+!contents -R2 -g -p -f -h!contents -R2 -g -p -f -h
+!1 Skapa en ny hållbar utveckling
+Det ska vara möjligt att skapa en ny hållbar utveckling via REST API:et
+
+Testet visar att adminanvändare har möjlighet att skapa en hållbar utvecklingpost
+
+!***> Skapa en ny hållbar utveckling
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | sustainableDevelopment | {"name":"sustainableDevelopment","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"name","children":[{"name":"sustainableDevelopmentName","value":"Fitnesse series to be deleted"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"sustainableDevelopmentName","value":"Fitnesse series to be deleted"},{"name":"language","value":"en"}]},{"name":"domain","value":"test"}]} | | CREATED |
+
+*!

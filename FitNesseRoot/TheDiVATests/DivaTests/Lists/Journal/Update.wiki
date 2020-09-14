@@ -1,0 +1,38 @@
+---
+Help: Uppdatera en tidskrift
+Test
+---
+!contents -R2 -g -p -f -h
+!1 Testar uppdatering av tidskrift
+Det ska vara möjligt att uppdatera tidskrift via REST API.
+
+Testet visar att adminanvändare har möjlighet att uppdatera tidskriftsposten
+
+!*** Läs journal:18682617526857134
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | journal | journal:18682617526857134 | =~/"value":"Det här är huvudtiteln"/ | OK |
+
+*!
+!***> Uppdatera journal:18682617526857134 med ny huvudtitel
+
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | journal | journal:18682617526857134 | {"name":"journal","children":[{"name":"recordInfo","children":[{"name":"id","value":"journal:18682617526857134"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"journal"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2020-09-03T14:15:11.945627Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2020-09-03T14:15:11.945627Z"}],"repeatId":"0"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2020-09-03T14:16:24.691230Z"}],"repeatId":"1"}]},{"name":"mainTitle","value":"Ny huvudtitel"},{"name":"subTitle","value":"FitnesseTest for journal"},{"name":"ISSN","value":"1234-5678"},{"name":"EISSN","value":"9876-5432"},{"name":"URL","value":"www.journal.com"},{"name":"journalOA","value":"trueOA"},{"name":"closedDate","value":"2012-01-01"}]} | | OK |
+
+*!
+!*** Läs journal:18682617526857134 igen för att se att den är uppdaterad
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | journal | journal:18682617526857134 | =~/"value":"Ny huvudtitel"/ | OK |
+
+*!
+!*** Återställ ursprunglig journal:18682617526857134
+
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | journal | journal:18682617526857134 | {"name":"journal","children":[{"name":"recordInfo","children":[{"name":"id","value":"journal:18682617526857134"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"journal"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2020-09-03T14:15:11.945627Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2020-09-03T14:15:11.945627Z"}],"repeatId":"0"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2020-09-03T14:16:24.691230Z"}],"repeatId":"1"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}]},{"name":"tsUpdated","value":"2020-09-03T14:16:47.359686Z"}],"repeatId":"2"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2020-09-03T14:17:19.721494Z"}],"repeatId":"3"}]},{"name":"mainTitle","value":"Det här är huvudtiteln"},{"name":"subTitle","value":"FitnesseTest for journal"},{"name":"ISSN","value":"1234-5678"},{"name":"EISSN","value":"9876-5432"},{"name":"URL","value":"www.journal.com"},{"name":"journalOA","value":"trueOA"},{"name":"closedDate","value":"2012-01-01"}]} | | OK |
+
+*!

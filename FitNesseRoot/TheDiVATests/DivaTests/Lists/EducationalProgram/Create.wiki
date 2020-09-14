@@ -1,0 +1,17 @@
+---
+Help: Skapa ett nytt utbildningsprogram
+Test
+---
+!contents -R2 -g -p -f -h
+!1 Skapa ett nytt utbildningsprogram
+Det ska vara möjligt att skapa ett nytt utbildningsprogram via REST API:et
+
+Testet visar att adminanvändare har möjlighet att skapa en utbildningsprogramspost
+
+!***> Skapa ett nytt utbildningsprogram
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | educationalProgram | {"name":"educationalProgram","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"name","children":[{"name":"educationalProgramName","value":"Nytt utbildningsprogram"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"educationalProgramName","value":"New Educational Program"},{"name":"language","value":"en"}]},{"name":"domain","value":"du"},{"name":"eligible","value":"Yes"},{"name":"educationalProgramCode","value":"342"},{"name":"educationalProgramClosed","value":"2012-01-01"}]} | | CREATED |
+
+*!

@@ -1,0 +1,52 @@
+---
+Help: Radera ett utbildningsprogram
+Test
+---
+!contents -R2 -g -p -f -h
+!1 Testar radera ett utbildningsprogram
+Det ska gå att radera ett utbildningsprogram via REST API:et.
+
+!***> Skapa ett nytt utbildningsprogram
+
+Först skapar vi ett utbildningsprogram, för att sedan kunna radera den
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecordCreatedType? | getStatusType? | getCreatedId? |
+| $adminAuthToken | educationalProgram | {"name":"educationalProgram","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"name","children":[{"name":"educationalProgramName","value":"Fitnesse educationalProgram to be deleted"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"educationalProgramName","value":"Fitnesse educationalProgram to be deleted"},{"name":"language","value":"en"}]},{"name":"domain","value":"du"},{"name":"eligible","value":"Yes"},{"name":"educationalProgramCode","value":"123"},{"name":"educationalProgramClosed","value":"2012-01-01"}]} | educationalProgram | CREATED | $createdId= |
+
+*!
+!***> Läs det nyskapade utbildningsprogrammet i Json
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | educationalProgram | $createdId | =~/"value":"Fitnesse educationalProgram to be deleted"/ | OK |
+
+*!
+!***> Lista utbildningsprogram
+
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $adminAuthToken | educationalProgram | | OK |
+
+*!
+!***> Radera det nyskapade utbildningsprogrammet
+
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $adminAuthToken | educationalProgram | $createdId | | OK |
+
+*!
+!***> Försök läsa det raderade utbildningsprogrammet
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | educationalProgram | $createdId | | NOT_FOUND |
+
+*!
+!***> Lista utbildningsprogram - utbildningsprogram med status DELETED exkluderas
+
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $adminAuthToken | educationalProgram | | OK |
+
+*!

@@ -1,0 +1,17 @@
+---
+Help: Skapa ett nytt ämne/kurs
+Test
+---
+!contents -R2 -g -p -f -h
+!1 Skapa ett nytt ämne/kurs
+Det ska vara möjligt att skapa ett nytt ämne/kurs via REST API:et
+
+Testet visar att adminanvändare har möjlighet att skapa en ämne/kurspost
+
+!***> Skapa ett nytt ämne/kurs
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | subjectCourse | {"name":"subjectCourse","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"name","children":[{"name":"subjectCourseName","value":"Fitnesse test ämne/kurs"},{"name":"language","value":"sv"}]},{"name":"domain","value":"du"},{"name":"alternativeName","children":[{"name":"subjectCourseName","value":"Fitness test subject/course"},{"name":"language","value":"en"}]},{"name":"subjectCourseCode","value":"789"},{"name":"subjectCourseEligible","value":"Yes"},{"name":"subjectCourseClosed","value":"2012-01-01"},{"name":"subjectCourseParent","children":[{"name":"subjectCourseLink","children":[{"name":"linkedRecordType","value":"subjectCourse"},{"name":"linkedRecordId","value":"subjectCourse:7614115377473535"}]}],"repeatId":"0"},{"name":"subjectCourseFormerName","children":[{"name":"subjectCourseLink","children":[{"name":"linkedRecordType","value":"subjectCourse"},{"name":"linkedRecordId","value":"subjectCourse:7614039478225834"}]}],"repeatId":"1"}]} | | CREATED |
+
+*!

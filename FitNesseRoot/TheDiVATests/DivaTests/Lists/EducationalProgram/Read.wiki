@@ -1,0 +1,34 @@
+---
+Help: Lista och läs ett utbildningsprogram
+Test
+---
+!contents -R2 -g -p -f -h
+!1 Listning och läsning av utbildningsprogram
+Det skall gå att lista och läsa utbildningsprogram via REST API:et.
+
+!***> Läs educationalProgram:18504370001369767 i  JSON format
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | educationalProgram | educationalProgram:18504370001369767 | | OK |
+
+*!
+"Admin" användare skall kunna lista utbildningsprogram.
+
+!***> Lista utbildningsprogram inloggad som "admin" användare
+
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $adminAuthToken | educationalProgram | | OK |
+
+*!
+Ej inloggade användare skall inte få lista utbildningsprogram, därför förväntar sig testet FORBIDDEN om en ej inloggad användare försöker lista utbildningsprogram.
+
+!***> Lista utbildningsprogram utan att vara inloggad (guestUser) HAR STÄNGT AV TESTET DÅ DET EJ GÅR IGENOM PÅ BYGGSERVERN(?)
+
+!| Comment |
+| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| | educationalProgram | | FORBIDDEN |
+
+*!

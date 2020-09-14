@@ -1,0 +1,18 @@
+---
+Help: Skapa en ny nationell ämneskategori
+Test
+---
+!contents -R2 -g -p -f -h
+!1 Skapa en ny nationell ämneskategori (AVSTÄNGT)
+Det ska vara möjligt att skapa en ny nationell ämneskategori via REST API:et
+
+Testet visar att adminanvändare har möjlighet att skapa en nationell ämneskategoripost
+
+!***> Skapa en ny nationell ämneskategori (AVSTÄNGT)
+
+!| comment |
+| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | nationalSubjectCategory | {"name":"nationalSubjectCategory","children":[{"name":"recordInfo","children":[{"name":"id","value":""},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"name","children":[{"name":"nationalSubjectCategoryName","value":"Ny nationell ämneskategori"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"nationalSubjectCategoryName","value":"New national subject category"},{"name":"language","value":"en"}]},{"name":"subjectCode","value":"7897"},{"name":"eligible","value":"Yes"},{"name":"nationalSubjectCategoryParent","children":[{"name":"nationalSubjectCategory","children":[{"name":"linkedRecordType","value":"nationalSubjectCategory"},{"name":"linkedRecordId","value":"11624"}]}],"repeatId":"0"}]} | | CREATED |
+
+*!

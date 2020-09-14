@@ -1,0 +1,52 @@
+---
+Help: Radera ett ämne/kurs
+Test
+---
+!contents -R2 -g -p -f -h
+!1 Testar radera ett ämne/kurs
+Det ska gå att radera ett ämne/kurs via REST API:et.
+
+!***> Skapa ett nytt ämne/kurs
+
+Först skapar vi ett ämne/kurs, för att sedan kunna radera den
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecordCreatedType? | getStatusType? | getCreatedId? |
+| $adminAuthToken | subjectCourse | {"name":"subjectCourse","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"name","children":[{"name":"subjectCourseName","value":"Fitnesse subjectCourse to be deleted"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"subjectCourseName","value":"Fitnesse subjectCourse to be deleted (eng)"},{"name":"language","value":"en"}]},{"name":"domain","value":"du"},{"name":"subjectCourseCode","value":"789"},{"name":"subjectCourseEligible","value":"Yes"},{"name":"subjectCourseParent","children":[{"name":"subjectCourseLink","children":[{"name":"linkedRecordType","value":"subjectCourse"},{"name":"linkedRecordId","value":"subjectCourse:7614115377473535"}]}],"repeatId":"0"},{"name":"subjectCourseFormerName","children":[{"name":"subjectCourseLink","children":[{"name":"linkedRecordType","value":"subjectCourse"},{"name":"linkedRecordId","value":"subjectCourse:7614039478225834"}]}],"repeatId":"1"},{"name":"subjectCourseClosed","value":"2012-01-01"}]} | subjectCourse | CREATED | $createdId= |
+
+*!
+!***> Läs det nyskapade ämne/kursen i Json
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | subjectCourse | $createdId | =~/"value":"Fitnesse subjectCourse to be deleted"/ | OK |
+
+*!
+!***> Lista ämne/kurs
+
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $adminAuthToken | subjectCourse | | OK |
+
+*!
+!***> Radera det nyskapade ämne/kursen
+
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $adminAuthToken | subjectCourse | $createdId | | OK |
+
+*!
+!***> Försök läsa det raderade ämne/kursen
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | subjectCourse | $createdId | | NOT_FOUND |
+
+*!
+!***> Lista ämne/kurs - ämne/kurs med status DELETED exkluderas
+
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $adminAuthToken | subjectCourse | | OK |
+
+*!

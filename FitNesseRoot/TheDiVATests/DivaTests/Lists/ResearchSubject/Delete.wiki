@@ -1,0 +1,52 @@
+---
+Help: Radera ett forskningsämne
+Test
+---
+!contents -R2 -g -p -f -h
+!1 Testar radera ett forskningsämne
+Det ska gå att radera ett forskningsämne via REST API:et.
+
+!***> Skapa ett nytt forskningsämne
+
+Först skapar vi ett forskningsämne, för att sedan kunna radera den
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecordCreatedType? | getStatusType? | getCreatedId? |
+| $adminAuthToken | researchSubject | {"name":"researchSubject","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"name","children":[{"name":"researchSubjectName","value":"Fitnesse researchSubject to be deleted"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"researchSubjectName","value":"Fitnesse researchSubject to be deleted (eng)"},{"name":"language","value":"en"}]},{"name":"domain","value":"du"},{"name":"eligible","value":"Yes"},{"name":"researchSubjectCode","value":"1235"},{"name":"researchSubjectParent","children":[{"name":"researchSubjectLink","children":[{"name":"linkedRecordType","value":"researchSubject"},{"name":"linkedRecordId","value":"researchSubject:7622433053610710"}]}],"repeatId":"0"},{"name":"closedDate","value":"2012-01-01"}]} | researchSubject | CREATED | $createdId= |
+
+*!
+!***> Läs det nyskapade forskningsämnet i Json
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | researchSubject | $createdId | =~/"value":"Fitnesse researchSubject to be deleted"/ | OK |
+
+*!
+!***> Lista forskningsämne
+
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $adminAuthToken | researchSubject | | OK |
+
+*!
+!***> Radera det nyskapade forskningsämnet
+
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $adminAuthToken | researchSubject | $createdId | | OK |
+
+*!
+!***> Försök läsa det raderade forskningsämnet
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | researchSubject | $createdId | | NOT_FOUND |
+
+*!
+!***> Lista forskningsämne - forskningsämne med status DELETED exkluderas
+
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $adminAuthToken | researchSubject | | OK |
+
+*!

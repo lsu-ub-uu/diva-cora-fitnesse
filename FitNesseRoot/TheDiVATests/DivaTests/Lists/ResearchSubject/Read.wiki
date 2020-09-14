@@ -1,0 +1,34 @@
+---
+Help: Lista och läs ett forskningsämne
+Test
+---
+!contents -R2 -g -p -f -h
+!1 Listning och läsning av forskningsämne
+Det skall gå att lista och läsa forskningsämne via REST API:et.
+
+!***> Läs researchSubject:18586564551132161 i  JSON format
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | researchSubject | researchSubject:18586564551132161 | | OK |
+
+*!
+"Admin" användare skall kunna lista forskningsämne.
+
+!***> Lista forskningsämne inloggad som "admin" användare
+
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $adminAuthToken | researchSubject | | OK |
+
+*!
+Ej inloggade användare skall inte få lista forskningsämne, därför förväntar sig testet FORBIDDEN om en ej inloggad användare försöker lista forskningsämne.
+
+!***> Lista forskningsämne utan att vara inloggad (guestUser) HAR STÄNGT AV TESTET DÅ DET EJ GÅR IGENOM PÅ BYGGSERVERN(?)
+
+!| Comment |
+| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| | researchSubject | | FORBIDDEN |
+
+*!

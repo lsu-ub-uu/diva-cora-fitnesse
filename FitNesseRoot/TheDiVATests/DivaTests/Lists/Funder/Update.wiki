@@ -1,0 +1,38 @@
+---
+Help: Uppdatera en forskningsfinansiär
+Test
+---
+!contents -R2 -g -p -f -h
+!1 Testar uppdatering av forskningsfinansiär
+Det ska vara möjligt att uppdatera forskningsfinansiär via REST API.
+
+Testet visar att adminanvändare har möjlighet att uppdatera forskningsfinansiärsposten
+
+!*** Läs funder:18507699573680362
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | funder | funder:18507699573680362 | =~/"value":"Testfinansiär"/ | OK |
+
+*!
+!***> Uppdatera med ny huvudtitel
+
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | funder | funder:18507699573680362 | {"name":"funder","children":[{"name":"recordInfo","children":[{"name":"id","value":"funder:18507699573680362"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"funder"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2020-09-01T13:39:53.992463Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2020-09-01T13:39:53.992463Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"funderName","value":"Ny huvudtitel"},{"name":"language","value":"sv"}]}]} | | OK |
+
+*!
+!*** Läs  funder:18507699573680362  igen för att se att den är uppdaterad
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | funder | funder:18507699573680362 | =~/"value":"Ny huvudtitel"/ | OK |
+
+*!
+!*** Återställ ursprunglig  funder:18507699573680362
+
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | funder | funder:18507699573680362 | {"name":"funder","children":[{"name":"recordInfo","children":[{"name":"id","value":"funder:18507699573680362"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"funder"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2020-09-01T13:39:53.992463Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2020-09-01T13:39:53.992463Z"}],"repeatId":"0"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}]},{"name":"tsUpdated","value":"2020-09-01T13:42:23.946985Z"}],"repeatId":"1"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}]},{"name":"tsUpdated","value":"2020-09-01T13:43:10.176327Z"}],"repeatId":"2"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2020-09-01T13:44:05.823376Z"}],"repeatId":"3"}]},{"name":"name","children":[{"name":"funderName","value":"Testfinansiär"},{"name":"language","value":"sv"}]}]} | | OK |
+
+*!
