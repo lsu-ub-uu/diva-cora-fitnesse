@@ -9,94 +9,46 @@ Test
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? | getCreatedId? |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"nationalSubjectCategory"}]},{"name":"recordId","value":"11625"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"nationalSubjectCategory"}]},{"name":"recordId","value":"11649"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"nationalSubjectCategory"}]},{"name":"recordId","value":"11776"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"nationalSubjectCategory"}]},{"name":"recordId","value":"11720"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"nationalSubjectCategory"}]},{"name":"recordId","value":"11748"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"nationalSubjectCategory"}]},{"name":"recordId","value":"11759"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"sustainableDevelopment"}]},{"name":"recordId","value":"sustainableDevelopment:15052052619927048"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"sustainableDevelopment"}]},{"name":"recordId","value":"sustainableDevelopment:18508181306065340"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"sustainableDevelopment"}]},{"name":"recordId","value":"sustainableDevelopment:14276601024934460"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"sustainableDevelopment"}]},{"name":"recordId","value":"sustainableDevelopment:18508856228690168"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
 
 *!
-!***> Test sök nationell ämneskategori med bara namn
+!***> Test sök hållbar utveckling med bara namn
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | nationalSubjectCategorySearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"nationalSubjectCategoryNameSearchTerm","value":"**"}]}]}]} | | OK |
-| $adminAuthToken | nationalSubjectCategorySearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"nationalSubjectCategoryNameSearchTerm","value":"Social och ekonomisk geografi"}]}]}]} | =~/"name":"id","value":"11759"/ | OK |
-| $adminAuthToken | nationalSubjectCategorySearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"nationalSubjectCategoryNameSearchTerm","value":"ingenNationellÄmneskategoriSomHarDetHärNamnet"}]}]}]} | =~/"totalNo":"0"/ | OK |
+| $adminAuthToken | sustainableDevelopmentSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"sustainableDevelopmentSearchTerm","value":"**"}]}]}]} | | OK |
+| $adminAuthToken | sustainableDevelopmentSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"sustainableDevelopmentSearchTerm","value":"Något om hållbar utveckling"}]}]}]} | =~/"name":"id","value":"sustainableDevelopment:14276601024934460"/ | OK |
+| $adminAuthToken | sustainableDevelopmentSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"sustainableDevelopmentSearchTerm","value":"ingenHållbarUtvecklingSomHarDetHärNamnet"}]}]}]} | =~/"totalNo":"0"/ | OK |
 
 *!
-!***> Test sök nationell ämneskategori med bara id (AVSTÄNGT, fungerar ej)
+!***> Test sök hållbar utveckling med bara id
 
 !| comment |
 | RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | nationalSubjectCategorySearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"11757"}]}]}]} | =~/"name":"id","value":"11757"/ | OK |
+| $adminAuthToken | sustainableDevelopmentSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"sustainableDevelopmentSearchTerm","value":"sustainableDevelopment:14276601024934460"}]}]}]} | =~/"name":"id","value":"sustainableDevelopment:14276601024934460"/ | OK |
 
 *!
-
-!4 Organisation går att söka på med hjälp av autosök
-!***> Test sök med "autosök" söksträng AVSTÄNGT
-
-!| comment |
-| RecordEndpointFixture |
-| authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | | | OK |
-
-*!
-!4 Organisation söks med autocomplete i registreringsformuläret
+!4 Hållbar utveckling söks med autocomplete i registreringsformuläret
 !***> Test sök i regformulär med "autocomplete" AVSTÄNGT
 
 !| comment |
 | Sökstöd autocomplete vid registrering av fält som är baserade på listval [[CORA-1013][https://jira.epc.ub.uu.se/browse/CORA-1013]] Listvalen |
 | RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | !-
+| $adminAuthToken | sustainableDevelopmentSearch | !-
 -! | | OK |
 
 *!
-Om man söker på ett organisationsnummer som innehåller t.ex. bindestreck så ska man bara få träff på hela organisationsnumret, inte på delar av det.!-
--!Vi uppdaterar organisation 1750 så att förledet i organisationsnumret är samma som för organisation 1. Sen söker vi på hela organisationsnumret för organisation 1 och ser att vi bara får träff på den.
-
-!***> Uppdatera organisation 1750 med nytt organisationsnummer
-
-!| Comment |
-| RecordEndpointFixture |
-| authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | divaOrganisation | 1750 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1750"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Uppsala universitet"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"Uppsala University"},{"name":"language","value":"en"}]},{"name":"domain","value":"uu"},{"name":"URL","value":"http://uu.se"},{"name":"organisationType","value":"university"},{"name":"organisationNumber","value":"202100-2222"},{"name":"eligible","value":"yes"},{"name":"showInDefence","value":"yes"},{"name":"topLevel","value":"no"},{"name":"showInPortal","value":"yes"},{"name":"rootOrganisation","value":"no"}]} | | OK |
-
-*!
-!4 Organisation kan sökas även när tecken å, ä eller ö finns i organisationsnamnet
+!4 Hållbar utveckling kan sökas även när tecken å, ä eller ö finns i namnet
 !***> Test sök med å, ä eller ö i söksträng:
 
-!| Comment |
-| RecordEndpointFixture |
+!| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"*å*"}]}]}]} | | OK |
+| $adminAuthToken | sustainableDevelopmentSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"sustainableDevelopmentSearchTerm","value":"*å*"}]}]}]} | | OK |
 
 *!
-!4 Organisation måste ha alternativt namn
-!***> Indexerar organisation som inte har något alternativt namn
 
-!| Comment |
-| RecordEndpointFixture |
-| authToken | type | json | testCreateRecord? | getStatusType? | getCreatedId? |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"recordId","value":"1452"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
-
-*!
-!***> Test sök efter organisationen utan alternativt namn, för att se att sökningen fungerar
-
-!| Comment |
-| RecordEndpointFixture |
-| authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"Organisation som saknar alternativt namn"}]}]}]} | =~/"name":"id","value":"1452"/ | OK |
-
-*!
-!***> Återställ uppdaterat data
-
-!| Comment |
-| RecordEndpointFixture |
-| authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | divaOrganisation | 1750 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1750"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Uppsala universitet"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"Uppsala University"},{"name":"language","value":"en"}]},{"name":"domain","value":"uu"},{"name":"URL","value":"http://uu.se"},{"name":"organisationType","value":"university"},{"name":"organisationNumber","value":"1111-2222"},{"name":"eligible","value":"yes"},{"name":"showInDefence","value":"yes"},{"name":"topLevel","value":"no"},{"name":"showInPortal","value":"yes"},{"name":"rootOrganisation","value":"no"}]} | | OK |
-
-*!
