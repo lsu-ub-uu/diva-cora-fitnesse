@@ -3,21 +3,8 @@ Help: A test that checks that idpLogin works as expected
 Test
 ---
 !contents -R2 -g -p -f -h
-| import |
-| se.uu.ub.cora.fitnesseintegration |
-
-!| script | SystemUrl |
-| setUrl | ${systemUnderTestUrl} |
-| setAppTokenVerifierUrl | ${appTokenVerifierUrl} |
-| setIdpLoginUrl | ${idpLoginUrl} |
-| setGatekeeperServerUrl | ${gatekeeperServerUrl} |
-
-!| script | DependencyProvider |
-| setHttpHandlerFactoryClassName | se.uu.ub.cora.httphandler.HttpHandlerFactoryImp |
-| setJsonToDataFactoryClassName | se.uu.ub.cora.clientdata.converter.jsontojava.JsonToDataConverterFactoryImp |
-
 !1 !-IdpLoginTest-!
-IdpLogin skyddas i test och produktion av apache och är inte åtkomligt utan en godkänd inloggning mot en lokal idp. Vi förväntar oss att parametern eppn är med när användaren släpps förbi apache och får tillgång till idpLogin servern. Parametern eppn skcikas vidare till gatekeeperServer som letar i databasen efter en användare med matchande eppn. Gatekeeper returnerar en authtoken för användaren och sparar användaren som inloggad. Om ingen matchande användare hittas så skapas och returneras en authToken för systemets gästanvändare.
+IdpLogin skyddas i test och produktion av apache och är inte åtkomligt utan en godkänd inloggning mot en lokal idp. Vi förväntar oss att parametern eppn är med när användaren släpps förbi apache och får tillgång till idpLogin servern. Parametern eppn skickas vidare till gatekeeperServer som letar i databasen efter en användare med matchande eppn. Gatekeeper returnerar en authtoken för användaren och sparar användaren som inloggad. Om ingen matchande användare hittas så skapas och returneras en authToken för systemets gästanvändare.
 
 !2 Hämta authTokens via idpLogin
 !***> Hämta authTokens från idpLogin server

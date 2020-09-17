@@ -6,6 +6,8 @@
 !| script | SystemUrl |
 | setUrl | ${systemUnderTestUrl} |
 | setAppTokenVerifierUrl | ${appTokenVerifierUrl} |
+| setIdpLoginUrl | ${idpLoginUrl} |
+| setGatekeeperServerUrl | ${gatekeeperServerUrl} |
 
 !| script | DependencyProvider |
 | setHttpHandlerFactoryClassName | se.uu.ub.cora.httphandler.HttpHandlerFactoryImp |
@@ -36,3 +38,15 @@
 *!
 !| script | AuthTokenHolder |
 | setUserAuthToken | $userAuthToken |
+
+!2 Login for DiVA example users
+!***> Hämta authTokens från idpLogin server
+
+!| IdpLoginServletFixture |
+| EPPN | getAuthTokenForEPPN? | getIdFromLogin? | getResponseCode? | getAuthToken? | getValidForNoSeconds? | getDeleteUrl? |
+| fitnesseSystemAdmin@user.uu.se | | fitnesseSystemAdmin@user.uu.se | OK | $systemAdminAuthToken= | | ${tokenLogoutURL}64 |
+| fitnesseDomainAdminUU@user.uu.se | | fitnesseDomainAdminUU@user.uu.se | OK | $domainAdminUUAuthToken= | | ${tokenLogoutURL}65 |
+| fitnesseDomainAdminKTH@user.kth.se | | fitnesseDomainAdminKTH@user.kth.se | OK | $domainAdminKTHAuthToken= | | ${tokenLogoutURL}66 |
+| userNotInDb@user.uu.se | | null | OK | $guestToken= | | ${tokenLogoutURL}12345 |
+
+*!
