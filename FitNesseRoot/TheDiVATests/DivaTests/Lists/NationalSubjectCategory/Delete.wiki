@@ -1,0 +1,55 @@
+---
+Help: Radera en nationell ämneskategori
+Test
+---
+!contents -R2 -g -p -f -h
+!1 Testar radera en nationell ämneskategori (delvis AVSTÄNGT)
+Det ska gå att radera en nationell ämneskategori via REST API:et.
+
+!***> Skapa en ny nationell ämneskategori (AVSTÄNGT)
+
+Först skapar vi en nationell ämneskategori, för att sedan kunna radera den
+
+!| comment |
+| RecordEndpointFixture |
+| authToken | type | json | testCreateRecordCreatedType? | getStatusType? | getCreatedId? |
+| $adminAuthToken | nationalSubjectCategory | KLISTRA IN JSON | nationalSubjectCategory | CREATED | $createdId= |
+
+*!
+!***> Läs den nyskapade nationella ämneskategorin i Json (AVSTÄNGT)
+
+!| comment |
+| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | nationalSubjectCategory | $createdId | =~/"value":"Fitnesse nationalSubjectCategory to be deleted"/ | OK |
+
+*!
+!***> Lista nationell ämneskategori
+
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $adminAuthToken | nationalSubjectCategory | | OK |
+
+*!
+!***> Radera den nyskapade nationella ämneskategorin (AVSTÄNGT)
+
+!| comment |
+| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $adminAuthToken | nationalSubjectCategory | $createdId | | OK |
+
+*!
+!***> Försök läsa den raderade nationella ämneskategorin
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | nationalSubjectCategory | $createdId | | NOT_FOUND |
+
+*!
+!***> Lista nationell ämneskategori - nationell ämneskategori med status DELETED exkluderas
+
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $adminAuthToken | nationalSubjectCategory | | OK |
+
+*!

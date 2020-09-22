@@ -1,0 +1,34 @@
+---
+Help: Lista och läs en forskningsfinansiär
+Test
+---
+!contents -R2 -g -p -f -h
+!1 Listning och läsning av forskningsfinansiär
+Det skall gå att lista och läsa forskningsfinansiär via REST API:et. 
+
+!***> Läs funder:98564134953724 i  JSON format
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | funder | funder:98564134953724 | | OK |
+
+*!
+"Admin" användare skall kunna lista forskningsfinansiärer.
+
+!***> Lista forskningsfinansiär inloggad som "admin" användare
+
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $adminAuthToken | funder | | OK |
+
+*!
+Ej inloggade användare skall inte få lista forskningsfinansiär, därför förväntar sig testet FORBIDDEN om en ej inloggad användare försöker lista forskningsfinansiär.
+
+!***> Lista forskningsfinansiär utan att vara inloggad (guestUser) HAR STÄNGT AV TESTET DÅ DET EJ GÅR IGENOM PÅ BYGGSERVERN(?)
+
+!| Comment |
+| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| | funder | | FORBIDDEN |
+
+*!

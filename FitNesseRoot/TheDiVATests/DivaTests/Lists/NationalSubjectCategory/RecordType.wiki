@@ -1,0 +1,59 @@
+---
+Help: Testar listtyp nationell ämneskategori
+Test
+---
+!contents -R2 -g -p -f -h
+!1 Testar posttyp nationell ämneskategori
+Det ska gå att läsa posttyp nationell ämneskategori via REST API:et.
+
+!***> Läs listtyp nationell ämneskategori
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | recordType | nationalSubjectCategory | | OK |
+
+*!
+Det ska gå att läsa toppnivån av metadatagruppen för en ny nationell ämneskategori från REST API:et
+
+!***> Ladda journalNewGroup för nationell ämneskategori för att användas i tester
+
+!| RecordEndpointFixture |
+| type | id | testReadRecordAndStoreJson? |
+| metadataGroup | nationalSubjectCategoryNewGroup | |
+
+*!
+Test av metadata för att skapa en ny nationell ämneskategori
+
+!***> Kontrollera barn i nationalSubjectCategoryNewGroup
+
+!| MetadataLinkFixture |
+| linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
+| metadataGroup | recordInfoDivaNewGroup | 1 | 1 |
+| metadataGroup | nationalSubjectCategoryNameGroup | 1 | 1 |
+| metadataGroup | nationalSubjectCategoryAlternativeNameGroup | 1 | 1 |
+| metadataTextVariable | subjectCodeTextVar | 1 | 1 |
+| metadataCollectionVariable | eligibleCollectionVar | 1 | 1 |
+| metadataGroup | nationalSubjectCategoryParentGroup | 0 | X |
+
+*!
+!***> Ladda journalGroup för nationell ämneskategori för att använda i tester
+
+!| RecordEndpointFixture |
+| type | id | testReadRecordAndStoreJson? |
+| metadataGroup | nationalSubjectCategoryGroup | |
+
+*!
+Test av metadata för skapandet av en ny nationell ämneskategori
+
+!***> Kontrollera barn för nationalSubjectCategoryGroup
+
+!| MetadataLinkFixture |
+| linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
+| metadataGroup | recordInfoDivaGroup | 1 | 1 |
+| metadataGroup | nationalSubjectCategoryNameGroup | 1 | 1 |
+| metadataGroup | nationalSubjectCategoryAlternativeNameGroup | 1 | 1 |
+| metadataTextVariable | subjectCodeTextVar | 1 | 1 |
+| metadataCollectionVariable | eligibleCollectionVar | 1 | 1 |
+| metadataGroup | nationalSubjectCategoryParentGroup | 0 | X |
+
+*!

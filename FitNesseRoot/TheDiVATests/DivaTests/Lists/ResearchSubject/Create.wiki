@@ -1,0 +1,17 @@
+---
+Help: Skapa ett nytt forskningsämne
+Test
+---
+!contents -R2 -g -p -f -h
+!1 Skapa ett nytt forskningsämne
+Det ska vara möjligt att skapa ett nytt forskningsämne via REST API:et
+
+Testet visar att adminanvändare har möjlighet att skapa en forskningsämnespost
+
+!***> Skapa ett nytt forskningsämne
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | researchSubject | {"name":"researchSubject","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"name","children":[{"name":"researchSubjectName","value":"FitnesseTest för forskningsämne"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"researchSubjectName","value":"FitnesseTest for research subject"},{"name":"language","value":"en"}]},{"name":"domain","value":"du"},{"name":"eligible","value":"Yes"},{"name":"researchSubjectCode","value":"1234"},{"name":"researchSubjectParent","children":[{"name":"researchSubjectLink","children":[{"name":"linkedRecordType","value":"researchSubject"},{"name":"linkedRecordId","value":"researchSubject:7622433053610710"}]}],"repeatId":"0"},{"name":"closedDate","value":"2012-01-01"}]} | | CREATED |
+
+*!

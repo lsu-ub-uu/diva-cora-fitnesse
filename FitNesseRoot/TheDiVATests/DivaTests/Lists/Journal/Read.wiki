@@ -1,0 +1,34 @@
+---
+Help: Lista och läs en tidskrift
+Test
+---
+!contents -R2 -g -p -f -h
+!1 Listning och läsning av tidskrift
+Det skall gå att lista och läsa tidskrifter via REST API:et.
+
+!***> Läs journal:18591009334092690i  JSON format
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | journal | journal:18591009334092690 | | OK |
+
+*!
+"Admin" användare skall kunna lista tidskrift.
+
+!***> Lista tidskrifter inloggad som "admin" användare
+
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $adminAuthToken | journal | | OK |
+
+*!
+Ej inloggade användare skall inte få lista tidskrifter, därför förväntar sig testet FORBIDDEN om en ej inloggad användare försöker lista tidskrifter.
+
+!***> Lista tidskrift utan att vara inloggad (guestUser) HAR STÄNGT AV TESTET DÅ DET EJ GÅR IGENOM PÅ BYGGSERVERN(?)
+
+!| Comment |
+| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| | journal | | FORBIDDEN |
+
+*!

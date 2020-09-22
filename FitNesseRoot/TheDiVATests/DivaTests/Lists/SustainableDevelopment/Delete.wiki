@@ -1,0 +1,52 @@
+---
+Help: Radera en hållbar utvecklingspost
+Test
+---
+!contents -R2 -g -p -f -h
+!1 Testar radera en hållbar utvecklingspost (funkar ej)
+Det ska gå att radera en hållbar utvecklingspost via REST API:et.
+
+!***> Skapa en ny hållbar utvecklingspost
+
+Först skapar vi en hållbar utvecklingspost, för att sedan kunna radera den
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecordCreatedType? | getStatusType? | getCreatedId? |
+| $adminAuthToken | sustainableDevelopment | {"name":"sustainableDevelopment","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"name","children":[{"name":"sustainableDevelopmentName","value":"Fitnesse sustainalbeDevelopment to be deleted"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"sustainableDevelopmentName","value":"Fitnesse sustainalbeDevelopment to be deleted (eng)"},{"name":"language","value":"en"}]},{"name":"domain","value":"du"}]} | sustainableDevelopment | CREATED | $createdId= |
+
+*!
+!***> Läs den nyskapade hållbar utvecklingsposten i Json
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | sustainableDevelopment | $createdId | =~/"value":"Fitnesse sustainalbeDevelopment to be deleted"/ | OK |
+
+*!
+!***> Lista hållbar utveckling
+
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $adminAuthToken | sustainableDevelopment | | OK |
+
+*!
+!***> Radera den nyskapade hållbar utvecklingsposten
+
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $adminAuthToken | sustainableDevelopment | $createdId | | OK |
+
+*!
+!***> Försök läsa den raderade hållbar utvecklingsposten
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | sustainableDevelopment | $createdId | | NOT_FOUND |
+
+*!
+!***> Lista hållbar utveckling - hållbar utvecklingsposter med status DELETED exkluderas
+
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $adminAuthToken | sustainableDevelopment | | OK |
+
+*!

@@ -1,0 +1,17 @@
+---
+Help: Skapa en ny utgivare
+Test
+---
+!contents -R2 -g -p -f -h!contents -R2 -g -p -f -h
+!1 Skapa en ny utgivare
+Det ska vara möjligt att skapa en ny utgivare via REST API:et
+
+Testet visar att adminanvändare har möjlighet att skapa en utgivarespost
+
+!***> Skapa en ny forskningsfinansiär
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | publishingHouse | {"name":"publishingHouse","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"name","value":"Testar skapa utgivare"},{"name":"externalId","value":"54a6sd898"}]} | | CREATED |
+
+*!

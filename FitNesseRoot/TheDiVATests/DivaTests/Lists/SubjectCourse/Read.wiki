@@ -1,0 +1,34 @@
+---
+Help: Lista och läs ett ämne/kurs
+Test
+---
+!contents -R2 -g -p -f -h
+!1 Listning och läsning av ämne/kurs
+Det skall gå att lista och läsa ämne/kurs via REST API:et.
+
+!***> Läs subjectCourse:18750298210458143 i  JSON format
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | subjectCourse | subjectCourse:18750298210458143 | | OK |
+
+*!
+"Admin" användare skall kunna lista ämne/kurs.
+
+!***> Lista ämne/kurs inloggad som "admin" användare
+
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $adminAuthToken | subjectCourse | | OK |
+
+*!
+Ej inloggade användare skall inte få lista ämne/kurs, därför förväntar sig testet FORBIDDEN om en ej inloggad användare försöker lista ämne/kurs.
+
+!***> Lista ämne/kurs utan att vara inloggad (guestUser) HAR STÄNGT AV TESTET DÅ DET EJ GÅR IGENOM PÅ BYGGSERVERN(?)
+
+!| Comment |
+| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| | subjectCourse | | FORBIDDEN |
+
+*!

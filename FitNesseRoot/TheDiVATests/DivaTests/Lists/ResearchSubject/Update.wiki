@@ -1,0 +1,38 @@
+---
+Help: Uppdatera ett forskningsämne
+Test
+---
+!contents -R2 -g -p -f -h
+!1 Testar uppdatering av forskningsämne
+Det ska vara möjligt att uppdatera forskningsämne via REST API.
+
+Testet visar att adminanvändare har möjlighet att uppdatera forskningsämnesposten
+
+!*** Läs researchSubject:18587811678865777
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | researchSubject | researchSubject:18587811678865777 | =~/"value":"Nytt forskningsämne"/ | OK |
+
+*!
+!***> Uppdatera med ny huvudtitel
+
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | researchSubject | researchSubject:18587811678865777 | {"name":"researchSubject","children":[{"name":"recordInfo","children":[{"name":"id","value":"researchSubject:18587811678865777"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"researchSubject"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2020-09-02T11:55:06.097635Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2020-09-02T11:55:06.097635Z"}],"repeatId":"0"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2020-09-02T11:55:55.235157Z"}],"repeatId":"1"}]},{"name":"name","children":[{"name":"researchSubjectName","value":"Nytt namn"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"researchSubjectName","value":"New research subject"},{"name":"language","value":"en"}]},{"name":"domain","value":"du"},{"name":"eligible","value":"Yes"},{"name":"researchSubjectCode","value":"1234"},{"name":"researchSubjectParent","children":[{"name":"researchSubjectLink","children":[{"name":"linkedRecordType","value":"researchSubject"},{"name":"linkedRecordId","value":"researchSubject:7622433053610710"}]}],"repeatId":"0"},{"name":"closedDate","value":"2012-01-01"}]} | | OK |
+
+*!
+!*** Läs researchSubject:18587811678865777   igen för att se att den är uppdaterad
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | researchSubject | researchSubject:18587811678865777 | =~/"value":"Nytt namn"/ | OK |
+
+*!
+!*** Återställ ursprunglig researchSubject:18587811678865777
+
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | researchSubject | researchSubject:18587811678865777 | {"name":"researchSubject","children":[{"name":"recordInfo","children":[{"name":"id","value":"researchSubject:18587811678865777"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"researchSubject"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2020-09-02T11:55:06.097635Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2020-09-02T11:55:06.097635Z"}],"repeatId":"0"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2020-09-02T11:55:55.235157Z"}],"repeatId":"1"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}]},{"name":"tsUpdated","value":"2020-09-02T11:56:18.377158Z"}],"repeatId":"2"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}]},{"name":"tsUpdated","value":"2020-09-02T11:57:06.415790Z"}],"repeatId":"3"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2020-09-02T11:57:36.036690Z"}],"repeatId":"4"}]},{"name":"name","children":[{"name":"researchSubjectName","value":"Nytt forskningsämne"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"researchSubjectName","value":"New research subject"},{"name":"language","value":"en"}]},{"name":"domain","value":"du"},{"name":"eligible","value":"Yes"},{"name":"researchSubjectCode","value":"1234"},{"name":"researchSubjectParent","children":[{"name":"researchSubjectLink","children":[{"name":"linkedRecordType","value":"researchSubject"},{"name":"linkedRecordId","value":"researchSubject:7622433053610710"}]}],"repeatId":"0"},{"name":"closedDate","value":"2012-01-01"}]} | | OK |
+
+*!

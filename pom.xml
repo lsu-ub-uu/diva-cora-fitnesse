@@ -22,7 +22,7 @@
 	<parent>
 		<groupId>se.uu.ub.cora</groupId>
 		<artifactId>cora-parent</artifactId>
-		<version>1.0.2</version>
+		<version>1.1.1</version>
 	</parent>
 
 	<artifactId>divacorafitnesse</artifactId>
@@ -31,13 +31,13 @@
 	<name>DiVA Cora Fitnesse</name>
 
 	<properties>
-		<json.version>2.0.1</json.version>
-		<httphandler.version>2.0.0</httphandler.version>
-		<fitnesseintegration.version>2.7.0</fitnesseintegration.version>
-		<divamixedstorage.version>3.13.0</divamixedstorage.version>
+		<json.version>2.1.0</json.version>
+		<httphandler.version>2.1.0</httphandler.version>
+		<fitnesseintegration.version>2.8.0</fitnesseintegration.version>
+		<divamixedstorage.version>3.14.0</divamixedstorage.version>
 		<javax.ws.rs.version>2.1.1</javax.ws.rs.version>
-		<coradata.version>3.5.0</coradata.version>
-		<commons-text.version>1.8</commons-text.version>
+		<coradata.version>3.6.0</coradata.version>
+		<commons-text.version>1.9</commons-text.version>
 		<smartrics-RestFixture.version>4.4</smartrics-RestFixture.version>
 	</properties>
 
