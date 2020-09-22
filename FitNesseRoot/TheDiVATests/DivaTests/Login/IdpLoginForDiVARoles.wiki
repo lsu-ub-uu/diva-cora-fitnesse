@@ -6,23 +6,20 @@ Test
 !1 !-Idplogin test för DiVA roller-!
 Det finns i DiVA classic ett antal olika användargrupper, dessa matchas mot motsvarande roller när man loggar in i DiVA powered by Cora. Som systemet är uppsatt just nu
 
-!2 SystemAdmin
-SystemAdmin är en roll för de som administrerar systemet.
-
-!3 SystemAdmin
- * '''Fall1:''' Läs exempel användaren för SystemAdmin.
-
+!2 !-SystemAdmin-!
+!-SystemAdmin är en roll för de som administrerar systemet.-!
+ * '''Fall1:''' !-Läs exempel användaren för SystemAdmin för att se att den har en länk till rätt roll (divaSystemAdminRole).-!
 !***> '''Fall1'''
 
-Vi läser exempel användaren för SystemAdmin, för att se att den har rätt roll kopplad.
+!-Vi läser exempel användaren för SystemAdmin, för att se att den har en länk till rätt roll (divaSystemAdminRole).-!
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | user | 64 | | OK |
+| $adminAuthToken | user | 64 | =~/\{"name":"linkedRecordType","value":"permissionRole"\},\{"name":"linkedRecordId","value":"divaSystemAdminRole"\}/ | OK |
 
 *!
-!2 DomainAdmin
-DomainAdmin är en roll för de som administrerar de olika domänerna i DiVA. När man ger en användare denna roll måste man också koppla  en rättighet som styr vilken domän som användaren får administrera.
+!2 !-DomainAdmin-!
+!-DomainAdmin är en roll för de som administrerar de olika domänerna i DiVA. När man ger en användare denna roll måste man också koppla  en rättighet som styr vilken domän som användaren får administrera.-!
 
 !2 Guest
 Guest är den roll som systemets gästanvändare har. Alla som inte är inloggade räknas i systemet automatiskt som att de är användaren guest och har då rollen guest.
