@@ -9,6 +9,18 @@ Det finns i DiVA classic ett antal olika användargrupper, dessa matchas mot mot
 !2 SystemAdmin
 SystemAdmin är en roll för de som administrerar systemet.
 
+!3 SystemAdmin
+ * '''Fall1:''' Läs exempel användaren för SystemAdmin.
+
+!***> '''Fall1'''
+
+Vi läser exempel användaren för SystemAdmin, för att se att den har rätt roll kopplad.
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | user | 64 | | OK |
+
+*!
 !2 DomainAdmin
 DomainAdmin är en roll för de som administrerar de olika domänerna i DiVA. När man ger en användare denna roll måste man också koppla  en rättighet som styr vilken domän som användaren får administrera.
 
