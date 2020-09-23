@@ -1,4 +1,76 @@
 ---
+Help: Sök efter utbildningsprogram
 Test
 ---
-!contents -R2 -g -p -f -h
+!1 Sök efter utbildningsprogram
+!4 
+!4 Utbildningsprogram går att söka på med hjälp av ** (tom söksträng)
+!***> Indexerar utbildningsprogram
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? | getCreatedId? |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"educationalProgram"}]},{"name":"recordId","value":"educationalProgram:18504370001369767"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"educationalProgram"}]},{"name":"recordId","value":"educationalProgram:7545704972570711"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"educationalProgram"}]},{"name":"recordId","value":"educationalProgram:370171749332503"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+
+*!
+!***> Test sök utbildningsprogram med bara namn
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | educationalProgramSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"educationalProgramSearchTerm","value":"**"}]}]}]} | | OK |
+| $adminAuthToken | educationalProgramSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"educationalProgramSearchTerm","value":"Nytt utbildningsprogram"}]}]}]} | =~/"name":"id","value":"educationalProgram:18504370001369767"/ | OK |
+| $adminAuthToken | educationalProgramSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"educationalProgramSearchTerm","value":"ingetUtbildningsprogramSomHarDetHärNamnet"}]}]}]} | =~/"totalNo":"0"/ | OK |
+
+*!
+!***> Test sök utbildningsprogram med bara kod
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | educationalProgramSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"educationalProgramSearchTerm","value":"009"}]}]}]} | =~/"name":"educationalProgramCode","value":"009"/ | OK |
+
+*!
+!4 Utbildningsprogram söks med autocomplete i registreringsformuläret
+!***> Test sök i regformulär med "autocomplete" AVSTÄNGT
+
+!| comment |
+| Sökstöd autocomplete vid registrering av fält som är baserade på listval [[CORA-1013][https://jira.epc.ub.uu.se/browse/CORA-1013]] Listvalen |
+| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | educationalProgramSearch | !-
+-! | | OK |
+
+*!
+!4 Utbildningsprogram kan sökas även när tecken å, ä eller ö finns i ämnesnamnet
+!***> Test sök med å, ä eller ö i söksträng
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | educationalProgramSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"educationalProgramSearchTerm","value":"*å*"}]}]}]} | | OK |
+
+*!
+!4 Utbildningsprogram måste ha alternativt namn
+!***> Indexerar utbildningsprogram som inte har något alternativt namn AVSTÄNGT
+
+!| Comment |
+| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? | getCreatedId? |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"educationalProgram"}]},{"name":"recordId","value":"XXXX"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+
+*!
+!***> Test sök efter utbildningsprogram utan alternativt namn, för att se att sökningen fungerar AVSTÄNGT
+
+!| Comment |
+| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | educationalProgramSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"educationalProgramSearchTerm","value":"Utbildningsprogram som saknar alternativt namn"}]}]}]} | =~/"name":"id","value":"XXXX"/ | OK |
+
+*!
+!***> Återställ uppdaterat data AVSTÄNGT
+
+!| Comment |
+| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | educationalProgram | XXXX | FYLL I JSON | | OK |
+
+*!

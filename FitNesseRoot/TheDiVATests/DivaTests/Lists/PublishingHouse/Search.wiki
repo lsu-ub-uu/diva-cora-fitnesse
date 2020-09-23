@@ -1,4 +1,50 @@
 ---
+Help: Sök efter utgivare
 Test
 ---
-!contents -R2 -g -p -f -h
+!1 Sök efter utgivare
+!4 
+!4 Utgivare går att söka på med hjälp av ** (tom söksträng)
+!***> Indexerar utgivare
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? | getCreatedId? |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"publishingHouse"}]},{"name":"recordId","value":"publishingHouse:5593705909807"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"publishingHouse"}]},{"name":"recordId","value":"publishingHouse:1895616841381427"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+
+*!
+!***> Test sök utgivare med bara namn
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | publishingHouseSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"publishingHouseSearchTerm","value":"**"}]}]}]} | | OK |
+| $adminAuthToken | publishingHouseSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"publishingHouseSearchTerm","value":"Uppsala universitet"}]}]}]} | =~/"name":"id","value":"publishingHouse:1895616841381427"/ | OK |
+| $adminAuthToken | publishingHouseSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"publishingHouseSearchTerm","value":"ingenUtgivareiSomHarDetHärNamnet"}]}]}]} | =~/"totalNo":"0"/ | OK |
+
+*!
+!***> Test sök utgivare med bara externt id
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | publishingHouseSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"publishingHouseSearchTerm","value":"54a6sd898"}]}]}]} | =~/"name":"externalId","value":"54a6sd898"/ | OK |
+
+*!
+!4 Utgivare söks med autocomplete i registreringsformuläret
+!***> Test sök i regformulär med "autocomplete" AVSTÄNGT
+
+!| comment |
+| Sökstöd autocomplete vid registrering av fält som är baserade på listval [[CORA-1013][https://jira.epc.ub.uu.se/browse/CORA-1013]] Listvalen |
+| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | publishingHouseSearch | !-
+-! | | OK |
+
+*!
+!4 Utgivare kan sökas även när tecken å, ä eller ö finns i namnet
+!***> Test sök med å, ä eller ö i söksträng
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | publishingHouseSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"publishingHouseSearchTerm","value":"*ä*"}]}]}]} | | OK |
+
+*!

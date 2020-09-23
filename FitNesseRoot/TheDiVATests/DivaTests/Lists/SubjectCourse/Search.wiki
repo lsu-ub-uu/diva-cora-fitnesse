@@ -1,4 +1,62 @@
 ---
+Help: Sök efter ämne/kurs
 Test
 ---
-!contents -R2 -g -p -f -h
+!1 Sök efter ämne/kurs
+!4 
+!4 Ämne/kurs går att söka på med hjälp av ** (tom söksträng)
+!***> Indexerar ämne/kurs
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? | getCreatedId? |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"subjectCourse"}]},{"name":"recordId","value":"subjectCourse:18770075527386564"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"subjectCourse"}]},{"name":"recordId","value":"subjectCourse:7614115377473535"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"subjectCourse"}]},{"name":"recordId","value":"subjectCourse:7614086276310197"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"subjectCourse"}]},{"name":"recordId","value":"subjectCourse:4973764489879"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"subjectCourse"}]},{"name":"recordId","value":"subjectCourse:7614039478225834"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+
+*!
+!***> Test sök ämne/kurs med bara namn
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | subjectCourseSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"subjectCourseSearchTerm","value":"**"}]}]}]} | | OK |
+| $adminAuthToken | subjectCourseSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"subjectCourseSearchTerm","value":"Ufologi för nybörjare"}]}]}]} | =~/"name":"id","value":"subjectCourse:7614039478225834"/ | OK |
+| $adminAuthToken | subjectCourseSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"subjectCourseSearchTerm","value":"ingenÄmne/kursSomHarDetHärNamnet"}]}]}]} | =~/"totalNo":"0"/ | OK |
+
+*!
+!***> Test sök ämne/kurs med bara alternativt namn
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | subjectCourseSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"subjectCourseSearchTerm","value":"**"}]}]}]} | | OK |
+| $adminAuthToken | subjectCourseSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"subjectCourseSearchTerm","value":"Ufology for N00bs"}]}]}]} | =~/"name":"id","value":"subjectCourse:7614039478225834"/ | OK |
+| $adminAuthToken | subjectCourseSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"subjectCourseSearchTerm","value":"noSubjectCourseWithThisName"}]}]}]} | =~/"totalNo":"0"/ | OK |
+
+*!
+!***> Test sök ämne/kurs med bara kod
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | subjectCourseSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"subjectCourseSearchTerm","value":"789"}]}]}]} | =~/"name":"subjectCourseCode","value":"789"/ | OK |
+
+*!
+!4 Ämne/kurs söks med autocomplete i registreringsformuläret
+!***> Test sök i regformulär med "autocomplete" AVSTÄNGT
+
+!| comment |
+| Sökstöd autocomplete vid registrering av fält som är baserade på listval [[CORA-1013][https://jira.epc.ub.uu.se/browse/CORA-1013]] Listvalen |
+| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | subjectCourseSearch | !-
+-! | | OK |
+
+*!
+!4 Ämne/kurs kan sökas även när tecken å, ä eller ö finns i namnet
+!***> Test sök med å, ä eller ö i söksträng
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | subjectCourseSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"subjectCourseSearchTerm","value":"*ä*"}]}]}]} | | OK |
+
+*!
