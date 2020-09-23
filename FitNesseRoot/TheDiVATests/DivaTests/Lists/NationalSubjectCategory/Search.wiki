@@ -28,10 +28,9 @@ Test
 *!
 !***> Test sök nationell ämneskategori med bara kod
 
-!| comment |
-| RecordEndpointFixture |
+!| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | nationalSubjectCategorySearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"nationalSubjectCategorySearchTerm","value":"11625"}]}]}]} | =~/"name":"subjectCode","value":"11625"/ | OK |
+| $adminAuthToken | nationalSubjectCategorySearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"nationalSubjectCategorySearchTerm","value":"20707"}]}]}]} | =~/"name":"subjectCode","value":"20707"/ | OK |
 
 *!
 !4 Nationell ämneskategori söks med autocomplete i registreringsformuläret
