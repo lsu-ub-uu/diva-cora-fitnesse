@@ -26,19 +26,12 @@ Test
 | $adminAuthToken | nationalSubjectCategorySearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"nationalSubjectCategorySearchTerm","value":"ingenNationellÄmneskategoriSomHarDetHärNamnet"}]}]}]} | =~/"totalNo":"0"/ | OK |
 
 *!
-!***> Test sök nationell ämneskategori med bara id (AVSTÄNGT, fungerar ej)
+!***> Test sök nationell ämneskategori med bara kod
 
 !| comment |
 | RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | nationalSubjectCategorySearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"nationalSubjectCategorySearchTerm","value":"11757"}]}]}]} | =~/"name":"id","value":"11757"/ | OK |
-
-*!
-!***> Test sök nationell ämneskategori med bara kod
-
-!| RecordEndpointFixture |
-| authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | nationalSubjectCategorySearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"nationalSubjectCategorySearchTerm","value":"50304"}]}]}]} | =~/"name":"subjectCode","value":"50304"/ | OK |
+| $adminAuthToken | nationalSubjectCategorySearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"nationalSubjectCategorySearchTerm","value":"11625"}]}]}]} | =~/"name":"subjectCode","value":"11625"/ | OK |
 
 *!
 !4 Nationell ämneskategori söks med autocomplete i registreringsformuläret

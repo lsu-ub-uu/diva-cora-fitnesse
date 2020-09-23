@@ -36,19 +36,17 @@ Test
 !***> Test sök i regformulär med "autocomplete" AVSTÄNGT
 
 !| comment |
-| Sökstöd autocomplete vid registrering av fält som är baserade på listval [[CORA-1013][https://jira.epc.ub.uu.se/browse/CORA-1013]] Listvalen |
 | RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | sustainableDevelopmentSearch | !-
+| $adminAuthToken | sustainableDevelopmentSearch | !-LÄGG TILL JSON
 -! | | OK |
 
 *!
 !4 Hållbar utveckling kan sökas även när tecken å, ä eller ö finns i namnet
-!***> Test sök med å, ä eller ö i söksträng:
+!***> Test sök med å, ä eller ö i söksträng
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
 | $adminAuthToken | sustainableDevelopmentSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"sustainableDevelopmentSearchTerm","value":"*å*"}]}]}]} | | OK |
 
 *!
-
