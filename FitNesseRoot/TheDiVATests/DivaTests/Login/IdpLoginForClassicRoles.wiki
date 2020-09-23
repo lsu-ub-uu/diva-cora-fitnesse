@@ -20,7 +20,27 @@ Det finns i DiVA classic ett antal olika användargrupper, dessa matchas mot mot
 *!
 !2 !-DomainAdmin-!
 !-DomainAdmin är en roll för de som administrerar de olika domänerna i DiVA. När man ger en användare denna roll måste man också koppla  en rättighet som styr vilken domän som användaren får administrera.-!
+ * '''Fall1:''' !-Läs exempel användaren för DomainAdminUU för att se att den har en länk till rätt roll (divaDomainAdminRole).-!
+ * '''Fall2:''' !-Läs exempel användaren för DomainAdminKTH för att se att den har en länk till rätt roll (divaDomainAdminRole).-!
+!***> '''Fall1'''
 
+!-Vi läser exempel användaren för DomainAdminUU, för att se att den har en länk till rätt roll (divaDomainAdminRole). (AVSTÄNGT)-!
+
+!| comment |
+| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | user | 65 | =~/\{"name":"linkedRecordType","value":"permissionRole"\},\{"name":"linkedRecordId","value":"divaDomainAdminRole"\}/ | OK |
+
+*!
+!***> '''Fall2'''
+!-Vi läser exempel användaren för DomainAdminKTH, för att se att den har en länk till rätt roll (divaDomainAdminRole) (AVSTÄNGT).-!
+
+!| comment |
+| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | user | 66 | =~/\{"name":"linkedRecordType","value":"permissionRole"\},\{"name":"linkedRecordId","value":"divaDomainAdminRole"\}/ | OK |
+
+*!
 !2 Guest
 Guest är den roll som systemets gästanvändare har. Alla som inte är inloggade räknas i systemet automatiskt som att de är användaren guest och har då rollen guest.
 
