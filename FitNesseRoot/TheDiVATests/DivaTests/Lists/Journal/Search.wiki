@@ -1,4 +1,52 @@
 ---
+Help: Sök efter tidskrift
 Test
 ---
-!contents -R2 -g -p -f -h
+!1 Sök efter tidskrift
+!4 
+!4 Tidskrift går att söka på med hjälp av ** (tom söksträng)
+!***> Indexerar tidskrift
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? | getCreatedId? |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"journal"}]},{"name":"recordId","value":"journal:3021440456931529"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"journal"}]},{"name":"recordId","value":"journal:1892597997700216"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"journal"}]},{"name":"recordId","value":"journal:18682617526857134"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+
+*!
+!***> Test sök tidskrift med bara namn
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | journalSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"journalSearchTerm","value":"**"}]}]}]} | | OK |
+| $adminAuthToken | journalSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"journalSearchTerm","value":"Det här är huvudtiteln"}]}]}]} | =~/"name":"id","value":"journal:18682617526857134"/ | OK |
+| $adminAuthToken | journalSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"journalSearchTerm","value":"ingenTidskriftSomHarDetHärNamnet"}]}]}]} | =~/"totalNo":"0"/ | OK |
+
+*!
+!***> Test sök tidskrift med bara issn eller eissn
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | journalSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"journalSearchTerm","value":"1234-5678"}]}]}]} | =~/"name":"ISSN","value":"1234-5678"/ | OK |
+| $adminAuthToken | journalSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"journalSearchTerm","value":"9876-5432"}]}]}]} | =~/"name":"EISSN","value":"9876-5432"/ | OK |
+
+*!
+!4 Tidskrift söks med autocomplete i registreringsformuläret
+!***> Test sök i regformulär med "autocomplete" AVSTÄNGT
+
+!| comment |
+| Sökstöd autocomplete vid registrering av fält som är baserade på listval [[CORA-1013][https://jira.epc.ub.uu.se/browse/CORA-1013]] Listvalen |
+| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | journalSearch | !-
+-! | | OK |
+
+*!
+!4 Tidskrift kan sökas även när tecken å, ä eller ö finns i ämnesnamnet
+!***> Test sök med å, ä eller ö i söksträng
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | journalSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"journalSearchTerm","value":"*ä*"}]}]}]} | | OK |
+
+*!
