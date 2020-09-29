@@ -3,7 +3,7 @@ Help: Radera en hållbar utvecklingspost
 Test
 ---
 !contents -R2 -g -p -f -h
-!1 Testar radera en hållbar utvecklingspost (funkar ej)
+!1 Testar radera en hållbar utvecklingspost
 Det ska gå att radera en hållbar utvecklingspost via REST API:et.
 
 !***> Skapa en ny hållbar utvecklingspost
