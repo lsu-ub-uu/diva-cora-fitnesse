@@ -1,0 +1,54 @@
+---
+Help: Sök efter serie
+Test
+---
+!1 Sök efter serie
+!4 
+!4 Serie går att söka på med hjälp av ** (tom söksträng)
+!***> Indexerar serie
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? | getCreatedId? |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"series"}]},{"name":"recordId","value":"series:18511295685201913"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"series"}]},{"name":"recordId","value":"series:4467013918984"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"series"}]},{"name":"recordId","value":"series:3114167762940962"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"series"}]},{"name":"recordId","value":"series:3114219423283783"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"series"}]},{"name":"recordId","value":"series:19796348922760613"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+
+*!
+!***> Test sök serie med bara titel
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | seriesSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"seriesSearchTerm","value":"**"}]}]}]} | | OK |
+| $adminAuthToken | seriesSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"seriesSearchTerm","value":"Det här är huvudtiteln"}]}]}]} | =~/"name":"id","value":"series:18511295685201913"/ | OK |
+| $adminAuthToken | seriesSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"seriesSearchTerm","value":"ingenSerieSomHarDetHärNamnet"}]}]}]} | =~/"totalNo":"0"/ | OK |
+
+*!
+!***> Test sök serie med bara issn eller eissn
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | seriesSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"seriesSearchTerm","value":"1234-5678"}]}]}]} | =~/"name":"seriesISSN","value":"1234-5678"/ | OK |
+| $adminAuthToken | seriesSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"seriesSearchTerm","value":"9876-5432"}]}]}]} | =~/"name":"seriesEISSN","value":"9876-5432"/ | OK |
+
+*!
+!4 Serie söks med autocomplete i registreringsformuläret
+!***> Test sök i regformulär med "autocomplete" AVSTÄNGT
+
+!| comment |
+| Sökstöd autocomplete vid registrering av fält som är baserade på listval [[CORA-1013][https://jira.epc.ub.uu.se/browse/CORA-1013]] Listvalen |
+| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | seriesSearch | !-
+-! | | OK |
+
+*!
+!4 Serie kan sökas även när tecken å, ä eller ö finns i titeln
+!***> Test sök med å, ä eller ö i söksträng
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | seriesSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"seriesSearchTerm","value":"*å*"}]}]}]} | | OK |
+
+*!

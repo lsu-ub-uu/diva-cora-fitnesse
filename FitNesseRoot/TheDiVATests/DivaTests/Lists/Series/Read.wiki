@@ -1,0 +1,34 @@
+---
+Help: Lista och läs en serie
+Test
+---
+!contents -R2 -g -p -f -h
+!1 Listning och läsning av serie
+Det skall gå att lista och läsa serie via REST API:et.
+
+!***> Läs series:3130795935903055 i  JSON format
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | series | series:3130795935903055 | | OK |
+
+*!
+"Admin" användare skall kunna lista serier.
+
+!***> Lista serie inloggad som "admin" användare
+
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $adminAuthToken | series | | OK |
+
+*!
+Ej inloggade användare skall inte få lista serier, därför förväntar sig testet FORBIDDEN om en ej inloggad användare försöker lista serie.
+
+!***> Lista serie utan att vara inloggad (guestUser) HAR STÄNGT AV TESTET DÅ DET EJ GÅR IGENOM PÅ BYGGSERVERN(?)
+
+!| Comment |
+| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| | series | | FORBIDDEN |
+
+*!

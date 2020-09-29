@@ -1,0 +1,52 @@
+---
+Help: Sök efter hållbar utveckling
+Test
+---
+!1 Sök efter hållbar utveckling
+!4 
+!4 Hållbar utveckling går att söka på med hjälp av ** (tom söksträng)
+!***> Indexerar hållbar utveckling
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? | getCreatedId? |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"sustainableDevelopment"}]},{"name":"recordId","value":"sustainableDevelopment:15052052619927048"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"sustainableDevelopment"}]},{"name":"recordId","value":"sustainableDevelopment:18508181306065340"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"sustainableDevelopment"}]},{"name":"recordId","value":"sustainableDevelopment:14276601024934460"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"sustainableDevelopment"}]},{"name":"recordId","value":"sustainableDevelopment:18508856228690168"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+
+*!
+!***> Test sök hållbar utveckling med bara namn
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | sustainableDevelopmentSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"sustainableDevelopmentSearchTerm","value":"**"}]}]}]} | | OK |
+| $adminAuthToken | sustainableDevelopmentSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"sustainableDevelopmentSearchTerm","value":"Något om hållbar utveckling"}]}]}]} | =~/"name":"id","value":"sustainableDevelopment:14276601024934460"/ | OK |
+| $adminAuthToken | sustainableDevelopmentSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"sustainableDevelopmentSearchTerm","value":"ingenHållbarUtvecklingSomHarDetHärNamnet"}]}]}]} | =~/"totalNo":"0"/ | OK |
+
+*!
+!***> Test sök hållbar utveckling med bara id
+
+!| comment |
+| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | sustainableDevelopmentSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"sustainableDevelopmentSearchTerm","value":"sustainableDevelopment:14276601024934460"}]}]}]} | =~/"name":"id","value":"sustainableDevelopment:14276601024934460"/ | OK |
+
+*!
+!4 Hållbar utveckling söks med autocomplete i registreringsformuläret
+!***> Test sök i regformulär med "autocomplete" AVSTÄNGT
+
+!| comment |
+| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | sustainableDevelopmentSearch | !-LÄGG TILL JSON
+-! | | OK |
+
+*!
+!4 Hållbar utveckling kan sökas även när tecken å, ä eller ö finns i namnet
+!***> Test sök med å, ä eller ö i söksträng
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | sustainableDevelopmentSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"sustainableDevelopmentSearchTerm","value":"*å*"}]}]}]} | | OK |
+
+*!

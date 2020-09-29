@@ -1,0 +1,34 @@
+---
+Help: Lista och läs en utgivare
+Test
+---
+!contents -R2 -g -p -f -h
+!1 Listning och läsning av utgivare
+Det skall gå att lista och läsa utgivare via REST API:et.
+
+!***> Läs publishingHouse:1895616841381427i  JSON format
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | publishingHouse | publishingHouse:1895616841381427 | | OK |
+
+*!
+"Admin" användare skall kunna lista utgivare.
+
+!***> Lista utgivare inloggad som "admin" användare
+
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $adminAuthToken | publishingHouse | | OK |
+
+*!
+Ej inloggade användare skall inte få lista utgivare, därför förväntar sig testet FORBIDDEN om en ej inloggad användare försöker lista utgivare.
+
+!***> Lista utgivare utan att vara inloggad (guestUser) HAR STÄNGT AV TESTET DÅ DET EJ GÅR IGENOM PÅ BYGGSERVERN(?)
+
+!| Comment |
+| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| | publishingHouse | | FORBIDDEN |
+
+*!

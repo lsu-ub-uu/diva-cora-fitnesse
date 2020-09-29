@@ -1,0 +1,79 @@
+---
+Help: Sök efter nationell ämneskategori
+Test
+---
+!1 Sök efter nationell ämneskategori
+!4 
+!4 Nationell ämneskategori går att söka på med hjälp av ** (tom söksträng)
+!***> Indexerar nationell ämneskategori
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? | getCreatedId? |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"nationalSubjectCategory"}]},{"name":"recordId","value":"11625"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"nationalSubjectCategory"}]},{"name":"recordId","value":"11649"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"nationalSubjectCategory"}]},{"name":"recordId","value":"11776"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"nationalSubjectCategory"}]},{"name":"recordId","value":"11720"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"nationalSubjectCategory"}]},{"name":"recordId","value":"11748"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"nationalSubjectCategory"}]},{"name":"recordId","value":"11759"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+
+*!
+!***> Test sök nationell ämneskategori med bara namn
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | nationalSubjectCategorySearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"nationalSubjectCategorySearchTerm","value":"**"}]}]}]} | | OK |
+| $adminAuthToken | nationalSubjectCategorySearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"nationalSubjectCategorySearchTerm","value":"Social och ekonomisk geografi"}]}]}]} | =~/"name":"id","value":"11759"/ | OK |
+| $adminAuthToken | nationalSubjectCategorySearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"nationalSubjectCategorySearchTerm","value":"ingenNationellÄmneskategoriSomHarDetHärNamnet"}]}]}]} | =~/"totalNo":"0"/ | OK |
+
+*!
+!***> Test sök nationell ämneskategori med bara kod
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | nationalSubjectCategorySearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"nationalSubjectCategorySearchTerm","value":"20707"}]}]}]} | =~/"name":"subjectCode","value":"20707"/ | OK |
+
+*!
+!4 Nationell ämneskategori söks med autocomplete i registreringsformuläret
+!***> Test sök i regformulär med "autocomplete" AVSTÄNGT
+
+!| comment |
+| Sökstöd autocomplete vid registrering av fält som är baserade på listval [[CORA-1013][https://jira.epc.ub.uu.se/browse/CORA-1013]] Listvalen |
+| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | nationalSubjectCategorySearch | !-
+-! | | OK |
+
+*!
+!4 Nationell ämneskategori kan sökas även när tecken å, ä eller ö finns i ämnesnamnet
+!***> Test sök med å, ä eller ö i söksträng
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | nationalSubjectCategorySearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"nationalSubjectCategorySearchTerm","value":"*å*"}]}]}]} | | OK |
+
+*!
+!4 Nationell ämneskategori måste ha alternativt namn
+!***> Indexerar organisation som inte har något alternativt namn AVSTÄNGT
+
+!| Comment |
+| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? | getCreatedId? |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"nationalSubjectCategory"}]},{"name":"recordId","value":"XXXX"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+
+*!
+!***> Test sök efter nationell ämneskategori utan alternativt namn, för att se att sökningen fungerar AVSTÄNGT
+
+!| Comment |
+| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | nationalSubjectCategorySearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"nationalSubjectCategorySearchTerm","value":"Nationell ämneskategori som saknar alternativt namn"}]}]}]} | =~/"name":"id","value":"XXXX"/ | OK |
+
+*!
+!***> Återställ uppdaterat data AVSTÄNGT
+
+!| Comment |
+| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | nationalSubjectCategory | XXXX | FYLL I JSON | | OK |
+
+*!

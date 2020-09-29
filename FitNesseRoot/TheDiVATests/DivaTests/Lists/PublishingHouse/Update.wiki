@@ -1,0 +1,38 @@
+---
+Help: Uppdatera en utgivare
+Test
+---
+!contents -R2 -g -p -f -h
+!1 Testar uppdatering av utgivare
+Det ska vara möjligt att uppdatera utgivare via REST API.
+
+Testet visar att adminanvändare har möjlighet att uppdatera utgivareposten
+
+!*** Läs publishingHouse:18509612315267623
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | publishingHouse | publishingHouse:18509612315267623 | =~/"value":"Det här är huvudtiteln"/ | OK |
+
+*!
+!***> Uppdatera publishingHouse:18509612315267623 med ny huvudtitel
+
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | publishingHouse | publishingHouse:18509612315267623 | {"name":"publishingHouse","children":[{"name":"recordInfo","children":[{"name":"id","value":"publishingHouse:18509612315267623"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"publishingHouse"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2020-09-01T14:11:46.734038Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2020-09-01T14:11:46.734038Z"}],"repeatId":"0"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2020-09-01T14:12:46.101884Z"}],"repeatId":"1"}]},{"name":"name","value":"Ny huvudtitel"},{"name":"externalId","value":"12345"}]} | | OK |
+
+*!
+!*** Läs publishingHouse:18509612315267623 igen för att se att den är uppdaterad
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | publishingHouse | publishingHouse:18509612315267623 | =~/"value":"Ny huvudtitel"/ | OK |
+
+*!
+!*** Återställ ursprunglig publishingHouse:18509612315267623
+
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | publishingHouse | publishingHouse:18509612315267623 | {"name":"publishingHouse","children":[{"name":"recordInfo","children":[{"name":"id","value":"publishingHouse:18509612315267623"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"publishingHouse"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2020-09-01T14:11:46.734038Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2020-09-01T14:11:46.734038Z"}],"repeatId":"0"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2020-09-01T14:12:46.101884Z"}],"repeatId":"1"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}]},{"name":"tsUpdated","value":"2020-09-01T14:13:18.119055Z"}],"repeatId":"2"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}]},{"name":"tsUpdated","value":"2020-09-01T14:13:49.325362Z"}],"repeatId":"3"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2020-09-01T14:14:26.471015Z"}],"repeatId":"4"}]},{"name":"name","value":"Det här är huvudtiteln"},{"name":"externalId","value":"12345"}]} | | OK |
+
+*!

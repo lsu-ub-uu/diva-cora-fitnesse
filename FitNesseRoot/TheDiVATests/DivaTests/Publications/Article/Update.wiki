@@ -8,7 +8,7 @@ Det ska vara möjligt att uppdatera artikel via REST API.
 
 Testet visar att adminanvändare har möjlighet att uppdatera artikelposten
 
-!*** Läs uppsats article:4846503369411981 (Avstängd)
+!*** Läs article:4846503369411981 (Avstängd)
 
 !| Comment |
 | RecordEndpointFixture |

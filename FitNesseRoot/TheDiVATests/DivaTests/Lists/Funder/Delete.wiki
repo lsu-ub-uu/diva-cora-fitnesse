@@ -1,0 +1,52 @@
+---
+Help: Radera en forskningsfinansiär
+Test
+---
+!contents -R2 -g -p -f -h
+!1 Testar radera en forskningsfinansiär
+Det ska gå att radera en forskningsfinansiär via REST API:et.
+
+!***> Skapa en ny forskningsfinansiär
+
+Först skapar vi en forskningsfinansiär, för att sedan kunna radera den
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecordCreatedType? | getStatusType? | getCreatedId? |
+| $adminAuthToken | funder | {"name":"funder","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"name","children":[{"name":"funderName","value":"Fitnesse funder to be deleted"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"funderName","value":"Fitnesse funder to be deleted"},{"name":"language","value":"en"}]},{"name":"funderAcronym","value":"FFD"},{"name":"funderRegistrationNumber","value":"12365-98753521"},{"name":"funderDOI","value":"01"},{"name":"funderClosed","value":"2010-01-01"}]} | funder | CREATED | $createdId= |
+
+*!
+!***> Läs den nyskapade forskningsfinansiär i Json
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | funder | $createdId | =~/"value":"Fitnesse funder to be deleted"/ | OK |
+
+*!
+!***> Lista forskningsfinansiärer
+
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $adminAuthToken | funder | | OK |
+
+*!
+!***> Radera den nyskapade forskningsfinansiären
+
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $adminAuthToken | funder | $createdId | | OK |
+
+*!
+!***> Försök läsa den raderade forskningsfinansiären
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | funder | $createdId | | NOT_FOUND |
+
+*!
+!***> Lista forskningsfinansiär - forskningsfinansiärer med status DELETED exkluderas
+
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $adminAuthToken | funder | | OK |
+
+*!

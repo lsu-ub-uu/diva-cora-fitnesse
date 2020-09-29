@@ -2,7 +2,8 @@
 Test
 ---
 !contents -R2 -g -p -f -h
-!1 Listning och läsning av organisation
+!1 Läsa och Lista organisation
+!2 Läsa
 Det skall gå att lista och läsa organisationer via REST API:et.
 
 !***> Läs organisation:1 i  JSON format
@@ -21,7 +22,8 @@ Läser och kontrollerar att JSON är korrekt för att bla. se att domain är rä
 | $adminAuthToken | divaOrganisation | 1452 | | OK |
 
 *!
-"Admin" användare skall kunna lista organisationer.
+!2 Lista
+"Admin" användare skall kunna lista organisationer. (Ersätts av Systemadmin test???)
 
 !***> Lista organisationer inloggad som "admin" användare
 
@@ -37,5 +39,87 @@ Ej inloggade användare skall ej få lista organisationer, därför förväntar 
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
 | | divaOrganisation | | FORBIDDEN |
+
+*!
+!2 DiVA Roler
+!3 !-SystemAdmin-!
+ * '''Fall1:''' !-SystemAdmin ska kunna läsa en organisation från alla domän.-!
+ * '''Fall2:''' !-SystemAdmin ska kunna lista organisationer-!
+
+!***> '''Fall1'''
+
+Vi läser ett organisation från Uppsalas Domän
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $systemAdminAuthToken | divaOrganisation | 1750 | | OK |
+
+Vi läser ett organisation från VTI Domän
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $systemAdminAuthToken | divaOrganisation | 1350 | | OK |
+
+*!
+!***> '''Fall2'''
+
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $systemAdminAuthToken | divaOrganisation | | OK |
+
+*!
+!3 !-DomainAdmin-!
+ * '''Fall1:''' !-DomainAdmin ska kunna läsa en organisation, oavsett vilken domän den är knuten till.-!
+ * '''Fall2:''' !-DomainAdmin ska inte kunna lista organisationer-!
+
+!***> '''Fall1'''
+
+Vi läser ett organisation från Uppsalas Domän
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $domainAdminUUAuthToken | divaOrganisation | 1750 | | OK |
+
+Vi läser ett organisation från VTI Domän
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $domainAdminUUAuthToken | divaOrganisation | 1350 | | OK |
+
+*!
+!***> '''Fall2''' (AVSTÄNGT)
+
+!| comment |
+| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $domainAdminUUAuthToken | divaOrganisation | | FORBIDDEN |
+
+*!
+!3 Guest
+ * '''Fall1:''' Guest ska kunna läsa en organisation, oavsett vilken domän den är knuten till.
+ * '''Fall2:''' Guest ska inte kunna lista organisationer
+
+!***> '''Fall1''' (AVSTÄNGT)
+
+Vi läser ett organisation från Uppsalas Domän
+
+!| comment |
+| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $guestToken | divaOrganisation | 1750 | | OK |
+
+Vi läser ett organisation från VTI Domän
+
+!| comment |
+| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $guestToken | divaOrganisation | 1350 | | OK |
+
+*!
+!***> '''Fall2'''
+
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $guestToken | divaOrganisation | | FORBIDDEN |
 
 *!

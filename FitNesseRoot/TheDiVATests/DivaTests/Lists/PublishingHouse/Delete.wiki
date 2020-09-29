@@ -1,0 +1,52 @@
+---
+Help: Radera en utgivare
+Test
+---
+!contents -R2 -g -p -f -h
+!1 Testar radera en utgivare
+Det ska gå att radera en utgivare via REST API:et.
+
+!***> Skapa en ny utgivare
+
+Först skapar vi en utgivare, för att sedan kunna radera den
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecordCreatedType? | getStatusType? | getCreatedId? |
+| $adminAuthToken | publishingHouse | {"name":"publishingHouse","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"name","value":"Fitnesse funder to be deleted"},{"name":"externalId","value":"1234"}]} | publishingHouse | CREATED | $createdId= |
+
+*!
+!***> Läs den nyskapade utgivaren i Json
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | publishingHouse | $createdId | =~/"value":"Fitnesse funder to be deleted"/ | OK |
+
+*!
+!***> Lista utgivare
+
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $adminAuthToken | publishingHouse | | OK |
+
+*!
+!***> Radera den nyskapade utgivaren
+
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $adminAuthToken | publishingHouse | $createdId | | OK |
+
+*!
+!***> Försök läsa den raderade utgivaren
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | publishingHouse | $createdId | | NOT_FOUND |
+
+*!
+!***> Lista utgivare - utgivare med status DELETED exkluderas
+
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $adminAuthToken | publishingHouse | | OK |
+
+*!

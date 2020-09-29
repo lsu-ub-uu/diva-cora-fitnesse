@@ -1,0 +1,66 @@
+---
+Help: Test av användare som representerar olika DiVA roller
+Test
+---
+!contents -R2 -g -p -f -h
+!1 !-Idplogin test för DiVA roller-!
+Det finns i DiVA classic ett antal olika användargrupper, dessa matchas mot motsvarande roller när man loggar in i DiVA powered by Cora. Som systemet är uppsatt just nu
+
+!2 !-SystemAdmin-!
+!-SystemAdmin är en roll för de som administrerar systemet.-!
+ * '''Fall1:''' !-Läs exempel användaren för SystemAdmin för att se att den har en länk till rätt roll (divaSystemAdminRole).-!
+!***> '''Fall1'''
+
+!-Vi läser exempel användaren för SystemAdmin, för att se att den har en länk till rätt roll (divaSystemAdminRole).-!
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | user | 64 | =~/\{"name":"linkedRecordType","value":"permissionRole"\},\{"name":"linkedRecordId","value":"divaSystemAdminRole"\}/ | OK |
+
+*!
+!2 !-DomainAdmin-!
+!-DomainAdmin är en roll för de som administrerar de olika domänerna i DiVA. När man ger en användare denna roll måste man också koppla  en rättighet som styr vilken domän som användaren får administrera.-!
+ * '''Fall1:''' !-Läs exempel användaren för DomainAdminUU för att se att den har en länk till rätt roll (divaDomainAdminRole).-!
+ * '''Fall2:''' !-Läs exempel användaren för DomainAdminKTH för att se att den har en länk till rätt roll (divaDomainAdminRole).-!
+!***> '''Fall1'''
+
+!-Vi läser exempel användaren för DomainAdminUU, för att se att den har en länk till rätt roll (divaDomainAdminRole). (AVSTÄNGT)-!
+
+!| comment |
+| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | user | 65 | =~/\{"name":"linkedRecordType","value":"permissionRole"\},\{"name":"linkedRecordId","value":"divaDomainAdminRole"\}/ | OK |
+
+*!
+!***> '''Fall2'''
+!-Vi läser exempel användaren för DomainAdminKTH, för att se att den har en länk till rätt roll (divaDomainAdminRole) (AVSTÄNGT).-!
+
+!| comment |
+| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | user | 66 | =~/\{"name":"linkedRecordType","value":"permissionRole"\},\{"name":"linkedRecordId","value":"divaDomainAdminRole"\}/ | OK |
+
+*!
+!2 Guest
+Guest är den roll som systemets gästanvändare har. Alla som inte är inloggade räknas i systemet automatiskt som att de är användaren guest och har då rollen guest.
+
+!2 Hämta authTokens via idpLogin
+!***> Hämta authTokens från idpLogin server
+
+!| IdpLoginServletFixture |
+| EPPN | getAuthTokenForEPPN? | getIdFromLogin? | getResponseCode? | getAuthToken? | getValidForNoSeconds? | getDeleteUrl? |
+| fitnesseSystemAdmin@user.uu.se | | fitnesseSystemAdmin@user.uu.se | OK | $systemAdminAuthToken= | | ${tokenLogoutURL}64 |
+| fitnesseDomainAdminUU@user.uu.se | | fitnesseDomainAdminUU@user.uu.se | OK | $domainAdminUUAuthToken= | | ${tokenLogoutURL}65 |
+| fitnesseDomainAdminKTH@user.kth.se | | fitnesseDomainAdminKTH@user.kth.se | OK | $domainAdminKTHAuthToken= | | ${tokenLogoutURL}66 |
+| userNotInDb@user.uu.se | | null | OK | $guestToken= | | ${tokenLogoutURL}12345 |
+
+*!
+!***> Logout
+
+!| AppTokenEndpointFixture |
+| userId | authTokenToLogOut | removeAuthTokenForUser? | getStatusType? |
+| 64 | $systemAdminAuthToken | | OK |
+| 65 | $domainAdminUUAuthToken | | OK |
+| 66 | $domainAdminKTHAuthToken | | OK |
+
+*!

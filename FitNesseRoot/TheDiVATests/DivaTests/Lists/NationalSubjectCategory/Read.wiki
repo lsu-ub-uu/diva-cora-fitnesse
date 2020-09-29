@@ -1,0 +1,34 @@
+---
+Help: Lista och läs en nationell ämneskategori
+Test
+---
+!contents -R2 -g -p -f -h
+!1 Listning och läsning av nationell ämneskategori
+Det skall gå att lista och läsa nationell ämneskategori via REST API:et.
+
+!***> Läs nationalSubjectCategory:11625 i  JSON format
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | nationalSubjectCategory | 11625 | | OK |
+
+*!
+"Admin" användare skall kunna lista nationell ämneskategori.
+
+!***> Lista nationell ämneskategori inloggad som "admin" användare
+
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $adminAuthToken | nationalSubjectCategory | | OK |
+
+*!
+Ej inloggade användare skall inte få lista nationell ämneskategori, därför förväntar sig testet FORBIDDEN om en ej inloggad användare försöker lista nationell ämneskategori.
+
+!***> Lista forskningsämne utan att vara inloggad (guestUser) HAR STÄNGT AV TESTET DÅ DET EJ GÅR IGENOM PÅ BYGGSERVERN(?)
+
+!| Comment |
+| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| | nationalSubjectCategory | | FORBIDDEN |
+
+*!
