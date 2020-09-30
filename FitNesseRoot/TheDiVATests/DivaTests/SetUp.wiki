@@ -47,6 +47,6 @@
 | fitnesseSystemAdmin@user.uu.se | | fitnesseSystemAdmin@user.uu.se | OK | $systemAdminAuthToken= | | ${tokenLogoutURL}64 |
 | fitnesseDomainAdminUU@user.uu.se | | fitnesseDomainAdminUU@user.uu.se | OK | $domainAdminUUAuthToken= | | ${tokenLogoutURL}65 |
 | fitnesseDomainAdminKTH@user.kth.se | | fitnesseDomainAdminKTH@user.kth.se | OK | $domainAdminKTHAuthToken= | | ${tokenLogoutURL}66 |
-| userNotInDb@user.uu.se | | null | OK | $guestToken= | | ${tokenLogoutURL}12345 |
+| userNotInDb@user.uu.se | | null | OK | $guestToken= | | ${tokenLogoutURL}coraUser:5368656924943436 |
 
 *!

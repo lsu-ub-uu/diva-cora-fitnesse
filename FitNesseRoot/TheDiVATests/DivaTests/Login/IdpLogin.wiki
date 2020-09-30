@@ -13,7 +13,7 @@ IdpLogin skyddas i test och produktion av apache och är inte åtkomligt utan en
 | EPPN | getAuthTokenForEPPN? | getIdFromLogin? | getResponseCode? | getAuthToken? | getValidForNoSeconds? | getDeleteUrl? |
 | fitnesseAdminDb@user.test.se | | fitnesseAdminDb@user.test.se | OK | $adminAuthToken= | | ${tokenLogoutURL}62 |
 | fitnesseUserDb@user.test.se | | fitnesseUserDb@user.test.se | OK | $userAuthToken= | | ${tokenLogoutURL}63 |
-| userNotInDb@user.uu.se | | | OK | | | ${tokenLogoutURL}12345 |
+| userNotInDb@user.uu.se | | | OK | | | ${tokenLogoutURL}coraUser:5368656924943436 |
 
 *!
 !2 Uppdatera en organisation
