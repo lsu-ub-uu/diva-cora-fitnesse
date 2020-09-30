@@ -41,7 +41,7 @@ Ej inloggade användare skall ej få lista organisationer, därför förväntar 
 | | divaOrganisation | | FORBIDDEN |
 
 *!
-!2 DiVA Roler
+!2 DiVA Roller
 !3 !-SystemAdmin-!
  * '''Fall1:''' !-SystemAdmin ska kunna läsa en organisation från alla domän.-!
  * '''Fall2:''' !-SystemAdmin ska kunna lista organisationer-!
@@ -65,7 +65,7 @@ Vi läser ett organisation från VTI Domän
 
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $systemAdminAuthToken | divaOrganisation | | OK |
+| $systemAdminAuthToken | divaOrganisation | =~/"toNo":"52"/ | OK |
 
 *!
 !3 !-DomainAdmin-!
