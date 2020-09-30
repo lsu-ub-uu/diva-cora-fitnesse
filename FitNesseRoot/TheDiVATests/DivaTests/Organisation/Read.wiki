@@ -99,19 +99,17 @@ Vi läser ett organisation från VTI Domän
  * '''Fall1:''' Guest ska kunna läsa en organisation, oavsett vilken domän den är knuten till.
  * '''Fall2:''' Guest ska inte kunna lista organisationer
 
-!***> '''Fall1''' (AVSTÄNGT)
+!***> '''Fall1'''
 
 Vi läser ett organisation från Uppsalas Domän
 
-!| comment |
-| RecordEndpointFixture |
+!| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
 | $guestToken | divaOrganisation | 1750 | | OK |
 
 Vi läser ett organisation från VTI Domän
 
-!| comment |
-| RecordEndpointFixture |
+!| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
 | $guestToken | divaOrganisation | 1350 | | OK |
 
