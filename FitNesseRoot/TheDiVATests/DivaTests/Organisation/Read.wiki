@@ -87,10 +87,9 @@ Vi läser ett organisation från VTI Domän
 | $domainAdminUUAuthToken | divaOrganisation | 1350 | | OK |
 
 *!
-!***> '''Fall2''' (AVSTÄNGT)
+!***> '''Fall2'''
 
-!| comment |
-| RecordEndpointFixture |
+!| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
 | $domainAdminUUAuthToken | divaOrganisation | | FORBIDDEN |
 

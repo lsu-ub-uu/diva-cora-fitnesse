@@ -23,7 +23,7 @@
 
 !| AppTokenEndpointFixture |
 | userId | appToken | getAuthTokenForAppToken? | getAuthToken? | getStatusType? |
-| 131313 | | | $adminAuthToken= | CREATED |
+| coraUser:1299694997493014 |f48a2fb3-814e-404a-a2dd-9860aff4e328 | | $adminAuthToken= | CREATED |
 
 *!
 !| script | AuthTokenHolder |
