@@ -1,4 +1,51 @@
 ---
 Test
 ---
-!contents -R2 -g -p -f -h
+!1 Skapa en ny organisation
+!***> Skapa en ny organisation (AVSTÄNGT)
+
+!| comment |
+| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $adminAuthToken | divaOrganisation | 1750 | | FORBIDDEN |
+
+*!
+'''Eftersom vi ännu inte implementerat stöd för att radera en organisation från DiVA powered by Cora, så får inte någon grupp göra det.'''
+
+!2 DiVA Roller
+!3 !-SystemAdmin-!
+ * '''Fall1:''' !-SystemAdmin ska INTE kunna radera en organisation på någon domän.-!
+
+!***> '''Fall1'''
+
+Vi provar att radera en organisation
+
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $systemAdminAuthToken | divaOrganisation | 1750 | | FORBIDDEN |
+
+*!
+!3 !-DomainAdmin-!
+ * '''Fall1:''' !-DomainAdmin ska INTE kunna radera en organisation-!
+
+!***> '''Fall1'''
+
+Vi provar att radera en organisation
+
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $domainAdminUUAuthToken | divaOrganisation | 1750 | | FORBIDDEN |
+
+*!
+!3 Guest
+ * '''Fall1:''' Guest ska inte kunna rader en organisation
+
+!***> '''Fall1'''
+
+Vi provar att radera en organisation
+
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $guestToken | divaOrganisation | 1750 | | FORBIDDEN |
+
+*!
