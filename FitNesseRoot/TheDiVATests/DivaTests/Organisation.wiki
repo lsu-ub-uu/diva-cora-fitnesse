@@ -1,7 +1,0 @@
----
-Suite
----
-!1 Tests for organisations stored in database
-Organistation innehåller data om DiVA-medlemmarnas organisationsstruktur. Data innehåller befintligt namn på svenska och engelska samt eventuella tidigare benämningar.
-
-!contents -R4 -g -p -f -h

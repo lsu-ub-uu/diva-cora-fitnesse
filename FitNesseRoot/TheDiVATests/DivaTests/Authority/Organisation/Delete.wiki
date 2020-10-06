@@ -1,8 +1,9 @@
 ---
 Test
 ---
-!1 Skapa en ny organisation
-!***> Skapa en ny organisation (AVSTÄNGT)
+!2 Radera
+!style_red['''Eftersom vi ännu inte implementerat stöd för att radera en organisation från DiVA powered by Cora, så får inte någon grupp göra det.''']
+!***> Radera en organisation (AVSTÄNGT)
 
 !| comment |
 | RecordEndpointFixture |
@@ -10,11 +11,10 @@ Test
 | $adminAuthToken | divaOrganisation | 1750 | | FORBIDDEN |
 
 *!
-'''Eftersom vi ännu inte implementerat stöd för att radera en organisation från DiVA powered by Cora, så får inte någon grupp göra det.'''
 
-!2 DiVA Roller
-!3 !-SystemAdmin-!
- * '''Fall1:''' !-SystemAdmin ska INTE kunna radera en organisation på någon domän.-!
+!3 DiVA Roller
+!4 !-SystemAdmin-!
+ * '''Fall1:''' !-Eftersom det just nu inte går att radera organistationer i systemet får SystemAdmin INTE för närvarande radera någon organisation.-!
 
 !***> '''Fall1'''
 
@@ -25,8 +25,8 @@ Vi provar att radera en organisation
 | $systemAdminAuthToken | divaOrganisation | 1750 | | FORBIDDEN |
 
 *!
-!3 !-DomainAdmin-!
- * '''Fall1:''' !-DomainAdmin ska INTE kunna radera en organisation-!
+!4 !-DomainAdmin-!
+ * '''Fall1:''' !-Eftersom det just nu inte går att radera organistationer i systemet får DomainAdmin INTE för närvarande radera någon organisation.-!
 
 !***> '''Fall1'''
 
@@ -37,7 +37,7 @@ Vi provar att radera en organisation
 | $domainAdminUUAuthToken | divaOrganisation | 1750 | | FORBIDDEN |
 
 *!
-!3 Guest
+!4 Guest
  * '''Fall1:''' Guest ska inte kunna rader en organisation
 
 !***> '''Fall1'''

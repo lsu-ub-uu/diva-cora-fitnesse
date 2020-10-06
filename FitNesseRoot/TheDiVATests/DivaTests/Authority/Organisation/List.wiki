@@ -1,0 +1,82 @@
+---
+Help: Lista
+Test
+---
+!2 Lista
+Det skall gå att lista organisationer via REST API:et.
+
+!***> Lista organisationer inloggad som divaEverything användare
+
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $adminAuthToken | divaOrganisation | =~/"toNo":"53"/ | OK |
+
+Lists organisationer och lagra resultatet för att användas i test nedan
+
+!| ComparerFixture |
+| authToken | type | testReadRecordListAndStoreRecords? |
+| $adminAuthToken | divaOrganisation | |
+
+Kontrollera barnen i den tidigare upplästa listan
+
+!| ChildComparerFixture |
+| type | children | listIndexToCompareTo | testReadFromListCheckContain? |
+| divaOrganisation | {"children":[{"name":"domain"},{"name":"rootOrganisation"},{"name":"showInDefence"},{"name":"topLevel"},{"name":"showInPortal"}]} | 0 | OK |
+
+*!
+Ej inloggade användare skall ej få lista organisationer, därför förväntar sig testet FORBIDDEN om en ej inloggad användare försöker lista organisationer.
+
+!***> Lista organisationer utan att vara inloggad (guestUser)
+
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| | divaOrganisation | | FORBIDDEN |
+
+*!
+!3 Roller
+!4 !-SystemAdmin-!
+ * '''Fall1:''' !-SystemAdmin ska kunna lista organisationer-!
+
+!***> '''Fall1'''
+Läs listan på organisationer och kontrollera att de är 53st och att minst en har librisId=lib-uu (dvs. vi får läsa librisId)
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $systemAdminAuthToken | divaOrganisation | =~/"toNo":"53"/ | OK |
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $systemAdminAuthToken | divaOrganisation | =~/"name":"librisId","value":"lib-uu"/ | OK |
+
+Lists organisationer och lagra resultatet för att användas i test nedan
+
+!| ComparerFixture |
+| authToken | type | testReadRecordListAndStoreRecords? |
+| $systemAdminAuthToken | divaOrganisation | |
+
+Kontrollera barnen i den tidigare upplästa listan
+
+!| ChildComparerFixture |
+| type | children | listIndexToCompareTo | testReadFromListCheckContain? |
+| systemAdminAuthToken | {"children":[{"name":"domain"},{"name":"rootOrganisation"},{"name":"showInDefence"},{"name":"topLevel"},{"name":"showInPortal"}]} | 0 | OK |
+
+
+*!
+!4 !-DomainAdmin-!
+ * '''Fall2:''' !-DomainAdmin ska inte kunna lista organisationer-!
+
+!***> '''Fall2'''
+
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $domainAdminUUAuthToken | divaOrganisation | | FORBIDDEN |
+
+*!
+!4 Guest
+ * '''Fall2:''' Guest ska inte kunna lista organisationer
+
+!***> '''Fall2'''
+
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $guestToken | divaOrganisation | | FORBIDDEN |
+
+*!

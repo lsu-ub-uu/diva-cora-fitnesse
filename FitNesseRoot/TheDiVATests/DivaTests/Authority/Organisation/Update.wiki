@@ -1,7 +1,7 @@
 ---
 Test
 ---
-!1 Uppdatera Organisation
+!2 Uppdatera
 Det ska vara möjligt att uppdatera Organisation.
 
  * '''Fall 1:''' Det ska kunna vara möjligt att uppdatera namn
@@ -235,4 +235,56 @@ Organisation med id 1104 har inget tidigare namn. Vi läser den först och ser a
 | $adminAuthToken | divaOrganisation | 1450 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1450"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Nordiska ministerrådet"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"Nordiska ministerrådet"},{"name":"language","value":"en"}]},{"name":"domain","value":"norden"},{"name":"country","value":"SE"},{"name":"URL","value":"http://www.norden.org"},{"name":"organisationType","value":"unit"},{"name":"organisationNumber","value":"3333333333"},{"name":"eligible","value":"yes"},{"name":"showInDefence","value":"no"},{"name":"topLevel","value":"no"},{"name":"showInPortal","value":"no"}]} | | |
 
 *!
+*!
+
+!3 Roller
+!4 !-SystemAdmin-!
+ * '''Fall1:''' !-SystemAdmin ska kunna uppdatera en organisation från alla domän.-!
+!***> '''Fall1'''
+!-Uppdatera en organisation från domän UU, som en systemAdmin och se att alla fält är uppdaterade inklusive de med begränsnigar, utom domain som inte får ändras.-!
+(librisId, rootOrganisation, showInDefence, topLevel, showInPortal)
+
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $systemAdminAuthToken | divaOrganisation | 1750 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1750"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Uppsala universitet2"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"Uppsala University2"},{"name":"language","value":"en"}]},{"name":"domain","value":"kth"},{"name":"URL","value":"http://uu2.se"},{"name":"organisationType","value":"authority"},{"name":"organisationNumber","value":"22"},{"name":"eligible","value":"no"},{"name":"librisId","value":"lib-uu2"},{"name":"showInDefence","value":"no"},{"name":"topLevel","value":"yes"},{"name":"showInPortal","value":"no"},{"name":"rootOrganisation","value":"yes"},{"name":"box","value":"22"},{"name":"street","value":"två"},{"name":"postcode","value":"22"},{"name":"city","value":"två"},{"name":"country","value":"SE"},{"name":"organisationCode","value":"22"},{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"divaOrganisation"},{"name":"linkedRecordId","value":"1"}]}],"repeatId":"0"},{"name":"formerName","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"divaOrganisation"},{"name":"linkedRecordId","value":"1"}]},{"name":"organisationComment","value":"222"}],"repeatId":"1"},{"name":"closedDate","value":"2020-02-02"}]} | | OK |
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetOrganisation1750
+
+*!
+!4 !-DomainAdmin-!
+ * '''Fall1:''' !-DomainAdmin ska kunna uppdatera en organisation, från sin egna domän.-!
+ * '''Fall2:''' !-DomainAdmin ska INTE kunna uppdatera en organisation, från en annan domän.-!
+
+!***> '''Fall1'''
+
+!-Updatera en organisation från domän UU, som en domänAdmin från UU och se att fälten som domänAdmin får läsa ÄR ändrade-!
+(domain, librisId, rootOrganisation, showInDefence, topLevel, showInPortal)
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $domainAdminUUAuthToken | divaOrganisation | 1750 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1750"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Uppsala universitet2"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"Uppsala University2"},{"name":"language","value":"en"}]},{"name":"domain","value":"kth"},{"name":"URL","value":"http://uu2.se"},{"name":"organisationType","value":"authority"},{"name":"organisationNumber","value":"22"},{"name":"eligible","value":"no"},{"name":"librisId","value":"lib-uu2"},{"name":"showInDefence","value":"no"},{"name":"topLevel","value":"yes"},{"name":"showInPortal","value":"no"},{"name":"rootOrganisation","value":"yes"},{"name":"box","value":"22"},{"name":"street","value":"två"},{"name":"postcode","value":"22"},{"name":"city","value":"två"},{"name":"country","value":"SE"},{"name":"organisationCode","value":"22"},{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"divaOrganisation"},{"name":"linkedRecordId","value":"1"}]}],"repeatId":"0"},{"name":"formerName","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"divaOrganisation"},{"name":"linkedRecordId","value":"1"}]},{"name":"organisationComment","value":"222"}],"repeatId":"1"},{"name":"closedDate","value":"2020-02-02"}]} | | OK |
+
+
+!| ChildComparerFixture |
+| authToken | type | id | children | testReadAndStoreRecord? | testCheckContainWithValues? |
+| $domainAdminUUAuthToken | divaOrganisation | 1750 | {"children":[{"type":"atomic","name":"domain","value":"uu"},{"type":"atomic","name":"librisId","value":"lib-uu"},{"type":"atomic","name":"rootOrganisation","value":"no"},{"type":"atomic","name":"showInDefence","value":"yes"},{"type":"atomic","name":"topLevel","value":"no"},{"type":"atomic","name":"showInPortal","value":"yes"}]} | | OK |
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetOrganisation1750
+*!
+!***> '''Fall2'''
+
+!-Uppdatera en organisation från domän KTH, som en domänAdmin från UU och se att vi inte får ändra organisationen (FORBIDDEN)-!
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $domainAdminUUAuthToken | divaOrganisation | 1751 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1751"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Kungliga Tekniska Högskolan"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"Royal Institute of Technology"},{"name":"language","value":"en"}]},{"name":"domain","value":"kth"},{"name":"URL","value":"http://kth.se"},{"name":"organisationType","value":"university"},{"name":"eligible","value":"yes"},{"name":"librisId","value":"lib-kth"},{"name":"showInDefence","value":"yes"},{"name":"topLevel","value":"no"},{"name":"showInPortal","value":"yes"},{"name":"rootOrganisation","value":"no"},{"name":"box","value":""},{"name":"street","value":""},{"name":"postcode","value":""},{"name":"city","value":""},{"name":"country","value":""},{"name":"organisationCode","value":""},{"name":"organisationNumber","value":""}]} | | FORBIDDEN |
+
+*!
+!4 Guest
+ * '''Fall1:''' Guest får INTE uppdatera organisationer.
+
+!***> '''Fall1'''
+Guest får inte uppdatera organisationer, vi förvänatar oss FORBIDDEN som svar.
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $guestToken | divaOrganisation | 2050 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"2050"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"ltu"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"ltu"},{"name":"language","value":"en"}]},{"name":"domain","value":"test"},{"name":"organisationType","value":"university"},{"name":"eligible","value":"yes"},{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"divaOrganisation"},{"name":"linkedRecordId","value":"1100"}]}],"repeatId":"0"},{"name":"showInDefence","value":"yes"},{"name":"topLevel","value":"yes"},{"name":"showInPortal","value":"yes"},{"name":"rootOrganisation","value":"yes"}]} | | FORBIDDEN |
+
 *!

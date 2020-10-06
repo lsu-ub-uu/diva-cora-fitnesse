@@ -1,7 +1,8 @@
 ---
 Test
 ---
-!1 Skapa en ny organisation
+!2 Skapa
+!style_red['''Det finns ännu inget implementerat stöd för att skapa en organisation från DiVA powered by Cora''']
 !***> Skapa en ny organisation (AVSTÄNGT)
 
 !| comment |
@@ -10,11 +11,9 @@ Test
 | $adminAuthToken | divaOrganisation | {"name":"divaOrganisation","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"organisationName","value":"Provorganisation"},{"name":"alternativeName","children":[{"name":"organisationName","value":"Test organisation"}]},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}]} | | FORBIDDEN |
 
 *!
-'''Eftersom vi ännu inte implementerat stöd för att skapa en organisation från DiVA powered by Cora, så får inte någon grupp göra det.'''
-
-!2 DiVA Roller
-!3 !-SystemAdmin-!
- * '''Fall1:''' !-SystemAdmin ska INTE kunna skapa en organisation på någon domän.-!
+!3 Roller
+!4 !-SystemAdmin-!
+ * '''Fall1:''' !-Eftersom det just nu inte går att skapa organistationer i systemet får SystemAdmin INTE för närvarande skapa någon organisation.-!
 
 !***> '''Fall1'''
 
@@ -25,8 +24,8 @@ Vi provar att skapa en organisation
 | $systemAdminAuthToken | divaOrganisation | {"name":"divaOrganisation","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"organisationName","value":"Provorganisation"},{"name":"alternativeName","children":[{"name":"organisationName","value":"Test organisation"}]},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}]} | | FORBIDDEN |
 
 *!
-!3 !-DomainAdmin-!
- * '''Fall1:''' !-DomainAdmin ska INTE kunna skapa en organisation-!
+!4 !-DomainAdmin-!
+ * '''Fall1:''' !-Eftersom det just nu inte går att skapa organistationer i systemet får DomainAdmin INTE för närvarande skapa någon organisation.-!
 
 !***> '''Fall1'''
 
@@ -37,7 +36,7 @@ Vi provar att skapa en organisation
 | $domainAdminUUAuthToken | divaOrganisation | {"name":"divaOrganisation","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"organisationName","value":"Provorganisation"},{"name":"alternativeName","children":[{"name":"organisationName","value":"Test organisation"}]},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}]} | | FORBIDDEN |
 
 *!
-!3 Guest
+!4 Guest
  * '''Fall1:''' Guest ska inte kunna skapa en organisation
 
 !***> '''Fall1'''

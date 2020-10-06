@@ -1,0 +1,14 @@
+---
+Help: Organisation
+Suite
+---
+!1 Organisation
+Organistation innehåller data om DiVA-medlemmarnas organisationsstruktur. Data innehåller befintligt namn på svenska och engelska samt eventuella tidigare benämningar.
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.RecordType
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.Create
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.Read
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.Update
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.Delete
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.List
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.Search

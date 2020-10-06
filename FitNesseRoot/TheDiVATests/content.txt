@@ -1,3 +1,3 @@
 !1 DiVA-tester med hjälp av externt API.
-!contents -R4 -g -p -f -h
+!contents -R3 -g -p -f -h
 !define TEST_SYSTEM {slim}
