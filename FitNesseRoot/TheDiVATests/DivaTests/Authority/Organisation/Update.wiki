@@ -46,7 +46,7 @@ domain should not have been changed
 !define currentAuthToken {$domainAdminUUAuthToken}
 !define expectedUpdateResult {OK}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateOrganisation1750
-!define expectedCompareResult {Child with nameInData domain does not have the correct value. Child with nameInData librisId does not have the correct value. Child with nameInData rootOrganisation does not have the correct value. Child with nameInData showInDefence does not have the correct value. Child with nameInData topLevel does not have the correct value. Child with nameInData showInPortal does not have the correct value.}
+!define expectedCompareResult {Child with nameInData domain does not have the correct value. Child with nameInData librisId does not have the correct value. Child with nameInData showInDefence does not have the correct value. Child with nameInData topLevel does not have the correct value. Child with nameInData showInPortal does not have the correct value. Child with nameInData rootOrganisation does not have the correct value.}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareOrganisation1750
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetOrganisation1750
 *!
