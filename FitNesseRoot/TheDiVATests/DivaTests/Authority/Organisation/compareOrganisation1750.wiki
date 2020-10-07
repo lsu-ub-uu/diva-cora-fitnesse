@@ -1,0 +1,3 @@
+!| ChildComparerFixture |
+| authToken | type | id | children | testReadAndStoreRecord? | testCheckContainWithValues? |
+| $systemAdminAuthToken | divaOrganisation | 1750 | {"children":[{"type":"atomic","name":"domain","value":"kth"},{"type":"atomic","name":"librisId","value":"lib-uu2"},{"type":"atomic","name":"rootOrganisation","value":"yes"},{"type":"atomic","name":"showInDefence","value":"no"},{"type":"atomic","name":"topLevel","value":"yes"},{"type":"atomic","name":"showInPortal","value":"no"}]} | | ${expectedCompareResult} |

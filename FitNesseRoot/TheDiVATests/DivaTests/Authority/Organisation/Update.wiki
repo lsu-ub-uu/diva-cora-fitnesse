@@ -9,249 +9,32 @@ Det ska vara möjligt att uppdatera Organisation.
  * '''Fall 3:''' Det ska kunna vara möjligt att uppdatera överordnad organisation
  * '''Fall 4:''' Det ska kunna vara möjligt att uppdatera tidigare namn
 
-!***> '''Fall 1'''
-
-!***> Läs organisation 1450
-
-!| RecordEndpointFixture |
-| authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | divaOrganisation | 1450 | =~/"value":"Nordiska ministerrådet"/ | OK |
-
-*!
-!***> Uppdatera organisation 1450 med nytt namn
-
-!| RecordEndpointFixture |
-| authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | divaOrganisation | 1450 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1450"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Norska ministerrådet"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"Nordiska ministerrådet"},{"name":"language","value":"en"}]},{"name":"domain","value":"norden"},{"name":"country","value":"SE"},{"name":"URL","value":"http://www.norden.org"},{"name":"organisationType","value":"unit"},{"name":"organisationNumber","value":"3333333333"},{"name":"eligible","value":"yes"},{"name":"showInDefence","value":"no"},{"name":"topLevel","value":"no"},{"name":"showInPortal","value":"no"}]} | | OK |
-
-*!
-!***> Läs organisation 1450 igen för att se att den är uppdaterad
-
-!| RecordEndpointFixture |
-| authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | divaOrganisation | 1450 | =~/"value":"Norska ministerrådet"/ | OK |
-
-*!
-!***> Återställ ursprunglig organisation 1450
-
-!| RecordEndpointFixture |
-| authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | divaOrganisation | 1450 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1450"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Nordiska ministerrådet"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"Nordiska ministerrådet"},{"name":"language","value":"en"}]},{"name":"domain","value":"norden"},{"name":"country","value":"SE"},{"name":"URL","value":"http://www.norden.org"},{"name":"organisationType","value":"unit"},{"name":"organisationNumber","value":"3333333333"},{"name":"eligible","value":"yes"},{"name":"showInDefence","value":"no"},{"name":"topLevel","value":"no"},{"name":"showInPortal","value":"no"}]} | | OK |
-
-*!
-*!
-!***> '''Fall 2'''
-
-Organisation med id 500 har en adress registrerad. Vi läser först den befintliga posten och kontrollerar att adressen är den förväntade. Därefter uppdaterar vi adressen, läser den igen och ser att den är ändrad.
-
-!***> Läs organisation 500
-
-!| RecordEndpointFixture |
-| authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | divaOrganisation | 500 | =~/"name":"city","value":"Stockholm".*"name":"street","value":"Hammarbyängen 1".*"name":"box","value":"Boxadress 457".*"name":"postcode","value":"11285"/ | OK |
-
-*!
-!***> Uppdatera organisation 500 med ny adress
-
-!| RecordEndpointFixture |
-| authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | divaOrganisation | 500 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"500"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"testar"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"testar"},{"name":"language","value":"en"}]},{"name":"domain","value":"test"},{"name":"box","value":"Box 21"},{"name":"street","value":"Some other street"},{"name":"postcode","value":"111111"},{"name":"city","value":"Uppsala"},{"name":"country","value":"SE"},{"name":"organisationType","value":"centre"},{"name":"eligible","value":"yes"},{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"divaOrganisation"},{"name":"linkedRecordId","value":"1"}]}],"repeatId":"0"},{"name":"showInDefence","value":"no"},{"name":"topLevel","value":"no"},{"name":"showInPortal","value":"no"}]} | | OK |
-
-*!
-!***> Läs organisation 500 igen och se att adressen är uppdaterad
-
-!| RecordEndpointFixture |
-| authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | divaOrganisation | 500 | =~/"name":"city","value":"Uppsala".*"name":"street","value":"Some other street".*"name":"box","value":"Box 21".*"name":"postcode","value":"111111"/ | OK |
-
-*!
-!***> Uppdatera organisation 500 med ny adress utan land
-
-!| RecordEndpointFixture |
-| authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | divaOrganisation | 500 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"500"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"testar"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"testar"},{"name":"language","value":"en"}]},{"name":"domain","value":"test"},{"name":"box","value":"Box 9"},{"name":"street","value":"Some nine street"},{"name":"postcode","value":"999999"},{"name":"city","value":"Nine"},{"name":"organisationType","value":"centre"},{"name":"eligible","value":"yes"},{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"divaOrganisation"},{"name":"linkedRecordId","value":"1"}]}],"repeatId":"0"}]} | | OK |
-
-*!
-!***> Läs organisation 500 igen och se att adressen är uppdaterad utan land
-
-!| RecordEndpointFixture |
-| authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | divaOrganisation | 500 | =~/"name":"city","value":"Nine".*"name":"street","value":"Some nine street".*"name":"box","value":"Box 9".*"name":"postcode","value":"999999"/ | OK |
-
-*!
-Organisation med id 1450 har ingen adress från början. Vi läser den och ser att den inte har någon adress. Sen uppdaterar vi organisationen, lägger till en adress och ser att vi har en adress.
-
-!***> Läs organisation 1450
-
-!| RecordEndpointFixture |
-| authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | divaOrganisation | 1450 | =~/"value":"Nordiska ministerrådet"/ | OK |
-
-*!
-!***> Uppdatera organisation 1450 med fullständig adress
-
-!| RecordEndpointFixture |
-| authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | divaOrganisation | 1450 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1450"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Nordiska ministerrådet"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"Nordiska ministerrådet"},{"name":"language","value":"en"}]},{"name":"domain","value":"norden"},{"name":"country","value":"SE"},{"name":"street","value":"Storgatan 45"},{"name":"box","value":"3556"},{"name":"city","value":"Storstaden"},{"name":"URL","value":"http://www.norden.org"},{"name":"organisationType","value":"unit"},{"name":"organisationNumber","value":"3333333333"},{"name":"eligible","value":"yes"},{"name":"showInDefence","value":"no"},{"name":"topLevel","value":"no"},{"name":"showInPortal","value":"no"}]} | | OK |
-
-*!
-!***> Läs organisation 1450 igen för att se att den är uppdaterad
-
-!| RecordEndpointFixture |
-| authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | divaOrganisation | 1450 | =~/"name":"city","value":"Storstaden".*"name":"street","value":"Storgatan 45".*"name":"box","value":"3556".*"name":"country","value":"SE"/ | OK |
-
-*!
-!***> Återställ ursprungliga organisationer
-
-!| RecordEndpointFixture |
-| authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | divaOrganisation | 1450 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1450"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Nordiska ministerrådet"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"Nordiska ministerrådet"},{"name":"language","value":"en"}]},{"name":"domain","value":"norden"},{"name":"country","value":"SE"},{"name":"URL","value":"http://www.norden.org"},{"name":"organisationType","value":"unit"},{"name":"organisationNumber","value":"3333333333"},{"name":"eligible","value":"yes"},{"name":"showInDefence","value":"no"},{"name":"topLevel","value":"no"},{"name":"showInPortal","value":"no"}]} | | OK |
-| $adminAuthToken | divaOrganisation | 500 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"500"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"testar"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"testar"},{"name":"language","value":"en"}]},{"name":"domain","value":"test"},{"name":"box","value":"Boxadress 457"},{"name":"street","value":"Hammarbyängen 1"},{"name":"postcode","value":"11285"},{"name":"city","value":"Stockholm"},{"name":"country","value":"SE"},{"name":"organisationType","value":"centre"},{"name":"eligible","value":"yes"},{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"divaOrganisation"},{"name":"linkedRecordId","value":"1"}]}],"repeatId":"0"},{"name":"showInDefence","value":"no"},{"name":"topLevel","value":"no"},{"name":"showInPortal","value":"no"}]} | | OK |
-
-*!
-*!
-!***> '''Fall 3'''
-
-Organisation med id 1104 har en överordnad organisation, med id 1100. Vi läser den först för att se att den överordnade organisationen är korrekt. Därefter uppdaterar vi en överordnade organisationen och läser den igen för att se att den är korrekt uppdaterad.
-
-!***> Läs organisation 1104
-
-!| RecordEndpointFixture |
-| authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | divaOrganisation | 1104 | =~/"name":"linkedRecordType","value":"divaOrganisation".*"name":"linkedRecordId","value":"1100"/ | OK |
-
-*!
-!***> Uppdatera organisation 1104 med ny överordnad organisation
-
-!| RecordEndpointFixture |
-| authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | divaOrganisation | 1104 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1104"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Grupp F"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"F"},{"name":"language","value":"en"}]},{"name":"domain","value":"test"},{"name":"organisationType","value":"researchGroup"},{"name":"eligible","value":"yes"},{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"divaOrganisation"},{"name":"linkedRecordId","value":"1102"}]}],"repeatId":"0"},{"name":"closedDate","value":"2010-11-03"},{"name":"showInDefence","value":"no"},{"name":"topLevel","value":"no"},{"name":"showInPortal","value":"no"},{"name":"country","value":"SE"}]} | | OK |
-
-*!
-!***> Läs organisation 1104
-
-!| RecordEndpointFixture |
-| authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | divaOrganisation | 1104 | =~/"name":"linkedRecordType","value":"divaOrganisation".*"name":"linkedRecordId","value":"1102"/ | OK |
-
-*!
-Organisation med id 1450 har ingen överordnad organisation. Vi läser den först för att se att den inte har någon överordnad organisation. Därefter uppdaterar vi organisation 1450 så att den har en !-
--!överordnad organisation, för att sen läsa den igen och se att den har blivit uppdaterad.
-
-!***> Läs organisation 1450
-
-!| RecordEndpointFixture |
-| authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | divaOrganisation | 1450 | | OK |
-
-*!
-!***> Uppdatera organisation 1450 med ny överordnad organisation
-
-!| RecordEndpointFixture |
-| authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | divaOrganisation | 1450 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1450"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Nordiska ministerrådet"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"Nordiska ministerrådet"},{"name":"language","value":"en"}]},{"name":"domain","value":"norden"},{"name":"country","value":"SE"},{"name":"URL","value":"http://www.norden.org"},{"name":"organisationType","value":"unit"},{"name":"organisationNumber","value":"3333333333"},{"name":"eligible","value":"yes"},{"name":"showInDefence","value":"no"},{"name":"topLevel","value":"no"},{"name":"showInPortal","value":"no"},{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"divaOrganisation"},{"name":"linkedRecordId","value":"50"}]}],"repeatId":"0"}]} | | OK |
-
-*!
-!***> Läs organisation 1450
-
-!| RecordEndpointFixture |
-| authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | divaOrganisation | 1450 | =~/"name":"linkedRecordType","value":"divaOrganisation".*"name":"linkedRecordId","value":"50"/ | OK |
-
-*!
-!***> Återställ ursprungliga organisationer
-
-!| RecordEndpointFixture |
-| authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | divaOrganisation | 1104 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1104"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Grupp F"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"F"},{"name":"language","value":"en"}]},{"name":"domain","value":"test"},{"name":"organisationType","value":"researchGroup"},{"name":"eligible","value":"yes"},{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"divaOrganisation"},{"name":"linkedRecordId","value":"1100"}]}],"repeatId":"0"},{"name":"closedDate","value":"2010-11-03"},{"name":"showInDefence","value":"no"},{"name":"topLevel","value":"no"},{"name":"showInPortal","value":"no"},{"name":"country","value":"SE"}]} | | OK |
-| $adminAuthToken | divaOrganisation | 1450 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1450"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Nordiska   ministerrådet"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"Nordiska   ministerrådet"},{"name":"language","value":"en"}]},{"name":"domain","value":"norden"},{"name":"country","value":"SE"},{"name":"URL","value":"http://www.norden.org"},{"name":"organisationType","value":"unit"},{"name":"organisationNumber","value":"3333333333"},{"name":"eligible","value":"yes"},{"name":"showInDefence","value":"no"},{"name":"topLevel","value":"no"},{"name":"showInPortal","value":"no"}]} | | |
-
-*!
-*!
-!***> '''Fall 4'''
-
-Organisation med id 1100 har tidigare funnits under annat namn, organisation 400. Vi läser först den befintliga posten och kontrollerar att den tidigare organisationen är som förväntat. Därefter uppdaterar vi tidigare namn för att sedan läsa organisationen igen och
-
-se att den är uppdaterad.
-
-!***> Läs organisation 1100
-
-!| RecordEndpointFixture |
-| authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | divaOrganisation | 1100 | =~/"name":"linkedRecordType","value":"divaOrganisation".*"name":"linkedRecordId","value":"400"/ | OK |
-
-*!
-!***> Uppdatera organisation 1100 med en annan tidigare organisation
-
-!| RecordEndpointFixture |
-| authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | divaOrganisation | 1100 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1100"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Testfakultet"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"Test Faculty"},{"name":"language","value":"en"}]},{"name":"domain","value":"test"},{"name":"organisationType","value":"faculty"},{"name":"eligible","value":"yes"},{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"divaOrganisation"},{"name":"linkedRecordId","value":"1"}]}],"repeatId":"0"},{"name":"formerName","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"divaOrganisation"},{"name":"linkedRecordId","value":"450"}]},{"name":"organisationComment","value":"Den andra enheten har slutat att finnas men nu finns den här istället och det är ju bra."}],"repeatId":"0"},{"name":"showInDefence","value":"no"},{"name":"topLevel","value":"no"},{"name":"showInPortal","value":"no"},{"name":"country","value":"SE"}]} | | OK |
-
-*!
-!***> Läs organisation 1100 igen och se att den tidigare organisationen är uppdaterad
-
-!| RecordEndpointFixture |
-| authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | divaOrganisation | 1100 | =~/"name":"linkedRecordType","value":"divaOrganisation".*"name":"linkedRecordId","value":"450"/ | OK |
-
-*!
-Organisation med id 1104 har inget tidigare namn. Vi läser den först och ser att den inte har något tidigare namn. Därefter uppdaterar vi den och lägger till ett, för att sedan läsa organisationen igen och se att den har uppdaterats.
-
-!***> Läs organisation 1104 har
-
-!| RecordEndpointFixture |
-| authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | divaOrganisation | 1104 | | OK |
-
-*!
-!***> Uppdatera organisation 1104 har med ett tidigare namn, med en tillhörande kommentar
-
-!| RecordEndpointFixture |
-| authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | divaOrganisation | 1104 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1104"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Grupp F"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"F"},{"name":"language","value":"en"}]},{"name":"domain","value":"test"},{"name":"organisationType","value":"researchGroup"},{"name":"eligible","value":"yes"},{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"divaOrganisation"},{"name":"linkedRecordId","value":"1100"}]}],"repeatId":"0"},{"name":"closedDate","value":"2010-11-03"},{"name":"showInDefence","value":"no"},{"name":"topLevel","value":"no"},{"name":"showInPortal","value":"no"},{"name":"country","value":"SE"},{"name":"formerName","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"divaOrganisation"},{"name":"linkedRecordId","value":"1105"}]},{"name":"organisationComment","value":"en kommentar till det tidigare namnet"}],"repeatId":"1"}]} | | OK |
-
-*!
-!***> Läs organisation 1104 igen och se att det tidigare namnet är uppdaterat. Vi kollar också att kommentaren har lagts till
-
-!| RecordEndpointFixture |
-| authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | divaOrganisation | 1104 | =~/"name":"linkedRecordType","value":"divaOrganisation".*"name":"linkedRecordId","value":"1100".*"name":"organisationComment","value":"en kommentar till det tidigare namnet"/ | OK |
-
-*!
-!***> Återställ ursprungliga organisationer
-
-!| RecordEndpointFixture |
-| authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | divaOrganisation | 1100 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1100"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Testfakultet"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"Test Faculty"},{"name":"language","value":"en"}]},{"name":"domain","value":"test"},{"name":"organisationType","value":"faculty"},{"name":"eligible","value":"yes"},{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"divaOrganisation"},{"name":"linkedRecordId","value":"1"}]}],"repeatId":"0"},{"name":"formerName","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"divaOrganisation"},{"name":"linkedRecordId","value":"400"}]},{"name":"organisationComment","value":"Den andra enheten har slutat att finnas men nu finns den här istället och det är ju bra."}],"repeatId":"0"},{"name":"showInDefence","value":"no"},{"name":"topLevel","value":"no"},{"name":"showInPortal","value":"no"},{"name":"country","value":"SE"}]} | | OK |
-| $adminAuthToken | divaOrganisation | 1104 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1104"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Grupp F"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"F"},{"name":"language","value":"en"}]},{"name":"domain","value":"test"},{"name":"organisationType","value":"researchGroup"},{"name":"eligible","value":"yes"},{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"divaOrganisation"},{"name":"linkedRecordId","value":"1100"}]}],"repeatId":"0"},{"name":"closedDate","value":"2010-11-03"},{"name":"showInDefence","value":"no"},{"name":"topLevel","value":"no"},{"name":"showInPortal","value":"no"},{"name":"country","value":"SE"}]} | | OK |
-
-*!
-!***> Återställ ursprungliga organisationer
-
-!| RecordEndpointFixture |
-| authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | divaOrganisation | 1104 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1104"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Grupp F"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"F"},{"name":"language","value":"en"}]},{"name":"domain","value":"test"},{"name":"organisationType","value":"researchGroup"},{"name":"eligible","value":"yes"},{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"divaOrganisation"},{"name":"linkedRecordId","value":"1100"}]}],"repeatId":"0"},{"name":"closedDate","value":"2010-11-03"},{"name":"showInDefence","value":"no"},{"name":"topLevel","value":"no"},{"name":"showInPortal","value":"no"},{"name":"country","value":"SE"}]} | | OK |
-| $adminAuthToken | divaOrganisation | 1450 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1450"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Nordiska ministerrådet"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"Nordiska ministerrådet"},{"name":"language","value":"en"}]},{"name":"domain","value":"norden"},{"name":"country","value":"SE"},{"name":"URL","value":"http://www.norden.org"},{"name":"organisationType","value":"unit"},{"name":"organisationNumber","value":"3333333333"},{"name":"eligible","value":"yes"},{"name":"showInDefence","value":"no"},{"name":"topLevel","value":"no"},{"name":"showInPortal","value":"no"}]} | | |
-
-*!
-*!
-
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateFourCases
 !3 Roller
 !4 !-SystemAdmin-!
- * '''Fall1:''' !-SystemAdmin ska kunna uppdatera en organisation från alla domän.-!
+Systemadmin får uppdatera organisationer från alla domäner och i dessa uppdatera alla begränsade fält utom '''domain'''.
+
+ * '''Fall1:''' !-SystemAdmin ska kunna uppdatera en organisation från alla domäner.-!
+
 !***> '''Fall1'''
+
 !-Uppdatera en organisation från domän UU, som en systemAdmin och se att alla fält är uppdaterade inklusive de med begränsnigar, utom domain som inte får ändras.-!
+
 (librisId, rootOrganisation, showInDefence, topLevel, showInPortal)
 
-!| RecordEndpointFixture |
-| authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $systemAdminAuthToken | divaOrganisation | 1750 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1750"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Uppsala universitet2"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"Uppsala University2"},{"name":"language","value":"en"}]},{"name":"domain","value":"kth"},{"name":"URL","value":"http://uu2.se"},{"name":"organisationType","value":"authority"},{"name":"organisationNumber","value":"22"},{"name":"eligible","value":"no"},{"name":"librisId","value":"lib-uu2"},{"name":"showInDefence","value":"no"},{"name":"topLevel","value":"yes"},{"name":"showInPortal","value":"no"},{"name":"rootOrganisation","value":"yes"},{"name":"box","value":"22"},{"name":"street","value":"två"},{"name":"postcode","value":"22"},{"name":"city","value":"två"},{"name":"country","value":"SE"},{"name":"organisationCode","value":"22"},{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"divaOrganisation"},{"name":"linkedRecordId","value":"1"}]}],"repeatId":"0"},{"name":"formerName","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"divaOrganisation"},{"name":"linkedRecordId","value":"1"}]},{"name":"organisationComment","value":"222"}],"repeatId":"1"},{"name":"closedDate","value":"2020-02-02"}]} | | OK |
+!define currentAuthToken {$systemAdminAuthToken}
+!define expectedUpdateResult {OK}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateOrganisation1750
+domain should not have been changed
 
+!define expectedCompareResult {Child with nameInData domain does not have the correct value.}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareOrganisation1750
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetOrganisation1750
-
 *!
 !4 !-DomainAdmin-!
+!-DomainAdmin får uppdatera organisationer från sin egen domän, men inget av de fälten med skrivbegränsningar.
+-!
+
  * '''Fall1:''' !-DomainAdmin ska kunna uppdatera en organisation, från sin egna domän.-!
  * '''Fall2:''' !-DomainAdmin ska INTE kunna uppdatera en organisation, från en annan domän.-!
 
@@ -259,32 +42,35 @@ Organisation med id 1104 har inget tidigare namn. Vi läser den först och ser a
 
 !-Updatera en organisation från domän UU, som en domänAdmin från UU och se att fälten som domänAdmin får läsa ÄR ändrade-!
 (domain, librisId, rootOrganisation, showInDefence, topLevel, showInPortal)
-!| RecordEndpointFixture |
-| authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $domainAdminUUAuthToken | divaOrganisation | 1750 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1750"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Uppsala universitet2"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"Uppsala University2"},{"name":"language","value":"en"}]},{"name":"domain","value":"kth"},{"name":"URL","value":"http://uu2.se"},{"name":"organisationType","value":"authority"},{"name":"organisationNumber","value":"22"},{"name":"eligible","value":"no"},{"name":"librisId","value":"lib-uu2"},{"name":"showInDefence","value":"no"},{"name":"topLevel","value":"yes"},{"name":"showInPortal","value":"no"},{"name":"rootOrganisation","value":"yes"},{"name":"box","value":"22"},{"name":"street","value":"två"},{"name":"postcode","value":"22"},{"name":"city","value":"två"},{"name":"country","value":"SE"},{"name":"organisationCode","value":"22"},{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"divaOrganisation"},{"name":"linkedRecordId","value":"1"}]}],"repeatId":"0"},{"name":"formerName","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"divaOrganisation"},{"name":"linkedRecordId","value":"1"}]},{"name":"organisationComment","value":"222"}],"repeatId":"1"},{"name":"closedDate","value":"2020-02-02"}]} | | OK |
 
-
-!| ChildComparerFixture |
-| authToken | type | id | children | testReadAndStoreRecord? | testCheckContainWithValues? |
-| $domainAdminUUAuthToken | divaOrganisation | 1750 | {"children":[{"type":"atomic","name":"domain","value":"uu"},{"type":"atomic","name":"librisId","value":"lib-uu"},{"type":"atomic","name":"rootOrganisation","value":"no"},{"type":"atomic","name":"showInDefence","value":"yes"},{"type":"atomic","name":"topLevel","value":"no"},{"type":"atomic","name":"showInPortal","value":"yes"}]} | | OK |
-
+!define currentAuthToken {$domainAdminUUAuthToken}
+!define expectedUpdateResult {OK}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateOrganisation1750
+!define expectedCompareResult {Child with nameInData domain does not have the correct value. Child with nameInData librisId does not have the correct value. Child with nameInData rootOrganisation does not have the correct value. Child with nameInData showInDefence does not have the correct value. Child with nameInData topLevel does not have the correct value. Child with nameInData showInPortal does not have the correct value.}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareOrganisation1750
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetOrganisation1750
 *!
 !***> '''Fall2'''
 
-!-Uppdatera en organisation från domän KTH, som en domänAdmin från UU och se att vi inte får ändra organisationen (FORBIDDEN)-!
-!| RecordEndpointFixture |
-| authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $domainAdminUUAuthToken | divaOrganisation | 1751 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1751"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Kungliga Tekniska Högskolan"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"Royal Institute of Technology"},{"name":"language","value":"en"}]},{"name":"domain","value":"kth"},{"name":"URL","value":"http://kth.se"},{"name":"organisationType","value":"university"},{"name":"eligible","value":"yes"},{"name":"librisId","value":"lib-kth"},{"name":"showInDefence","value":"yes"},{"name":"topLevel","value":"no"},{"name":"showInPortal","value":"yes"},{"name":"rootOrganisation","value":"no"},{"name":"box","value":""},{"name":"street","value":""},{"name":"postcode","value":""},{"name":"city","value":""},{"name":"country","value":""},{"name":"organisationCode","value":""},{"name":"organisationNumber","value":""}]} | | FORBIDDEN |
+!-Uppdatera en organisation från domän UU, som en domänAdmin från KTH och se att vi inte får ändra organisationen (FORBIDDEN)-!
 
+!define currentAuthToken {$domainAdminKTHAuthToken}
+!define expectedUpdateResult {FORBIDDEN}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateOrganisation1750
+!-Uppdatera en organisation från domän KTH, som en domänAdmin från UU och se att vi inte får ändra organisationen (FORBIDDEN)-!
+
+!define currentAuthToken {$domainAdminUUAuthToken}
+!define expectedUpdateResult {FORBIDDEN}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateOrganisation1751
 *!
 !4 Guest
  * '''Fall1:''' Guest får INTE uppdatera organisationer.
 
 !***> '''Fall1'''
-Guest får inte uppdatera organisationer, vi förvänatar oss FORBIDDEN som svar.
-!| RecordEndpointFixture |
-| authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $guestToken | divaOrganisation | 2050 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"2050"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"ltu"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"ltu"},{"name":"language","value":"en"}]},{"name":"domain","value":"test"},{"name":"organisationType","value":"university"},{"name":"eligible","value":"yes"},{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"divaOrganisation"},{"name":"linkedRecordId","value":"1100"}]}],"repeatId":"0"},{"name":"showInDefence","value":"yes"},{"name":"topLevel","value":"yes"},{"name":"showInPortal","value":"yes"},{"name":"rootOrganisation","value":"yes"}]} | | FORBIDDEN |
 
+Guest får inte uppdatera organisationer, vi förvänatar oss FORBIDDEN som svar.
+
+!define currentAuthToken {$guestToken}
+!define expectedUpdateResult {FORBIDDEN}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateOrganisation1750
 *!
