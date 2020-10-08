@@ -3,7 +3,11 @@ Help: Organisation
 Suite
 ---
 !1 Organisation
-Organistation innehåller data om DiVA-medlemmarnas organisationsstruktur. Data innehåller befintligt namn på svenska och engelska samt eventuella tidigare benämningar.
+Organisationsposten är en så kallad auktoritetspost i syfte att identifiera organisationen i relation till publikationer, projekt och personer.
+
+Data innehåller bland annat befintligt namn på svenska och engelska samt eventuella tidigare benämningar. Genom relationer mellan olika organisationsposter skapas nätverk av organisationer som bygger upp information om DiVA-medlemmarnas organisationsstruktur, med tillhörande historik.
+
+Organisationerna läses och uppdateras i databasen från Classic. 
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.RecordType
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.Create

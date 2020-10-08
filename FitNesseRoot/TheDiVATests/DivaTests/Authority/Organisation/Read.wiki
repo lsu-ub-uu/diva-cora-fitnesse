@@ -2,7 +2,7 @@
 Test
 ---
 !2 Läsa
-Det skall gå att läsa organisationer via REST API:et.
+Det skall gå att läsa organisationer via REST API:et och i svaret få med vilka rättigheter den inloggade användaren har både på post och delpostnivå.
 
 !***> Läs organisation:1 i  JSON format
 
@@ -29,7 +29,10 @@ Läser och kontrollerar att JSON är korrekt för att bla. se att domain är rä
 *!
 !3 Roller
 !4 !-SystemAdmin-!
- * '''Fall1:''' !-SystemAdmin ska kunna läsa en organisation från alla domän.-!
+Systemadmin får läsa alla begränsade fält.
+
+ * '''Fall1:''' !-SystemAdmin ska kunna läsa en organisation från alla domän, och se alla begränsade fält.-!
+ 
 !***> '''Fall1'''
 !-Läs en organisation från domän UU, som en systemAdmin och se att fälten som systemAdmin får läsa ÄR med i svaret-!
 (domain, librisId, rootOrganisation, showInDefence, topLevel, showInPortal)
@@ -50,10 +53,20 @@ Vi läser ett organisation från VTI Domän
 | authToken | type | id | testReadRecord? | getStatusType? |
 | $systemAdminAuthToken | divaOrganisation | 1350 | | OK |
 
+Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har read på alla och write på alla utom domain.
+
+!define currentAuthToken {$systemAdminAuthToken}
+!define expectedPermissionResult {Write permission domain is missing.}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.permissionsOrganisation1750
+
+
 *!
 !4 !-DomainAdmin-!
- * '''Fall1:''' !-DomainAdmin ska kunna läsa en organisation, från sin egna domän.-!
- * '''Fall2:''' !-DomainAdmin ska kunna läsa en organisation, från en annan domän.-!
+
+!-DomainAdmin får läsa alla begränsade fält men inte skriva några.-!
+
+ * '''Fall1:''' !-DomainAdmin ska kunna läsa en organisation, och se alla begränsade fält, från sin egna domän.-!
+ * '''Fall2:''' !-DomainAdmin ska kunna läsa en organisation, och se alla begränsade fält, från en annan domän.-!
 
 !***> '''Fall1'''
 
@@ -63,6 +76,12 @@ Vi läser ett organisation från VTI Domän
 !| ChildComparerFixture |
 | authToken | type | id | children | testReadAndStoreRecord? | testCheckContainWithValues? |
 | $domainAdminUUAuthToken | divaOrganisation | 1750 | {"children":[{"type":"atomic","name":"domain","value":"uu"},{"type":"atomic","name":"librisId","value":"lib-uu"},{"type":"atomic","name":"rootOrganisation","value":"no"},{"type":"atomic","name":"showInDefence","value":"yes"},{"type":"atomic","name":"topLevel","value":"no"},{"type":"atomic","name":"showInPortal","value":"yes"}]} | | OK |
+
+Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har read på alla och inga write permissions.
+
+!define currentAuthToken {$domainAdminUUAuthToken}
+!define expectedPermissionResult {Write permission domain is missing. Write permission librisId is missing. Write permission showInDefence is missing. Write permission topLevel is missing. Write permission showInPortal is missing. Write permission rootOrganisation is missing.}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.permissionsOrganisation1750
 
 *!
 !***> '''Fall2'''
@@ -74,8 +93,16 @@ Vi läser ett organisation från VTI Domän
 | authToken | type | id | children | testReadAndStoreRecord? | testCheckContainWithValues? |
 | $domainAdminUUAuthToken | divaOrganisation | 1751 | {"children":[{"type":"atomic","name":"domain","value":"kth"},{"type":"atomic","name":"librisId","value":"lib-kth"},{"type":"atomic","name":"rootOrganisation","value":"no"},{"type":"atomic","name":"showInDefence","value":"yes"},{"type":"atomic","name":"topLevel","value":"no"},{"type":"atomic","name":"showInPortal","value":"yes"}]} | | OK |
 
+Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har read på alla och inga write permissions.
+
+!define currentAuthToken {$domainAdminUUAuthToken}
+!define expectedPermissionResult {Write permission domain is missing. Write permission librisId is missing. Write permission showInDefence is missing. Write permission topLevel is missing. Write permission showInPortal is missing. Write permission rootOrganisation is missing.}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.permissionsOrganisation1751
+
 *!
 !4 Guest
+Guest får varken läsa eller skriva några av de begränsade fälten i organisation.
+
  * '''Fall1:''' Guest ska kunna läsa en organisation, oavsett vilken domän den är knuten till.
 
 !***> '''Fall1'''
@@ -93,5 +120,11 @@ Läs en organisation från domän UU, som en guest och se att fälten som guest 
 !| ChildComparerFixture |
 | authToken | type | id | children | testReadAndStoreRecord? | testCheckContain? |
 | $guestToken | divaOrganisation | 1750 | {"children":[{"type":"atomic","name":"rootOrganisation","value":"no"},{"type":"atomic","name":"showInDefence","value":"yes"},{"type":"atomic","name":"topLevel","value":"no"},{"type":"atomic","name":"showInPortal","value":"yes"}]} | | Child with nameInData rootOrganisation is missing. Child with nameInData showInDefence is missing. Child with nameInData topLevel is missing. Child with nameInData showInPortal is missing. |
+
+Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi som guest inte har några read eller write permissions.
+
+!define currentAuthToken {$guestToken}
+!define expectedPermissionResult {Read permission showInDefence is missing. Read permission topLevel is missing. Read permission showInPortal is missing. Read permission rootOrganisation is missing. Write permission domain is missing. Write permission librisId is missing. Write permission showInDefence is missing. Write permission topLevel is missing. Write permission showInPortal is missing. Write permission rootOrganisation is missing.}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.permissionsOrganisation1750
 
 *!

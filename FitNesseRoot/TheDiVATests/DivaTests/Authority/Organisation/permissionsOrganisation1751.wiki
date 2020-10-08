@@ -1,0 +1,3 @@
+!| PermissionComparerFixture |
+| authToken | type | id | permissions | testReadAndStoreRecord? | testCheckPermissions? |
+| ${currentAuthToken} | divaOrganisation | 1750 | {"read":["showInDefence", "topLevel", "showInPortal", "rootOrganisation"],"write":["domain", "librisId", "showInDefence", "topLevel", "showInPortal", "rootOrganisation"]} | | ${expectedPermissionResult} |

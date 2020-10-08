@@ -2,7 +2,7 @@
 Test
 ---
 !2 Metadata
-Organisation har följande fält och begränsningar:
+!4 Fält och begränsningar:
 
  * organisation(group)
    * recordInfo(group, 1-1, '''noRestrictions''')
@@ -27,6 +27,9 @@ Organisation har följande fält och begränsningar:
    * topLevel (colVar, 0-1, '''readWrite ''')
    * showInPortal (colVar, 0-1, '''readWrite ''')
    * rootOrganisation (colVar, 0-1, '''readWrite''') 
+
+!4 Interna beroenden inom posten:
+  * Organisation har ett internt beroende mellan rootOrganisation och organisationType. Om rootOrganisation är ja, skall organisationType sättas till 49 (root) i databasen, men inte vara med när man läser posten (motsvarande tomt värde).
 
 
 Läs recordType för organisation via  REST API.
