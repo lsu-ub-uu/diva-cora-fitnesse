@@ -1,5 +1,5 @@
 ---
-Help: A test that checks that idpLogin works as expected
+Help: Ett test som kontrollerar att det går att logga in med idpLogin
 Test
 ---
 !contents -R2 -g -p -f -h

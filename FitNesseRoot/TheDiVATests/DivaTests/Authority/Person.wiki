@@ -1,4 +1,5 @@
 ---
+Help: Person
 Suite
 ---
 !1 Tests for persons stored in Fedora Commons

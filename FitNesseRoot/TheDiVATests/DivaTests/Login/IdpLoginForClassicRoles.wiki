@@ -9,6 +9,7 @@ Det finns i DiVA classic ett antal olika användargrupper, dessa matchas mot mot
 !2 !-SystemAdmin-!
 !-SystemAdmin är en roll för de som administrerar systemet.-!
  * '''Fall1:''' !-Läs exempel användaren för SystemAdmin för att se att den har en länk till rätt roll (divaSystemAdminRole).-!
+ 
 !***> '''Fall1'''
 
 !-Vi läser exempel användaren för SystemAdmin, för att se att den har en länk till rätt roll (divaSystemAdminRole).-!
@@ -19,26 +20,25 @@ Det finns i DiVA classic ett antal olika användargrupper, dessa matchas mot mot
 
 *!
 !2 !-DomainAdmin-!
-!-DomainAdmin är en roll för de som administrerar de olika domänerna i DiVA. När man ger en användare denna roll måste man också koppla  en rättighet som styr vilken domän som användaren får administrera.-!
+!-DomainAdmin är en roll för de som administrerar de olika domänerna i DiVA. När man ger en användare denna roll måste man också koppla  en rättighet som styr vilken domän som användaren får administrera. Detta sker automatiskt utifrån informationen som finns i Classic, så att domainAdmin får rättighet för sina respektive domäner.-!
  * '''Fall1:''' !-Läs exempel användaren för DomainAdminUU för att se att den har en länk till rätt roll (divaDomainAdminRole).-!
  * '''Fall2:''' !-Läs exempel användaren för DomainAdminKTH för att se att den har en länk till rätt roll (divaDomainAdminRole).-!
+ 
 !***> '''Fall1'''
 
-!-Vi läser exempel användaren för DomainAdminUU, för att se att den har en länk till rätt roll (divaDomainAdminRole). (AVSTÄNGT)-!
+!-Vi läser exempel användaren för DomainAdminUU, för att se att den har en länk till rätt roll (divaDomainAdminRole) och en länk till domainPermissionTerm som pekar ut system.uu.-!
 
-!| comment |
-| RecordEndpointFixture |
+!| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | user | 65 | =~/\{"name":"linkedRecordType","value":"permissionRole"\},\{"name":"linkedRecordId","value":"divaDomainAdminRole"\}/ | OK |
+| $adminAuthToken | user | 65 | =~/\{"repeatId":"0","children":\[\{"children":\[\{"name":"linkedRecordType","value":"permissionRole"\},\{"name":"linkedRecordId","value":"divaDomainAdminRole"\}\],"name":"userRole"\},\{"children":\[\{"children":\[\{"name":"linkedRecordType","value":"collectPermissionTerm"\},\{"name":"linkedRecordId","value":"domainPermissionTerm"\}\],"name":"rule"\},\{"repeatId":"0","name":"value","value":"system.uu"\}\],"name":"permissionTermRulePart"\}\],"name":"userRole"\}/ | OK |
 
 *!
 !***> '''Fall2'''
-!-Vi läser exempel användaren för DomainAdminKTH, för att se att den har en länk till rätt roll (divaDomainAdminRole) (AVSTÄNGT).-!
+!-Vi läser exempel användaren för DomainAdminKTH, för att se att den har en länk till rätt roll (divaDomainAdminRole) och en länk till domainPermissionTerm som pekar ut system.kth.-!
 
-!| comment |
-| RecordEndpointFixture |
+!| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | user | 66 | =~/\{"name":"linkedRecordType","value":"permissionRole"\},\{"name":"linkedRecordId","value":"divaDomainAdminRole"\}/ | OK |
+| $adminAuthToken | user | 66 | =~/\{"repeatId":"0","children":\[\{"children":\[\{"name":"linkedRecordType","value":"permissionRole"\},\{"name":"linkedRecordId","value":"divaDomainAdminRole"\}\],"name":"userRole"\},\{"children":\[\{"children":\[\{"name":"linkedRecordType","value":"collectPermissionTerm"\},\{"name":"linkedRecordId","value":"domainPermissionTerm"\}\],"name":"rule"\},\{"repeatId":"0","name":"value","value":"system.kth"\}\],"name":"permissionTermRulePart"\}\],"name":"userRole"\}/ | OK |
 
 *!
 !2 Guest
