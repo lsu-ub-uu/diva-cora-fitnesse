@@ -8,6 +8,7 @@ Det ska vara möjligt att uppdatera Organisation.
  * '''Fall 2:''' Det ska kunna vara möjligt att uppdatera address
  * '''Fall 3:''' Det ska kunna vara möjligt att uppdatera överordnad organisation
  * '''Fall 4:''' Det ska kunna vara möjligt att uppdatera tidigare namn
+ * '''Fall 5:''' Om man väljer organisation att vara root då organisationstyp blir tomt.
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateFourCases
 !3 Roller
@@ -24,6 +25,7 @@ Systemadmin får uppdatera organisationer från alla domäner och i dessa uppdat
 
 !define currentAuthToken {$systemAdminAuthToken}
 !define expectedUpdateResult {OK}
+!define expectedUpdateResponse {}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateOrganisation1750
 domain should not have been changed
 
