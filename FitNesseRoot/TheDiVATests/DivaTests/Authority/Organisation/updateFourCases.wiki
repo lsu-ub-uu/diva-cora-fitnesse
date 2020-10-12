@@ -226,6 +226,10 @@ Organisation med id 1104 har inget tidigare namn. Vi läser den först och ser a
 *!
 *!
 !***> '''Fall 5'''
+När man uppdaterar en organisation och man väljer JA till fältet rootOrganisation då ska organisationType vara tomt. 
+
+Vi testar att svaret som vi får från servern inte innehåller organisationType. Vi använder oss av en regex /^((?!organisationType).)*$/
+
 !define currentAuthToken {$systemAdminAuthToken}
 !define expectedUpdateResult {OK}
 !define expectedUpdateResponse {=~/^((?!organisationType).)*$/}
