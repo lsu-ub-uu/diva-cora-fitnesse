@@ -9,7 +9,28 @@ Det ska vara möjligt att uppdatera Organisation.
  * '''Fall 3:''' Det ska kunna vara möjligt att uppdatera överordnad organisation
  * '''Fall 4:''' Det ska kunna vara möjligt att uppdatera tidigare namn
 
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateFourCases
+include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateFourCases
+
+ * '''Fall 1:''' Det ska gå att uppdatera rootOrganisation
+ * '''Fall 2:''' Det ska gå att uppdatera commonOrganisation
+ 
+
+!***> '''Fall1''' 
+
+!-Uppdatera en organisation från domän UU, som en systemAdmin och se att alla fält är uppdaterade inklusive de med begränsnigar, utom domain som inte får ändras.-!
+
+(librisId, rootOrganisation, showInDefence, topLevel, showInPortal)
+
+!define currentAuthToken {$adminAuthToken}
+!define expectedUpdateResult {FORBIDDEN}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateOrganisation1750
+
+!define expectedCompareResult {Child with nameInData domain does not have the correct value.}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareOrganisation1750
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetOrganisation1750
+*!
+
+
 !3 Roller
 !4 !-SystemAdmin-!
 Systemadmin får uppdatera organisationer från alla domäner och i dessa uppdatera alla begränsade fält utom '''domain'''.
