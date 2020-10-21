@@ -4,38 +4,26 @@ Test
 !2 Läsa
 Det skall gå att läsa organisationer via REST API:et och i svaret få med vilka rättigheter den inloggade användaren har både på post och delpostnivå.
 
-!***> Läs organisation:1 i  JSON format
-
-Läser och kontrollerar att JSON är korrekt för att bla. se att domain är rätt uppläst ur databasen.
-
-!| RecordEndpointFixture |
-| authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | organisation | 1 | {"record":{"data":{"children":[{"children":[{"name":"id","value":"1"},{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"commonOrganisation"}],"name":"type"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}],"name":"createdBy"},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"repeatId":"0","children":[{"children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}],"name":"updatedBy"},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"name":"updated"}],"name":"recordInfo"},{"name":"domain","value":"test"},{"children":[{"name":"organisationName","value":"Uppsala universitet"},{"name":"language","value":"sv"}],"name":"name"},{"children":[{"name":"language","value":"en"},{"name":"organisationName","value":"Uppsala University"}],"name":"alternativeName"},{"name":"organisationType","value":"university"},{"name":"eligible","value":"no"},{"name":"organisationNumber","value":"202100-2932"},{"name":"showInDefence","value":"yes"},{"name":"topLevel","value":"no"},{"name":"showInPortal","value":"yes"}],"name":"organisation"},"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"http://localhost:8082/diva/rest/record/commonOrganisation/1","accept":"application/vnd.uub.record+json"},"update":{"requestMethod":"POST","rel":"update","contentType":"application/vnd.uub.record+json","url":"http://localhost:8082/diva/rest/record/commonOrganisation/1","accept":"application/vnd.uub.record+json"},"index":{"requestMethod":"POST","rel":"index","body":{"children":[{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"commonOrganisation"}],"name":"recordType"},{"name":"recordId","value":"1"},{"name":"type","value":"index"}],"name":"workOrder"},"contentType":"application/vnd.uub.record+json","url":"http://localhost:8082/diva/rest/record/workOrder/","accept":"application/vnd.uub.record+json"},"delete":{"requestMethod":"DELETE","rel":"delete","url":"http://localhost:8082/diva/rest/record/commonOrganisation/1"}},"permissions":{"read":["librisId","topLevel","domain","showInPortal","showInDefence"],"write":["librisId","topLevel","domain","showInPortal","showInDefence"]}}} | OK |
-
-*!
-!***> Kontrollera att det går att läsa organisation som saknar alternativt namn
-
-!| RecordEndpointFixture |
-| authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | organisation | 1750 | | OK |
-
-*!
-!***> Läs organisation som divaEverything och se att fälten ÄR med i svaret
+!***> Läs organisation som divaEverything via den abstrakta organisation, rootOrgansiation och commonOrganisation och se att fälten ÄR med i svaret
 
 !| ChildComparerFixture |
 | authToken | type | id | children | testReadAndStoreRecord? | testCheckContainWithValues? |
 | $adminAuthToken | organisation | 1750 | {"children":[{"type":"atomic","name":"domain","value":"uu"},{"type":"atomic","name":"librisId","value":"lib-uu"},{"type":"atomic","name":"showInDefence","value":"yes"},{"type":"atomic","name":"topLevel","value":"no"},{"type":"atomic","name":"showInPortal","value":"yes"}]} | | OK |
+| $adminAuthToken | rootOrganisation | 1748 | {"children":[{"type":"atomic","name":"domain","value":"uu"},{"type":"atomic","name":"librisId","value":"lib-rootuu"},{"type":"atomic","name":"showInDefence","value":"yes"},{"type":"atomic","name":"topLevel","value":"no"},{"type":"atomic","name":"showInPortal","value":"yes"}]} | | OK |
+| $adminAuthToken | commonOrganisation | 1750 | {"children":[{"type":"atomic","name":"domain","value":"uu"},{"type":"atomic","name":"librisId","value":"lib-uu"},{"type":"atomic","name":"showInDefence","value":"yes"},{"type":"atomic","name":"topLevel","value":"no"},{"type":"atomic","name":"showInPortal","value":"yes"}]} | | OK |
 
 *!
 !3 Roller
 !4 !-SystemAdmin-!
 Systemadmin får läsa alla begränsade fält.
 
- * '''Fall1:''' !-SystemAdmin ska kunna läsa en organisation oavsett domän, och se alla begränsade fält.-!
+ * '''Fall1:''' !-SystemAdmin ska kunna läsa en organisation oavsett domän, via den abstrakta organistion och se alla begränsade fält.-!
+ * '''Fall2:''' !-SystemAdmin ska kunna läsa en organisation oavsett domän, som en rootOrganisation och se alla begränsade fält.-!
+ * '''Fall3:''' !-SystemAdmin ska kunna läsa en organisation oavsett domän, som en commonOrganisation och se alla begränsade fält.-!
  
 !***> '''Fall1'''
 !-Läs en organisation från domän UU, som en systemAdmin och se att fälten som systemAdmin får läsa ÄR med i svaret-!
-(domain, librisId, rootOrganisation, showInDefence, topLevel, showInPortal)
+(domain, librisId, showInDefence, topLevel, showInPortal)
 
 !| ChildComparerFixture |
 | authToken | type | id | children | testReadAndStoreRecord? | testCheckContainWithValues? |
@@ -46,27 +34,108 @@ Vi läser ett organisation från Uppsalas Domän
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
 | $systemAdminAuthToken | organisation | 1750 | | OK |
+Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har read på alla och write på alla utom domain.
 
-Vi läser ett organisation från VTI Domän
+!define currentAuthToken {$systemAdminAuthToken}
+!define currentRecordType {organisation}
+!define currentRecordId {1750}
+!define expectedPermissionResult {Write permission domain is missing.}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.permissionsOrganisation
+
+Vi läser ett organisation från KTH Domän
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $systemAdminAuthToken | organisation | 1350 | | OK |
+| $systemAdminAuthToken | organisation | 1751 | | OK |
 
 Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har read på alla och write på alla utom domain.
 
 !define currentAuthToken {$systemAdminAuthToken}
+!define currentRecordType {organisation}
+!define currentRecordId {1751}
 !define expectedPermissionResult {Write permission domain is missing.}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.permissionsOrganisation1750
-
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.permissionsOrganisation
 
 *!
+!***> '''Fall2'''
+!-Läs en rootOrganisation från domän UU, som en systemAdmin och se att fälten som systemAdmin får läsa ÄR med i svaret-!
+(domain, librisId, showInDefence, topLevel, showInPortal)
+
+!| ChildComparerFixture |
+| authToken | type | id | children | testReadAndStoreRecord? | testCheckContainWithValues? |
+| $systemAdminAuthToken | rootOrganisation | 1748 | {"children":[{"type":"atomic","name":"domain","value":"uu"},{"type":"atomic","name":"librisId","value":"lib-rootuu"},{"type":"atomic","name":"showInDefence","value":"yes"},{"type":"atomic","name":"topLevel","value":"no"},{"type":"atomic","name":"showInPortal","value":"yes"}]} | | OK |
+
+Vi läser ett organisation från Uppsalas Domän
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $systemAdminAuthToken | rootOrganisation | 1748 | | OK |
+Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har read på alla och write på alla utom domain.
+
+!define currentAuthToken {$systemAdminAuthToken}
+!define currentRecordType {rootOrganisation}
+!define currentRecordId {1748}
+!define expectedPermissionResult {Write permission domain is missing.}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.permissionsOrganisation
+
+Vi läser ett organisation från KTH Domän
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $systemAdminAuthToken | rootOrganisation | 1749 | | OK |
+
+Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har read på alla och write på alla utom domain.
+
+!define currentAuthToken {$systemAdminAuthToken}
+!define currentRecordType {rootOrganisation}
+!define currentRecordId {1749}
+!define expectedPermissionResult {Write permission domain is missing.}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.permissionsOrganisation
+*!
+!***> '''Fall3'''
+!-Läs en commonOrganisation från domän UU, som en systemAdmin och se att fälten som systemAdmin får läsa ÄR med i svaret-!
+(domain, librisId, showInDefence, topLevel, showInPortal)
+
+!| ChildComparerFixture |
+| authToken | type | id | children | testReadAndStoreRecord? | testCheckContainWithValues? |
+| $systemAdminAuthToken | commonOrganisation | 1750 | {"children":[{"type":"atomic","name":"domain","value":"uu"},{"type":"atomic","name":"librisId","value":"lib-uu"},{"type":"atomic","name":"showInDefence","value":"yes"},{"type":"atomic","name":"topLevel","value":"no"},{"type":"atomic","name":"showInPortal","value":"yes"}]} | | OK |
+
+Vi läser ett organisation från Uppsalas Domän
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $systemAdminAuthToken | commonOrganisation | 1750 | | OK |
+Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har read på alla och write på alla utom domain.
+
+!define currentAuthToken {$systemAdminAuthToken}
+!define currentRecordType {commonOrganisation}
+!define currentRecordId {1750}
+!define expectedPermissionResult {Write permission domain is missing.}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.permissionsOrganisation
+
+Vi läser ett organisation från KTH Domän
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $systemAdminAuthToken | commonOrganisation | 1751 | | OK |
+
+Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har read på alla och write på alla utom domain.
+
+!define currentAuthToken {$systemAdminAuthToken}
+!define currentRecordType {commonOrganisation}
+!define currentRecordId {1751}
+!define expectedPermissionResult {Write permission domain is missing.}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.permissionsOrganisation
+*!
+
 !4 !-DomainAdmin-!
 
 !-DomainAdmin får läsa alla begränsade fält men inte skriva några.-!
 
- * '''Fall1:''' !-DomainAdmin ska kunna läsa en organisation, och se alla begränsade fält, från sin egna domän.-!
- * '''Fall2:''' !-DomainAdmin ska kunna läsa en organisation, och se alla begränsade fält, från en annan domän.-!
+ * '''Fall1a:''' !-DomainAdmin ska kunna läsa en organisation, och se alla begränsade fält, från sin egna domän.-!
+ * '''Fall1b:''' !-DomainAdmin ska kunna läsa en organisation, och se alla begränsade fält, från sin egna domän.-!
+ * '''Fall1c:''' !-DomainAdmin ska kunna läsa en organisation, och se alla begränsade fält, från sin egna domän.-!
+ * '''Fall4:''' !-DomainAdmin ska kunna läsa en organisation, och se alla begränsade fält, från en annan domän.-!
 
 !***> '''Fall1'''
 
