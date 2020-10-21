@@ -3,6 +3,7 @@ Test
 ---
 !2 Metadata
 !4 Fält och begränsningar:
+Det som står listat här är nameInData.
 
  * organisation(group)
    * recordInfo(group, 1-1, '''noRestrictions''')
@@ -83,7 +84,7 @@ commonOrganisation har :
 
 
 
-Läs recordType för '''organisation''' via  REST API.
+Läs recordType för den abstracta '''organisation''' via  REST API.
 
 !***> Läs posttyp Organisation
 
@@ -177,6 +178,13 @@ Läs recordType för '''rootOrganisation''' via  REST API.
 | $adminAuthToken | recordType | rootOrganisation | | OK |
 
 *!
+!define currentAuthToken {$adminAuthToken}
+!define expectedPermissionResult {sdf}
+!| ActionComparerFixture |
+| authToken | type | id | actions | testReadAndStoreRecord? | testCheckActions? |
+| ${currentAuthToken} | recordType | rootOrganisation | {"actions":["read","update", "delete", "index", "incomingLinks", "create", "validate", "list", "search"]} | | ${expectedPermissionResult} |
+
+
 Läs topnivå metadatagruppen för en '''ny''' organisation, och kontrollera att den har rätt barn
 
 !***> Kontrollera barnen till  rootOrganisationNewGroup
@@ -200,7 +208,7 @@ Kontrollera barnen
 | metadataTextVariable | divaOrganisationCityTextVar | 0 | 1 | noRestrictions |
 | metadataCollectionVariable | divaOrganisationCountryCollectionVar | 0 | 1 | noRestrictions |
 | metadataTextVariable | divaOrganisationURLTextVar | 0 | 1 | noRestrictions |
-| metadataCollectionVariable | divaOrganisationOrgTypeCollectionVar | 0 | 1 | noRestrictions |
+| metadataCollectionVariable | organisationOrgTypeRootCollectionVar | 0 | 1 | noRestrictions |
 | metadataTextVariable | divaOrganisationOrgCodeTextVar | 0 | 1 | noRestrictions |
 | metadataTextVariable | divaOrganisationOrgNumberTextVar | 0 | 1 | noRestrictions |
 | metadataCollectionVariable | divaOrganisationEligibleCollectionVar | 1 | 1 | noRestrictions |
@@ -236,7 +244,7 @@ Kontrollera barnen
 | metadataTextVariable | divaOrganisationCityTextVar | 0 | 1 | noRestrictions |
 | metadataCollectionVariable | divaOrganisationCountryCollectionVar | 0 | 1 | noRestrictions |
 | metadataTextVariable | divaOrganisationURLTextVar | 0 | 1 | noRestrictions |
-| metadataCollectionVariable | divaOrganisationOrgTypeCollectionVar | 0 | 1 | noRestrictions |
+| metadataCollectionVariable | organisationOrgTypeRootCollectionVar | 0 | 1 | noRestrictions |
 | metadataTextVariable | divaOrganisationOrgCodeTextVar | 0 | 1 | noRestrictions |
 | metadataTextVariable | divaOrganisationOrgNumberTextVar | 0 | 1 | noRestrictions |
 | metadataCollectionVariable | divaOrganisationEligibleCollectionVar | 1 | 1 | noRestrictions |
