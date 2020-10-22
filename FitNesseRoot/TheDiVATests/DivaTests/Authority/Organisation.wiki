@@ -7,7 +7,13 @@ Organisationsposten är en så kallad auktoritetspost i syfte att identifiera or
 
 Data innehåller bland annat befintligt namn på svenska och engelska samt eventuella tidigare benämningar. Genom relationer mellan olika organisationsposter skapas nätverk av organisationer som bygger upp information om DiVA-medlemmarnas organisationsstruktur, med tillhörande historik.
 
-Organisationerna läses och uppdateras i databasen från Classic. 
+Organisationerna läses och uppdateras i databasen från Classic.
+
+I DiVA powered by Cora är organisation uppbyggd av tre posttyper. En abstract '''organisation''', med två barn, '''rootOrganisation''' och '''commonOrganisation'''. Detta är gjort för att möjliggöra en bra struktur på metadata och rättigheter kring organisation eftersom det skiljer sig mellan de organisationer som har en root organisation som håller ihop två tidigare organistioner som en t.ex.:
+
+UU
+Högskolan på Gotland
+Uppsala universitet
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.RecordType
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.Create
