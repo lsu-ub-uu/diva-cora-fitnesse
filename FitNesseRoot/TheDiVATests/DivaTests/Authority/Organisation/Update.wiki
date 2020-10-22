@@ -3,14 +3,6 @@ Test
 ---
 !2 Uppdatera
 Det ska vara möjligt att uppdatera Organisation.
-
- * '''Fall 1:''' Det ska kunna vara möjligt att uppdatera namn
- * '''Fall 2:''' Det ska kunna vara möjligt att uppdatera address
- * '''Fall 3:''' Det ska kunna vara möjligt att uppdatera överordnad organisation
- * '''Fall 4:''' Det ska kunna vara möjligt att uppdatera tidigare namn
-
-include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateFourCases
-
  * '''Fall 1:''' Det ska gå att uppdatera rootOrganisation
  * '''Fall 2:''' Det ska gå att uppdatera commonOrganisation
  
@@ -22,6 +14,7 @@ include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateFourCases
 
 !define currentAuthToken {$adminAuthToken}
 !define expectedUpdateResult {OK}
+!define expectedCompareResult {Child with nameInData domain does not have the correct value.}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRootOrganisation1748
 
 !define expectedCompareResult {Child with nameInData domain does not have the correct value.}
