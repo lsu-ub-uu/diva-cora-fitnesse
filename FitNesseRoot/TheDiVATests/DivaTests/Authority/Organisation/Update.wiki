@@ -22,7 +22,6 @@ Det ska vara möjligt att uppdatera Organisation.
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetRootOrganisation1748
 *!
  
-
 !***> '''Fall2''' 
 
 !-Uppdatera en commonOrganisation från domän UU, som en divaFitnesseEverything och se att alla fält är uppdaterade inklusive de med begränsnigar, utom domain som inte får ändras.-!
@@ -38,6 +37,37 @@ Det ska vara möjligt att uppdatera Organisation.
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetCommonOrganisation1750
 *!
 
+!3 Data valideringar
+Parent och predecessor ska vara från samma domän
+ * '''Fall1:''' !-Det ska inte gå att lägga till en överordnad organisation som är från en annnan domän-!
+ * '''Fall2:''' !-Det ska inte gå att lägga till en tidigare organisation som är från en annnan domän-!
+
+Ingen relation till sig själv
+ * '''Fall1:''' !-Det ska inte gå att uppdatera en organisation så att den får sig själv som överordnad organisation-!
+ * '''Fall2:''' !-Det ska inte gå att uppdatera en organisation så att den får sig själv som tidigare organisation-!
+   
+Samma organisation får inte finnas mer än en gång i parent eller predecessor listorna
+ * '''Fall1:''' !-Det ska inte gå att lägga till samma organisation som överordnad mer än en gång-!
+ * '''Fall2:''' !-Det ska inte gå att lägga till samma organisation som föregående mer än en gång-!
+ * '''Fall3:''' !-Det ska inte gå att lägga till samma organisation som föregående och överordnad samtidigt-!
+ 
+Cirkuläraberoenden
+ * '''Fall1:''' !-Cirkuläraberoenden via parent.-!
+ * '''Fall2:''' !-Cirkuläraberoenden via predecessor.-!
+ * '''Fall3:''' !-Cirkuläraberoenden via kombination av parent och predecessor.-!
+ 
+!***> '''Fall1'''
+!--!
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | commonOrganisation | 1 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"commonOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Uppsala universitet"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"Uppsala University"},{"name":"language","value":"en"}]},{"name":"domain","value":"test"},{"name":"organisationType","value":"university"},{"name":"organisationNumber","value":"202100-2932"},{"name":"eligible","value":"no"},{"name":"showInDefence","value":"yes"},{"name":"topLevel","value":"no"},{"name":"showInPortal","value":"yes"},{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"commonOrganisation"},{"name":"linkedRecordId","value":"1102"}]}],"repeatId":"0"}]} | | OK |
+
+Reset organisation id:1
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | commonOrganisation | 1 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"commonOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:490742519075086"}]},{"name":"tsUpdated","value":"2020-11-03T14:52:11.748582Z"}],"repeatId":"1"}]},{"name":"name","children":[{"name":"organisationName","value":"Uppsala universitet"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"Uppsala University"},{"name":"language","value":"en"}]},{"name":"domain","value":"test"},{"name":"organisationType","value":"university"},{"name":"organisationNumber","value":"202100-2932"},{"name":"eligible","value":"no"},{"name":"showInDefence","value":"yes"},{"name":"topLevel","value":"no"},{"name":"showInPortal","value":"yes"}]} | | OK |
+
+*!
 
 !3 Roller
 !4 !-SystemAdmin-!
