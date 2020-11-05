@@ -4,25 +4,25 @@ Test
 !1 Sök
 Det skall gå att söka organisationer via REST API:et.
 
+OBS: Just nu sökfunktionen bara hittar ord inte delar av ett ord. Om man vill söka delar av ord bör man ha * i slutet av sökordet.
+
  * '''Fall 1a:''' Det ska gå att söka i organisationsid med hjälp av ** (tom söksträng)
  * '''Fall 1b:''' Det ska gå att söka i organisationsnamn med hjälp av ** (tom söksträng)
  * '''Fall 1c:''' Det ska gå att söka i organisationsnummer med hjälp av ** (tom söksträng)
- * '''Fall 2:''' Det ska går att söka med bara domän
- * '''Fall 3:''' Det ska går att söka med med bara organisationsid eller flera
- * '''Fall 4:''' Det ska går att söka med med bara organisationsnummer
- * '''Fall 5:''' Det ska går att söka med med bara organisationsnamn
- * '''Fall 6:''' Det ska går att söka med med bara organisationstyp
- * '''Fall 7:''' Det ska går att söka med med även när tecken å, ä eller ö finns i organisationsnamnet
- * '''Fall 8:''' Det ska går att söka med med både domän och organisationsnamn
- * '''Fall 9:''' Det ska går att söka med med bara organisationsid, organisationstyp och organisationsnummer
- * '''Fall 10:''' Det ska går att söka organisation med hjälp av autosök
- * '''Fall 11:''' Det ska går att söka organisation söks med autocomplete i registreringsformuläret
- * '''Fall 12:''' Det ska går att söka organisation när bindesträk finns i organisationsnummer ????? Oklart
- * '''Fall 13:''' Det ska går att söka organisation utan alternativ namn. SKA VI HANTERA DEN???
- 
-  
+ * '''Fall 2:''' Det ska gå att söka med bara en domän
+ * '''Fall 3:''' Det ska gå att söka med bara en eller flera organisationsid
+ * '''Fall 4:''' Det ska gå att söka med bara organisationsnummer
+ * '''Fall 5:''' Det ska gå att söka med bara organisationsnamn
+ * '''Fall 6:''' Det ska gå att söka med bara organisationstyp
+ * '''Fall 7:''' Det ska gå att söka med organisationsnamn även när tecken å, ä eller ö finns i namnet
+ * '''Fall 8:''' Det ska gå att söka med både domän och organisationsnamn
+ * '''Fall 9:''' Det ska gå att söka med bara organisationsid, organisationstyp och organisationsnummer
+ * '''Fall 10:''' Det ska gå att söka organisation med hjälp av autosök
+ * '''Fall 11:''' Det ska gå att söka organisation söks med autocomplete i registreringsformuläret
+ * '''Fall 12:''' Det ska gå att söka organisation när bindesträck finns i organisationsnummer ????? Oklart
+ * '''Fall 13:''' Det ska gå att söka organisation utan alternativ namn. SKA VI HANTERA DEN???
 
-!***> SetUp (Indexerar organisationer)
+!***> !-SetUp (Indexerar organisationer)-!
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? | getCreatedId? |
 | $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"1750"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
@@ -36,7 +36,7 @@ Det skall gå att söka organisationer via REST API:et.
 !***> '''Fall 1a'''
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"**"}]}]}]} | | OK |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"**"}]}]}]} | | OK |
 *!
 !***> '''Fall 1b'''
 !| RecordEndpointFixture |
@@ -46,16 +46,22 @@ Det skall gå att söka organisationer via REST API:et.
 !***> '''Fall 1c'''
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"**"}]}]}]} | | OK |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrgNumberSearchTerm","value":"**"}]}]}]} | | OK |
 *!
 !***> '''Fall 2'''
+Vi söker organisation med domän VTI och sen söker UU domän
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
 | $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationDomainSearchTerm","value":"vti"}]}]}]} | =~/"name":"id","value":"1350"/ | OK |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationDomainSearchTerm","value":"test"}]}]}]} | =~/"name":"id","value":"50".*"name":"id","value":"51"/ | OK |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationDomainSearchTerm","value":"nrm"}]}]}]} | =~/"name":"id","value":"1400"/ | OK |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationDomainSearchTerm","value":"uu"}]}]}]} | =~/"name":"id","value":"1748".*"name":"id","value":"1750"/| OK |
+
+Det går inte flera domän samtidigt
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationDomainSearchTerm","value":"vti uu"}]}]}]} |Data is not valid: [Data value:vti uu NOT found in collection:domain]| BAD_REQUEST |
 *!
 !***> '''Fall 3'''
+!-Först söker efter ett ID: 1750, sen söker vi efter två olika ID: 1750 och 1751-!
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
 | $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"1750"}]}]}]} | =~/"name":"id","value":"1750"/ | OK |
@@ -65,13 +71,20 @@ Det skall gå att söka organisationer via REST API:et.
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
 | $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrgNumberSearchTerm","value":"202100-2932"}]}]}]} | =~/"totalNo":"1"/ | OK |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrgNumberSearchTerm","value":"202100*"}]}]}]} | =~/"totalNo":"2"/ | OK |
+
+
+När vi söker med hela organisationsnumret fast utan bindesträck får vi inget träff.
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrgNumberSearchTerm","value":"2021002932"}]}]}]} | =~/"totalNo":"0"/ | OK |
 *!
 !***> '''Fall 5'''
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"**"}]}]}]} | | OK |
 | $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"Stockholms organisation"}]}]}]} | =~/"name":"id","value":"51"/ | OK |
 | $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"ingenOrganisationSomHarDetHärNamnet"}]}]}]} | =~/"totalNo":"0"/ | OK |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"Stockholms ingenOrganisationSomHarDetHärNamnet"}]}]}]} | =~/"totalNo":"1"/ | OK |
 *!
 !***> '''Fall 6'''
 !| RecordEndpointFixture |
@@ -112,7 +125,7 @@ Det skall gå att söka organisationer via REST API:et.
 !-Om man söker på ett organisationsnummer som innehåller t.ex. bindestreck så ska man bara få träff på hela organisationsnumret, inte på delar av det.-!
 Vi uppdaterar organisation 1750 så att förledet i organisationsnumret är samma som för organisation 1. Sen söker vi på hela organisationsnumret för organisation 1 och ser att vi bara får träff på den.
 
-1234567-1234
+12345671234
 1234567
 
 Uppdatera organisation 1750 med nytt organisationsnummer
@@ -136,3 +149,8 @@ Test sök efter organisationen utan alternativt namn, för att se att sökningen
 | $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"Organisation som saknar alternativt namn"}]}]}]} | =~/"name":"id","value":"1452"/ | OK |
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetOrganisation1750
 *!
+
+!3 Roller
+!4 !-SystemAdmin-!
+!4 !-DomainAdmin-!
+!4 Guest
