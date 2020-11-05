@@ -13,7 +13,7 @@ Lista organisationer inloggad som divaEverything användare, via den abstrakta o
 
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | organisation | =~/"toNo":"55"/ | OK |
+| $adminAuthToken | organisation | =~/"toNo":"56"/ | OK |
 
 Lists organisationer och lagra resultatet för att användas i test nedan
 
@@ -53,7 +53,7 @@ Lista commonOrganisationer inloggad som divaEverything användare
 
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | commonOrganisation | =~/"toNo":"53"/ | OK |
+| $adminAuthToken | commonOrganisation | =~/"toNo":"54"/ | OK |
 
 Lists organisationer och lagra resultatet för att användas i test nedan
 
@@ -76,10 +76,10 @@ Kontrollera barnen i den tidigare upplästa listan
  * '''Fall3:''' !-SystemAdmin ska kunna lista organisationer, som är commonOrganisationer -!
  
 !***> '''Fall1'''
-Läs listan på organisationer och kontrollera att de är 55st och att minst en har librisId=lib-uu (dvs. vi får läsa librisId)
+Läs listan på organisationer och kontrollera att de är 56st och att minst en har librisId=lib-uu (dvs. vi får läsa librisId)
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $systemAdminAuthToken | organisation | =~/"toNo":"55"/ | OK |
+| $systemAdminAuthToken | organisation | =~/"toNo":"56"/ | OK |
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
 | $systemAdminAuthToken | organisation | =~/"name":"librisId","value":"lib-uu"/ | OK |
@@ -122,10 +122,10 @@ Kontrollera barnen i den tidigare upplästa listan
 *!
 
 !***> '''Fall3'''
-Läs listan på commonOrganisationer och kontrollera att de är 53 och att minst en har librisId=lib-uu (dvs. vi får läsa librisId)
+Läs listan på commonOrganisationer och kontrollera att de är 54 och att minst en har librisId=lib-uu (dvs. vi får läsa librisId)
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $systemAdminAuthToken | commonOrganisation | =~/"toNo":"53"/ | OK |
+| $systemAdminAuthToken | commonOrganisation | =~/"toNo":"54"/ | OK |
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
 | $systemAdminAuthToken | commonOrganisation | =~/"name":"librisId","value":"lib-uu"/ | OK |
