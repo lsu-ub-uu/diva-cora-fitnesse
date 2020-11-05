@@ -6,9 +6,7 @@ Det skall gå att söka organisationer via REST API:et.
 
 OBS: Just nu sökfunktionen bara hittar ord inte delar av ett ord. Om man vill söka delar av ord bör man ha * i slutet av sökordet.
 
- * '''Fall 1a:''' Det ska gå att söka i organisationsid med hjälp av ** (tom söksträng)
- * '''Fall 1b:''' Det ska gå att söka i organisationsnamn med hjälp av ** (tom söksträng)
- * '''Fall 1c:''' Det ska gå att söka i organisationsnummer med hjälp av ** (tom söksträng)
+ * '''Fall 1:''' Det ska gå att söka i organisationsid, organisationsnamn, organisationsnummer  med hjälp av ** (tom söksträng)
  * '''Fall 2:''' Det ska gå att söka med bara en domän
  * '''Fall 3:''' Det ska gå att söka med bara en eller flera organisationsid
  * '''Fall 4:''' Det ska gå att söka med bara organisationsnummer
@@ -31,20 +29,18 @@ OBS: Just nu sökfunktionen bara hittar ord inte delar av ett ord. Om man vill s
 | $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"51"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
 | $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"1"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
 *!
-!***> '''Fall 1a'''
-!-Vi söker med **-!
+!***> '''Fall 1'''
+!-Vi söker id med **-!
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
 | $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"**"}]}]}]} | | OK |
-*!
-!***> '''Fall 1b'''
-!-Vi söker med **-!
+
+!-Vi söker organisationsnamn med **-!
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
 | $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"**"}]}]}]} | | OK |
-*!
-!***> '''Fall 1c'''
-!-Vi söker med **-!
+
+!-Vi söker organisationsnummer med **-!
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
 | $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrgNumberSearchTerm","value":"**"}]}]}]} | | OK |
