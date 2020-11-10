@@ -1,0 +1,11 @@
+Vi söker organisationsnummer ${currentId} med domän ${currentDomain}
+
+!| ChildComparerFixture |
+| authToken | searchId | json | testSearchAndStoreRecords? |
+| ${currentAuthToken} | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"${currentId}"}]}]}]} | |
+
+!-Vi validerar att alla fält har rätt begränsningar.-!
+
+!| ChildComparerFixture |
+| type | children | listIndexToCompareTo | testReadFromListCheckContainWithValues? |
+| ${currentType} | {"children":[{"type":"atomic","name":"domain","value":"${currentDomain}"},{"type":"atomic","name":"showInDefence","value":"yes"},{"type":"atomic","name":"topLevel","value":"no"},{"type":"atomic","name":"showInPortal","value":"yes"}]} | 0 | ${expectedCompare} |
