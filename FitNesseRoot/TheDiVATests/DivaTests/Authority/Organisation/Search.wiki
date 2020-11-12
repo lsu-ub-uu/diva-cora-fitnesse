@@ -115,7 +115,7 @@ Vi söker organisation med domän VTI och sen söker UU domän
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
 | $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationDomainSearchTerm","value":"vti"}]}]}]} | =~/"name":"id","value":"1350"/ | OK |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationDomainSearchTerm","value":"uu"}]}]}]} | =~/"name":"id","value":"1748".*"name":"id","value":"1750"/ | OK |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationDomainSearchTerm","value":"uu"}]}]}]} | =~/"name":"id","value":"1750".*"name":"id","value":"1748"/ | OK |
 
 Det går inte flera domän samtidigt
 
@@ -141,7 +141,7 @@ Det går inte flera domän samtidigt
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
 | $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrgNumberSearchTerm","value":"202100-2932"}]}]}]} | =~/"totalNo":"1"/ | OK |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrgNumberSearchTerm","value":"202100*"}]}]}]} | =~/"totalNo":"2"/ | OK |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrgNumberSearchTerm","value":"202100*"}]}]}]} | =~/"totalNo":"5"/ | OK |
 
 !-När vi söker med hela organisationsnumret fast utan bindesträck får vi inget träff.-!
 
