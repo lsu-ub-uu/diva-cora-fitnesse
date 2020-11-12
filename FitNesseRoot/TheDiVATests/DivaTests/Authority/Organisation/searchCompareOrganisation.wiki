@@ -1,11 +1,5 @@
-Vi söker organisationsnummer ${currentId} med domän ${currentDomain}
+Vi söker organisationsnummer ${currentId} med domän ${currentDomain} och !-validerar att alla fält som borde vara med finns i svaret.-!
 
 !| ChildComparerFixture |
-| authToken | searchId | json | testSearchAndStoreRecords? |
-| ${currentAuthToken} | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"${currentId}"}]}]}]} | |
-
-!-Vi validerar att alla fält har rätt begränsningar.-!
-
-!| ChildComparerFixture |
-| type | children | listIndexToCompareTo | testReadFromListCheckContainWithValues? |
-| ${currentType} | {"children":[{"type":"atomic","name":"domain","value":"${currentDomain}"},{"type":"atomic","name":"showInDefence","value":"yes"},{"type":"atomic","name":"topLevel","value":"no"},{"type":"atomic","name":"showInPortal","value":"yes"}]} | 0 | ${expectedCompare} |
+| authToken | searchId | json | type | children | listIndexToCompareTo | testSearchAndStoreRecords? | testReadFromListCheckContainWithValues? |
+| ${currentAuthToken} | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"${currentId}"}]}]}]} | ${currentType} | {"children":[{"type":"atomic","name":"domain","value":"${currentDomain}"},{"type":"atomic","name":"showInDefence","value":"yes"},{"type":"atomic","name":"topLevel","value":"no"},{"type":"atomic","name":"showInPortal","value":"yes"}]} | 0 | | ${expectedCompare} |
