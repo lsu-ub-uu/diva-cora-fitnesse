@@ -15,7 +15,6 @@ Det skall gå att läsa organisationer via REST API:et och i svaret få med vilk
 *!
 !style_red[Kontrollera actionLinks för organisation, eftersom vi ännu inte implementerat stöd för att läsa incomingLinks från DiVA powered by Cora, så är dessa inte med.]
 
-Kontrollera actionLinks för organisation, för närvarande är inte stöd för incomingLinks bygg, så den finns inte med
 !***> Läs organisation som divaEverything via den abstrakta organisation, rootOrgansiation och commonOrganisation och se att vi får rätt actionLinks
 Läs organisation
 !define currentAuthToken {$adminAuthToken}
