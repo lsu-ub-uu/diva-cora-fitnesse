@@ -4,8 +4,21 @@ Test
 !1 Sök
 Det skall gå att söka organisationer via REST API:et.
 
-!***> Sök organisation som divaEverything via den abstrakta organisation, rootOrgansiation och commonOrganisation och se att fälten ÄR med i svaret
+!***> !-SetUp (Indexerar organisationer)-!
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? | getCreatedId? |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"1750"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"1751"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"1748"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"1749"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"50"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"1350"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"1400"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"51"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"1"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+*!
 
+!***> Sök organisation som divaEverything via den abstrakta organisation, rootOrgansiation och commonOrganisation och se att fälten ÄR med i svaret
 Sök organisation
 
 !define currentAuthToken {$adminAuthToken}
@@ -31,8 +44,8 @@ Sök en commonOrganisation
 !define expectedCompare {OK}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.searchCompareOrganisation
 *!
-!style_red[Kontrollera actionLinks för organisation, eftersom vi ännu inte implementerat stöd för att läsa incomingLinks från DiVA powered by Cora, så är dessa inte med.]
 
+style_red[Kontrollera actionLinks för organisation, eftersom vi ännu inte implementerat stöd för att läsa incomingLinks från DiVA powered by Cora, så är dessa inte med.]
 !***> Sök organisation som divaEverything via den abstrakta organisation, rootOrgansiation och commonOrganisation och se att vi får rätt actionLinks
 
 Sök organisation
@@ -57,7 +70,6 @@ Sök en commonOrganisation
 !define expectedPermissionResult {Action read_incoming_links is missing.}
 !include -seamless .TheDiVATests.DivaTests.checkActionForRecordForSearch
 *!
-
 OBS: Just nu sökfunktionen bara hittar ord inte delar av ett ord. Om man vill söka delar av ord bör man ha * i slutet av sökordet.
 
  * '''Fall 1:''' Det ska gå att söka i organisationsid, organisationsnamn, organisationsnummer  med hjälp av ** (tom söksträng)
@@ -72,21 +84,6 @@ OBS: Just nu sökfunktionen bara hittar ord inte delar av ett ord. Om man vill s
  * '''Fall 10:''' Det ska gå att söka organisation söks med autocomplete i registreringsformuläret AVSTÄNGD
  * '''Fall 11:''' Det ska gå att söka organisation utan alternativ namn. SKA VI HANTERA DEN???
 
-!***> !-SetUp (Indexerar organisationer)-!
-
-!| RecordEndpointFixture |
-| authToken | type | json | testCreateRecord? | getStatusType? | getCreatedId? |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"1750"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"1751"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"1748"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"1749"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"50"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"1350"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"1400"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"51"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"1"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
-
-*!
 !***> '''Fall 1'''
 
 !-Vi söker id med **-!
@@ -290,7 +287,6 @@ Test sök efter organisationen utan alternativt namn, för att se att sökningen
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.searchCompareOrganisation
 *!
 !style_red[Kontrollera actionLinks för organisation, eftersom vi ännu inte implementerat stöd för att läsa incomingLinks från DiVA powered by Cora, så är dessa inte med.]
-
 !***> Sök organisation som divaEverything via den abstrakta organisation, rootOrgansiation och commonOrganisation och se att vi får rätt actionLinks
 
 Sök organisation
@@ -392,51 +388,50 @@ Sök en commonOrganisation
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.searchCompareOrganisation
 *!
 !style_red[Kontrollera actionLinks för organisation, eftersom vi ännu inte implementerat stöd för att läsa incomingLinks från DiVA powered by Cora, så är dessa inte med.]
-
 !***> Sök organisation som divaEverything via den abstrakta organisation, rootOrgansiation och commonOrganisation och se att vi får rätt actionLinks
 
 Sök organisation från UU
+
 !define currentAuthToken {$domainAdminUUAuthToken}
 !define currentRecordType {organisation}
 !define currentId {1750}
 !define expectedPermissionResult {Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
 !include -seamless .TheDiVATests.DivaTests.checkActionForRecordForSearch
-
 Sök en rootOrganisation från UU, får inte uppdatera eftersom det är en rootOrganisation
+
 !define currentAuthToken {$domainAdminUUAuthToken}
 !define currentRecordType {rootOrganisation}
 !define currentId {1748}
 !define expectedPermissionResult {Action update is missing. Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
 !include -seamless .TheDiVATests.DivaTests.checkActionForRecordForSearch
-
 Sök en commonOrganisation från UU
+
 !define currentAuthToken {$domainAdminUUAuthToken}
 !define currentRecordType {commonOrganisation}
 !define currentId {1750}
 !define expectedPermissionResult {Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
 !include -seamless .TheDiVATests.DivaTests.checkActionForRecordForSearch
-
 Sök organisation KTH, får inte uppdatera då det är en organisation på en annan domän
+
 !define currentAuthToken {$domainAdminUUAuthToken}
 !define currentRecordType {organisation}
 !define currentId {1751}
 !define expectedPermissionResult {Action update is missing. Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
 !include -seamless .TheDiVATests.DivaTests.checkActionForRecordForSearch
-
 Sök en rootOrganisation från KTH, får inte uppdatera då det är en rootOrganisation som dessutom är på en annan domän
+
 !define currentAuthToken {$domainAdminUUAuthToken}
 !define currentRecordType {rootOrganisation}
 !define currentId {1749}
 !define expectedPermissionResult {Action update is missing. Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
 !include -seamless .TheDiVATests.DivaTests.checkActionForRecordForSearch
-
 Sök en commonOrganisation från KTH, får inte uppdatera då det är en organisation på en annan domän
+
 !define currentAuthToken {$domainAdminUUAuthToken}
 !define currentRecordType {commonOrganisation}
 !define currentId {1751}
 !define expectedPermissionResult {Action update is missing. Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
 !include -seamless .TheDiVATests.DivaTests.checkActionForRecordForSearch
-
 *!
 !4 Guest
 !-Guest får söka men inte läsa begränsade fälten i organisation oavsett domän.-!
@@ -472,9 +467,7 @@ Sök en commonOrganisation från KTH, får inte uppdatera då det är en organis
 !define expectedCompare {Child with nameInData showInDefence and type atomic is missing. Child with nameInData topLevel and type atomic is missing. Child with nameInData showInPortal and type atomic is missing.}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.searchCompareOrganisation
 *!
-
 !style_red[Kontrollera actionLinks för organisation, eftersom vi ännu inte implementerat stöd för att läsa incomingLinks från DiVA powered by Cora, så är dessa inte med.]
-
 !***> Sök organisation som divaEverything via den abstrakta organisation, rootOrgansiation och commonOrganisation och se att vi får rätt actionLinks
 
 Sök organisation
