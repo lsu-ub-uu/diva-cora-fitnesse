@@ -3,7 +3,8 @@ Test
 ---
 !2 Metadata
 !4 Fält och begränsningar:
-Det som står listat här är nameInData.
+Det som står listat här är nameInData. 
+OBS: LibrisId används inte på Cora.
 
  * organisation(group)
    * recordInfo(group, 1-1, '''noRestrictions''')
@@ -23,7 +24,6 @@ Det som står listat här är nameInData.
    * formerName (group, 0-X, '''noRestrictions ''')
    * closedDate (textVar, 0-1, '''noRestrictions ''')
    * domain (colVar, 1-1, '''write ''')
-   * librisId (textVar, 0-1, '''write ''')
    * showInDefence (colVar, 1-1, '''readWrite ''')
    * topLevel (colVar, 1-1, '''readWrite ''')
    * showInPortal (colVar, 1-1, '''readWrite ''')
@@ -47,7 +47,6 @@ organisation har:
    * formerName (group, 0-X, '''noRestrictions ''')
    * closedDate (textVar, 0-1, '''noRestrictions ''')
    * domain (colVar, 1-1, '''write ''')
-   * librisId (textVar, 0-1, '''write ''')
    * showInDefence (colVar, 1-1, '''readWrite ''')
    * topLevel (colVar, 1-1, '''readWrite ''')
    * showInPortal (colVar, 1-1, '''readWrite ''')
@@ -75,7 +74,6 @@ rootOrganisation har:
    * formerName (group, 0-X, '''noRestrictions ''')
    * closedDate (textVar, 0-1, '''noRestrictions ''')
    * domain (colVar, 1-1, '''write ''')
-   * librisId (textVar, 0-1, '''write ''')
    * showInDefence (colVar, 1-1, '''readWrite ''')
    * topLevel (colVar, 1-1, '''readWrite ''')
    * showInPortal (colVar, 1-1, '''readWrite ''')
@@ -124,7 +122,6 @@ Kontrollera barnen
 | metadataGroup | divaOrganisationFormerNameGroup | 0 | X | noRestrictions |
 | metadataTextVariable | divaOrganisationClosedTextVar | 0 | 1 | noRestrictions |
 | metadataCollectionVariable | domainCollectionVar | 1 | 1 | |
-| metadataTextVariable | organisationLibrisIdTextVar | 0 | 1 | |
 | metadataCollectionVariable | showInDefenceCollectionVar | 1 | 1 | |
 | metadataCollectionVariable | topLevelCollectionVar | 1 | 1 | |
 | metadataCollectionVariable | showInPortalCollectionVar | 1 | 1 | |
@@ -162,7 +159,6 @@ Kontrollera barnen
 | metadataGroup | divaOrganisationFormerNameGroup | 0 | X | noRestrictions |
 | metadataTextVariable | divaOrganisationClosedTextVar | 0 | 1 | noRestrictions |
 | metadataCollectionVariable | domainCollectionVar | 1 | 1 | write |
-| metadataTextVariable | organisationLibrisIdTextVar | 0 | 1 | write |
 | metadataCollectionVariable | showInDefenceCollectionVar | 1 | 1 | readWrite |
 | metadataCollectionVariable | topLevelCollectionVar | 1 | 1 | readWrite |
 | metadataCollectionVariable | showInPortalCollectionVar | 1 | 1 | readWrite |
@@ -209,7 +205,6 @@ Kontrollera barnen
 | metadataGroup | divaOrganisationFormerNameGroup | 0 | X | noRestrictions |
 | metadataTextVariable | divaOrganisationClosedTextVar | 0 | 1 | noRestrictions |
 | metadataCollectionVariable | domainCollectionVar | 1 | 1 | |
-| metadataTextVariable | organisationLibrisIdTextVar | 0 | 1 | |
 | metadataCollectionVariable | showInDefenceCollectionVar | 1 | 1 | |
 | metadataCollectionVariable | topLevelCollectionVar | 1 | 1 | |
 | metadataCollectionVariable | showInPortalCollectionVar | 1 | 1 | |
@@ -245,7 +240,6 @@ Kontrollera barnen
 | metadataGroup | divaOrganisationFormerNameGroup | 0 | X | noRestrictions |
 | metadataTextVariable | divaOrganisationClosedTextVar | 0 | 1 | noRestrictions |
 | metadataCollectionVariable | domainCollectionVar | 1 | 1 | write |
-| metadataTextVariable | organisationLibrisIdTextVar | 0 | 1 | write |
 | metadataCollectionVariable | showInDefenceCollectionVar | 1 | 1 | readWrite |
 | metadataCollectionVariable | topLevelCollectionVar | 1 | 1 | readWrite |
 | metadataCollectionVariable | showInPortalCollectionVar | 1 | 1 | readWrite |
@@ -292,7 +286,6 @@ Kontrollera barnen
 | metadataGroup | divaOrganisationFormerNameGroup | 0 | X | noRestrictions |
 | metadataTextVariable | divaOrganisationClosedTextVar | 0 | 1 | noRestrictions |
 | metadataCollectionVariable | domainCollectionVar | 1 | 1 | |
-| metadataTextVariable | organisationLibrisIdTextVar | 0 | 1 | |
 | metadataCollectionVariable | showInDefenceCollectionVar | 1 | 1 | |
 | metadataCollectionVariable | topLevelCollectionVar | 1 | 1 | |
 | metadataCollectionVariable | showInPortalCollectionVar | 1 | 1 | |
@@ -329,7 +322,6 @@ Kontrollera barnen
 | metadataGroup | divaOrganisationFormerNameGroup | 0 | X | noRestrictions |
 | metadataTextVariable | divaOrganisationClosedTextVar | 0 | 1 | noRestrictions |
 | metadataCollectionVariable | domainCollectionVar | 1 | 1 | write |
-| metadataTextVariable | organisationLibrisIdTextVar | 0 | 1 | write |
 | metadataCollectionVariable | showInDefenceCollectionVar | 1 | 1 | readWrite |
 | metadataCollectionVariable | topLevelCollectionVar | 1 | 1 | readWrite |
 | metadataCollectionVariable | showInPortalCollectionVar | 1 | 1 | readWrite |

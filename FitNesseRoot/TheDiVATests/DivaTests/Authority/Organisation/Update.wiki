@@ -11,7 +11,7 @@ Det ska vara möjligt att uppdatera Organisation.
 
 !-Uppdatera en rootOrganisation från domän UU, som en divaFitnesseEverything och se att alla fält är uppdaterade inklusive de med begränsnigar, utom domain som inte får ändras.-!
 
-(librisId, showInDefence, topLevel, showInPortal)
+(showInDefence, topLevel, showInPortal)
 
 !define currentAuthToken {$adminAuthToken}
 !define expectedUpdateResult {OK}
@@ -25,7 +25,7 @@ Det ska vara möjligt att uppdatera Organisation.
 
 !-Uppdatera en commonOrganisation från domän UU, som en divaFitnesseEverything och se att alla fält är uppdaterade inklusive de med begränsnigar, utom domain som inte får ändras.-!
 
-(librisId, showInDefence, topLevel, showInPortal)
+(showInDefence, topLevel, showInPortal)
 
 !define currentAuthToken {$adminAuthToken}
 !define expectedUpdateResult {OK}
@@ -45,7 +45,7 @@ Systemadmin får uppdatera organisationer från alla domäner och i dessa uppdat
 
 !-Uppdatera en rootOrganisation från domän UU, som en systemAdmin och se att alla fält är uppdaterade inklusive de med begränsnigar, utom domain som inte får ändras.-!
 
-(librisId, showInDefence, topLevel, showInPortal)
+(showInDefence, topLevel, showInPortal)
 
 !define currentAuthToken {$systemAdminAuthToken}
 !define expectedUpdateResult {OK}
@@ -60,7 +60,7 @@ domain should not have been changed
 
 !-Uppdatera en commonOrganisation från domän UU, som en systemAdmin och se att alla fält är uppdaterade inklusive de med begränsnigar, utom domain som inte får ändras.-!
 
-(librisId, showInDefence, topLevel, showInPortal)
+(showInDefence, topLevel, showInPortal)
 
 !define currentAuthToken {$systemAdminAuthToken}
 !define expectedUpdateResult {OK}
@@ -72,7 +72,7 @@ domain should not have been changed
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetCommonOrganisation1750
 !-Uppdatera en commonOrganisation från domän KTH, som en systemAdmin och se att alla fält är uppdaterade inklusive de med begränsnigar, utom domain som inte får ändras.-!
 
-(librisId, showInDefence, topLevel, showInPortal)
+(showInDefence, topLevel, showInPortal)
 
 !define currentAuthToken {$systemAdminAuthToken}
 !define expectedUpdateResult {OK}
@@ -102,12 +102,12 @@ domain should not have been changed
 !***> '''Fall2'''
 
 !-Updatera en organisation från domän UU, som en domänAdmin från UU och se att fälten som domänAdmin får läsa ÄR ändrade-!
-(domain, librisId, showInDefence, topLevel, showInPortal)
+(domain, showInDefence, topLevel, showInPortal)
 
 !define currentAuthToken {$domainAdminUUAuthToken}
 !define expectedUpdateResult {OK}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateCommonOrganisation1750
-!define expectedCompareResult {Child with nameInData domain does not have the correct value. Child with nameInData librisId does not have the correct value. Child with nameInData showInDefence does not have the correct value. Child with nameInData topLevel does not have the correct value. Child with nameInData showInPortal does not have the correct value.}
+!define expectedCompareResult {Child with nameInData domain does not have the correct value. Child with nameInData showInDefence does not have the correct value. Child with nameInData topLevel does not have the correct value. Child with nameInData showInPortal does not have the correct value.}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareCommonOrganisation1750
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetCommonOrganisation1750
 *!
