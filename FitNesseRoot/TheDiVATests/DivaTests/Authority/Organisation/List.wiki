@@ -13,7 +13,7 @@ Lista organisationer inloggad som divaEverything användare, via den abstrakta o
 
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | organisation | =~/"toNo":"56"/ | OK |
+| $adminAuthToken | organisation | =~/"toNo":"60"/ | OK |
 
 Lists organisationer och lagra resultatet för att användas i test nedan
 
@@ -53,7 +53,7 @@ Lista commonOrganisationer inloggad som divaEverything användare
 
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | commonOrganisation | =~/"toNo":"54"/ | OK |
+| $adminAuthToken | commonOrganisation | =~/"toNo":"58"/ | OK |
 
 Lists organisationer och lagra resultatet för att användas i test nedan
 
@@ -79,7 +79,7 @@ Kontrollera barnen i den tidigare upplästa listan
 Läs listan på organisationer och kontrollera att de är 56st och att minst en har domain lika med uu (dvs. vi får läsa domain)
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $systemAdminAuthToken | organisation | =~/"toNo":"56"/ | OK |
+| $systemAdminAuthToken | organisation | =~/"toNo":"60"/ | OK |
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
 | $systemAdminAuthToken | organisation | =~/"name":"domain","value":"uu"/ | OK |
@@ -125,7 +125,7 @@ Kontrollera barnen i den tidigare upplästa listan
 Läs listan på commonOrganisationer och kontrollera att de är 54 och att minst en har domain lika med uu (dvs. vi får läsa domain)
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $systemAdminAuthToken | commonOrganisation | =~/"toNo":"54"/ | OK |
+| $systemAdminAuthToken | commonOrganisation | =~/"toNo":"58"/ | OK |
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
 | $systemAdminAuthToken | commonOrganisation | =~/"name":"domain","value":"uu"/ | OK |
