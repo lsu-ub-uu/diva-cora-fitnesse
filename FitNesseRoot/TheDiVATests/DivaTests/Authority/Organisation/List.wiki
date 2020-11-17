@@ -76,13 +76,13 @@ Kontrollera barnen i den tidigare upplästa listan
  * '''Fall3:''' !-SystemAdmin ska kunna lista organisationer, som är commonOrganisationer -!
  
 !***> '''Fall1'''
-Läs listan på organisationer och kontrollera att de är 56st och att minst en har librisId=lib-uu (dvs. vi får läsa librisId)
+Läs listan på organisationer och kontrollera att de är 56st och att minst en har domain lika med uu (dvs. vi får läsa domain)
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
 | $systemAdminAuthToken | organisation | =~/"toNo":"56"/ | OK |
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $systemAdminAuthToken | organisation | =~/"name":"librisId","value":"lib-uu"/ | OK |
+| $systemAdminAuthToken | organisation | =~/"name":"domain","value":"uu"/ | OK |
 
 Lists organisationer och lagra resultatet för att användas i test nedan
 
@@ -99,13 +99,13 @@ Kontrollera barnen i den tidigare upplästa listan
 *!
 
 !***> '''Fall2'''
-Läs listan på rootOrganisationer och kontrollera att de är 2 och att minst en har librisId=lib-uu (dvs. vi får läsa librisId)
+Läs listan på rootOrganisationer och kontrollera att de är 2 och att minst en har domain lika med uu (dvs. vi får läsa domain)
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
 | $systemAdminAuthToken | rootOrganisation | =~/"toNo":"2"/ | OK |
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $systemAdminAuthToken | rootOrganisation | =~/"name":"librisId","value":"lib-rootuu"/ | OK |
+| $systemAdminAuthToken | rootOrganisation | =~/"name":"domain","value":"uu"/ | OK |
 
 Lists organisationer och lagra resultatet för att användas i test nedan
 
@@ -122,13 +122,13 @@ Kontrollera barnen i den tidigare upplästa listan
 *!
 
 !***> '''Fall3'''
-Läs listan på commonOrganisationer och kontrollera att de är 54 och att minst en har librisId=lib-uu (dvs. vi får läsa librisId)
+Läs listan på commonOrganisationer och kontrollera att de är 54 och att minst en har domain lika med uu (dvs. vi får läsa domain)
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
 | $systemAdminAuthToken | commonOrganisation | =~/"toNo":"54"/ | OK |
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $systemAdminAuthToken | commonOrganisation | =~/"name":"librisId","value":"lib-uu"/ | OK |
+| $systemAdminAuthToken | commonOrganisation | =~/"name":"domain","value":"uu"/ | OK |
 
 Lists organisationer och lagra resultatet för att användas i test nedan
 
