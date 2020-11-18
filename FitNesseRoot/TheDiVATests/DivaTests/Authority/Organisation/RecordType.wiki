@@ -9,7 +9,7 @@ OBS: LibrisId används inte på Cora.
  * organisation(group)
    * recordInfo(group, 1-1, '''noRestrictions''')
    * organisationName(textVar, 1-1, '''noRestrictions''')
-   * alternativeName(group, 1-1, '''noRestrictions''') 
+   * alternativeName(group, 1-1, '''noRestrictions''')
    * box (textVar, 0-1, '''noRestrictions ''')
    * street (textVar, 0-1, '''noRestrictions ''')
    * postcode (textVar, 0-1, '''noRestrictions ''')
@@ -27,39 +27,31 @@ OBS: LibrisId används inte på Cora.
    * showInDefence (colVar, 1-1, '''readWrite ''')
    * topLevel (colVar, 1-1, '''readWrite ''')
    * showInPortal (colVar, 1-1, '''readWrite ''')
+
 organisation har:
-   * är en abstract typ
+
+ * är en abstract typ
 
  * rootOrganisation(group)
    * recordInfo(group, 1-1, '''noRestrictions''')
    * organisationName(textVar, 1-1, '''noRestrictions''')
-   * alternativeName(group, 1-1, '''noRestrictions''') 
-   * box (textVar, 0-1, '''noRestrictions ''')
-   * street (textVar, 0-1, '''noRestrictions ''')
-   * postcode (textVar, 0-1, '''noRestrictions ''')
-   * city (textVar, 0-1, '''noRestrictions ''')
-   * country (colVar, 0-1, '''noRestrictions ''')
-   * URL (textVar, 0-1, '''noRestrictions ''')
-   * organisationType (colVar, 1-1, '''noRestrictions ''')
-   * organisationCode (textVar, 0-1, '''noRestrictions ''')
-   * organisationNumber (textVar, 0-1, '''noRestrictions ''')
-   * eligible (colVar, 1-1, '''noRestrictions ''')
-   * formerName (group, 0-X, '''noRestrictions ''')
+   * alternativeName(group, 1-1, '''noRestrictions''')
+   * organisationType (colVar, 1-1, '''noRestrictions ''') - ??, final value 49?
+   * eligible (colVar, 1-1, '''noRestrictions ''') - final value false
+   * formerName (group, 0-X, '''noRestrictions ''') - ??
    * closedDate (textVar, 0-1, '''noRestrictions ''')
    * domain (colVar, 1-1, '''write ''')
-   * showInDefence (colVar, 1-1, '''readWrite ''')
-   * topLevel (colVar, 1-1, '''readWrite ''')
-   * showInPortal (colVar, 1-1, '''readWrite ''')
+   * topLevelOrganisation (group, 2-2, '''noRestrictions ''') - ??
+
 rootOrganisation har:
-   * inte möjlighet att fylla i parentOrganisation
-   * för organisationType endast valet root (49)
 
+ * inte möjlighet att fylla i parentOrganisation
+ * för organisationType endast valet root (49)
 
-
- * commonOrganisation(group)
+ * topLevelOrganisation(group)
    * recordInfo(group, 1-1, '''noRestrictions''')
    * organisationName(textVar, 1-1, '''noRestrictions''')
-   * alternativeName(group, 1-1, '''noRestrictions''') 
+   * alternativeName(group, 1-1, '''noRestrictions''')
    * box (textVar, 0-1, '''noRestrictions ''')
    * street (textVar, 0-1, '''noRestrictions ''')
    * postcode (textVar, 0-1, '''noRestrictions ''')
@@ -75,12 +67,34 @@ rootOrganisation har:
    * closedDate (textVar, 0-1, '''noRestrictions ''')
    * domain (colVar, 1-1, '''write ''')
    * showInDefence (colVar, 1-1, '''readWrite ''')
-   * topLevel (colVar, 1-1, '''readWrite ''')
    * showInPortal (colVar, 1-1, '''readWrite ''')
+
+topLevelOrganisation har :
+
+ * för organisationType alla val utom root (49)
+
+ * commonOrganisation(group)
+   * recordInfo(group, 1-1, '''noRestrictions''')
+   * organisationName(textVar, 1-1, '''noRestrictions''')
+   * alternativeName(group, 1-1, '''noRestrictions''')
+   * box (textVar, 0-1, '''noRestrictions ''')
+   * street (textVar, 0-1, '''noRestrictions ''')
+   * postcode (textVar, 0-1, '''noRestrictions ''')
+   * city (textVar, 0-1, '''noRestrictions ''')
+   * country (colVar, 0-1, '''noRestrictions ''')
+   * URL (textVar, 0-1, '''noRestrictions ''')
+   * organisationType (colVar, 1-1, '''noRestrictions ''')
+   * organisationCode (textVar, 0-1, '''noRestrictions ''')
+   * eligible (colVar, 1-1, '''noRestrictions ''')
+   * parentOrganisation (group, 1-X, '''noRestrictions ''')
+   * formerName (group, 0-X, '''noRestrictions ''')
+   * closedDate (textVar, 0-1, '''noRestrictions ''')
+   * domain (colVar, 1-1, '''write ''')
+   * showInPortal (colVar, 1-1, '''readWrite ''')
+
 commonOrganisation har :
-   * för organisationType alla val utom root (49)
 
-
+ * för organisationType alla val utom root (49)
 
 Läs recordType för den abstracta '''organisation''' via  REST API.
 
@@ -126,7 +140,6 @@ Kontrollera barnen
 | metadataCollectionVariable | topLevelCollectionVar | 1 | 1 | |
 | metadataCollectionVariable | showInPortalCollectionVar | 1 | 1 | |
 
-
 *!
 Läs topnivå metadatagruppen för en '''befintlig''' organisation, och kontrollera att den har rätt barn
 
@@ -164,7 +177,6 @@ Kontrollera barnen
 | metadataCollectionVariable | showInPortalCollectionVar | 1 | 1 | readWrite |
 
 *!
-
 Läs recordType för '''rootOrganisation''' via  REST API.
 
 !***> Läs posttyp rootOrganisation
@@ -174,8 +186,7 @@ Läs recordType för '''rootOrganisation''' via  REST API.
 | $adminAuthToken | recordType | rootOrganisation | | OK |
 
 *!
-
-Läs topnivå metadatagruppen för en '''ny''' organisation, och kontrollera att den har rätt barn
+Läs topnivå metadatagruppen för en '''ny''' rotorganisation, och kontrollera att den har rätt barn
 
 !***> Kontrollera barnen till  rootOrganisationNewGroup
 
@@ -192,25 +203,15 @@ Kontrollera barnen
 | metadataGroup | recordInfoDivaAutogeneratedNewGroup | 1 | 1 | noRestrictions |
 | metadataGroup | divaOrganisationNameGroup | 1 | 1 | noRestrictions |
 | metadataGroup | divaOrganisationAlternativeNameGroup | 1 | 1 | noRestrictions |
-| metadataTextVariable | divaOrganisationBoxTextVar | 0 | 1 | noRestrictions |
-| metadataTextVariable | divaOrganisationStreetTextVar | 0 | 1 | noRestrictions |
-| metadataTextVariable | divaOrganisationPostcodeTextVar | 0 | 1 | noRestrictions |
-| metadataTextVariable | divaOrganisationCityTextVar | 0 | 1 | noRestrictions |
-| metadataCollectionVariable | divaOrganisationCountryCollectionVar | 0 | 1 | noRestrictions |
-| metadataTextVariable | divaOrganisationURLTextVar | 0 | 1 | noRestrictions |
-| metadataCollectionVariable | organisationOrgTypeRootCollectionVar | 1 | 1 | noRestrictions |
 | metadataTextVariable | divaOrganisationOrgCodeTextVar | 0 | 1 | noRestrictions |
-| metadataTextVariable | divaOrganisationOrgNumberTextVar | 0 | 1 | noRestrictions |
 | metadataCollectionVariable | divaOrganisationEligibleCollectionVar | 1 | 1 | noRestrictions |
 | metadataGroup | divaOrganisationFormerNameGroup | 0 | X | noRestrictions |
 | metadataTextVariable | divaOrganisationClosedTextVar | 0 | 1 | noRestrictions |
 | metadataCollectionVariable | domainCollectionVar | 1 | 1 | |
-| metadataCollectionVariable | showInDefenceCollectionVar | 1 | 1 | |
-| metadataCollectionVariable | topLevelCollectionVar | 1 | 1 | |
 | metadataCollectionVariable | showInPortalCollectionVar | 1 | 1 | |
 
 *!
-Läs topnivå metadatagruppen för en '''befintlig''' organisation, och kontrollera att den har rätt barn
+Läs topnivå metadatagruppen för en '''befintlig''' rotorganisation, och kontrollera att den har rätt barn
 
 !***> Kontrollera barnen till rootOrganisationGroup
 
@@ -227,25 +228,93 @@ Kontrollera barnen
 | metadataGroup | recordInfoDivaGroup | 1 | 1 | noRestrictions |
 | metadataGroup | divaOrganisationNameGroup | 1 | 1 | noRestrictions |
 | metadataGroup | divaOrganisationAlternativeNameGroup | 1 | 1 | noRestrictions |
+| metadataTextVariable | divaOrganisationOrgCodeTextVar | 0 | 1 | noRestrictions |
+| metadataCollectionVariable | divaOrganisationEligibleCollectionVar | 1 | 1 | noRestrictions |
+| metadataGroup | divaOrganisationFormerNameGroup | 0 | X | noRestrictions |
+| metadataTextVariable | divaOrganisationClosedTextVar | 0 | 1 | noRestrictions |
+| metadataCollectionVariable | domainCollectionVar | 1 | 1 | write |
+| metadataCollectionVariable | showInPortalCollectionVar | 1 | 1 | readWrite |
+
+*!
+Läs recordType för '''topLevelOrganisation''' via  REST API.
+
+!***> Läs posttyp topLevelOrganisation
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | recordType | topLevelOrganisation | | OK |
+
+*!
+Läs topnivå metadatagruppen för en '''ny''' topnivåorganisation, och kontrollera att den har rätt barn
+
+!***> Kontrollera barnen till  topLevelOrganisationNewGroup
+
+Läs in metadatagruppen för senare kontroll
+
+!| RecordEndpointFixture |
+| type | id | testReadRecordAndStoreJson? |
+| metadataGroup | topLevelOrganisationNewGroup | |
+
+Kontrollera barnen
+
+!| MetadataLinkFixture |
+| linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? | getRecordPartConstraint? |
+| metadataGroup | recordInfoDivaAutogeneratedNewGroup | 1 | 1 | noRestrictions |
+| metadataGroup | divaOrganisationNameGroup | 1 | 1 | noRestrictions |
+| metadataGroup | divaOrganisationAlternativeNameGroup | 1 | 1 | noRestrictions |
 | metadataTextVariable | divaOrganisationBoxTextVar | 0 | 1 | noRestrictions |
 | metadataTextVariable | divaOrganisationStreetTextVar | 0 | 1 | noRestrictions |
 | metadataTextVariable | divaOrganisationPostcodeTextVar | 0 | 1 | noRestrictions |
 | metadataTextVariable | divaOrganisationCityTextVar | 0 | 1 | noRestrictions |
 | metadataCollectionVariable | divaOrganisationCountryCollectionVar | 0 | 1 | noRestrictions |
 | metadataTextVariable | divaOrganisationURLTextVar | 0 | 1 | noRestrictions |
-| metadataCollectionVariable | organisationOrgTypeRootCollectionVar | 1 | 1 | noRestrictions |
+| metadataCollectionVariable | divaOrganisationOrgTypeCollectionVar | 1 | 1 | noRestrictions |
 | metadataTextVariable | divaOrganisationOrgCodeTextVar | 0 | 1 | noRestrictions |
 | metadataTextVariable | divaOrganisationOrgNumberTextVar | 0 | 1 | noRestrictions |
 | metadataCollectionVariable | divaOrganisationEligibleCollectionVar | 1 | 1 | noRestrictions |
+| metadataGroup | divaOrganisationParentOrgGroup | 0 | X | noRestrictions |
+| metadataGroup | divaOrganisationFormerNameGroup | 0 | X | noRestrictions |
+| metadataTextVariable | divaOrganisationClosedTextVar | 0 | 1 | noRestrictions |
+| metadataCollectionVariable | domainCollectionVar | 1 | 1 | |
+| metadataCollectionVariable | showInDefenceCollectionVar | 1 | 1 | |
+| metadataCollectionVariable | showInPortalCollectionVar | 1 | 1 | |
+
+*!
+Läs topnivå metadatagruppen för en '''befintlig''' topnivåorganisation, och kontrollera att den har rätt barn
+
+!***> Kontrollera barnen till topLevelOrganisationGroup
+
+Läs in metadatagruppen för senare kontroll
+
+!| RecordEndpointFixture |
+| type | id | testReadRecordAndStoreJson? |
+| metadataGroup | topLevelOrganisationGroup | |
+
+Kontrollera barnen
+
+!| MetadataLinkFixture |
+| linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? | getRecordPartConstraint? |
+| metadataGroup | recordInfoDivaGroup | 1 | 1 | noRestrictions |
+| metadataGroup | divaOrganisationNameGroup | 1 | 1 | noRestrictions |
+| metadataGroup | divaOrganisationAlternativeNameGroup | 1 | 1 | noRestrictions |
+| metadataTextVariable | divaOrganisationBoxTextVar | 0 | 1 | noRestrictions |
+| metadataTextVariable | divaOrganisationStreetTextVar | 0 | 1 | noRestrictions |
+| metadataTextVariable | divaOrganisationPostcodeTextVar | 0 | 1 | noRestrictions |
+| metadataTextVariable | divaOrganisationCityTextVar | 0 | 1 | noRestrictions |
+| metadataCollectionVariable | divaOrganisationCountryCollectionVar | 0 | 1 | noRestrictions |
+| metadataTextVariable | divaOrganisationURLTextVar | 0 | 1 | noRestrictions |
+| metadataCollectionVariable | divaOrganisationOrgTypeCollectionVar | 1 | 1 | noRestrictions |
+| metadataTextVariable | divaOrganisationOrgCodeTextVar | 0 | 1 | noRestrictions |
+| metadataTextVariable | divaOrganisationOrgNumberTextVar | 0 | 1 | noRestrictions |
+| metadataCollectionVariable | divaOrganisationEligibleCollectionVar | 1 | 1 | noRestrictions |
+| metadataGroup | divaOrganisationParentOrgGroup | 0 | X | noRestrictions |
 | metadataGroup | divaOrganisationFormerNameGroup | 0 | X | noRestrictions |
 | metadataTextVariable | divaOrganisationClosedTextVar | 0 | 1 | noRestrictions |
 | metadataCollectionVariable | domainCollectionVar | 1 | 1 | write |
 | metadataCollectionVariable | showInDefenceCollectionVar | 1 | 1 | readWrite |
-| metadataCollectionVariable | topLevelCollectionVar | 1 | 1 | readWrite |
 | metadataCollectionVariable | showInPortalCollectionVar | 1 | 1 | readWrite |
 
 *!
-
 Läs recordType för '''commonOrganisation''' via  REST API.
 
 !***> Läs posttyp commonOrganisation
@@ -280,14 +349,11 @@ Kontrollera barnen
 | metadataTextVariable | divaOrganisationURLTextVar | 0 | 1 | noRestrictions |
 | metadataCollectionVariable | divaOrganisationOrgTypeCollectionVar | 1 | 1 | noRestrictions |
 | metadataTextVariable | divaOrganisationOrgCodeTextVar | 0 | 1 | noRestrictions |
-| metadataTextVariable | divaOrganisationOrgNumberTextVar | 0 | 1 | noRestrictions |
 | metadataCollectionVariable | divaOrganisationEligibleCollectionVar | 1 | 1 | noRestrictions |
 | metadataGroup | divaOrganisationParentOrgGroup | 0 | X | noRestrictions |
 | metadataGroup | divaOrganisationFormerNameGroup | 0 | X | noRestrictions |
 | metadataTextVariable | divaOrganisationClosedTextVar | 0 | 1 | noRestrictions |
 | metadataCollectionVariable | domainCollectionVar | 1 | 1 | |
-| metadataCollectionVariable | showInDefenceCollectionVar | 1 | 1 | |
-| metadataCollectionVariable | topLevelCollectionVar | 1 | 1 | |
 | metadataCollectionVariable | showInPortalCollectionVar | 1 | 1 | |
 
 *!
@@ -316,62 +382,54 @@ Kontrollera barnen
 | metadataTextVariable | divaOrganisationURLTextVar | 0 | 1 | noRestrictions |
 | metadataCollectionVariable | divaOrganisationOrgTypeCollectionVar | 1 | 1 | noRestrictions |
 | metadataTextVariable | divaOrganisationOrgCodeTextVar | 0 | 1 | noRestrictions |
-| metadataTextVariable | divaOrganisationOrgNumberTextVar | 0 | 1 | noRestrictions |
 | metadataCollectionVariable | divaOrganisationEligibleCollectionVar | 1 | 1 | noRestrictions |
 | metadataGroup | divaOrganisationParentOrgGroup | 0 | X | noRestrictions |
 | metadataGroup | divaOrganisationFormerNameGroup | 0 | X | noRestrictions |
 | metadataTextVariable | divaOrganisationClosedTextVar | 0 | 1 | noRestrictions |
 | metadataCollectionVariable | domainCollectionVar | 1 | 1 | write |
-| metadataCollectionVariable | showInDefenceCollectionVar | 1 | 1 | readWrite |
-| metadataCollectionVariable | topLevelCollectionVar | 1 | 1 | readWrite |
 | metadataCollectionVariable | showInPortalCollectionVar | 1 | 1 | readWrite |
 
 *!
-
 !3 Roller
 !4 !-SystemAdmin-!
 !-SystemAdmin har tillgång till validate, list och search för organisations postTyperna-!
+
 !***> Kontrollera de actions systemAdmin får med i recordType för organisation
 
 !define currentAuthToken {$systemAdminAuthToken}
 !define currentRecordType {rootOrganisation}
 !define expectedPermissionResult {Action update is missing. Action delete is missing. Action index is missing. Action create is missing.}
 !include -seamless .TheDiVATests.DivaTests.checkActionsForRecordType
-
 !define currentAuthToken {$systemAdminAuthToken}
 !define currentRecordType {commonOrganisation}
 !define expectedPermissionResult {Action update is missing. Action delete is missing. Action index is missing. Action create is missing.}
 !include -seamless .TheDiVATests.DivaTests.checkActionsForRecordType
-
 *!
-
 !4 !-DomainAdmin-!
 !-DomainAdmin har tillgång till validate och search för organisations postTyperna-!
+
 !***> Kontrollera de actions domainAdmin får med i recordType för organisation
 
 !define currentAuthToken {$domainAdminUUAuthToken}
 !define currentRecordType {rootOrganisation}
 !define expectedPermissionResult {Action update is missing. Action delete is missing. Action index is missing. Action create is missing. Action validate is missing. Action list is missing.}
 !include -seamless .TheDiVATests.DivaTests.checkActionsForRecordType
-
 !define currentAuthToken {$domainAdminUUAuthToken}
 !define currentRecordType {commonOrganisation}
 !define expectedPermissionResult {Action update is missing. Action delete is missing. Action index is missing. Action create is missing. Action list is missing.}
 !include -seamless .TheDiVATests.DivaTests.checkActionsForRecordType
-
 *!
-
 !4 !-Guest-!
 !-Guest har tillgång till search för organisations postTyperna-!
+
 !***> Kontrollera de actions domainAdmin får med i recordType för organisation
+
 !define currentAuthToken {$guestToken}
 !define currentRecordType {rootOrganisation}
 !define expectedPermissionResult {Action update is missing. Action delete is missing. Action index is missing. Action create is missing. Action validate is missing. Action list is missing.}
 !include -seamless .TheDiVATests.DivaTests.checkActionsForRecordType
-
 !define currentAuthToken {$guestToken}
 !define currentRecordType {commonOrganisation}
 !define expectedPermissionResult {Action update is missing. Action delete is missing. Action index is missing. Action create is missing. Action validate is missing. Action list is missing.}
 !include -seamless .TheDiVATests.DivaTests.checkActionsForRecordType
-
 *!
