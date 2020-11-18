@@ -16,8 +16,8 @@ Det ska vara möjligt att uppdatera Organisation.
 
 !define currentAuthToken {$adminAuthToken}
 !define expectedUpdateResult {OK}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRootOrganisation1748NoDomainChange
 !define expectedCompareResult {OK}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRootOrganisation1748NoDomainChange
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareRootOrganisation1748NoDomainChange
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.actionLinksComparer
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetRootOrganisation1748
@@ -30,8 +30,8 @@ Det ska vara möjligt att uppdatera Organisation.
 
 !define currentAuthToken {$adminAuthToken}
 !define expectedUpdateResult {OK}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateCommonOrganisation1750NoDomainChange
 !define expectedCompareResult {OK}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateCommonOrganisation1750NoDomainChange
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareCommonOrganisation1750NoDomainChange
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.actionLinksComparer
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetCommonOrganisation1750
@@ -214,10 +214,9 @@ Systemadmin får uppdatera organisationer från alla domäner och i dessa uppdat
 
 !define currentAuthToken {$systemAdminAuthToken}
 !define expectedUpdateResult {OK}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRootOrganisation1748
-domain should not have been changed
-
+!define expectedChildrenResult {OK}
 !define expectedCompareResult {Child with nameInData domain does not have the correct value.}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRootOrganisation1748
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareRootOrganisation1748
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetRootOrganisation1748
 *!
@@ -229,10 +228,8 @@ domain should not have been changed
 
 !define currentAuthToken {$systemAdminAuthToken}
 !define expectedUpdateResult {OK}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateCommonOrganisation1750
-domain should not have been changed
-
 !define expectedCompareResult {Child with nameInData domain does not have the correct value.}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateCommonOrganisation1750
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareCommonOrganisation1750
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetCommonOrganisation1750
 !-Uppdatera en commonOrganisation från domän KTH, som en systemAdmin och se att alla fält är uppdaterade inklusive de med begränsnigar, utom domain som inte får ändras.-!
@@ -242,8 +239,6 @@ domain should not have been changed
 !define currentAuthToken {$systemAdminAuthToken}
 !define expectedUpdateResult {OK}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateCommonOrganisation1751
-domain should not have been changed
-
 !define expectedCompareResult {Child with nameInData domain does not have the correct value.}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareCommonOrganisation1751
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetCommonOrganisation1751
@@ -252,17 +247,15 @@ domain should not have been changed
 
 !define currentAuthToken {$systemAdminAuthToken}
 !define expectedUpdateResult {OK}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRootOrganisation1748NoDomainChange
 !define expectedCompareResult {OK}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRootOrganisation1748NoDomainChange
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareRootOrganisation1748NoDomainChange
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.actionLinksComparer
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetRootOrganisation1748
-
-
 !define currentAuthToken {$systemAdminAuthToken}
 !define expectedUpdateResult {OK}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateCommonOrganisation1750NoDomainChange
 !define expectedCompareResult {OK}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateCommonOrganisation1750NoDomainChange
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareCommonOrganisation1750NoDomainChange
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.actionLinksComparer
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetCommonOrganisation1750
@@ -312,8 +305,8 @@ domain should not have been changed
 
 !define currentAuthToken {$domainAdminUUAuthToken}
 !define expectedUpdateResult {OK}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateCommonOrganisation1750NoDomainChange
 !define expectedCompareResult {Child with nameInData showInDefence does not have the correct value. Child with nameInData topLevel does not have the correct value. Child with nameInData showInPortal does not have the correct value.}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateCommonOrganisation1750NoDomainChange
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareCommonOrganisation1750NoDomainChange
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.actionLinksComparer
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetCommonOrganisation1750
