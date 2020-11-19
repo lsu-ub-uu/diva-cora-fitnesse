@@ -14,20 +14,17 @@ Det ska vara möjligt att uppdatera Organisation.
 
 (showInDefence, topLevel, showInPortal)
 
-!define currentAuthToken {$adminAuthToken}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataRootOrganisation1748NoDomainChange
 
+!define currentAuthToken {$adminAuthToken}
 !define expectedUpdateResult {OK}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
 
 !define expectedCompareResult {OK}
 !define expectedActionResult {Action read_incoming_links is missing.}
 !define expectedPermissionResult {}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareRecord
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.recordPermissions
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.readRecord
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareRecord
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetRecord
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkReadCheckReset
+
 
 
 *!
@@ -37,37 +34,45 @@ Det ska vara möjligt att uppdatera Organisation.
 
 (showInDefence, topLevel, showInPortal)
 
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataCommonOrganisation1750NoDomainChange
+
 !define currentAuthToken {$adminAuthToken}
 !define expectedUpdateResult {OK}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
+
 !define expectedCompareResult {OK}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateCommonOrganisation1750NoDomainChange
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareCommonOrganisation1750NoDomainChange
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.actionLinksComparer
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetCommonOrganisation1750
+!define expectedActionResult {Action read_incoming_links is missing.}
+!define expectedPermissionResult {}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkReadCheckReset
+
+
 *!
 !***> '''Extra Fall (Ej implementerad)'''
 
 Vi ändrar domän för organisation 1748 från UU till KTH
 
-!| ChildComparerFixture |
+!|Comment|
+| ChildComparerFixture |
 | authToken | type | id | json | testUpdateAndStoreRecord? | getStatusType? |
 | $adminAuthToken | rootOrganisation | 1748 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1748"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"rootOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Root Uppsala universitet2"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"Root Uppsala university2"},{"name":"language","value":"en"}]},{"name":"domain","value":"kth"},{"name":"URL","value":"http://root.uu.se:32"},{"name":"organisationType","value":"root"},{"name":"eligible","value":"no"},{"name":"showInDefence","value":"no"},{"name":"topLevel","value":"yes"},{"name":"showInPortal","value":"no"},{"name":"box","value":"box"},{"name":"street","value":"gata"},{"name":"postcode","value":"26222"},{"name":"city","value":"Uppsala"},{"name":"country","value":"SE"},{"name":"organisationCode","value":"92"},{"name":"organisationNumber","value":"32"},{"name":"closedDate","value":"2020-10-10"}]} | | OK |
 
 Vi kollar att svaret från uppdateringen inte innehåller UU.
 
 !style_orange[OBS: När den implementeras bör byttas förväntad resultat till OK]
-!| ChildComparerFixture |
+!|Comment|
+| ChildComparerFixture |
 | children | testCheckContainWithValues? |
 | {"children":[{"type":"group","name":"name","children":[{"type":"atomic","name":"organisationName","value":"Root Uppsala universitet2"},{"type":"atomic","name":"language","value":"sv"}]},{"type":"group","name":"alternativeName","children":[{"type":"atomic","name":"organisationName","value":"Root Uppsala university2"},{"type":"atomic","name":"language","value":"en"}]},{"type":"atomic","name":"domain","value":"uu"},{"type":"atomic","name":"URL","value":"http://root.uu.se:32"},{"type":"atomic","name":"organisationType","value":"root"},{"type":"atomic","name":"eligible","value":"no"},{"type":"atomic","name":"showInDefence","value":"no"},{"type":"atomic","name":"topLevel","value":"yes"},{"type":"atomic","name":"showInPortal","value":"no"},{"type":"atomic","name":"box","value":"box"},{"type":"atomic","name":"street","value":"gata"},{"type":"atomic","name":"postcode","value":"26222"},{"type":"atomic","name":"city","value":"Uppsala"},{"type":"atomic","name":"country","value":"SE"},{"type":"atomic","name":"organisationCode","value":"92"},{"type":"atomic","name":"organisationNumber","value":"32"},{"type":"atomic","name":"closedDate","value":"2020-10-10"}]} | Child with nameInData domain does not have the correct value. |
 
 Vi läser och kollar att den sparad organisation inte innehåller UU.
 
 !style_orange[OBS: När den implementeras bör byttas förväntad resultat till OK]
-!| ChildComparerFixture |
+!|Comment|
+| ChildComparerFixture |
 | authToken | type | id | children | testReadAndStoreRecord? | testCheckContainWithValues? |
 | $adminAuthToken | rootOrganisation | 1748 | {"children":[{"type":"group","name":"name","children":[{"type":"atomic","name":"organisationName","value":"Root Uppsala universitet2"},{"type":"atomic","name":"language","value":"sv"}]},{"type":"group","name":"alternativeName","children":[{"type":"atomic","name":"organisationName","value":"Root Uppsala university2"},{"type":"atomic","name":"language","value":"en"}]},{"type":"atomic","name":"domain","value":"kth"},{"type":"atomic","name":"URL","value":"http://root.uu.se:32"},{"type":"atomic","name":"organisationType","value":"root"},{"type":"atomic","name":"eligible","value":"no"},{"type":"atomic","name":"showInDefence","value":"no"},{"type":"atomic","name":"topLevel","value":"yes"},{"type":"atomic","name":"showInPortal","value":"no"},{"type":"atomic","name":"box","value":"box"},{"type":"atomic","name":"street","value":"gata"},{"type":"atomic","name":"postcode","value":"26222"},{"type":"atomic","name":"city","value":"Uppsala"},{"type":"atomic","name":"country","value":"SE"},{"type":"atomic","name":"organisationCode","value":"92"},{"type":"atomic","name":"organisationNumber","value":"32"},{"type":"atomic","name":"closedDate","value":"2020-10-10"}]} | | Child with nameInData domain does not have the correct value. |
 
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetRootOrganisation1748
+#!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetRootOrganisation1748
 *!
 !3 Data valideringar
 !4 Organisation måste ha ett alternativnamn
@@ -221,20 +226,17 @@ Systemadmin får uppdatera organisationer från alla domäner och i dessa uppdat
 
 (showInDefence, topLevel, showInPortal)
 
-!define currentAuthToken {$systemAdminAuthToken}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataRootOrganisation1748
 
+!define currentAuthToken {$systemAdminAuthToken}
 !define expectedUpdateResult {OK}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
 
 !define expectedCompareResult {Child with nameInData domain does not have the correct value.}
 !define expectedActionResult {Action delete is missing. Action read_incoming_links is missing.}
 !define expectedPermissionResult {Write permission domain is missing.}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareRecord
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.recordPermissions
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.readRecord
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareRecord
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetRecord
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkReadCheckReset
+
 *!
 !***> '''Fall2'''
 
@@ -242,39 +244,51 @@ Systemadmin får uppdatera organisationer från alla domäner och i dessa uppdat
 
 (showInDefence, topLevel, showInPortal)
 
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataCommonOrganisation1750
+
 !define currentAuthToken {$systemAdminAuthToken}
 !define expectedUpdateResult {OK}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
+
 !define expectedCompareResult {Child with nameInData domain does not have the correct value.}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateCommonOrganisation1750
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareCommonOrganisation1750
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetCommonOrganisation1750
+!define expectedActionResult {Action delete is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission domain is missing.}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkReadCheckReset
+
+
+
 !-Uppdatera en commonOrganisation från domän KTH, som en systemAdmin och se att alla fält är uppdaterade inklusive de med begränsnigar, utom domain som inte får ändras.-!
 
 (showInDefence, topLevel, showInPortal)
 
-!define currentAuthToken {$systemAdminAuthToken}
-!define expectedUpdateResult {OK}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateCommonOrganisation1751
-!define expectedCompareResult {Child with nameInData domain does not have the correct value.}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareCommonOrganisation1751
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetCommonOrganisation1751
-*!
-!***> '''Läs organisation som systemAdminAuthToken via den abstrakta organisation, rootOrgansiation och commonOrganisation och se att vi får rätt actionLinks'''
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataCommonOrganisation1751
 
 !define currentAuthToken {$systemAdminAuthToken}
 !define expectedUpdateResult {OK}
-!define expectedCompareResult {OK}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRootOrganisation1748NoDomainChange
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareRootOrganisation1748NoDomainChange
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.actionLinksComparer
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetRootOrganisation1748
-!define currentAuthToken {$systemAdminAuthToken}
-!define expectedUpdateResult {OK}
-!define expectedCompareResult {OK}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateCommonOrganisation1750NoDomainChange
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareCommonOrganisation1750NoDomainChange
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.actionLinksComparer
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetCommonOrganisation1750
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
+
+!define expectedCompareResult {Child with nameInData domain does not have the correct value.}
+!define expectedActionResult {Action delete is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission domain is missing.}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkReadCheckReset
+
+*!
+!***> '''Läs organisation som systemAdminAuthToken via den abstrakta organisation, rootOrgansiation och commonOrganisation och se att vi får rätt actionLinks (ej aktiverat)'''
+
+#!define currentAuthToken {$systemAdminAuthToken}
+#!define expectedUpdateResult {OK}
+#!define expectedCompareResult {OK}
+#!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRootOrganisation1748NoDomainChange
+#!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareRootOrganisation1748NoDomainChange
+#!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.actionLinksComparer
+#!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetRootOrganisation1748
+#!define currentAuthToken {$systemAdminAuthToken}
+#!define expectedUpdateResult {OK}
+#!define expectedCompareResult {OK}
+#!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateCommonOrganisation1750NoDomainChange
+#!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareCommonOrganisation1750NoDomainChange
+#!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.actionLinksComparer
+#!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetCommonOrganisation1750
 *!
 !4 !-DomainAdmin-!
 !-DomainAdmin får uppdatera organisationer från sin egen domän, men inget av de fälten med skrivbegränsningar.
@@ -288,53 +302,65 @@ Systemadmin får uppdatera organisationer från alla domäner och i dessa uppdat
 
 !-Uppdatera en rootOrganisation från domän UU, som en domainAdmin och se att den inte får uppdateras.-!
 
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataRootOrganisation1748
+
 !define currentAuthToken {$domainAdminUUAuthToken}
 !define expectedUpdateResult {FORBIDDEN}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRootOrganisation1748
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
 *!
 !***> '''Fall2'''
 
 !-Updatera en organisation från domän UU, som en domänAdmin från UU och se att fälten som domänAdmin får läsa ÄR ändrade-!
 (domain, showInDefence, topLevel, showInPortal)
 
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataCommonOrganisation1750
+
 !define currentAuthToken {$domainAdminUUAuthToken}
 !define expectedUpdateResult {OK}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateCommonOrganisation1750
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
+
 !define expectedCompareResult {Child with nameInData domain does not have the correct value. Child with nameInData showInDefence does not have the correct value. Child with nameInData topLevel does not have the correct value. Child with nameInData showInPortal does not have the correct value.}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareCommonOrganisation1750
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetCommonOrganisation1750
+!define expectedActionResult {Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission domain is missing. Write permission showInDefence is missing. Write permission topLevel is missing. Write permission showInPortal is missing.}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkReadCheckReset
+
 *!
 !***> '''Fall3'''
 
 !-Uppdatera en organisation från domän UU, som en domänAdmin från KTH och se att vi inte får ändra organisationen (FORBIDDEN)-!
 
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataCommonOrganisation1750
+
 !define currentAuthToken {$domainAdminKTHAuthToken}
 !define expectedUpdateResult {FORBIDDEN}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateCommonOrganisation1750
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
+
+
 !-Uppdatera en organisation från domän KTH, som en domänAdmin från UU och se att vi inte får ändra organisationen (FORBIDDEN)-!
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataCommonOrganisation1751
 
 !define currentAuthToken {$domainAdminUUAuthToken}
 !define expectedUpdateResult {FORBIDDEN}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateCommonOrganisation1751
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
 *!
-!***> '''Läs organisation som domainAdminUUAuthToken via den abstrakta organisation, rootOrgansiation och commonOrganisation och se att vi får rätt actionLinks'''
+!***> '''Läs organisation som domainAdminUUAuthToken via den abstrakta organisation, rootOrgansiation och commonOrganisation och se att vi får rätt actionLinks(avstängd)'''
 
-!define currentAuthToken {$domainAdminUUAuthToken}
-!define expectedUpdateResult {OK}
-!define expectedCompareResult {Child with nameInData showInDefence does not have the correct value. Child with nameInData topLevel does not have the correct value. Child with nameInData showInPortal does not have the correct value.}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateCommonOrganisation1750NoDomainChange
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareCommonOrganisation1750NoDomainChange
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.actionLinksComparer
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetCommonOrganisation1750
+#!define currentAuthToken {$domainAdminUUAuthToken}
+#!define expectedUpdateResult {OK}
+#!define expectedCompareResult {Child with nameInData showInDefence does not have the correct value. Child with nameInData topLevel does not have the correct value. Child with nameInData showInPortal does not have the correct value.}
+#!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateCommonOrganisation1750NoDomainChange
+#!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareCommonOrganisation1750NoDomainChange
+#!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.actionLinksComparer
+#!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetCommonOrganisation1750
 *!
 !4 Guest
  * '''Fall1:''' Guest får INTE uppdatera organisationer.
 
 !***> '''Fall1'''
-
 Guest får inte uppdatera organisationer, vi förvänatar oss FORBIDDEN som svar.
 
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataCommonOrganisation1750
 !define currentAuthToken {$guestToken}
 !define expectedUpdateResult {FORBIDDEN}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateCommonOrganisation1750
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
 *!
