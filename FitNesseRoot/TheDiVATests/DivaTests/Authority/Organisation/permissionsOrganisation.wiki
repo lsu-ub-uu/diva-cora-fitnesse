@@ -1,3 +1,0 @@
-!| PermissionComparerFixture |
-| authToken | type | id | permissions | testReadAndStoreRecord? | testCheckPermissions? |
-| ${currentAuthToken} | ${currentRecordType} | ${currentRecordId} | {"read":["showInDefence", "topLevel", "showInPortal"],"write":["domain", "showInDefence", "topLevel", "showInPortal"]} | | ${expectedPermissionResult} |

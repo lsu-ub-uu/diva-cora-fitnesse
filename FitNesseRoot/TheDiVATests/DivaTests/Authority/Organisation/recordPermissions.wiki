@@ -1,0 +1,10 @@
+!***> Kontrollera rättigheter i post ${recordId}
+!style_red[Kontrollera actionLinks för organisation, eftersom vi ännu inte implementerat stöd för att läsa incomingLinks från DiVA powered by Cora, så är dessa inte med.]
+!| ActionComparerFixture |
+| actions | testCheckActions? |
+| {"actions":["read","update", "delete", "index", "read_incoming_links"]} | ${expectedActionResult} |
+
+!| PermissionComparerFixture |
+| permissions | testCheckPermissions? |
+| {"read":["showInDefence", "topLevel", "showInPortal"],"write":["domain", "showInDefence", "topLevel", "showInPortal"]} | ${expectedPermissionResult} |
+*!

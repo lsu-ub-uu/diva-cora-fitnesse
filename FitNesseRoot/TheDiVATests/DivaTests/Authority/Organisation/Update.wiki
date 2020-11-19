@@ -15,12 +15,21 @@ Det ska vara möjligt att uppdatera Organisation.
 (showInDefence, topLevel, showInPortal)
 
 !define currentAuthToken {$adminAuthToken}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataRootOrganisation1748NoDomainChange
+
 !define expectedUpdateResult {OK}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
+
 !define expectedCompareResult {OK}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRootOrganisation1748NoDomainChange
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareRootOrganisation1748NoDomainChange
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.actionLinksComparer
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetRootOrganisation1748
+!define expectedActionResult {Action read_incoming_links is missing.}
+!define expectedPermissionResult {}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareRecord
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.recordPermissions
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.readRecord
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareRecord
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetRecord
+
+
 *!
 !***> '''Fall2'''
 
@@ -213,12 +222,19 @@ Systemadmin får uppdatera organisationer från alla domäner och i dessa uppdat
 (showInDefence, topLevel, showInPortal)
 
 !define currentAuthToken {$systemAdminAuthToken}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataRootOrganisation1748
+
 !define expectedUpdateResult {OK}
-!define expectedChildrenResult {OK}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
+
 !define expectedCompareResult {Child with nameInData domain does not have the correct value.}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRootOrganisation1748
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareRootOrganisation1748
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetRootOrganisation1748
+!define expectedActionResult {Action delete is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission domain is missing.}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareRecord
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.recordPermissions
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.readRecord
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareRecord
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetRecord
 *!
 !***> '''Fall2'''
 
