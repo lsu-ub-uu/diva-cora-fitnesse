@@ -39,14 +39,13 @@ Det ska vara möjligt att uppdatera Organisation.
  * '''Fall1:''' !-Det ska inte gå att uppdatera ett organisation som saknar alternativ namn-!
 
 !***> '''Fall1'''
-
+Vi kollar att det inte går att uppdatera eett organisation som saknar alternativ namn 
 !| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
 | $adminAuthToken | commonOrganisation | 1452 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1452"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"commonOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Organisation som saknar alternativt namn"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":""},{"name":"language","value":"en"}]},{"name":"domain","value":"test"},{"name":"organisationType","value":"university"},{"name":"eligible","value":"yes"},{"name":"showInDefence","value":"yes"},{"name":"topLevel","value":"no"},{"name":"showInPortal","value":"yes"}]} | Data is not valid: [TextVariable with nameInData:organisationName is NOT valid, regular expression(^.{2,255}$) does not match:] | BAD_REQUEST |
 
 *!
 !4 Parent och predecessor ska vara från samma domän
-!style_red[Det finns ingen implementation på plats än.]
  * '''Fall1:''' !-Det ska inte gå att lägga till en överordnad organisation som är från en annnan domän-!
  * '''Fall2:''' !-Det ska inte gå att lägga till en tidigare organisation som är från en annnan domän-!
 
@@ -93,7 +92,7 @@ Det ska vara möjligt att uppdatera Organisation.
  * '''Fall2:''' !-Det ska inte gå att lägga till samma organisation som föregående mer än en gång. Två nya lika tididgare organisationer skickas med.-!
  * '''Fall3:''' !-Det ska inte gå att lägga till samma organisation som föregående och överordnad samtidigt-!
 
-!style_orange[INFO: För att testa fall ett och två vi änvänder oss av ett regex för att hitta att det BARA är EN förekomst av parent/predecessor i svaret på update anropet.]
+!style_orange[INFO: För att testa fall ett och två vi änvänder oss av ett regex för att hitta att det BARA finns EN förekomst av parent/predecessor i svaret på update anropet.]
 !***> '''Fall1'''
 !| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
