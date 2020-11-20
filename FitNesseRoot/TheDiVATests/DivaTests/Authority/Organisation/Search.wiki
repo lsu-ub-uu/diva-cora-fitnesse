@@ -5,6 +5,7 @@ Test
 Det skall gå att söka organisationer via REST API:et.
 
 !***> !-SetUp (Indexerar organisationer)-!
+
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? | getCreatedId? |
 | $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"1750"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
@@ -16,9 +17,10 @@ Det skall gå att söka organisationer via REST API:et.
 | $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"1400"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
 | $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"51"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
 | $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"1"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
-*!
 
+*!
 !***> Sök organisation som divaEverything via den abstrakta organisation, rootOrgansiation och commonOrganisation och se att fälten ÄR med i svaret
+
 Sök organisation
 
 !define currentAuthToken {$adminAuthToken}
@@ -44,8 +46,7 @@ Sök en commonOrganisation
 !define expectedCompare {OK}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.searchCompareOrganisation
 *!
-
-style_red[Kontrollera actionLinks för organisation, eftersom vi ännu inte implementerat stöd för att läsa incomingLinks från DiVA powered by Cora, så är dessa inte med.]
+!style_red[Kontrollera actionLinks för organisation, eftersom vi ännu inte implementerat stöd för att läsa incomingLinks från DiVA powered by Cora, så är dessa inte med.]
 !***> Sök organisation som divaEverything via den abstrakta organisation, rootOrgansiation och commonOrganisation och se att vi får rätt actionLinks
 
 Sök organisation

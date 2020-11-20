@@ -3,8 +3,8 @@ Test
 ---
 !2 Uppdatera
 Det ska vara möjligt att uppdatera Organisation.
-!style_red[Det är inte implementerat att spara domain i databasen från DiVA powered by Cora]
 
+!style_red[Det är inte implementerat att spara domain i databasen från DiVA powered by Cora]
  * '''Fall 1:''' Det ska gå att uppdatera rootOrganisation
  * '''Fall 2:''' Det ska gå att uppdatera commonOrganisation
 
@@ -14,12 +14,19 @@ Det ska vara möjligt att uppdatera Organisation.
 
 (showInDefence, topLevel, showInPortal)
 
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataRootOrganisation1748NoDomainChange
+
 !define currentAuthToken {$adminAuthToken}
 !define expectedUpdateResult {OK}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRootOrganisation1748NoDomainChange
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
+
 !define expectedCompareResult {OK}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareRootOrganisation1748NoDomainChange
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetRootOrganisation1748
+!define expectedActionResult {Action read_incoming_links is missing.}
+!define expectedPermissionResult {}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkReadCheckReset
+
+
+
 *!
 !***> '''Fall2'''
 
@@ -27,12 +34,45 @@ Det ska vara möjligt att uppdatera Organisation.
 
 (showInDefence, topLevel, showInPortal)
 
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataCommonOrganisation1750NoDomainChange
+
 !define currentAuthToken {$adminAuthToken}
 !define expectedUpdateResult {OK}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateCommonOrganisation1750NoDomainChange
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
+
 !define expectedCompareResult {OK}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareCommonOrganisation1750NoDomainChange
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetCommonOrganisation1750
+!define expectedActionResult {Action read_incoming_links is missing.}
+!define expectedPermissionResult {}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkReadCheckReset
+
+
+*!
+!***> '''Extra Fall (Ej implementerad)'''
+
+Vi ändrar domän för organisation 1748 från UU till KTH
+
+!|Comment|
+| ChildComparerFixture |
+| authToken | type | id | json | testUpdateAndStoreRecord? | getStatusType? |
+| $adminAuthToken | rootOrganisation | 1748 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1748"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"rootOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Root Uppsala universitet2"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"Root Uppsala university2"},{"name":"language","value":"en"}]},{"name":"domain","value":"kth"},{"name":"URL","value":"http://root.uu.se:32"},{"name":"organisationType","value":"root"},{"name":"eligible","value":"no"},{"name":"showInDefence","value":"no"},{"name":"topLevel","value":"yes"},{"name":"showInPortal","value":"no"},{"name":"box","value":"box"},{"name":"street","value":"gata"},{"name":"postcode","value":"26222"},{"name":"city","value":"Uppsala"},{"name":"country","value":"SE"},{"name":"organisationCode","value":"92"},{"name":"organisationNumber","value":"32"},{"name":"closedDate","value":"2020-10-10"}]} | | OK |
+
+Vi kollar att svaret från uppdateringen inte innehåller UU.
+
+!style_orange[OBS: När den implementeras bör byttas förväntad resultat till OK]
+!|Comment|
+| ChildComparerFixture |
+| children | testCheckContainWithValues? |
+| {"children":[{"type":"group","name":"name","children":[{"type":"atomic","name":"organisationName","value":"Root Uppsala universitet2"},{"type":"atomic","name":"language","value":"sv"}]},{"type":"group","name":"alternativeName","children":[{"type":"atomic","name":"organisationName","value":"Root Uppsala university2"},{"type":"atomic","name":"language","value":"en"}]},{"type":"atomic","name":"domain","value":"uu"},{"type":"atomic","name":"URL","value":"http://root.uu.se:32"},{"type":"atomic","name":"organisationType","value":"root"},{"type":"atomic","name":"eligible","value":"no"},{"type":"atomic","name":"showInDefence","value":"no"},{"type":"atomic","name":"topLevel","value":"yes"},{"type":"atomic","name":"showInPortal","value":"no"},{"type":"atomic","name":"box","value":"box"},{"type":"atomic","name":"street","value":"gata"},{"type":"atomic","name":"postcode","value":"26222"},{"type":"atomic","name":"city","value":"Uppsala"},{"type":"atomic","name":"country","value":"SE"},{"type":"atomic","name":"organisationCode","value":"92"},{"type":"atomic","name":"organisationNumber","value":"32"},{"type":"atomic","name":"closedDate","value":"2020-10-10"}]} | Child with nameInData domain does not have the correct value. |
+
+Vi läser och kollar att den sparad organisation inte innehåller UU.
+
+!style_orange[OBS: När den implementeras bör byttas förväntad resultat till OK]
+!|Comment|
+| ChildComparerFixture |
+| authToken | type | id | children | testReadAndStoreRecord? | testCheckContainWithValues? |
+| $adminAuthToken | rootOrganisation | 1748 | {"children":[{"type":"group","name":"name","children":[{"type":"atomic","name":"organisationName","value":"Root Uppsala universitet2"},{"type":"atomic","name":"language","value":"sv"}]},{"type":"group","name":"alternativeName","children":[{"type":"atomic","name":"organisationName","value":"Root Uppsala university2"},{"type":"atomic","name":"language","value":"en"}]},{"type":"atomic","name":"domain","value":"kth"},{"type":"atomic","name":"URL","value":"http://root.uu.se:32"},{"type":"atomic","name":"organisationType","value":"root"},{"type":"atomic","name":"eligible","value":"no"},{"type":"atomic","name":"showInDefence","value":"no"},{"type":"atomic","name":"topLevel","value":"yes"},{"type":"atomic","name":"showInPortal","value":"no"},{"type":"atomic","name":"box","value":"box"},{"type":"atomic","name":"street","value":"gata"},{"type":"atomic","name":"postcode","value":"26222"},{"type":"atomic","name":"city","value":"Uppsala"},{"type":"atomic","name":"country","value":"SE"},{"type":"atomic","name":"organisationCode","value":"92"},{"type":"atomic","name":"organisationNumber","value":"32"},{"type":"atomic","name":"closedDate","value":"2020-10-10"}]} | | Child with nameInData domain does not have the correct value. |
+
+#!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetRootOrganisation1748
 *!
 !3 Data valideringar
 !4 Organisation måste ha ett alternativnamn
@@ -53,19 +93,17 @@ Vi kollar att det inte går att uppdatera eett organisation som saknar alternati
 
 !| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | commonOrganisation | 1750 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1750"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"commonOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Uppsala universitet2"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"Uppsala University2"},{"name":"language","value":"en"}]},{"name":"domain","value":"uu"},{"name":"URL","value":"http://uu2.se"},{"name":"organisationType","value":"authority"},{"name":"organisationNumber","value":"22"},{"name":"eligible","value":"no"},{"name":"showInDefence","value":"no"},{"name":"topLevel","value":"yes"},{"name":"showInPortal","value":"no"},{"name":"box","value":"22"},{"name":"street","value":"två"},{"name":"postcode","value":"22"},{"name":"city","value":"två"},{"name":"country","value":"SE"},{"name":"organisationCode","value":"22"},{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"organisation"},{"name":"linkedRecordId","value":"1"}]}],"repeatId":"0"},{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"organisation"},{"name":"linkedRecordId","value":"1751"}]}],"repeatId":"1"},{"name":"closedDate","value":"2020-02-02"}]} | Links to organisations from another domain is not allowed.| BAD_REQUEST |
+| $adminAuthToken | commonOrganisation | 1750 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1750"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"commonOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Uppsala universitet2"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"Uppsala University2"},{"name":"language","value":"en"}]},{"name":"domain","value":"uu"},{"name":"URL","value":"http://uu2.se"},{"name":"organisationType","value":"authority"},{"name":"organisationNumber","value":"22"},{"name":"eligible","value":"no"},{"name":"showInDefence","value":"no"},{"name":"topLevel","value":"yes"},{"name":"showInPortal","value":"no"},{"name":"box","value":"22"},{"name":"street","value":"två"},{"name":"postcode","value":"22"},{"name":"city","value":"två"},{"name":"country","value":"SE"},{"name":"organisationCode","value":"22"},{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"organisation"},{"name":"linkedRecordId","value":"1"}]}],"repeatId":"0"},{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"organisation"},{"name":"linkedRecordId","value":"1751"}]}],"repeatId":"1"},{"name":"closedDate","value":"2020-02-02"}]} | Links to organisations from another domain is not allowed. | BAD_REQUEST |
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetCommonOrganisation1750
-
 *!
 !***> '''Fall2'''
 
 !| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | commonOrganisation | 1750 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1750"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"commonOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Uppsala universitet2"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"Uppsala University2"},{"name":"language","value":"en"}]},{"name":"domain","value":"uu"},{"name":"URL","value":"http://uu2.se"},{"name":"organisationType","value":"authority"},{"name":"organisationNumber","value":"22"},{"name":"eligible","value":"no"},{"name":"showInDefence","value":"no"},{"name":"topLevel","value":"yes"},{"name":"showInPortal","value":"no"},{"name":"box","value":"22"},{"name":"street","value":"två"},{"name":"postcode","value":"22"},{"name":"city","value":"två"},{"name":"country","value":"SE"},{"name":"organisationCode","value":"22"},{"name":"formerName","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"organisation"},{"name":"linkedRecordId","value":"1751"}]},{"name":"organisationComment","value":"222"}],"repeatId":"1"},{"name":"closedDate","value":"2020-02-02"}]} | Links to organisations from another domain is not allowed.| BAD_REQUEST |
+| $adminAuthToken | commonOrganisation | 1750 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1750"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"commonOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Uppsala universitet2"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"Uppsala University2"},{"name":"language","value":"en"}]},{"name":"domain","value":"uu"},{"name":"URL","value":"http://uu2.se"},{"name":"organisationType","value":"authority"},{"name":"organisationNumber","value":"22"},{"name":"eligible","value":"no"},{"name":"showInDefence","value":"no"},{"name":"topLevel","value":"yes"},{"name":"showInPortal","value":"no"},{"name":"box","value":"22"},{"name":"street","value":"två"},{"name":"postcode","value":"22"},{"name":"city","value":"två"},{"name":"country","value":"SE"},{"name":"organisationCode","value":"22"},{"name":"formerName","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"organisation"},{"name":"linkedRecordId","value":"1751"}]},{"name":"organisationComment","value":"222"}],"repeatId":"1"},{"name":"closedDate","value":"2020-02-02"}]} | Links to organisations from another domain is not allowed. | BAD_REQUEST |
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetCommonOrganisation1750
-
 *!
 !4 Ingen relation till sig själv
  * '''Fall1:''' !-Det ska inte gå att uppdatera en organisation så att den får sig själv som överordnad organisation-!
@@ -94,6 +132,7 @@ Vi kollar att det inte går att uppdatera eett organisation som saknar alternati
 
 !style_orange[INFO: För att testa fall ett och två vi änvänder oss av ett regex för att hitta att det BARA finns EN förekomst av parent/predecessor i svaret på update anropet.]
 !***> '''Fall1'''
+
 !| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
 | $adminAuthToken | commonOrganisation | 1750 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1750"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"commonOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Uppsala universitet2"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"Uppsala University2"},{"name":"language","value":"en"}]},{"name":"domain","value":"uu"},{"name":"URL","value":"http://uu2.se"},{"name":"organisationType","value":"authority"},{"name":"organisationNumber","value":"22"},{"name":"eligible","value":"no"},{"name":"showInDefence","value":"no"},{"name":"topLevel","value":"yes"},{"name":"showInPortal","value":"no"},{"name":"box","value":"22"},{"name":"street","value":"två"},{"name":"postcode","value":"22"},{"name":"city","value":"två"},{"name":"country","value":"SE"},{"name":"organisationCode","value":"22"},{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"organisation"},{"name":"linkedRecordId","value":"1756"}]}],"repeatId":"0"},{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"organisation"},{"name":"linkedRecordId","value":"1756"}]}],"repeatId":"1"},{"name":"closedDate","value":"2020-02-02"}]} | =~/^(?:(?!"parentOrganisation").)*"parentOrganisation"(?!.*"parentOrganisation").*$/ | OK |
@@ -101,6 +140,7 @@ Vi kollar att det inte går att uppdatera eett organisation som saknar alternati
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetCommonOrganisation1750
 *!
 !***> '''Fall2'''
+
 !| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
 | $adminAuthToken | commonOrganisation | 1750 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1750"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"commonOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Uppsala universitet2"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"Uppsala University2"},{"name":"language","value":"en"}]},{"name":"domain","value":"uu"},{"name":"URL","value":"http://uu2.se"},{"name":"organisationType","value":"authority"},{"name":"organisationNumber","value":"22"},{"name":"eligible","value":"no"},{"name":"showInDefence","value":"no"},{"name":"topLevel","value":"yes"},{"name":"showInPortal","value":"no"},{"name":"box","value":"22"},{"name":"street","value":"två"},{"name":"postcode","value":"22"},{"name":"city","value":"två"},{"name":"country","value":"SE"},{"name":"organisationCode","value":"22"},{"name":"formerName","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"organisation"},{"name":"linkedRecordId","value":"1756"}]},{"name":"organisationComment","value":"222"}],"repeatId":"0"},{"name":"formerName","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"organisation"},{"name":"linkedRecordId","value":"1756"}]},{"name":"organisationComment","value":"222"}],"repeatId":"1"},{"name":"closedDate","value":"2020-02-02"}]} | =~/^(?:(?!"formerName").)*"formerName"(?!.*"formerName").*$/ | OK |
@@ -122,41 +162,56 @@ Vi kollar att det inte går att uppdatera eett organisation som saknar alternati
  * '''Fall3:''' !-Cirkuläraberoenden via kombination av parent och predecessor.-!
 
 !***> '''Fall1a'''
+
 !-Det finns en organisationsstruktur som är 1102 --> 1100 --> 1, vi lägger till en parent länk från 1 till 1100, detta skall inte gå att göra.-!
+
 !| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
 | $adminAuthToken | commonOrganisation | 1 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"commonOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Uppsala universitet"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"Uppsala University"},{"name":"language","value":"en"}]},{"name":"domain","value":"test"},{"name":"organisationType","value":"university"},{"name":"organisationNumber","value":"202100-2932"},{"name":"eligible","value":"no"},{"name":"showInDefence","value":"yes"},{"name":"topLevel","value":"no"},{"name":"showInPortal","value":"yes"},{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"commonOrganisation"},{"name":"linkedRecordId","value":"1100"}]}],"repeatId":"0"}]} | Organisation not updated due to circular dependency with parent or predecessor | BAD_REQUEST |
+
 *!
 !***> '''Fall1b'''
+
 !-Det finns en organisationsstruktur som är 1102 --> 1100 --> 1, vi lägger till en parent länk från 1 till 1102, detta skall inte gå att göra.-!
+
 !| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
 | $adminAuthToken | commonOrganisation | 1 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"commonOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Uppsala universitet"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"Uppsala University"},{"name":"language","value":"en"}]},{"name":"domain","value":"test"},{"name":"organisationType","value":"university"},{"name":"organisationNumber","value":"202100-2932"},{"name":"eligible","value":"no"},{"name":"showInDefence","value":"yes"},{"name":"topLevel","value":"no"},{"name":"showInPortal","value":"yes"},{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"commonOrganisation"},{"name":"linkedRecordId","value":"1102"}]}],"repeatId":"0"}]} | Organisation not updated due to circular dependency with parent or predecessor | BAD_REQUEST |
+
 *!
 !***> '''Fall2a'''
+
 !-Det finns en relation via tidigare organisationer som är 1102 --> 1101, vi lägger till en tidigare länk från 1101 till 1102, detta skall inte gå att göra.-!
+
 !| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
 | $adminAuthToken | commonOrganisation | 1101 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1101"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"commonOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Inst E"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"EE"},{"name":"language","value":"en"}]},{"name":"domain","value":"test"},{"name":"organisationType","value":"department"},{"name":"eligible","value":"yes"},{"name":"closedDate","value":"2010-11-02"},{"name":"showInDefence","value":"no"},{"name":"topLevel","value":"no"},{"name":"showInPortal","value":"no"},{"name":"formerName","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"commonOrganisation"},{"name":"linkedRecordId","value":"1102"}]}],"repeatId":"0"}]} | Organisation not updated due to circular dependency with parent or predecessor | BAD_REQUEST |
+
 *!
 !***> '''Fall2b'''
+
 !-Det finns en relation via tidigare organisationer som är 1102 --> 1101 -->1453, vi lägger till en tidigare länk från 1453 till 1102, detta skall inte gå att göra.-!
+
 !| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
 | $adminAuthToken | commonOrganisation | 1453 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1453"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"commonOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Organisation för fitnesse test"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"En fitnesse test organiation"},{"name":"language","value":"en"}]},{"name":"domain","value":"test"},{"name":"URL","value":"http://trams.com/"},{"name":"organisationType","value":"university"},{"name":"organisationNumber","value":"44444444"},{"name":"eligible","value":"yes"},{"name":"showInDefence","value":"yes"},{"name":"topLevel","value":"no"},{"name":"showInPortal","value":"yes"},{"name":"formerName","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"commonOrganisation"},{"name":"linkedRecordId","value":"1102"}]}],"repeatId":"0"}]} | Organisation not updated due to circular dependency with parent or predecessor | BAD_REQUEST |
+
 *!
 !***> '''Fall3'''
+
 !-Det finns en relation via tidigare organisationer som är parent 1102 --> 1100 --> 1, predecessor 1100 --> 400, vi lägger till en parent länk från 400 till 1102, detta skall inte gå att göra.-!
+
 !| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
 | $adminAuthToken | commonOrganisation | 400 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"400"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"commonOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Astronomiska institutionen"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"Department of Astronomy"},{"name":"language","value":"en"}]},{"name":"domain","value":"test"},{"name":"organisationType","value":"department"},{"name":"eligible","value":"yes"},{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"organisation"},{"name":"linkedRecordId","value":"1"}]}],"repeatId":"0"},{"name":"showInDefence","value":"no"},{"name":"topLevel","value":"no"},{"name":"showInPortal","value":"no"},{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"commonOrganisation"},{"name":"linkedRecordId","value":"1102"}]}],"repeatId":"1"}]} | Organisation not updated due to circular dependency with parent or predecessor | BAD_REQUEST |
 
 !-Det finns en relation via tidigare organisationer som är parent 1102 --> 1100 --> 1, predecessor 1100 --> 400, vi lägger till en predecessor länk från 400 till 1102, detta skall inte gå att göra.-!
+
 !| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
 | $adminAuthToken | commonOrganisation | 400 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"400"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"commonOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Astronomiska institutionen"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"Department of Astronomy"},{"name":"language","value":"en"}]},{"name":"domain","value":"test"},{"name":"organisationType","value":"department"},{"name":"eligible","value":"yes"},{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"organisation"},{"name":"linkedRecordId","value":"1"}]}],"repeatId":"0"},{"name":"showInDefence","value":"no"},{"name":"topLevel","value":"no"},{"name":"showInPortal","value":"no"},{"name":"formerName","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"commonOrganisation"},{"name":"linkedRecordId","value":"1102"}]}],"repeatId":"2"}]} | Organisation not updated due to circular dependency with parent or predecessor | BAD_REQUEST |
-*!
 
+*!
 !3 Roller
 !4 !-SystemAdmin-!
 Systemadmin får uppdatera organisationer från alla domäner och i dessa uppdatera alla begränsade fält utom '''domain'''.
@@ -170,14 +225,17 @@ Systemadmin får uppdatera organisationer från alla domäner och i dessa uppdat
 
 (showInDefence, topLevel, showInPortal)
 
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataRootOrganisation1748
+
 !define currentAuthToken {$systemAdminAuthToken}
 !define expectedUpdateResult {OK}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRootOrganisation1748
-domain should not have been changed
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
 
 !define expectedCompareResult {Child with nameInData domain does not have the correct value.}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareRootOrganisation1748
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetRootOrganisation1748
+!define expectedActionResult {Action delete is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission domain is missing.}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkReadCheckReset
+
 *!
 !***> '''Fall2'''
 
@@ -185,26 +243,51 @@ domain should not have been changed
 
 (showInDefence, topLevel, showInPortal)
 
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataCommonOrganisation1750
+
 !define currentAuthToken {$systemAdminAuthToken}
 !define expectedUpdateResult {OK}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateCommonOrganisation1750
-domain should not have been changed
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
 
 !define expectedCompareResult {Child with nameInData domain does not have the correct value.}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareCommonOrganisation1750
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetCommonOrganisation1750
+!define expectedActionResult {Action delete is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission domain is missing.}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkReadCheckReset
+
+
+
 !-Uppdatera en commonOrganisation från domän KTH, som en systemAdmin och se att alla fält är uppdaterade inklusive de med begränsnigar, utom domain som inte får ändras.-!
 
 (showInDefence, topLevel, showInPortal)
 
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataCommonOrganisation1751
+
 !define currentAuthToken {$systemAdminAuthToken}
 !define expectedUpdateResult {OK}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateCommonOrganisation1751
-domain should not have been changed
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
 
 !define expectedCompareResult {Child with nameInData domain does not have the correct value.}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareCommonOrganisation1751
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetCommonOrganisation1751
+!define expectedActionResult {Action delete is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission domain is missing.}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkReadCheckReset
+
+*!
+!***> '''Läs organisation som systemAdminAuthToken via den abstrakta organisation, rootOrgansiation och commonOrganisation och se att vi får rätt actionLinks (ej aktiverat)'''
+
+#!define currentAuthToken {$systemAdminAuthToken}
+#!define expectedUpdateResult {OK}
+#!define expectedCompareResult {OK}
+#!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRootOrganisation1748NoDomainChange
+#!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareRootOrganisation1748NoDomainChange
+#!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.actionLinksComparer
+#!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetRootOrganisation1748
+#!define currentAuthToken {$systemAdminAuthToken}
+#!define expectedUpdateResult {OK}
+#!define expectedCompareResult {OK}
+#!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateCommonOrganisation1750NoDomainChange
+#!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareCommonOrganisation1750NoDomainChange
+#!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.actionLinksComparer
+#!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetCommonOrganisation1750
 *!
 !4 !-DomainAdmin-!
 !-DomainAdmin får uppdatera organisationer från sin egen domän, men inget av de fälten med skrivbegränsningar.
@@ -218,43 +301,65 @@ domain should not have been changed
 
 !-Uppdatera en rootOrganisation från domän UU, som en domainAdmin och se att den inte får uppdateras.-!
 
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataRootOrganisation1748
+
 !define currentAuthToken {$domainAdminUUAuthToken}
 !define expectedUpdateResult {FORBIDDEN}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRootOrganisation1748
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
 *!
 !***> '''Fall2'''
 
 !-Updatera en organisation från domän UU, som en domänAdmin från UU och se att fälten som domänAdmin får läsa ÄR ändrade-!
 (domain, showInDefence, topLevel, showInPortal)
 
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataCommonOrganisation1750
+
 !define currentAuthToken {$domainAdminUUAuthToken}
 !define expectedUpdateResult {OK}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateCommonOrganisation1750
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
+
 !define expectedCompareResult {Child with nameInData domain does not have the correct value. Child with nameInData showInDefence does not have the correct value. Child with nameInData topLevel does not have the correct value. Child with nameInData showInPortal does not have the correct value.}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareCommonOrganisation1750
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetCommonOrganisation1750
+!define expectedActionResult {Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission domain is missing. Write permission showInDefence is missing. Write permission topLevel is missing. Write permission showInPortal is missing.}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkReadCheckReset
+
 *!
 !***> '''Fall3'''
 
 !-Uppdatera en organisation från domän UU, som en domänAdmin från KTH och se att vi inte får ändra organisationen (FORBIDDEN)-!
 
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataCommonOrganisation1750
+
 !define currentAuthToken {$domainAdminKTHAuthToken}
 !define expectedUpdateResult {FORBIDDEN}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateCommonOrganisation1750
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
+
+
 !-Uppdatera en organisation från domän KTH, som en domänAdmin från UU och se att vi inte får ändra organisationen (FORBIDDEN)-!
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataCommonOrganisation1751
 
 !define currentAuthToken {$domainAdminUUAuthToken}
 !define expectedUpdateResult {FORBIDDEN}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateCommonOrganisation1751
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
+*!
+!***> '''Läs organisation som domainAdminUUAuthToken via den abstrakta organisation, rootOrgansiation och commonOrganisation och se att vi får rätt actionLinks(avstängd)'''
+
+#!define currentAuthToken {$domainAdminUUAuthToken}
+#!define expectedUpdateResult {OK}
+#!define expectedCompareResult {Child with nameInData showInDefence does not have the correct value. Child with nameInData topLevel does not have the correct value. Child with nameInData showInPortal does not have the correct value.}
+#!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateCommonOrganisation1750NoDomainChange
+#!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareCommonOrganisation1750NoDomainChange
+#!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.actionLinksComparer
+#!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetCommonOrganisation1750
 *!
 !4 Guest
  * '''Fall1:''' Guest får INTE uppdatera organisationer.
 
 !***> '''Fall1'''
-
 Guest får inte uppdatera organisationer, vi förvänatar oss FORBIDDEN som svar.
 
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataCommonOrganisation1750
 !define currentAuthToken {$guestToken}
 !define expectedUpdateResult {FORBIDDEN}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateCommonOrganisation1750
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
 *!

@@ -1,0 +1,10 @@
+---
+Help: Återställ post
+Static
+---
+!***> Återställ post ${recordId}
+
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | ${recordType} | ${recordId} | ${originalJson} | | OK |
+*!

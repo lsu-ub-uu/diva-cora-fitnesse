@@ -1,0 +1,8 @@
+---
+Help: Compare data, check permissions, read record, compare data, reset record
+---
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareRecord
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.recordPermissions
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.readRecord
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareRecord
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetRecord
