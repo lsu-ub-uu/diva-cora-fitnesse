@@ -1,5 +1,5 @@
-!***> Läs post ${recordId}
+!***> Läs post ${recordType} ${recordId}
 !| ChildComparerFixture |
 | authToken | type | id | testReadAndStoreRecord? |
-| $adminAuthToken | ${recordType} | ${recordId} | |
+| ${currentAuthToken} | ${recordType} | ${recordId} | |
 *!

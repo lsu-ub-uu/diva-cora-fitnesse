@@ -1,0 +1,5 @@
+!***> Jämför originaldata för post ${recordType} ${recordId}
+!| ChildComparerFixture |
+| children | testCheckContainWithValues? |
+| ${expectedOriginal} | ${expectedCompareResult} |
+*!

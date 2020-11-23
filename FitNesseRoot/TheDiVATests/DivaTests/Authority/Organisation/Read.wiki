@@ -5,39 +5,39 @@ Test
 Det skall gå att läsa organisationer via REST API:et och i svaret få med vilka rättigheter den inloggade användaren har både på post och delpostnivå.
 
 !***> Läs organisation som divaEverything via den abstrakta organisation, rootOrgansiation och commonOrganisation och se att fälten ÄR med i svaret
+!define currentAuthToken {$adminAuthToken}
 
-!| ChildComparerFixture |
-| authToken | type | id | children | testReadAndStoreRecord? | testCheckContainWithValues? |
-| $adminAuthToken | organisation | 1750 | {"children":[{"type":"atomic","name":"domain","value":"uu"},{"type":"atomic","name":"showInDefence","value":"yes"},{"type":"atomic","name":"topLevel","value":"no"},{"type":"atomic","name":"showInPortal","value":"yes"}]} | | OK |
-| $adminAuthToken | rootOrganisation | 1748 | {"children":[{"type":"atomic","name":"domain","value":"uu"},{"type":"atomic","name":"showInDefence","value":"yes"},{"type":"atomic","name":"topLevel","value":"no"},{"type":"atomic","name":"showInPortal","value":"yes"}]} | | OK |
-| $adminAuthToken | commonOrganisation | 1750 | {"children":[{"type":"atomic","name":"domain","value":"uu"},{"type":"atomic","name":"showInDefence","value":"yes"},{"type":"atomic","name":"topLevel","value":"no"},{"type":"atomic","name":"showInPortal","value":"yes"}]} | | OK |
+Läs via abstract organisation
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataCommonOrganisation1750
+!define recordType {organisation}
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.readRecord
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action read_incoming_links is missing.}
+!define expectedPermissionResult {OK}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
+
+Läs rootOrganisation
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataRootOrganisation1748
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.readRecord
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action read_incoming_links is missing.}
+!define expectedPermissionResult {OK}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
+
+
+Läs commonOrganisation
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataCommonOrganisation1750
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.readRecord
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action read_incoming_links is missing.}
+!define expectedPermissionResult {OK}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 
 *!
-!style_red[Kontrollera actionLinks för organisation, eftersom vi ännu inte implementerat stöd för att läsa incomingLinks från DiVA powered by Cora, så är dessa inte med.]
 
-!***> Läs organisation som divaEverything via den abstrakta organisation, rootOrgansiation och commonOrganisation och se att vi får rätt actionLinks
-Läs organisation
-!define currentAuthToken {$adminAuthToken}
-!define currentRecordType {organisation}
-!define currentRecordId {1750}
-!define expectedPermissionResult {Action read_incoming_links is missing.}
-!include -seamless .TheDiVATests.DivaTests.checkActionsForRecord
-
-Läs en rootOrganisation
-!define currentAuthToken {$adminAuthToken}
-!define currentRecordType {rootOrganisation}
-!define currentRecordId {1748}
-!define expectedPermissionResult {Action read_incoming_links is missing.}
-!include -seamless .TheDiVATests.DivaTests.checkActionsForRecord
-
-Läs en commonOrganisation
-!define currentAuthToken {$adminAuthToken}
-!define currentRecordType {commonOrganisation}
-!define currentRecordId {1750}
-!define expectedPermissionResult {Action read_incoming_links is missing.}
-!include -seamless .TheDiVATests.DivaTests.checkActionsForRecord
-
-*!
 !3 Roller
 !4 !-SystemAdmin-!
 Systemadmin får läsa alla begränsade fält.
@@ -47,27 +47,21 @@ Systemadmin får läsa alla begränsade fält.
  * '''Fall3:''' !-SystemAdmin ska kunna läsa en organisation oavsett domän, som en commonOrganisation och se alla begränsade fält.-!
  
 !***> '''Fall1'''
-!-Läs en organisation från domän UU, som en systemAdmin och se att fälten som systemAdmin får läsa ÄR med i svaret-!
-(domain, showInDefence, topLevel, showInPortal)
-
-!| ChildComparerFixture |
-| authToken | type | id | children | testReadAndStoreRecord? | testCheckContainWithValues? |
-| $systemAdminAuthToken | organisation | 1750 | {"children":[{"type":"atomic","name":"domain","value":"uu"},{"type":"atomic","name":"showInDefence","value":"yes"},{"type":"atomic","name":"topLevel","value":"no"},{"type":"atomic","name":"showInPortal","value":"yes"}]} | | OK |
-
-Vi läser ett organisation från Uppsalas Domän
-
-!| RecordEndpointFixture |
-| authToken | type | id | testReadRecord? | getStatusType? |
-| $systemAdminAuthToken | organisation | 1750 | | OK |
-Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har read på alla och write på alla utom domain.
-
 !define currentAuthToken {$systemAdminAuthToken}
-!define currentRecordType {organisation}
-!define currentRecordId {1750}
-!define expectedPermissionResult {Write permission domain is missing.}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.permissionsOrganisation
 
-Vi läser ett organisation från KTH Domän
+!-Läs en organisation från domän UU, via den abstrakta organisation, som en systemAdmin och se att fälten som systemAdmin får läsa ÄR med i svaret-!
+(domain, showInDefence, topLevel, showInPortal)
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataCommonOrganisation1750
+!define recordType {organisation}
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.readRecord
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action delete is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission domain is missing.}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
+
+
+Vi läser en organisation från KTH Domän
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
@@ -80,6 +74,9 @@ Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har re
 !define currentRecordId {1751}
 !define expectedPermissionResult {Write permission domain is missing.}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.permissionsOrganisation
+
+*********************************************************
+
 
 *!
 !***> '''Fall2'''

@@ -1,0 +1,5 @@
+---
+Help: Compare data, check permissions
+---
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.compareOriginalRecord
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.recordPermissions
