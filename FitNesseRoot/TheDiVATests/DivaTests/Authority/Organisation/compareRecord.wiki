@@ -4,5 +4,5 @@ Help: Compare a stored record according to variables
 !***> Jämför post data ${recordId}
 !| ChildComparerFixture |
 | children | testCheckContainWithValues? |
-| ${expectedChildren} | ${expectedCompareResult} |
+| ${expectedUpdatedData} | ${expectedCompareResult} |
 *!
