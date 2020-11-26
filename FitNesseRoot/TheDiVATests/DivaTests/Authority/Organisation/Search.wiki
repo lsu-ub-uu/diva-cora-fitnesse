@@ -83,7 +83,6 @@ OBS: Just nu sökfunktionen bara hittar ord inte delar av ett ord. Om man vill s
  * '''Fall 8:''' Det ska gå att söka i kombination av flera fält (domän, organisationsnamn, organisationsid, organisationstyp och organisationsnummer)
  * '''Fall 9:''' Det ska gå att söka organisation med hjälp av autosök AVSTÄNGD
  * '''Fall 10:''' Det ska gå att söka organisation söks med autocomplete i registreringsformuläret AVSTÄNGD
- * '''Fall 11:''' Det ska gå att söka organisation utan alternativ namn. SKA VI HANTERA DEN???
 
 !***> '''Fall 1'''
 
@@ -214,104 +213,54 @@ Det går inte flera domän samtidigt
 -! | | OK |
 
 *!
-!***> '''Fall 11''' OKLART
-
-!| RecordEndpointFixture |
-| authToken | type | json | testCreateRecord? | getStatusType? | getCreatedId? |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"1452"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
-
-Test sök efter organisationen utan alternativt namn, för att se att sökningen fungerar
-
-!| RecordEndpointFixture |
-| authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"Organisation som saknar alternativt namn"}]}]}]} | =~/"name":"id","value":"1452"/ | OK |
-
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetCommonOrganisation1750
-*!
 !3 Roller
 !4 !-SystemAdmin-!
 !-Systemadmin får söka och läsa alla begränsade fält.-!
 
- * '''Fall 1:''' !-SystemAdmin ska kunna söka en organisation oavsett domän, via den abstrakta organistion och se alla begränsade fält.-!
- * '''Fall 2:''' !-SystemAdmin ska kunna läsa en organisation oavsett domän, som en rootOrganisation och se alla begränsade fält.-!
- * '''Fall 3:''' !-SystemAdmin ska kunna läsa en organisation oavsett domän, som en commonOrganisation och se alla begränsade fält.-!
+ * '''Fall 1:''' !-SystemAdmin ska kunna läsa en organisation oavsett domän, en rootOrganisation och se alla begränsade fält.-!
+ * '''Fall 2:''' !-SystemAdmin ska kunna läsa en organisation oavsett domän, en commonOrganisation och se alla begränsade fält.-!
 
+!define currentAuthToken {$systemAdminAuthToken}
 !***> '''Fall 1'''
-
-!-Vi söker två olika organisationer från två olika domän, KTH och UU.-!
-
-!define currentAuthToken {$systemAdminAuthToken}
-!define currentDomain {uu}
-!define currentId {1750}
-!define currentType {organisation}
-!define expectedCompare {OK}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.searchCompareOrganisation
-!define currentAuthToken {$systemAdminAuthToken}
-!define currentDomain {kth}
-!define currentId {1751}
-!define currentType {organisation}
-!define expectedCompare {OK}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.searchCompareOrganisation
-*!
-!***> '''Fall 2'''
 
 !-Vi söker två olika rootOrganisationer från två olika domän, KTH och UU.-!
 
-!define currentAuthToken {$systemAdminAuthToken}
-!define currentDomain {uu}
-!define currentId {1748}
-!define currentType {rootOrganisation}
-!define expectedCompare {OK}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.searchCompareOrganisation
-!define currentAuthToken {$systemAdminAuthToken}
-!define currentDomain {kth}
-!define currentId {1749}
-!define currentType {rootOrganisation}
-!define expectedCompare {OK}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.searchCompareOrganisation
+Domain UU
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataRootOrganisation1748
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.searchRecord
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action delete is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission domain is missing.}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
+
+Domain KTH
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataRootOrganisation1749
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.searchRecord
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action delete is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission domain is missing.}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 *!
-!***> '''Fall 3'''
+!***> '''Fall 2'''
 
 !-Vi söker två olika organisationer från två olika domän, KTH och UU.-!
+Domain UU
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataCommonOrganisation1750
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.searchRecord
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action delete is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission domain is missing.}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 
-!define currentAuthToken {$systemAdminAuthToken}
-!define currentDomain {uu}
-!define currentId {1750}
-!define currentType {commonOrganisation}
-!define expectedCompare {OK}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.searchCompareOrganisation
-!define currentAuthToken {$systemAdminAuthToken}
-!define currentDomain {kth}
-!define currentId {1751}
-!define currentType {commonOrganisation}
-!define expectedCompare {OK}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.searchCompareOrganisation
+Domain KTH
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataCommonOrganisation1751
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.searchRecord
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action delete is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission domain is missing.}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 *!
-!style_red[Kontrollera actionLinks för organisation, eftersom vi ännu inte implementerat stöd för att läsa incomingLinks från DiVA powered by Cora, så är dessa inte med.]
-!***> Sök organisation som divaEverything via den abstrakta organisation, rootOrgansiation och commonOrganisation och se att vi får rätt actionLinks
 
-Sök organisation
-
-!define currentAuthToken {$systemAdminAuthToken}
-!define currentRecordType {organisation}
-!define currentId {1750}
-!define expectedPermissionResult {Action delete is missing. Action read_incoming_links is missing.}
-!include -seamless .TheDiVATests.DivaTests.checkActionForRecordForSearch
-Sök en rootOrganisation
-
-!define currentAuthToken {$systemAdminAuthToken}
-!define currentRecordType {rootOrganisation}
-!define currentId {1748}
-!define expectedPermissionResult {Action delete is missing. Action read_incoming_links is missing.}
-!include -seamless .TheDiVATests.DivaTests.checkActionForRecordForSearch
-Sök en commonOrganisation
-
-!define currentAuthToken {$systemAdminAuthToken}
-!define currentRecordType {commonOrganisation}
-!define currentId {1750}
-!define expectedPermissionResult {Action delete is missing. Action read_incoming_links is missing.}
-!include -seamless .TheDiVATests.DivaTests.checkActionForRecordForSearch
-*!
 !4 !-DomainAdmin-!
 !-DomainAdmin får söka och läsa alla begränsade fält från sin egna och andra domän.-!
 
