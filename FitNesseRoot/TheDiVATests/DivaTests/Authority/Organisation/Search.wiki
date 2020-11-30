@@ -19,7 +19,7 @@ Det skall gå att söka organisationer via REST API:et.
 | $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"1"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
 
 *!
-!***> Sök organisation som divaEverything. Kontrollerar att vi kan söka rootOrgansiation och commonOrganisation och se att fälten ÄR med i svaret.
+!***> Sök organisation som divaEverything. Kontrollerar att vi kan söka rootOrgansiation och subOrganisation och se att fälten ÄR med i svaret.
 !define currentAuthToken {$adminAuthToken}
 
 !-Vi söker ett rootOrganisation från UU domän med divaEverything rol.-!
@@ -32,7 +32,7 @@ Det skall gå att söka organisationer via REST API:et.
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 
 
-!-Vi söker ett commonOrganisation från UU domän med divaEverything rol.-!
+!-Vi söker ett subOrganisation från UU domän med divaEverything rol.-!
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataCommonOrganisation1750
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.searchRecord
@@ -204,7 +204,7 @@ Test sök efter organisationen utan alternativt namn, för att se att sökningen
 !-Systemadmin får söka och läsa alla begränsade fält.-!
 
  * '''Fall 1:''' !-SystemAdmin ska kunna läsa en organisation oavsett domän, en rootOrganisation och se alla begränsade fält.-!
- * '''Fall 2:''' !-SystemAdmin ska kunna läsa en organisation oavsett domän, en commonOrganisation och se alla begränsade fält.-!
+ * '''Fall 2:''' !-SystemAdmin ska kunna läsa en organisation oavsett domän, en subOrganisation och se alla begränsade fält.-!
 
 !define currentAuthToken {$systemAdminAuthToken}
 !***> '''Fall 1'''
@@ -251,10 +251,10 @@ Domain KTH
 !-DomainAdmin får söka och läsa alla begränsade fält från sin egna och andras domäner.-!
 
  * '''Fall 1:''' !-DomainAdmin ska kunna läsa en rootOrganisation, och se alla begränsade fält, från sin egna domän.-!
- * '''Fall 2:''' !-DomainAdmin ska kunna läsa en commonOrganisation, och se alla begränsade fält, från sin egna domän.-!
+ * '''Fall 2:''' !-DomainAdmin ska kunna läsa en subOrganisation, och se alla begränsade fält, från sin egna domän.-!
  
  * '''Fall 3:''' !-DomainAdmin ska kunna läsa en rootOrganisation, och se alla begränsade fält, från en annan domän.-!
- * '''Fall 4:''' !-DomainAdmin ska kunna läsa en commonOrganisation, och se alla begränsade fält, från en annan domän.-!
+ * '''Fall 4:''' !-DomainAdmin ska kunna läsa en subOrganisation, och se alla begränsade fält, från en annan domän.-!
 
 !define currentAuthToken {$domainAdminUUAuthToken}
 
@@ -269,7 +269,7 @@ Domain KTH
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 *!
 !***> '''Fall 2'''
-!-Vi ett commonOrganisation från UU domän med UU domain admin användare-!
+!-Vi ett subOrganisation från UU domän med UU domain admin användare-!
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataCommonOrganisation1750
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.searchRecord
@@ -289,7 +289,7 @@ Domain KTH
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 *!
 !***> '''Fall 4'''
-!-Vi ett commonOrganisation från KTH domän med UU domain admin användare-!
+!-Vi ett subOrganisation från KTH domän med UU domain admin användare-!
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataCommonOrganisation1751
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.searchRecord
@@ -303,7 +303,7 @@ Domain KTH
 !-Guest får söka men inte läsa begränsade fälten i organisation oavsett domän.-!
 
  * '''Fall 1:''' Guest ska kunna söka och läsa en rootOrganisation, oavsett vilken domän den är knuten till.
- * '''Fall 2:''' Guest ska kunna söka och läsa en commonOrganisation, oavsett vilken domän den är knuten till.
+ * '''Fall 2:''' Guest ska kunna söka och läsa en subOrganisation, oavsett vilken domän den är knuten till.
 
 !define currentAuthToken {$guestToken}
 !***> '''Fall 1'''

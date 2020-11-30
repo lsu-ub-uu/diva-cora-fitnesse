@@ -6,7 +6,7 @@ Det skall gå att läsa organisationer via REST API:et och i svaret få med vilk
 !style_red[Kontrollera actionLinks för organisation, eftersom vi ännu inte implementerat stöd för att radera en organisation, eller läsa incomingLinks från DiVA powered by Cora, så är dessa inte med.]
 
 
-!***> Läs organisation som divaEverything via den abstrakta organisation, rootOrgansiation och commonOrganisation och se att fälten ÄR med i svaret
+!***> Läs organisation som divaEverything via den abstrakta organisation, rootOrgansiation och subOrganisation och se att fälten ÄR med i svaret
 !define currentAuthToken {$adminAuthToken}
 
 Läs via abstract organisation
@@ -29,7 +29,7 @@ Läs rootOrganisation
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 
 
-Läs commonOrganisation
+Läs subOrganisation
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataCommonOrganisation1750
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.readRecord
@@ -46,7 +46,7 @@ Systemadmin får läsa alla begränsade fält.
 
  * '''Fall1:''' !-SystemAdmin ska kunna läsa en organisation oavsett domän, via den abstrakta organistion och se alla begränsade fält.-!
  * '''Fall2:''' !-SystemAdmin ska kunna läsa en organisation oavsett domän, som en rootOrganisation och se alla begränsade fält.-!
- * '''Fall3:''' !-SystemAdmin ska kunna läsa en organisation oavsett domän, som en commonOrganisation och se alla begränsade fält.-!
+ * '''Fall3:''' !-SystemAdmin ska kunna läsa en organisation oavsett domän, som en subOrganisation och se alla begränsade fält.-!
  
 !define currentAuthToken {$systemAdminAuthToken}
 !***> '''Fall1'''
@@ -103,7 +103,7 @@ Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har re
 
 *!
 !***> '''Fall3'''
-!-Läs en commonOrganisation från domän UU, som en systemAdmin och se att fälten som systemAdmin får läsa ÄR med i svaret-!
+!-Läs en subOrganisation från domän UU, som en systemAdmin och se att fälten som systemAdmin får läsa ÄR med i svaret-!
 (domain, showInDefence, topLevel, showInPortal)
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataCommonOrganisation1750
 
@@ -130,10 +130,10 @@ Vi läser en organisation från domänen KTH
 
  * '''Fall1a:''' !-DomainAdmin ska kunna läsa en organisation, och se alla begränsade fält, från sin egna domän.-!
  * '''Fall1b:''' !-DomainAdmin ska kunna läsa en rootOrganisation, och se alla begränsade fält, från sin egna domän.-!
- * '''Fall1c:''' !-DomainAdmin ska kunna läsa en commonOrganisation, och se alla begränsade fält, från sin egna domän.-!
+ * '''Fall1c:''' !-DomainAdmin ska kunna läsa en subOrganisation, och se alla begränsade fält, från sin egna domän.-!
  * '''Fall2a:''' !-DomainAdmin ska kunna läsa en organisation, och se alla begränsade fält, från en annan domän.-!
  * '''Fall2b:''' !-DomainAdmin ska kunna läsa en rootOrganisation, och se alla begränsade fält, från en annan domän.-!
- * '''Fall2c:''' !-DomainAdmin ska kunna läsa en commonOrganisation, och se alla begränsade fält, från en annan domän.-!
+ * '''Fall2c:''' !-DomainAdmin ska kunna läsa en subOrganisation, och se alla begränsade fält, från en annan domän.-!
 
 !***> '''Fall1a'''
 
@@ -170,7 +170,7 @@ Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har re
 *!
 !***> '''Fall1c'''
 
-!-Läs en commonOrganisation från domän UU, som en domänAdmin från UU och se att fälten som domänAdmin får läsa ÄR med i svaret-!
+!-Läs en subOrganisation från domän UU, som en domänAdmin från UU och se att fälten som domänAdmin får läsa ÄR med i svaret-!
 (domain, showInDefence, topLevel, showInPortal)
 Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har read på alla och inga write permissions.
 
@@ -214,7 +214,7 @@ Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har re
 *!
 
 !***> '''Fall2c'''
-!-Läs en commonOrganisation från domän KTH, som en domänAdmin från UU och se att fälten som domänAdmin får läsa ÄR med i svaret-!
+!-Läs en subOrganisation från domän KTH, som en domänAdmin från UU och se att fälten som domänAdmin får läsa ÄR med i svaret-!
 (domain, showInDefence, topLevel, showInPortal)
 Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har read på alla och inga write permissions.
 !define currentAuthToken {$domainAdminUUAuthToken}
@@ -232,7 +232,7 @@ Guest får varken läsa eller skriva några av de begränsade fälten i organisa
 
  * '''Fall1a:''' Guest ska kunna läsa en organisation, oavsett vilken domän den är knuten till.
  * '''Fall1b:''' Guest ska kunna läsa en rootOrganisation, oavsett vilken domän den är knuten till.
- * '''Fall1c:''' Guest ska kunna läsa en commonOrganisation, oavsett vilken domän den är knuten till.
+ * '''Fall1c:''' Guest ska kunna läsa en subOrganisation, oavsett vilken domän den är knuten till.
  
 !***> '''Fall1'''
 
@@ -273,9 +273,9 @@ Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi som gu
 *!
 !***> '''Fall1c'''
 
-Läs en commonOrganisation från domän UU, som en guest och se att fälten som guest får läsa ÄR med i svaret
+Läs en subOrganisation från domän UU, som en guest och se att fälten som guest får läsa ÄR med i svaret
 (domain)
-Läs en commonOrganisation från domän UU, som en guest och se att fälten som guest får läsa INTE är med i svaret
+Läs en subOrganisation från domän UU, som en guest och se att fälten som guest får läsa INTE är med i svaret
 (rootOrganisation, showInDefence, topLevel, showInPortal)
 Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi som guest inte har några read eller write permissions.
 

@@ -3,21 +3,21 @@ Test
 ---
 !2 Radera
 !style_red['''Eftersom vi ännu inte implementerat stöd för att radera en organisation från DiVA powered by Cora, så får inte någon grupp göra det.''']
-!***> Radera en organisation (AVSTÄNGT)organisation, rootOrganisation, commonOrganisation
+!***> Radera en organisation (AVSTÄNGT)organisation, rootOrganisation, subOrganisation
 
 !| comment |
 | RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
 | $adminAuthToken | organisation | 1750 | | FORBIDDEN |
 | $adminAuthToken | rootOrganisation | 1750 | | FORBIDDEN |
-| $adminAuthToken | commonOrganisation | 1750 | | FORBIDDEN |
+| $adminAuthToken | subOrganisation | 1750 | | FORBIDDEN |
 
 *!
 
 !3 DiVA Roller
 !4 !-SystemAdmin-!
  * '''Fall1:''' !-Eftersom det just nu inte går att radera organistationer i systemet får SystemAdmin INTE för närvarande radera rootOrganisationer.-!
- * '''Fall2:''' !-Eftersom det just nu inte går att radera organistationer i systemet får SystemAdmin INTE för närvarande radera commonOrganisationer.-!
+ * '''Fall2:''' !-Eftersom det just nu inte går att radera organistationer i systemet får SystemAdmin INTE för närvarande radera subOrganisationer.-!
 
 !***> '''Fall1''' Radera rootOrganisation
 
@@ -28,19 +28,19 @@ Vi provar att radera rootOrganisation
 | $systemAdminAuthToken | rootOrganisation | 1750 | | FORBIDDEN |
 
 *!
-!***> '''Fall1''' Radera commonOrganisation
+!***> '''Fall1''' Radera subOrganisation
 
-Vi provar att radera commonOrganisation
+Vi provar att radera subOrganisation
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| $systemAdminAuthToken | commonOrganisation | 1750 | | FORBIDDEN |
+| $systemAdminAuthToken | subOrganisation | 1750 | | FORBIDDEN |
 
 *!
 
 !4 !-DomainAdmin-!
  * '''Fall1:''' !-DomainAdmin får INTE radera någon rootOrganisation.-!
- * '''Fall2:''' !-Eftersom det just nu inte går att radera organistationer i systemet får DomainAdmin INTE för närvarande radera någon commonOrganisation.-!
+ * '''Fall2:''' !-Eftersom det just nu inte går att radera organistationer i systemet får DomainAdmin INTE för närvarande radera någon subOrganisation.-!
 
 !***> '''Fall1''' Radera rootOrganisation
 
@@ -51,18 +51,18 @@ Vi provar att radera en rootOrganisation
 | $domainAdminUUAuthToken | rootOrganisation | 1750 | | FORBIDDEN |
 
 *!
-!***> '''Fall2''' Radera commonOrganisation
+!***> '''Fall2''' Radera subOrganisation
 
-Vi provar att radera en commonOrganisation
+Vi provar att radera en subOrganisation
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| $domainAdminUUAuthToken | commonOrganisation | 1750 | | FORBIDDEN |
+| $domainAdminUUAuthToken | subOrganisation | 1750 | | FORBIDDEN |
 
 *!
 !4 Guest
  * '''Fall1:''' Guest får INTE radera någon rootOrganisation
- * '''Fall2:''' Guest får INTE radera någon commonOrganisation
+ * '''Fall2:''' Guest får INTE radera någon subOrganisation
 
 !***> '''Fall1''' Radera rootOrganisation
 
@@ -73,12 +73,12 @@ Vi provar att radera en rootOrganisation
 | $guestToken | rootOrganisation | 1750 | | FORBIDDEN |
 
 *!
-!***> '''Fall2''' Radera commonOrganisation
+!***> '''Fall2''' Radera subOrganisation
 
-Vi provar att radera en commonOrganisation
+Vi provar att radera en subOrganisation
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| $guestToken | commonOrganisation | 1750 | | FORBIDDEN |
+| $guestToken | subOrganisation | 1750 | | FORBIDDEN |
 
 *!
