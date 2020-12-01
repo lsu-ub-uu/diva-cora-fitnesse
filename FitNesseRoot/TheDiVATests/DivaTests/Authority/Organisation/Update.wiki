@@ -6,13 +6,12 @@ Det ska vara möjligt att uppdatera Organisation.
 
 !style_red[Det är inte implementerat att spara domain i databasen från DiVA powered by Cora]
  * '''Fall 1:''' Det ska gå att uppdatera rootOrganisation
- * '''Fall 2:''' Det ska gå att uppdatera subOrganisation
+ * '''Fall 2:''' Det ska gå att uppdatera topOrganisation
+ * '''Fall 3:''' Det ska gå att uppdatera subOrganisation
 
 !***> '''Fall1'''
 
-!-Uppdatera en rootOrganisation från domän UU, som en divaFitnesseEverything och se att alla fält är uppdaterade inklusive de med begränsnigar, utom domain inte går att ändra.-!
-
-(showInDefence, topLevel, showInPortal)
+!-Uppdatera en rootOrganisation från domän UU, som en divaFitnesseEverything och se att alla fält är uppdaterade, utom domain som inte går att ändra.-!
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataRootOrganisation1748NoDomainChange
 
@@ -30,11 +29,26 @@ Det ska vara möjligt att uppdatera Organisation.
 *!
 !***> '''Fall2'''
 
-!-Uppdatera en subOrganisation från domän UU, som en divaFitnesseEverything och se att alla fält är uppdaterade inklusive de med begränsnigar, utom domain som inte får ändras.-!
-
-(showInDefence, topLevel, showInPortal)
+!-Uppdatera en topOrganisation från domän UU, som en divaFitnesseEverything och se att alla fält är uppdaterade, utom domain som inte får ändras.-!
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750NoDomainChange
+
+!define currentAuthToken {$adminAuthToken}
+!define expectedUpdateResult {OK}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
+
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action read_incoming_links is missing.}
+!define expectedPermissionResult {}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkReadCheckReset
+
+
+*!
+!***> '''Fall3'''
+
+!-Uppdatera en subOrganisation från domän UU, som en divaFitnesseEverything och se att alla fält är uppdaterade, utom domain som inte får ändras.-!
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataSubOrganisation1455NoDomainChange
 
 !define currentAuthToken {$adminAuthToken}
 !define expectedUpdateResult {OK}
@@ -75,10 +89,10 @@ Vi läser och kollar att den sparad organisation inte innehåller UU.
 *!
 !3 Data valideringar
 !4 Organisation måste ha ett alternativnamn
- * '''Fall1:''' !-Det ska inte gå att uppdatera ett organisation som saknar alternativ namn-!
+ * '''Fall1:''' !-Det ska inte gå att uppdatera en organisation som saknar alternativ namn-!
 
 !***> '''Fall1'''
-Vi kollar att det inte går att uppdatera ett organisation som saknar alternativ namn 
+Vi kollar att det inte går att uppdatera en organisation som saknar alternativ namn 
 !| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
 | $adminAuthToken | subOrganisation | 1452 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1452"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"subOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Organisation som saknar alternativt namn"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":""},{"name":"language","value":"en"}]},{"name":"domain","value":"test"},{"name":"organisationType","value":"university"},{"name":"eligible","value":"yes"},{"name":"showInDefence","value":"yes"},{"name":"topLevel","value":"no"},{"name":"showInPortal","value":"yes"}]} | Data is not valid: [TextVariable with nameInData:organisationName is NOT valid, regular expression(^.{2,255}$) does not match:] | BAD_REQUEST |
