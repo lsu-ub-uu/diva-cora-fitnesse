@@ -6,7 +6,7 @@ Test
 Det skall gå att lista organisationer via REST API:et.
  * '''Fall1:''' !-Det ska gå att lista organisationer, via den abstrakta organisation-!
  * '''Fall2:''' !-Det ska gå att lista organisationer, som är rootOrganisationer-!
- * '''Fall3:''' !-Det ska gå att lista organisationer, som är commonOrganisationer -!
+ * '''Fall3:''' !-Det ska gå att lista organisationer, som är subOrganisationer -!
 
 !***>  '''Fall1'''
 Lista organisationer inloggad som divaEverything användare, via den abstrakta organisation
@@ -25,7 +25,7 @@ Kontrollera barnen i den tidigare upplästa listan
 
 !| ChildComparerFixture |
 | type | children | listIndexToCompareTo | testReadFromListCheckContain? |
-| commonOrganisation | {"children":[{"name":"domain"},{"name":"showInDefence"},{"name":"topLevel"},{"name":"showInPortal"}]} | 0 | OK |
+| subOrganisation | {"children":[{"name":"domain"},{"name":"showInDefence"},{"name":"topLevel"},{"name":"showInPortal"}]} | 0 | OK |
 
 *!
 !***>  '''Fall2'''
@@ -49,23 +49,23 @@ Kontrollera barnen i den tidigare upplästa listan
 
 *!
 !***>  '''Fall3'''
-Lista commonOrganisationer inloggad som divaEverything användare
+Lista subOrganisationer inloggad som divaEverything användare
 
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | commonOrganisation | =~/"toNo":"58"/ | OK |
+| $adminAuthToken | subOrganisation | =~/"toNo":"58"/ | OK |
 
 Lists organisationer och lagra resultatet för att användas i test nedan
 
 !| ComparerFixture |
 | authToken | type | testReadRecordListAndStoreRecords? |
-| $adminAuthToken | commonOrganisation | |
+| $adminAuthToken | subOrganisation | |
 
 Kontrollera barnen i den tidigare upplästa listan
 
 !| ChildComparerFixture |
 | type | children | listIndexToCompareTo | testReadFromListCheckContain? |
-| commonOrganisation | {"children":[{"name":"domain"},{"name":"showInDefence"},{"name":"topLevel"},{"name":"showInPortal"}]} | 0 | OK |
+| subOrganisation | {"children":[{"name":"domain"},{"name":"showInDefence"},{"name":"topLevel"},{"name":"showInPortal"}]} | 0 | OK |
 
 *!
 
@@ -73,7 +73,7 @@ Kontrollera barnen i den tidigare upplästa listan
 !4 !-SystemAdmin-!
  * '''Fall1:''' !-SystemAdmin ska kunna lista organisationer, via den abstrakta organisation-!
  * '''Fall2:''' !-SystemAdmin ska kunna lista organisationer, som är rootOrganisationer-!
- * '''Fall3:''' !-SystemAdmin ska kunna lista organisationer, som är commonOrganisationer -!
+ * '''Fall3:''' !-SystemAdmin ska kunna lista organisationer, som är subOrganisationer -!
  
 !***> '''Fall1'''
 Läs listan på organisationer och kontrollera att de är 56st och att minst en har domain lika med uu (dvs. vi får läsa domain)
@@ -122,19 +122,19 @@ Kontrollera barnen i den tidigare upplästa listan
 *!
 
 !***> '''Fall3'''
-Läs listan på commonOrganisationer och kontrollera att de är 54 och att minst en har domain lika med uu (dvs. vi får läsa domain)
+Läs listan på subOrganisationer och kontrollera att de är 54 och att minst en har domain lika med uu (dvs. vi får läsa domain)
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $systemAdminAuthToken | commonOrganisation | =~/"toNo":"58"/ | OK |
+| $systemAdminAuthToken | subOrganisation | =~/"toNo":"58"/ | OK |
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $systemAdminAuthToken | commonOrganisation | =~/"name":"domain","value":"uu"/ | OK |
+| $systemAdminAuthToken | subOrganisation | =~/"name":"domain","value":"uu"/ | OK |
 
 Lists organisationer och lagra resultatet för att användas i test nedan
 
 !| ComparerFixture |
 | authToken | type | testReadRecordListAndStoreRecords? |
-| $systemAdminAuthToken | commonOrganisation | |
+| $systemAdminAuthToken | subOrganisation | |
 
 Kontrollera barnen i den tidigare upplästa listan
 
@@ -153,7 +153,7 @@ Kontrollera barnen i den tidigare upplästa listan
 | authToken | type | testReadRecordList? | getStatusType? |
 | $domainAdminUUAuthToken | organisation | | FORBIDDEN |
 | $domainAdminUUAuthToken | rootOrganisation | | FORBIDDEN |
-| $domainAdminUUAuthToken | commonOrganisation | | FORBIDDEN |
+| $domainAdminUUAuthToken | subOrganisation | | FORBIDDEN |
 
 *!
 !4 Guest
@@ -165,6 +165,6 @@ Kontrollera barnen i den tidigare upplästa listan
 | authToken | type | testReadRecordList? | getStatusType? |
 | $guestToken | organisation | | FORBIDDEN |
 | $guestToken | rootOrganisation | | FORBIDDEN |
-| $guestToken | commonOrganisation | | FORBIDDEN |
+| $guestToken | subOrganisation | | FORBIDDEN |
 
 *!

@@ -3,20 +3,20 @@ Test
 ---
 !2 Skapa
 !style_red['''Det finns ännu inget implementerat stöd för att skapa en organisation från DiVA powered by Cora''']
-!***> Skapa en ny organisation (AVSTÄNGT) organisation, rootOrganisation och commonOrganisation
+!***> Skapa en ny organisation (AVSTÄNGT) organisation, rootOrganisation och subOrganisation
 
 !| comment |
 | RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
 | $adminAuthToken | organisation | {"name":"divaOrganisation","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"organisationName","value":"Provorganisation"},{"name":"alternativeName","children":[{"name":"organisationName","value":"Test organisation"}]},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}]} | | FORBIDDEN |
 | $adminAuthToken | rootOrganisation | {"name":"divaOrganisation","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"organisationName","value":"Provorganisation"},{"name":"alternativeName","children":[{"name":"organisationName","value":"Test organisation"}]},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}]} | | FORBIDDEN |
-| $adminAuthToken | commonOrganisation | {"name":"divaOrganisation","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"organisationName","value":"Provorganisation"},{"name":"alternativeName","children":[{"name":"organisationName","value":"Test organisation"}]},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}]} | | FORBIDDEN |
+| $adminAuthToken | subOrganisation | {"name":"divaOrganisation","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"organisationName","value":"Provorganisation"},{"name":"alternativeName","children":[{"name":"organisationName","value":"Test organisation"}]},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}]} | | FORBIDDEN |
 
 *!
 !3 Roller
 !4 !-SystemAdmin-!
  * '''Fall1:''' !-Eftersom det just nu inte går att skapa organistationer i systemet får SystemAdmin INTE för närvarande skapa någon rootOrganisationer.-!
- * '''Fall2:''' !-Eftersom det just nu inte går att skapa organistationer i systemet får SystemAdmin INTE för närvarande skapa någon commonOrganisation.-!
+ * '''Fall2:''' !-Eftersom det just nu inte går att skapa organistationer i systemet får SystemAdmin INTE för närvarande skapa någon subOrganisation.-!
 
 !***> '''Fall1'''
 
@@ -29,16 +29,16 @@ Vi provar att skapa en rootOrganisation
 *!
 !***> '''Fall1'''
 
-Vi provar att skapa en commonOrganisation
+Vi provar att skapa en subOrganisation
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
-| $systemAdminAuthToken | commonOrganisation | {"name":"divaOrganisation","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"organisationName","value":"Provorganisation"},{"name":"alternativeName","children":[{"name":"organisationName","value":"Test organisation"}]},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}]} | | FORBIDDEN |
+| $systemAdminAuthToken | subOrganisation | {"name":"divaOrganisation","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"organisationName","value":"Provorganisation"},{"name":"alternativeName","children":[{"name":"organisationName","value":"Test organisation"}]},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}]} | | FORBIDDEN |
 
 *!
 !4 !-DomainAdmin-!
  * '''Fall2:''' !-DomainAdmin får INTE skapa rootOrganisationer.-!
- * '''Fall1:''' !-Eftersom det just nu inte går att skapa organistationer i systemet får DomainAdmin INTE för närvarande skapa någon commonOrganisation.-!
+ * '''Fall1:''' !-Eftersom det just nu inte går att skapa organistationer i systemet får DomainAdmin INTE för närvarande skapa någon subOrganisation.-!
 
 !***> '''Fall1'''
 
@@ -51,15 +51,15 @@ Vi provar att skapa en rootOrganisation
 *!
 !***> '''Fall2'''
 
-Vi provar att skapa en commonOrganisation
+Vi provar att skapa en subOrganisation
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
-| $domainAdminUUAuthToken | commonOrganisation | {"name":"divaOrganisation","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"organisationName","value":"Provorganisation"},{"name":"alternativeName","children":[{"name":"organisationName","value":"Test organisation"}]},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}]} | | FORBIDDEN |
+| $domainAdminUUAuthToken | subOrganisation | {"name":"divaOrganisation","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"organisationName","value":"Provorganisation"},{"name":"alternativeName","children":[{"name":"organisationName","value":"Test organisation"}]},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}]} | | FORBIDDEN |
 
 *!
 !4 Guest
- * '''Fall1:''' Guest ska inte kunna skapa en organisation, rootOrganisation och commonOrganisation
+ * '''Fall1:''' Guest ska inte kunna skapa en organisation, rootOrganisation och subOrganisation
 
 !***> '''Fall1'''
 
@@ -68,6 +68,6 @@ Vi provar att skapa en organisation
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
 | $guestToken | rootOrganisation | {"name":"divaOrganisation","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"organisationName","value":"Provorganisation"},{"name":"alternativeName","children":[{"name":"organisationName","value":"Test organisation"}]},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}]} | | FORBIDDEN |
-| $guestToken | commonOrganisation | {"name":"divaOrganisation","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"organisationName","value":"Provorganisation"},{"name":"alternativeName","children":[{"name":"organisationName","value":"Test organisation"}]},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}]} | | FORBIDDEN |
+| $guestToken | subOrganisation | {"name":"divaOrganisation","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"organisationName","value":"Provorganisation"},{"name":"alternativeName","children":[{"name":"organisationName","value":"Test organisation"}]},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}]} | | FORBIDDEN |
 
 *!
