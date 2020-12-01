@@ -54,7 +54,6 @@ OBS: Just nu sökfunktionen bara hittar ord inte delar av ett ord. Om man vill s
  * '''Fall 8:''' Det ska gå att söka i kombination av flera fält (domän, organisationsnamn, organisationsid, organisationstyp och organisationsnummer)
  * '''Fall 9:''' Det ska gå att söka organisation med hjälp av autosök AVSTÄNGD
  * '''Fall 10:''' Det ska gå att söka organisation söks med autocomplete i registreringsformuläret AVSTÄNGD
- * '''Fall 11:''' Det ska gå att söka organisation utan alternativ namn. SKA VI HANTERA DEN???
 
 !***> '''Fall 1'''
 
@@ -184,20 +183,6 @@ Det går inte flera domän samtidigt
 | $adminAuthToken | publicOrganisationSearch | !-
 -! | | OK |
 
-*!
-!***> '''Fall 11''' OKLART
-
-!| RecordEndpointFixture |
-| authToken | type | json | testCreateRecord? | getStatusType? | getCreatedId? |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"1452"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
-
-Test sök efter organisationen utan alternativt namn, för att se att sökningen fungerar
-
-!| RecordEndpointFixture |
-| authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"Organisation som saknar alternativt namn"}]}]}]} | =~/"name":"id","value":"1452"/ | OK |
-
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetCommonOrganisation1750
 *!
 !3 Roller
 !4 !-SystemAdmin-!
