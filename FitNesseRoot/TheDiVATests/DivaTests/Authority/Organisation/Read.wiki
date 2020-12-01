@@ -29,7 +29,7 @@ Läs rootOrganisation
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 
 
-Läs subOrganisation
+Läs topOrganisation
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.readRecord
@@ -38,20 +38,32 @@ Läs subOrganisation
 !define expectedPermissionResult {OK}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 
+
+Läs subOrganisation
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataSubOrganisation1456
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.readRecord
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action read_incoming_links is missing.}
+!define expectedPermissionResult {OK}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
+
+
 *!
 
 !3 Roller
 !4 !-SystemAdmin-!
 Systemadmin får läsa alla begränsade fält.
 
- * '''Fall1:''' !-SystemAdmin ska kunna läsa en organisation oavsett domän, via den abstrakta organistion och se alla begränsade fält.-!
+ * '''Fall1:''' !-SystemAdmin ska kunna läsa en organisation oavsett domän, via den abstrakta organisation och se alla begränsade fält.-!
  * '''Fall2:''' !-SystemAdmin ska kunna läsa en organisation oavsett domän, som en rootOrganisation och se alla begränsade fält.-!
- * '''Fall3:''' !-SystemAdmin ska kunna läsa en organisation oavsett domän, som en subOrganisation och se alla begränsade fält.-!
+ * '''Fall3:''' !-SystemAdmin ska kunna läsa en organisation oavsett domän, som en topOrganisation och se alla begränsade fält.-!
+ * '''Fall4:''' !-SystemAdmin ska kunna läsa en organisation oavsett domän, som en subOrganisation och se alla begränsade fält.-!
  
 !define currentAuthToken {$systemAdminAuthToken}
 !***> '''Fall1'''
 !-Läs en organisation från domän UU, via den abstrakta organisation, som en systemAdmin och se att fälten som systemAdmin får läsa ÄR med i svaret-!
-(domain, showInDefence, topLevel, showInPortal)
+(domain)
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750
 !define recordType {organisation}
 
@@ -77,7 +89,7 @@ Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har re
 *!
 !***> '''Fall2'''
 !-Läs en rootOrganisation från domän UU, som en systemAdmin och se att fälten som systemAdmin får läsa ÄR med i svaret-!
-(domain, showInDefence, topLevel, showInPortal)
+(domain)
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataRootOrganisation1748
 
@@ -103,8 +115,8 @@ Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har re
 
 *!
 !***> '''Fall3'''
-!-Läs en subOrganisation från domän UU, som en systemAdmin och se att fälten som systemAdmin får läsa ÄR med i svaret-!
-(domain, showInDefence, topLevel, showInPortal)
+!-Läs en topOrganisation från domän UU, som en systemAdmin och se att fälten som systemAdmin får läsa ÄR med i svaret-!
+(domain)
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.readRecord
@@ -124,21 +136,46 @@ Vi läser en organisation från domänen KTH
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 *!
 
+!***> '''Fall4'''
+!-Läs en subOrganisation från domän UU, som en systemAdmin och se att fälten som systemAdmin får läsa ÄR med i svaret-!
+(domain)
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataSubOrganisation1455
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.readRecord
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action delete is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission domain is missing.}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
+
+
+Vi läser en organisation från domänen KTH
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataSubOrganisation1456
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.readRecord
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action delete is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission domain is missing.}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
+*!
+
 !4 !-DomainAdmin-!
 
 !-DomainAdmin får läsa alla begränsade fält men inte skriva några.-!
 
  * '''Fall1a:''' !-DomainAdmin ska kunna läsa en organisation, och se alla begränsade fält, från sin egna domän.-!
  * '''Fall1b:''' !-DomainAdmin ska kunna läsa en rootOrganisation, och se alla begränsade fält, från sin egna domän.-!
- * '''Fall1c:''' !-DomainAdmin ska kunna läsa en subOrganisation, och se alla begränsade fält, från sin egna domän.-!
+ * '''Fall1c:''' !-DomainAdmin ska kunna läsa en topOrganisation, och se alla begränsade fält, från sin egna domän.-!
+ * '''Fall1d:''' !-DomainAdmin ska kunna läsa en subOrganisation, och se alla begränsade fält, från sin egna domän.-!
+ 
  * '''Fall2a:''' !-DomainAdmin ska kunna läsa en organisation, och se alla begränsade fält, från en annan domän.-!
  * '''Fall2b:''' !-DomainAdmin ska kunna läsa en rootOrganisation, och se alla begränsade fält, från en annan domän.-!
- * '''Fall2c:''' !-DomainAdmin ska kunna läsa en subOrganisation, och se alla begränsade fält, från en annan domän.-!
+ * '''Fall2c:''' !-DomainAdmin ska kunna läsa en topOrganisation, och se alla begränsade fält, från en annan domän.-!
+ * '''Fall2d:''' !-DomainAdmin ska kunna läsa en subOrganisation, och se alla begränsade fält, från en annan domän.-!
 
 !***> '''Fall1a'''
 
 !-Läs en organisation från domän UU, som en domänAdmin från UU och se att fälten som domänAdmin får läsa ÄR med i svaret-!
-(domain, showInDefence, topLevel, showInPortal)
+(domain)
 Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har read på alla och inga write permissions.
 
 !define currentAuthToken {$domainAdminUUAuthToken}
@@ -147,14 +184,14 @@ Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har re
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.readRecord
 !define expectedCompareResult {OK}
-!define expectedActionResult {Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
-!define expectedPermissionResult {Write permission domain is missing. Write permission showInDefence is missing. Write permission topLevel is missing. Write permission showInPortal is missing.}
+!define expectedActionResult {Action update is missing. Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission domain is missing.}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 *!
 !***> '''Fall1b'''
 
 !-Läs en rootOrganisation från domän UU, som en domänAdmin från UU och se att fälten som domänAdmin får läsa ÄR med i svaret-!
-(domain, showInDefence, topLevel, showInPortal)
+(domain)
 Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har read på alla och inga write permissions.
 
 !define currentAuthToken {$domainAdminUUAuthToken}
@@ -163,15 +200,15 @@ Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har re
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.readRecord
 !define expectedCompareResult {OK}
 !define expectedActionResult {Action update is missing. Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
-!define expectedPermissionResult {Write permission domain is missing. Write permission showInDefence is missing. Write permission topLevel is missing. Write permission showInPortal is missing.}
+!define expectedPermissionResult {Write permission domain is missing.}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 
 
 *!
 !***> '''Fall1c'''
 
-!-Läs en subOrganisation från domän UU, som en domänAdmin från UU och se att fälten som domänAdmin får läsa ÄR med i svaret-!
-(domain, showInDefence, topLevel, showInPortal)
+!-Läs en topOrganisation från domän UU, som en domänAdmin från UU och se att fälten som domänAdmin får läsa ÄR med i svaret-!
+(domain)
 Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har read på alla och inga write permissions.
 
 !define currentAuthToken {$domainAdminUUAuthToken}
@@ -179,14 +216,32 @@ Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har re
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.readRecord
 !define expectedCompareResult {OK}
-!define expectedActionResult {Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
-!define expectedPermissionResult {Write permission domain is missing. Write permission showInDefence is missing. Write permission topLevel is missing. Write permission showInPortal is missing.}
+!define expectedActionResult {Action update is missing. Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission domain is missing.}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 *!
+
+!***> '''Fall1d'''
+
+!-Läs en subOrganisation från domän UU, som en domänAdmin från UU och se att fälten som domänAdmin får läsa ÄR med i svaret-!
+(domain)
+Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har read på alla och inga write permissions.
+
+!define currentAuthToken {$domainAdminUUAuthToken}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataSubOrganisation1455
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.readRecord
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission domain is missing.}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
+*!
+
+
 !***> '''Fall2a'''
 
 !-Läs en organisation från domän KTH, som en domänAdmin från UU och se att fälten som domänAdmin får läsa ÄR med i svaret-!
-(domain, showInDefence, topLevel, showInPortal)
+(domain)
 Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har read på alla och inga write permissions.
 !define currentAuthToken {$domainAdminUUAuthToken}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1751
@@ -195,13 +250,13 @@ Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har re
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.readRecord
 !define expectedCompareResult {OK}
 !define expectedActionResult {Action update is missing. Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
-!define expectedPermissionResult {Write permission domain is missing. Write permission showInDefence is missing. Write permission topLevel is missing. Write permission showInPortal is missing.}
+!define expectedPermissionResult {Write permission domain is missing.}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 *!
 
 !***> '''Fall2b'''
 !-Läs en rootOrganisation från domän KTH, som en domänAdmin från UU och se att fälten som domänAdmin får läsa ÄR med i svaret-!
-(domain, showInDefence, topLevel, showInPortal)
+(domain)
 Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har read på alla och inga write permissions.
 !define currentAuthToken {$domainAdminUUAuthToken}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataRootOrganisation1749
@@ -209,13 +264,13 @@ Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har re
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.readRecord
 !define expectedCompareResult {OK}
 !define expectedActionResult {Action update is missing. Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
-!define expectedPermissionResult {Write permission domain is missing. Write permission showInDefence is missing. Write permission topLevel is missing. Write permission showInPortal is missing.}
+!define expectedPermissionResult {Write permission domain is missing.}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 *!
 
 !***> '''Fall2c'''
 !-Läs en subOrganisation från domän KTH, som en domänAdmin från UU och se att fälten som domänAdmin får läsa ÄR med i svaret-!
-(domain, showInDefence, topLevel, showInPortal)
+(domain)
 Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har read på alla och inga write permissions.
 !define currentAuthToken {$domainAdminUUAuthToken}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1751
@@ -223,7 +278,21 @@ Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har re
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.readRecord
 !define expectedCompareResult {OK}
 !define expectedActionResult {Action update is missing. Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
-!define expectedPermissionResult {Write permission domain is missing. Write permission showInDefence is missing. Write permission topLevel is missing. Write permission showInPortal is missing.}
+!define expectedPermissionResult {Write permission domain is missing.}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
+*!
+
+!***> '''Fall2d'''
+!-Läs en subOrganisation från domän KTH, som en domänAdmin från UU och se att fälten som domänAdmin får läsa ÄR med i svaret-!
+(domain)
+Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har read på alla och inga write permissions.
+!define currentAuthToken {$domainAdminUUAuthToken}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataSubOrganisation1456
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.readRecord
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action update is missing. Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission domain is missing.}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 *!
 
@@ -232,14 +301,13 @@ Guest får varken läsa eller skriva några av de begränsade fälten i organisa
 
  * '''Fall1a:''' Guest ska kunna läsa en organisation, oavsett vilken domän den är knuten till.
  * '''Fall1b:''' Guest ska kunna läsa en rootOrganisation, oavsett vilken domän den är knuten till.
- * '''Fall1c:''' Guest ska kunna läsa en subOrganisation, oavsett vilken domän den är knuten till.
+ * '''Fall1c:''' Guest ska kunna läsa en topOrganisation, oavsett vilken domän den är knuten till.
+ * '''Fall1d:''' Guest ska kunna läsa en subOrganisation, oavsett vilken domän den är knuten till.
  
 !***> '''Fall1'''
 
 Läs en organisation från domän UU, som en guest och se att fälten som guest får läsa ÄR med i svaret
 (domain)
-Läs en organisation från domän UU, som en guest och se att fälten som guest får läsa INTE är med i svaret
-(rootOrganisation, showInDefence, topLevel, showInPortal)
 Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi som guest inte har några read eller write permissions.
 
 !define currentAuthToken {$guestToken}
@@ -247,9 +315,9 @@ Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi som gu
 !define recordType {organisation}
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.readRecord
-!define expectedCompareResult {Child with nameInData showInDefence and type atomic is missing. Child with nameInData topLevel and type atomic is missing. Child with nameInData showInPortal and type atomic is missing.}
+!define expectedCompareResult {OK}
 !define expectedActionResult {Action update is missing. Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
-!define expectedPermissionResult {Read permission showInDefence is missing. Read permission topLevel is missing. Read permission showInPortal is missing. Write permission domain is missing. Write permission showInDefence is missing. Write permission topLevel is missing. Write permission showInPortal is missing.}
+!define expectedPermissionResult {Write permission domain is missing.}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 
 *!
@@ -257,34 +325,46 @@ Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi som gu
 
 Läs en rootOrganisation från domän UU, som en guest och se att fälten som guest får läsa ÄR med i svaret
 (domain)
-Läs en rootOrganisation från domän UU, som en guest och se att fälten som guest får läsa INTE är med i svaret
-(rootOrganisation, showInDefence, topLevel, showInPortal)
 Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi som guest inte har några read eller write permissions.
 
 !define currentAuthToken {$guestToken}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataRootOrganisation1748
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.readRecord
-!define expectedCompareResult {Child with nameInData showInDefence and type atomic is missing. Child with nameInData topLevel and type atomic is missing. Child with nameInData showInPortal and type atomic is missing.}
+!define expectedCompareResult {OK}
 !define expectedActionResult {Action update is missing. Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
-!define expectedPermissionResult {Read permission showInDefence is missing. Read permission topLevel is missing. Read permission showInPortal is missing. Write permission domain is missing. Write permission showInDefence is missing. Write permission topLevel is missing. Write permission showInPortal is missing.}
+!define expectedPermissionResult {Write permission domain is missing.}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 
 *!
 !***> '''Fall1c'''
 
-Läs en subOrganisation från domän UU, som en guest och se att fälten som guest får läsa ÄR med i svaret
+Läs en topOrganisation från domän UU, som en guest och se att fälten som guest får läsa ÄR med i svaret
 (domain)
-Läs en subOrganisation från domän UU, som en guest och se att fälten som guest får läsa INTE är med i svaret
-(rootOrganisation, showInDefence, topLevel, showInPortal)
 Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi som guest inte har några read eller write permissions.
 
 !define currentAuthToken {$guestToken}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.readRecord
-!define expectedCompareResult {Child with nameInData showInDefence and type atomic is missing. Child with nameInData topLevel and type atomic is missing. Child with nameInData showInPortal and type atomic is missing.}
+!define expectedCompareResult {OK}
 !define expectedActionResult {Action update is missing. Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
-!define expectedPermissionResult {Read permission showInDefence is missing. Read permission topLevel is missing. Read permission showInPortal is missing. Write permission domain is missing. Write permission showInDefence is missing. Write permission topLevel is missing. Write permission showInPortal is missing.}
+!define expectedPermissionResult {Write permission domain is missing.}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
+*!
+
+!***> '''Fall1d'''
+
+Läs en subOrganisation från domän UU, som en guest och se att fälten som guest får läsa ÄR med i svaret
+(domain)
+Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi som guest inte har några read eller write permissions.
+
+!define currentAuthToken {$guestToken}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataSubOrganisation1455
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.readRecord
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action update is missing. Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission domain is missing.}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 *!
