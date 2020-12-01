@@ -6,5 +6,5 @@
 
 !| PermissionComparerFixture |
 | permissions | testCheckPermissions? |
-| {"read":["showInDefence", "topLevel", "showInPortal"],"write":["domain", "showInDefence", "topLevel", "showInPortal"]} | ${expectedPermissionResult} |
+| {"read":[],"write":["domain"]} | ${expectedPermissionResult} |
 *!

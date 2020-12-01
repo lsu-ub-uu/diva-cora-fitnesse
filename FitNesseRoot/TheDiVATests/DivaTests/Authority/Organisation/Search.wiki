@@ -33,7 +33,7 @@ Det skall gå att söka organisationer via REST API:et.
 
 
 !-Vi söker ett subOrganisation från UU domän med divaEverything rol.-!
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataCommonOrganisation1750
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.searchRecord
 !define expectedCompareResult {OK}
@@ -216,7 +216,7 @@ Domain KTH
 
 !-Vi söker två olika organisationer från två olika domän, KTH och UU.-!
 Domain UU
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataCommonOrganisation1750
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.searchRecord
 !define expectedCompareResult {OK}
 !define expectedActionResult {Action delete is missing. Action read_incoming_links is missing.}
@@ -224,7 +224,7 @@ Domain UU
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 
 Domain KTH
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataCommonOrganisation1751
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1751
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.searchRecord
 !define expectedCompareResult {OK}
 !define expectedActionResult {Action delete is missing. Action read_incoming_links is missing.}
@@ -255,7 +255,7 @@ Domain KTH
 *!
 !***> '''Fall 2'''
 !-Vi ett subOrganisation från UU domän med UU domain admin användare-!
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataCommonOrganisation1750
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.searchRecord
 !define expectedCompareResult {OK}
@@ -275,7 +275,7 @@ Domain KTH
 *!
 !***> '''Fall 4'''
 !-Vi ett subOrganisation från KTH domän med UU domain admin användare-!
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataCommonOrganisation1751
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1751
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.searchRecord
 !define expectedCompareResult {OK}
@@ -301,7 +301,7 @@ Domain KTH
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 *!
 !***> '''Fall 2'''
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataCommonOrganisation1750
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.searchRecord
 !define expectedCompareResult {Child with nameInData showInDefence and type atomic is missing. Child with nameInData topLevel and type atomic is missing. Child with nameInData showInPortal and type atomic is missing.}

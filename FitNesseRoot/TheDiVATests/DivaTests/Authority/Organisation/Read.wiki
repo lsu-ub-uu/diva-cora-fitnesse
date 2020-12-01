@@ -10,7 +10,7 @@ Det skall gå att läsa organisationer via REST API:et och i svaret få med vilk
 !define currentAuthToken {$adminAuthToken}
 
 Läs via abstract organisation
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataCommonOrganisation1750
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750
 !define recordType {organisation}
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.readRecord
@@ -30,7 +30,7 @@ Läs rootOrganisation
 
 
 Läs subOrganisation
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataCommonOrganisation1750
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.readRecord
 !define expectedCompareResult {OK}
@@ -52,7 +52,7 @@ Systemadmin får läsa alla begränsade fält.
 !***> '''Fall1'''
 !-Läs en organisation från domän UU, via den abstrakta organisation, som en systemAdmin och se att fälten som systemAdmin får läsa ÄR med i svaret-!
 (domain, showInDefence, topLevel, showInPortal)
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataCommonOrganisation1750
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750
 !define recordType {organisation}
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.readRecord
@@ -65,7 +65,7 @@ Systemadmin får läsa alla begränsade fält.
 Vi läser en organisation från domänen KTH
 
 Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har read på alla och write på alla utom domain.
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataCommonOrganisation1751
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1751
 !define recordType {organisation}
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.readRecord
@@ -105,7 +105,7 @@ Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har re
 !***> '''Fall3'''
 !-Läs en subOrganisation från domän UU, som en systemAdmin och se att fälten som systemAdmin får läsa ÄR med i svaret-!
 (domain, showInDefence, topLevel, showInPortal)
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataCommonOrganisation1750
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.readRecord
 !define expectedCompareResult {OK}
@@ -115,7 +115,7 @@ Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har re
 
 
 Vi läser en organisation från domänen KTH
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataCommonOrganisation1751
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1751
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.readRecord
 !define expectedCompareResult {OK}
@@ -142,7 +142,7 @@ Vi läser en organisation från domänen KTH
 Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har read på alla och inga write permissions.
 
 !define currentAuthToken {$domainAdminUUAuthToken}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataCommonOrganisation1750
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750
 !define recordType {organisation}
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.readRecord
@@ -175,7 +175,7 @@ Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har re
 Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har read på alla och inga write permissions.
 
 !define currentAuthToken {$domainAdminUUAuthToken}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataCommonOrganisation1750
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.readRecord
 !define expectedCompareResult {OK}
@@ -189,7 +189,7 @@ Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har re
 (domain, showInDefence, topLevel, showInPortal)
 Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har read på alla och inga write permissions.
 !define currentAuthToken {$domainAdminUUAuthToken}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataCommonOrganisation1751
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1751
 !define recordType {organisation}
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.readRecord
@@ -218,7 +218,7 @@ Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har re
 (domain, showInDefence, topLevel, showInPortal)
 Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har read på alla och inga write permissions.
 !define currentAuthToken {$domainAdminUUAuthToken}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataCommonOrganisation1751
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1751
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.readRecord
 !define expectedCompareResult {OK}
@@ -243,7 +243,7 @@ Läs en organisation från domän UU, som en guest och se att fälten som guest 
 Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi som guest inte har några read eller write permissions.
 
 !define currentAuthToken {$guestToken}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataCommonOrganisation1750
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750
 !define recordType {organisation}
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.readRecord
@@ -280,7 +280,7 @@ Läs en subOrganisation från domän UU, som en guest och se att fälten som gue
 Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi som guest inte har några read eller write permissions.
 
 !define currentAuthToken {$guestToken}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataCommonOrganisation1750
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.readRecord
 !define expectedCompareResult {Child with nameInData showInDefence and type atomic is missing. Child with nameInData topLevel and type atomic is missing. Child with nameInData showInPortal and type atomic is missing.}

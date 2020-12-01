@@ -125,13 +125,11 @@ Kontrollera barnen
 | metadataCollectionVariable | divaOrganisationOrgTypeCollectionVar | 1 | 1 | noRestrictions |
 | metadataTextVariable | divaOrganisationOrgCodeTextVar | 0 | 1 | noRestrictions |
 | metadataTextVariable | divaOrganisationOrgNumberTextVar | 0 | 1 | noRestrictions |
-| metadataCollectionVariable | divaOrganisationEligibleCollectionVar | 1 | 1 | noRestrictions |
 | metadataGroup | divaOrganisationParentOrgGroup | 0 | X | noRestrictions |
 | metadataGroup | earlierOrganisationGroup | 0 | X | noRestrictions |
 | metadataTextVariable | divaOrganisationClosedTextVar | 0 | 1 | noRestrictions |
 | metadataCollectionVariable | domainCollectionVar | 1 | 1 | |
 | metadataCollectionVariable | doctoralDegreeGrantorCollectionVar | 0 | 1 | |
-| metadataCollectionVariable | topLevelCollectionVar | not found | not found | |
 
 
 #| metadataTextVariable | divaOrganisationBoxTextVar | 0 | 1 | noRestrictions |
@@ -163,13 +161,11 @@ Kontrollera barnen
 | metadataCollectionVariable | divaOrganisationOrgTypeCollectionVar | 1 | 1 | noRestrictions |
 | metadataTextVariable | divaOrganisationOrgCodeTextVar | 0 | 1 | noRestrictions |
 | metadataTextVariable | divaOrganisationOrgNumberTextVar | 0 | 1 | noRestrictions |
-| metadataCollectionVariable | divaOrganisationEligibleCollectionVar | 1 | 1 | noRestrictions |
 | metadataGroup | divaOrganisationParentOrgGroup | 0 | X | noRestrictions |
 | metadataGroup | earlierOrganisationGroup | 0 | X | noRestrictions |
 | metadataTextVariable | divaOrganisationClosedTextVar | 0 | 1 | noRestrictions |
 | metadataCollectionVariable | domainCollectionVar | 1 | 1 | write |
 | metadataCollectionVariable | doctoralDegreeGrantorCollectionVar | 0 | 1 | noRestrictions |
-| metadataCollectionVariable | topLevelCollectionVar | not found  | not found  | not found  |
 
 #| metadataTextVariable | divaOrganisationBoxTextVar | 0 | 1 | noRestrictions |
 #| metadataTextVariable | divaOrganisationStreetTextVar | 0 | 1 | noRestrictions |
