@@ -395,28 +395,32 @@ Kontrollera barnen
 !4 Grupper som används av grupperna ovan
 !***> Kontrollera nivå två som används i grupperna ovan (recordInfoOrganisationGroup och organisationAddressGroup)
 
-
-Läs in metadatagruppen för recordInfo för senare kontroll
-
+'''Läs in metadatagruppen för recordInfo för senare kontroll'''
 !| RecordEndpointFixture |
 | type | id | testReadRecordAndStoreJson? |
 | metadataGroup | recordInfoOrganisationGroup | |
 
 Kontrollera barnen
-
 !| MetadataLinkFixture |
 | linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? | getRecordPartConstraint? |
 | metadataCollectionVariable | selectableCollectionVar | 1 | 1 | noRestrictions |
 
+'''Läs in metadatagruppen för organisationRootParentOrgGroup för senare kontroll'''
+!| RecordEndpointFixture |
+| type | id | testReadRecordAndStoreJson? |
+| metadataGroup | organisationRootParentOrgGroup | |
 
-Läs in metadatagruppen för adress för senare kontroll
+Kontrollera barnen
+!| MetadataLinkFixture |
+| linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? | getRecordPartConstraint? |
+| metadataRecordLink | rootOrganisationLink | 0 | 1 | noRestrictions |
 
+'''Läs in metadatagruppen för adress för senare kontroll'''
 !| RecordEndpointFixture |
 | type | id | testReadRecordAndStoreJson? |
 | metadataGroup | organisationAddressGroup | |
 
 Kontrollera barnen
-
 !| MetadataLinkFixture |
 | linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? | getRecordPartConstraint? |
 | metadataTextVariable | divaOrganisationBoxTextVar | 0 | 1 | noRestrictions |
@@ -425,21 +429,16 @@ Kontrollera barnen
 | metadataTextVariable | divaOrganisationCityTextVar | 0 | 1 | noRestrictions |
 | metadataCollectionVariable | divaOrganisationCountryCollectionVar | 0 | 1 | noRestrictions |
 
-Läs in metadatagruppen för alternativNamn för senare kontroll
-
+'''Läs in metadatagruppen för alternativNamn för senare kontroll'''
 !| RecordEndpointFixture |
 | type | id | testReadRecordAndStoreJson? |
 | metadataGroup | divaOrganisationAlternativeNameGroup | |
 
 Kontrollera barnen
-
 !| MetadataLinkFixture |
 | linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? | getRecordPartConstraint? |
 | metadataTextVariable | divaOrganisationNameTextVar | 1 | 1 | noRestrictions |
 | metadataCollectionVariable | alternativeNameLanguageEnCollectionVar | 1 | 1 | noRestrictions |
-
-divaOrganisationNameTextVar
-
 *!
 
 !3 Roller
