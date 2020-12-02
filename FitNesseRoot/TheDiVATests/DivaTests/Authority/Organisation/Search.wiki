@@ -17,12 +17,13 @@ Det skall gå att söka organisationer via REST API:et.
 | $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"1400"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
 | $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"51"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
 | $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"1"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"1455"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
 
 *!
-!***> Sök organisation som divaEverything. Kontrollerar att vi kan söka rootOrgansiation och subOrganisation och se att fälten ÄR med i svaret.
+!***> Sök organisation som divaEverything. Kontrollerar att vi kan söka rootOrgansiation, topOrganisation och subOrganisation och se att fälten ÄR med i svaret.
 !define currentAuthToken {$adminAuthToken}
 
-!-Vi söker ett rootOrganisation från UU domän med divaEverything rol.-!
+!-Vi söker en rootOrganisation från UU domän med divaEverything rol.-!
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataRootOrganisation1748
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.searchRecord
@@ -32,8 +33,17 @@ Det skall gå att söka organisationer via REST API:et.
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 
 
-!-Vi söker ett subOrganisation från UU domän med divaEverything rol.-!
+!-Vi söker en topOrganisation från UU domän med divaEverything rol.-!
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.searchRecord
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action read_incoming_links is missing.}
+!define expectedPermissionResult {OK}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
+
+!-Vi söker en subOrganisation från UU domän med divaEverything rol.-!
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataSubOrganisation1455
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.searchRecord
 !define expectedCompareResult {OK}
@@ -189,7 +199,8 @@ Det går inte flera domän samtidigt
 !-Systemadmin får söka och läsa alla begränsade fält.-!
 
  * '''Fall 1:''' !-SystemAdmin ska kunna läsa en organisation oavsett domän, en rootOrganisation och se alla begränsade fält.-!
- * '''Fall 2:''' !-SystemAdmin ska kunna läsa en organisation oavsett domän, en subOrganisation och se alla begränsade fält.-!
+ * '''Fall 2:''' !-SystemAdmin ska kunna läsa en organisation oavsett domän, en topOrganisation och se alla begränsade fält.-!
+ * '''Fall 3:''' !-SystemAdmin ska kunna läsa en organisation oavsett domän, en subOrganisation och se alla begränsade fält.-!
 
 !define currentAuthToken {$systemAdminAuthToken}
 !***> '''Fall 1'''
@@ -250,7 +261,7 @@ Domain KTH
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.searchRecord
 !define expectedCompareResult {OK}
 !define expectedActionResult {Action update is missing. Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
-!define expectedPermissionResult {Write permission domain is missing. Write permission showInDefence is missing. Write permission topLevel is missing. Write permission showInPortal is missing.}
+!define expectedPermissionResult {Write permission domain is missing.}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 *!
 !***> '''Fall 2'''
@@ -260,7 +271,7 @@ Domain KTH
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.searchRecord
 !define expectedCompareResult {OK}
 !define expectedActionResult {Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
-!define expectedPermissionResult {Write permission domain is missing. Write permission showInDefence is missing. Write permission topLevel is missing. Write permission showInPortal is missing.}
+!define expectedPermissionResult {Write permission domain is missing.}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 *!
 !***> '''Fall 3'''
@@ -270,7 +281,7 @@ Domain KTH
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.searchRecord
 !define expectedCompareResult {OK}
 !define expectedActionResult {Action update is missing. Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
-!define expectedPermissionResult {Write permission domain is missing. Write permission showInDefence is missing. Write permission topLevel is missing. Write permission showInPortal is missing.}
+!define expectedPermissionResult {Write permission domain is missing.}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 *!
 !***> '''Fall 4'''
@@ -280,7 +291,7 @@ Domain KTH
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.searchRecord
 !define expectedCompareResult {OK}
 !define expectedActionResult {Action update is missing. Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
-!define expectedPermissionResult {Write permission domain is missing. Write permission showInDefence is missing. Write permission topLevel is missing. Write permission showInPortal is missing.}
+!define expectedPermissionResult {Write permission domain is missing.}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 *!
 
