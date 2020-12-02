@@ -12,12 +12,9 @@ Det skall gå att söka organisationer via REST API:et.
 | $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"1751"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
 | $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"1748"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
 | $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"1749"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"50"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"1350"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"1400"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"51"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"1"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
 | $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"1455"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"1456"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"1757"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
 
 *!
 !***> Sök organisation som divaEverything. Kontrollerar att vi kan söka rootOrgansiation, topOrganisation och subOrganisation och se att fälten ÄR med i svaret.
@@ -92,14 +89,14 @@ Vi söker organisation med domän VTI och sen söker UU domän
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationDomainSearchTerm","value":"vti"}]}]}]} | =~/"name":"id","value":"1350"/ | OK |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationDomainSearchTerm","value":"kth"}]}]}]} | =~/"name":"id","value":"1456"/ | OK |
 | $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationDomainSearchTerm","value":"uu"}]}]}]} | =~/"name":"id","value":"1750".*"name":"id","value":"1748"/ | OK |
 
 Det går inte flera domän samtidigt
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationDomainSearchTerm","value":"vti uu"}]}]}]} | Data is not valid: [Data value:vti uu NOT found in collection:domain] | BAD_REQUEST |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationDomainSearchTerm","value":"kth uu"}]}]}]} | Data is not valid: [Data value:kth uu NOT found in collection:domain] | BAD_REQUEST |
 
 *!
 !***> '''Fall 3'''
@@ -118,14 +115,14 @@ Det går inte flera domän samtidigt
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrgNumberSearchTerm","value":"202100-2932"}]}]}]} | =~/"totalNo":"1"/ | OK |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrgNumberSearchTerm","value":"202100-29*"}]}]}]} | =~/"totalNo":"2"/ | OK |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrgNumberSearchTerm","value":"202100-2935"}]}]}]} | =~/"totalNo":"1"/ | OK |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrgNumberSearchTerm","value":"202100-2*"}]}]}]} | =~/"totalNo":"2"/ | OK |
 
 !-När vi söker med hela organisationsnumret fast utan bindesträck får vi inget träff.-!
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrgNumberSearchTerm","value":"2021002932"}]}]}]} | =~/"totalNo":"0"/ | OK |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrgNumberSearchTerm","value":"2021002935"}]}]}]} | =~/"totalNo":"0"/ | OK |
 
 *!
 !***> '''Fall 5'''
@@ -134,9 +131,9 @@ Det går inte flera domän samtidigt
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"Stockholms organisation"}]}]}]} | =~/"name":"id","value":"51"/ | OK |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"Kungliga Tekniska Högskolan"}]}]}]} | =~/"name":"id","value":"1751"/ | OK |
 | $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"ingenOrganisationSomHarDetHärNamnet"}]}]}]} | =~/"totalNo":"0"/ | OK |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"Stockholms ingenOrganisationSomHarDetHärNamnet"}]}]}]} | =~/"name":"id","value":"51"/ | OK |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"Kungliga ingenOrganisationSomHarDetHärNamnet"}]}]}]} | =~/"name":"id","value":"1751"/ | OK |
 
 *!
 !***> '''Fall 6'''
@@ -172,8 +169,8 @@ Det går inte flera domän samtidigt
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
 | $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"Uppsala*"},{"name":"divaOrganisationDomainSearchTerm","value":"uu"}]}]}]} | =~/"name":"id","value":"1750"/ | OK |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"1"},{"name":"divaOrgTypeSearchTerm","value":"university"},{"name":"divaOrgNumberSearchTerm","value":"202100-2932"}]}]}]} | =~/"name":"id","value":"1"/ | OK |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"Uppsala*"},{"name":"divaOrganisationDomainSearchTerm","value":"test"},{"name":"recordIdSearchTerm","value":"1"},{"name":"divaOrgTypeSearchTerm","value":"university"},{"name":"divaOrgNumberSearchTerm","value":"202100-2932"}]}]}]} | =~/"name":"id","value":"1"/ | OK |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"1750"},{"name":"divaOrgTypeSearchTerm","value":"university"},{"name":"divaOrgNumberSearchTerm","value":"202100-2935"}]}]}]} | =~/"name":"id","value":"1750"/ | OK |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"Uppsala*"},{"name":"divaOrganisationDomainSearchTerm","value":"uu"},{"name":"recordIdSearchTerm","value":"1750"},{"name":"divaOrgTypeSearchTerm","value":"university"},{"name":"divaOrgNumberSearchTerm","value":"202100-2935"}]}]}]} | =~/"name":"id","value":"1750"/ | OK |
 
 *!
 !***> '''Fall 9''' AVSTÄNGT
@@ -198,13 +195,13 @@ Det går inte flera domän samtidigt
 !4 !-SystemAdmin-!
 !-Systemadmin får söka och läsa alla begränsade fält.-!
 
- * '''Fall 1:''' !-SystemAdmin ska kunna läsa en organisation oavsett domän, en rootOrganisation och se alla begränsade fält.-!
- * '''Fall 2:''' !-SystemAdmin ska kunna läsa en organisation oavsett domän, en topOrganisation och se alla begränsade fält.-!
- * '''Fall 3:''' !-SystemAdmin ska kunna läsa en organisation oavsett domän, en subOrganisation och se alla begränsade fält.-!
+ * '''Fall 1:''' !-SystemAdmin ska kunna söka en rotOrganisation oavsett domän.-!
+ * '''Fall 2:''' !-SystemAdmin ska kunna söka en topOrganisation oavsett domän.-!
+ * '''Fall 3:''' !-SystemAdmin ska kunna söka en subOrganisation oavsett domän.-!
 
 !define currentAuthToken {$systemAdminAuthToken}
-!***> '''Fall 1'''
 
+!***> '''Fall 1'''
 !-Vi söker två olika rootOrganisationer från två olika domän, KTH och UU.-!
 
 Domain UU
@@ -224,8 +221,7 @@ Domain KTH
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 *!
 !***> '''Fall 2'''
-
-!-Vi söker två olika organisationer från två olika domän, KTH och UU.-!
+!-Vi söker två olika toporganisationer från två olika domän, KTH och UU.-!
 Domain UU
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.searchRecord
@@ -242,15 +238,35 @@ Domain KTH
 !define expectedPermissionResult {Write permission domain is missing.}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 *!
+!***> '''Fall 3'''
+!-Vi söker två olika suborganisationer från två olika domän, KTH och UU.-!
+Domain UU
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataSubOrganisation1455
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.searchRecord
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action delete is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission domain is missing.}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
+
+Domain KTH
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataSubOrganisation1456
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.searchRecord
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action delete is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission domain is missing.}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
+*!
 
 !4 !-DomainAdmin-!
 !-DomainAdmin får söka och läsa alla begränsade fält från sin egna och andras domäner.-!
 
- * '''Fall 1:''' !-DomainAdmin ska kunna läsa en rootOrganisation, och se alla begränsade fält, från sin egna domän.-!
- * '''Fall 2:''' !-DomainAdmin ska kunna läsa en subOrganisation, och se alla begränsade fält, från sin egna domän.-!
+ * '''Fall 1:''' !-DomainAdmin ska kunna söka en rootOrganisation från sin egna domän.-!
+ * '''Fall 2:''' !-DomainAdmin ska kunna söka en topOrganisation från sin egna domän.-!
+ * '''Fall 3:''' !-DomainAdmin ska kunna söka en subOrganisation från sin egna domän.-!
  
- * '''Fall 3:''' !-DomainAdmin ska kunna läsa en rootOrganisation, och se alla begränsade fält, från en annan domän.-!
- * '''Fall 4:''' !-DomainAdmin ska kunna läsa en subOrganisation, och se alla begränsade fält, från en annan domän.-!
+ * '''Fall 4:''' !-DomainAdmin ska kunna söka en rootOrganisation från en annan domän.-!
+ * '''Fall 5:''' !-DomainAdmin ska kunna söka en topOrganisation från en annan domän.-!
+ * '''Fall 6:''' !-DomainAdmin ska kunna söka en subOrganisation från en annan domän.-!
 
 !define currentAuthToken {$domainAdminUUAuthToken}
 
@@ -265,8 +281,18 @@ Domain KTH
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 *!
 !***> '''Fall 2'''
-!-Vi ett subOrganisation från UU domän med UU domain admin användare-!
+!-Vi ett topOrganisation från UU domän med UU domain admin användare-!
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.searchRecord
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action update is missing. Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission domain is missing.}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
+*!
+!***> '''Fall 3'''
+!-Vi ett subOrganisation från UU domän med UU domain admin användare-!
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataSubOrganisation1455
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.searchRecord
 !define expectedCompareResult {OK}
@@ -274,7 +300,8 @@ Domain KTH
 !define expectedPermissionResult {Write permission domain is missing.}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 *!
-!***> '''Fall 3'''
+
+!***> '''Fall 4'''
 !-Vi ett rootOrganisation från KTH domän med UU domain admin användare-!
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataRootOrganisation1749
 
@@ -284,9 +311,19 @@ Domain KTH
 !define expectedPermissionResult {Write permission domain is missing.}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 *!
-!***> '''Fall 4'''
-!-Vi ett subOrganisation från KTH domän med UU domain admin användare-!
+!***> '''Fall 5'''
+!-Vi ett topOrganisation från KTH domän med UU domain admin användare-!
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1751
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.searchRecord
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action update is missing. Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission domain is missing.}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
+*!
+!***> '''Fall 6'''
+!-Vi ett subOrganisation från KTH domän med UU domain admin användare-!
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataSubOrganisation1456
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.searchRecord
 !define expectedCompareResult {OK}
@@ -299,24 +336,35 @@ Domain KTH
 !-Guest får söka men inte läsa begränsade fälten i organisation oavsett domän.-!
 
  * '''Fall 1:''' Guest ska kunna söka och läsa en rootOrganisation, oavsett vilken domän den är knuten till.
- * '''Fall 2:''' Guest ska kunna söka och läsa en subOrganisation, oavsett vilken domän den är knuten till.
+ * '''Fall 2:''' Guest ska kunna söka och läsa en topOrganisation, oavsett vilken domän den är knuten till.
+ * '''Fall 3:''' Guest ska kunna söka och läsa en subOrganisation, oavsett vilken domän den är knuten till.
 
 !define currentAuthToken {$guestToken}
+
 !***> '''Fall 1'''
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataRootOrganisation1748
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.searchRecord
-!define expectedCompareResult {Child with nameInData showInDefence and type atomic is missing. Child with nameInData topLevel and type atomic is missing. Child with nameInData showInPortal and type atomic is missing.}
+!define expectedCompareResult {OK}
 !define expectedActionResult {Action update is missing. Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
-!define expectedPermissionResult {Read permission showInDefence is missing. Read permission topLevel is missing. Read permission showInPortal is missing. Write permission domain is missing. Write permission showInDefence is missing. Write permission topLevel is missing. Write permission showInPortal is missing.}
+!define expectedPermissionResult {Write permission domain is missing.}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 *!
 !***> '''Fall 2'''
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.searchRecord
-!define expectedCompareResult {Child with nameInData showInDefence and type atomic is missing. Child with nameInData topLevel and type atomic is missing. Child with nameInData showInPortal and type atomic is missing.}
+!define expectedCompareResult {OK}
 !define expectedActionResult {Action update is missing. Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
-!define expectedPermissionResult {Read permission showInDefence is missing. Read permission topLevel is missing. Read permission showInPortal is missing. Write permission domain is missing. Write permission showInDefence is missing. Write permission topLevel is missing. Write permission showInPortal is missing.}
+!define expectedPermissionResult {Write permission domain is missing.}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
+*!
+!***> '''Fall 3'''
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataSubOrganisation1455
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.searchRecord
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action update is missing. Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission domain is missing.}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 *!
