@@ -260,7 +260,7 @@ Kontrollera barnen
 | metadataCollectionVariable | divaOrganisationOrgTypeCollectionVar | 1 | 1 | noRestrictions |
 | metadataTextVariable | divaOrganisationOrgCodeTextVar | 0 | 1 | noRestrictions |
 | metadataTextVariable | divaOrganisationOrgNumberTextVar | 0 | 1 | noRestrictions |
-| metadataGroup | divaOrganisationParentOrgGroup | 0 | X | noRestrictions |
+| metadataGroup | organisationRootParentOrgGroup | 0 | X | noRestrictions |
 | metadataGroup | earlierOrganisationGroup | 0 | X | noRestrictions |
 | metadataTextVariable | divaOrganisationClosedTextVar | 0 | 1 | noRestrictions |
 | metadataCollectionVariable | domainCollectionVar | 1 | 1 | |
@@ -299,7 +299,7 @@ Kontrollera barnen
 | metadataCollectionVariable | divaOrganisationOrgTypeCollectionVar | 1 | 1 | noRestrictions |
 | metadataTextVariable | divaOrganisationOrgCodeTextVar | 0 | 1 | noRestrictions |
 | metadataTextVariable | divaOrganisationOrgNumberTextVar | 0 | 1 | noRestrictions |
-| metadataGroup | divaOrganisationParentOrgGroup | 0 | X | noRestrictions |
+| metadataGroup | organisationRootParentOrgGroup | 0 | X | noRestrictions |
 | metadataGroup | earlierOrganisationGroup | 0 | X | noRestrictions |
 | metadataTextVariable | divaOrganisationClosedTextVar | 0 | 1 | noRestrictions |
 | metadataCollectionVariable | domainCollectionVar | 1 | 1 | write |
