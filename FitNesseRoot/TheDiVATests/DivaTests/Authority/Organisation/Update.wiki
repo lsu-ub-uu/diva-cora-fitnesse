@@ -12,7 +12,6 @@ Det ska vara möjligt att uppdatera Organisation.
 !define currentAuthToken {$adminAuthToken}
 
 !***> '''Fall1'''
-
 !-Uppdatera en rootOrganisation från domän UU, som en divaFitnesseEverything och se att alla fält är uppdaterade, utom domain som inte går att ändra.-!
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataRootOrganisation1748NoDomainChange
