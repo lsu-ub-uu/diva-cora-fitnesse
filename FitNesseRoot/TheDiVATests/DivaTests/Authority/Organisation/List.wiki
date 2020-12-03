@@ -13,7 +13,7 @@ Lista organisationer inloggad som divaEverything användare, via den abstrakta o
 
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | organisation | =~/"toNo":"60"/ | OK |
+| $adminAuthToken | organisation | =~/"toNo":"62"/ | OK |
 
 Lists organisationer och lagra resultatet för att användas i test nedan
 
@@ -25,9 +25,30 @@ Kontrollera barnen i den tidigare upplästa listan
 
 !| ChildComparerFixture |
 | type | children | listIndexToCompareTo | testReadFromListCheckContain? |
-| subOrganisation | {"children":[{"name":"domain"},{"name":"showInDefence"},{"name":"topLevel"},{"name":"showInPortal"}]} | 0 | OK |
+| subOrganisation | {"children":[{"name":"domain"},{"name":"showInDefence"},{"name":"topLevel"},{"name":"showInPortal"}]} | 55 | OK |
 
 *!
+
+setIndexToStore
+#!| RecordEndpointFixture |
+#| authToken | type | testReadRecordList? | getStatusType? |setIndexToStore |
+#| $adminAuthToken | organisation | =~/"toNo":"62"/ | OK |0|
+
+!| ComparerFixture |
+| authToken | type |indexToStore| testReadRecordListAndStoreRecords? |
+| $adminAuthToken | organisation |57||
+Läs rootOrganisation
+#!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataRootOrganisation1748
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750
+
+#!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.readRecord
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action read_incoming_links is missing.}
+!define expectedPermissionResult {OK}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
+
+
+
 !***>  '''Fall2'''
 Lista rootOrganisationer inloggad som divaEverything användare
 
@@ -53,7 +74,7 @@ Lista subOrganisationer inloggad som divaEverything användare
 
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | subOrganisation | =~/"toNo":"58"/ | OK |
+| $adminAuthToken | subOrganisation | =~/"toNo":"48"/ | OK |
 
 Lists organisationer och lagra resultatet för att användas i test nedan
 
@@ -79,7 +100,7 @@ Kontrollera barnen i den tidigare upplästa listan
 Läs listan på organisationer och kontrollera att de är 56st och att minst en har domain lika med uu (dvs. vi får läsa domain)
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $systemAdminAuthToken | organisation | =~/"toNo":"60"/ | OK |
+| $systemAdminAuthToken | organisation | =~/"toNo":"62"/ | OK |
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
 | $systemAdminAuthToken | organisation | =~/"name":"domain","value":"uu"/ | OK |
@@ -125,7 +146,7 @@ Kontrollera barnen i den tidigare upplästa listan
 Läs listan på subOrganisationer och kontrollera att de är 54 och att minst en har domain lika med uu (dvs. vi får läsa domain)
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $systemAdminAuthToken | subOrganisation | =~/"toNo":"58"/ | OK |
+| $systemAdminAuthToken | subOrganisation | =~/"toNo":"48"/ | OK |
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
 | $systemAdminAuthToken | subOrganisation | =~/"name":"domain","value":"uu"/ | OK |
