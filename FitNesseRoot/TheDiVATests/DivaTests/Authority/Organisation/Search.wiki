@@ -6,15 +6,34 @@ Det skall gå att söka organisationer via REST API:et.
 
 !***> !-SetUp (Indexerar organisationer)-!
 
-!| RecordEndpointFixture |
-| authToken | type | json | testCreateRecord? | getStatusType? | getCreatedId? |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"1750"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"1751"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"1748"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"1749"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"1455"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"1456"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"1757"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+!define currentAuthToken {$adminAuthToken}
+
+!define recordType {organisation}
+!define expectedResult {CREATED}
+
+!define recordId {1750}
+!include -seamless .TheDiVATests.DivaTests.indexRecordTypeWithId
+
+!define recordId {1751}
+!include -seamless .TheDiVATests.DivaTests.indexRecordTypeWithId
+
+!define recordId {1748}
+!include -seamless .TheDiVATests.DivaTests.indexRecordTypeWithId
+
+!define recordId {1749}
+!include -seamless .TheDiVATests.DivaTests.indexRecordTypeWithId
+
+!define recordId {1455}
+!include -seamless .TheDiVATests.DivaTests.indexRecordTypeWithId
+
+!define recordId {1456}
+!include -seamless .TheDiVATests.DivaTests.indexRecordTypeWithId
+
+!define recordId {1757}
+!include -seamless .TheDiVATests.DivaTests.indexRecordTypeWithId
+
+
+
 
 *!
 !***> Sök organisation som divaEverything. Kontrollerar att vi kan söka rootOrgansiation, topOrganisation och subOrganisation och se att fälten ÄR med i svaret.
