@@ -6,116 +6,137 @@ Test
 Det skall gå att lista organisationer via REST API:et.
  * '''Fall1:''' !-Det ska gå att lista organisationer, via den abstrakta organisation-!
  * '''Fall2:''' !-Det ska gå att lista organisationer, som är rootOrganisationer-!
- * '''Fall3:''' !-Det ska gå att lista organisationer, som är subOrganisationer -!
+ * '''Fall3:''' !-Det ska gå att lista organisationer, som är topOrganisationer -!
+ * '''Fall4:''' !-Det ska gå att lista organisationer, som är subOrganisationer -!
 
 !***>  '''Fall1'''
 Lista organisationer inloggad som divaEverything användare, via den abstrakta organisation
 
-!| RecordEndpointFixture |
-| authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | organisation | =~/"toNo":"62"/ | OK |
-
-Lists organisationer och lagra resultatet för att användas i test nedan
-
-!| ComparerFixture |
-| authToken | type | testReadRecordListAndStoreRecords? |
-| $adminAuthToken | organisation | |
-
-Kontrollera barnen i den tidigare upplästa listan
-
-!| ChildComparerFixture |
-| type | children | listIndexToCompareTo | testReadFromListCheckContain? |
-| subOrganisation | {"children":[{"name":"domain"},{"name":"showInDefence"},{"name":"topLevel"},{"name":"showInPortal"}]} | 55 | OK |
-
-*!
-
-setIndexToStore
 #!| RecordEndpointFixture |
-#| authToken | type | testReadRecordList? | getStatusType? |setIndexToStore |
-#| $adminAuthToken | organisation | =~/"toNo":"62"/ | OK |0|
+#| authToken | type | testReadRecordList? | getStatusType? |
+#| $adminAuthToken | organisation | =~/"toNo":"63"/ | OK |
+
+Spara datan som listningen ger ifrån sig för organisation 1750.
 
 !| ComparerFixture |
 | authToken | type |indexToStore| testReadRecordListAndStoreRecords? |
-| $adminAuthToken | organisation |57||
-Läs rootOrganisation
-#!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataRootOrganisation1748
+| $adminAuthToken | organisation |60||
+Läs topOrganisation
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750
 
-#!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.readRecord
+Säkerställ att den sparade datan överensstämmer med originaldatan.
+
 !define expectedCompareResult {OK}
 !define expectedActionResult {Action read_incoming_links is missing.}
 !define expectedPermissionResult {OK}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 
-
+*!
 
 !***>  '''Fall2'''
 Lista rootOrganisationer inloggad som divaEverything användare
 
-!| RecordEndpointFixture |
-| authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | rootOrganisation | =~/"toNo":"2"/ | OK |
+#!| RecordEndpointFixture |
+#| authToken | type | testReadRecordList? | getStatusType? |
+#| $adminAuthToken | rootOrganisation | =~/"toNo":"2"/ | OK |
 
-Lists organisationer och lagra resultatet för att användas i test nedan
+Spara datan som listningen ger ifrån sig för organisation 1748.
 
 !| ComparerFixture |
-| authToken | type | testReadRecordListAndStoreRecords? |
-| $adminAuthToken | rootOrganisation | |
+| authToken | type |indexToStore| testReadRecordListAndStoreRecords? |
+| $adminAuthToken | rootOrganisation |0||
+Läs rootOrganisation
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataRootOrganisation1748
 
-Kontrollera barnen i den tidigare upplästa listan
+Säkerställ att den sparade datan överensstämmer med originaldatan.
 
-!| ChildComparerFixture |
-| type | children | listIndexToCompareTo | testReadFromListCheckContain? |
-| rootOrganisation | {"children":[{"name":"domain"},{"name":"showInDefence"},{"name":"topLevel"},{"name":"showInPortal"}]} | 0 | OK |
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action read_incoming_links is missing.}
+!define expectedPermissionResult {OK}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 
 *!
+
 !***>  '''Fall3'''
+Lista topOrganisationer inloggad som divaEverything användare
+
+#!| RecordEndpointFixture |
+#| authToken | type | testReadRecordList? | getStatusType? |
+#| $adminAuthToken | topOrganisation | =~/"toNo":"12"/ | OK |
+
+Spara datan som listningen ger ifrån sig för organisation 1750.
+
+!| ComparerFixture |
+| authToken | type |indexToStore| testReadRecordListAndStoreRecords? |
+| $adminAuthToken | topOrganisation |10||
+Läs topOrganisation
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750
+
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action read_incoming_links is missing.}
+!define expectedPermissionResult {OK}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
+
+*!
+
+!***>  '''Fall4'''
 Lista subOrganisationer inloggad som divaEverything användare
 
-!| RecordEndpointFixture |
-| authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | subOrganisation | =~/"toNo":"48"/ | OK |
+#!| RecordEndpointFixture |
+#| authToken | type | testReadRecordList? | getStatusType? |
+#| $adminAuthToken | subOrganisation | =~/"toNo":"49"/ | OK |
 
-Lists organisationer och lagra resultatet för att användas i test nedan
+Spara datan som listningen ger ifrån sig för organisation 1455.
+
 
 !| ComparerFixture |
-| authToken | type | testReadRecordListAndStoreRecords? |
-| $adminAuthToken | subOrganisation | |
+| authToken | type |indexToStore| testReadRecordListAndStoreRecords? |
+| $adminAuthToken | subOrganisation |46||
+Läs subOrganisation
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataSubOrganisation1455
 
-Kontrollera barnen i den tidigare upplästa listan
+Säkerställ att den sparade datan överensstämmer med originaldatan.
 
-!| ChildComparerFixture |
-| type | children | listIndexToCompareTo | testReadFromListCheckContain? |
-| subOrganisation | {"children":[{"name":"domain"},{"name":"showInDefence"},{"name":"topLevel"},{"name":"showInPortal"}]} | 0 | OK |
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action read_incoming_links is missing.}
+!define expectedPermissionResult {OK}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 
 *!
+
 
 !3 Roller
 !4 !-SystemAdmin-!
  * '''Fall1:''' !-SystemAdmin ska kunna lista organisationer, via den abstrakta organisation-!
  * '''Fall2:''' !-SystemAdmin ska kunna lista organisationer, som är rootOrganisationer-!
- * '''Fall3:''' !-SystemAdmin ska kunna lista organisationer, som är subOrganisationer -!
+ * '''Fall3:''' !-SystemAdmin ska kunna lista organisationer, som är topOrganisationer -!
+ * '''Fall4:''' !-SystemAdmin ska kunna lista organisationer, som är subOrganisationer -!
+
  
 !***> '''Fall1'''
-Läs listan på organisationer och kontrollera att de är 56st och att minst en har domain lika med uu (dvs. vi får läsa domain)
+Läs listan på organisationer och kontrollera att de är 63st och att minst en har domain lika med uu (dvs. vi får läsa domain)
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $systemAdminAuthToken | organisation | =~/"toNo":"62"/ | OK |
+| $systemAdminAuthToken | organisation | =~/"toNo":"63"/ | OK |
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
 | $systemAdminAuthToken | organisation | =~/"name":"domain","value":"uu"/ | OK |
 
-Lists organisationer och lagra resultatet för att användas i test nedan
+Spara datan som listningen ger ifrån sig för organisation 1750.
 
 !| ComparerFixture |
-| authToken | type | testReadRecordListAndStoreRecords? |
-| $systemAdminAuthToken | organisation | |
+| authToken | type |indexToStore| testReadRecordListAndStoreRecords? |
+| $adminAuthToken | organisation |60||
+Läs topOrganisation
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750
 
-Kontrollera barnen i den tidigare upplästa listan
+Säkerställ att den sparade datan överensstämmer med originaldatan.
 
-!| ChildComparerFixture |
-| type | children | listIndexToCompareTo | testReadFromListCheckContain? |
-| systemAdminAuthToken | {"children":[{"name":"domain"},{"name":"showInDefence"},{"name":"topLevel"},{"name":"showInPortal"}]} | 0 | OK |
+
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action read_incoming_links is missing.}
+!define expectedPermissionResult {OK}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 
 *!
 
@@ -128,45 +149,78 @@ Läs listan på rootOrganisationer och kontrollera att de är 2 och att minst en
 | authToken | type | testReadRecordList? | getStatusType? |
 | $systemAdminAuthToken | rootOrganisation | =~/"name":"domain","value":"uu"/ | OK |
 
-Lists organisationer och lagra resultatet för att användas i test nedan
+Spara datan som listningen ger ifrån sig för organisation 1748.
 
 !| ComparerFixture |
-| authToken | type | testReadRecordListAndStoreRecords? |
-| $systemAdminAuthToken | rootOrganisation | |
+| authToken | type |indexToStore| testReadRecordListAndStoreRecords? |
+| $adminAuthToken | rootOrganisation |0||
+Läs rootOrganisation
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataRootOrganisation1748
 
-Kontrollera barnen i den tidigare upplästa listan
+Säkerställ att den sparade datan överensstämmer med originaldatan.
 
-!| ChildComparerFixture |
-| type | children | listIndexToCompareTo | testReadFromListCheckContain? |
-| systemAdminAuthToken | {"children":[{"name":"domain"},{"name":"showInDefence"},{"name":"topLevel"},{"name":"showInPortal"}]} | 0 | OK |
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action read_incoming_links is missing.}
+!define expectedPermissionResult {OK}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 
 *!
 
+
+
 !***> '''Fall3'''
-Läs listan på subOrganisationer och kontrollera att de är 54 och att minst en har domain lika med uu (dvs. vi får läsa domain)
+Läs listan på topOrganisationer och kontrollera att de är 12 och att minst en har domain lika med uu (dvs. vi får läsa domain)
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $systemAdminAuthToken | subOrganisation | =~/"toNo":"48"/ | OK |
+| $systemAdminAuthToken | topOrganisation | =~/"toNo":"12"/ | OK |
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $systemAdminAuthToken | topOrganisation | =~/"name":"domain","value":"uu"/ | OK |
+
+Spara datan som listningen ger ifrån sig för organisation 1750.
+
+!| ComparerFixture |
+| authToken | type |indexToStore| testReadRecordListAndStoreRecords? |
+| $adminAuthToken | topOrganisation |10||
+Läs topOrganisation
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750
+
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action read_incoming_links is missing.}
+!define expectedPermissionResult {OK}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
+
+*!
+
+!***> '''Fall4'''
+Läs listan på subOrganisationer och kontrollera att de är 49 och att minst en har domain lika med uu (dvs. vi får läsa domain)
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $systemAdminAuthToken | subOrganisation | =~/"toNo":"49"/ | OK |
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
 | $systemAdminAuthToken | subOrganisation | =~/"name":"domain","value":"uu"/ | OK |
 
-Lists organisationer och lagra resultatet för att användas i test nedan
+Spara datan som listningen ger ifrån sig för organisation 1455.
+
 
 !| ComparerFixture |
-| authToken | type | testReadRecordListAndStoreRecords? |
-| $systemAdminAuthToken | subOrganisation | |
+| authToken | type |indexToStore| testReadRecordListAndStoreRecords? |
+| $adminAuthToken | subOrganisation |46||
+Läs subOrganisation
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataSubOrganisation1455
 
-Kontrollera barnen i den tidigare upplästa listan
+Säkerställ att den sparade datan överensstämmer med originaldatan.
 
-!| ChildComparerFixture |
-| type | children | listIndexToCompareTo | testReadFromListCheckContain? |
-| systemAdminAuthToken | {"children":[{"name":"domain"},{"name":"showInDefence"},{"name":"topLevel"},{"name":"showInPortal"}]} | 0 | OK |
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action read_incoming_links is missing.}
+!define expectedPermissionResult {OK}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 
 *!
 
 !4 !-DomainAdmin-!
- * '''Fall1:''' !-DomainAdmin ska inte kunna lista organisationer, varken abstrakta, root eller common-!
+ * '''Fall1:''' !-DomainAdmin ska inte kunna lista organisationer, varken abstrakta, root, top eller sub-!
 
 !***> '''Fall1'''
 
@@ -174,11 +228,12 @@ Kontrollera barnen i den tidigare upplästa listan
 | authToken | type | testReadRecordList? | getStatusType? |
 | $domainAdminUUAuthToken | organisation | | FORBIDDEN |
 | $domainAdminUUAuthToken | rootOrganisation | | FORBIDDEN |
+| $domainAdminUUAuthToken | topOrganisation | | FORBIDDEN |
 | $domainAdminUUAuthToken | subOrganisation | | FORBIDDEN |
 
 *!
 !4 Guest
- * '''Fall1:''' Guest ska inte kunna lista organisationer, varken abstrakta, root eller common
+ * '''Fall1:''' Guest ska inte kunna lista organisationer, varken abstrakta, root, top eller sub
 
 !***> '''Fall1'''
 
@@ -186,6 +241,7 @@ Kontrollera barnen i den tidigare upplästa listan
 | authToken | type | testReadRecordList? | getStatusType? |
 | $guestToken | organisation | | FORBIDDEN |
 | $guestToken | rootOrganisation | | FORBIDDEN |
+| $guestToken | topOrganisation | | FORBIDDEN |
 | $guestToken | subOrganisation | | FORBIDDEN |
 
 *!
