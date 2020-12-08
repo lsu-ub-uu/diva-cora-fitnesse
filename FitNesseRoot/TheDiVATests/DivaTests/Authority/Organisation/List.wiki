@@ -12,9 +12,9 @@ Det skall gå att lista organisationer via REST API:et.
 !***>  '''Fall1'''
 Lista organisationer inloggad som divaEverything användare, via den abstrakta organisation
 
-#!| RecordEndpointFixture |
-#| authToken | type | testReadRecordList? | getStatusType? |
-#| $adminAuthToken | organisation | =~/"toNo":"63"/ | OK |
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $adminAuthToken | organisation | =~/"toNo":"63"/ | OK |
 
 Spara datan som listningen ger ifrån sig för organisation 1750.
 
@@ -36,9 +36,9 @@ Säkerställ att den sparade datan överensstämmer med originaldatan.
 !***>  '''Fall2'''
 Lista rootOrganisationer inloggad som divaEverything användare
 
-#!| RecordEndpointFixture |
-#| authToken | type | testReadRecordList? | getStatusType? |
-#| $adminAuthToken | rootOrganisation | =~/"toNo":"2"/ | OK |
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $adminAuthToken | rootOrganisation | =~/"toNo":"2"/ | OK |
 
 Spara datan som listningen ger ifrån sig för organisation 1748.
 
@@ -60,9 +60,9 @@ Säkerställ att den sparade datan överensstämmer med originaldatan.
 !***>  '''Fall3'''
 Lista topOrganisationer inloggad som divaEverything användare
 
-#!| RecordEndpointFixture |
-#| authToken | type | testReadRecordList? | getStatusType? |
-#| $adminAuthToken | topOrganisation | =~/"toNo":"12"/ | OK |
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $adminAuthToken | topOrganisation | =~/"toNo":"12"/ | OK |
 
 Spara datan som listningen ger ifrån sig för organisation 1750.
 
@@ -82,9 +82,9 @@ Läs topOrganisation
 !***>  '''Fall4'''
 Lista subOrganisationer inloggad som divaEverything användare
 
-#!| RecordEndpointFixture |
-#| authToken | type | testReadRecordList? | getStatusType? |
-#| $adminAuthToken | subOrganisation | =~/"toNo":"49"/ | OK |
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $adminAuthToken | subOrganisation | =~/"toNo":"49"/ | OK |
 
 Spara datan som listningen ger ifrån sig för organisation 1455.
 
