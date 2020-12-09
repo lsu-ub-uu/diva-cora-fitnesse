@@ -31,6 +31,20 @@ Säkerställ att den sparade datan överensstämmer med originaldatan.
 !define expectedPermissionResult {OK}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 
+
+!| ComparerFixture |
+| authToken | type |idToStore| testReadRecordListAndStoreRecordById? |
+| $adminAuthToken | organisation |1750||
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750
+
+Säkerställ att den sparade datan överensstämmer med originaldatan.
+
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action read_incoming_links is missing.}
+!define expectedPermissionResult {OK}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
+
+
 *!
 !***>  '''Fall2'''
 Lista rootOrganisationer inloggad som divaEverything användare. Listan bör innehålla bara rootOrganisationer.
