@@ -10,11 +10,11 @@ Det skall gå att lista organisationer via REST API:et.
  * '''Fall4:''' !-Det ska gå att lista organisationer, som är subOrganisationer -!
 
 !***>  '''Fall1'''
-Lista organisationer inloggad som divaEverything användare, via den abstrakta organisation
+Lista organisationer inloggad som divaEverything användare, via den abstrakta organisation. Listan bör innehålla alla tre organisationtyper (rootOrganisation, topOrganisation och subOrganisation)
 
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | organisation | =~/"toNo":"63"/ | OK |
+| $adminAuthToken | organisation | =~/^(?=.*"name":"linkedRecordId","value":"rootOrganisation")(?=.*"name":"linkedRecordId","value":"topOrganisation")(?=.*"name":"linkedRecordId","value":"subOrganisation").*$/ | OK |
 
 Spara datan som listningen ger ifrån sig för organisation 1750.
 
@@ -32,13 +32,12 @@ Säkerställ att den sparade datan överensstämmer med originaldatan.
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 
 *!
-
 !***>  '''Fall2'''
-Lista rootOrganisationer inloggad som divaEverything användare
+Lista rootOrganisationer inloggad som divaEverything användare. Listan bör innehålla bara rootOrganisationer.
 
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | rootOrganisation | =~/"toNo":"2"/ | OK |
+| $adminAuthToken | rootOrganisation | =~/^(?=.*"name":"linkedRecordId","value":"rootOrganisation")(?!.*"name":"linkedRecordId","value":"topOrganisation")(?!.*"name":"linkedRecordId","value":"subOrganisation").*$/ | OK |
 
 Spara datan som listningen ger ifrån sig för organisation 1748.
 
@@ -56,13 +55,12 @@ Säkerställ att den sparade datan överensstämmer med originaldatan.
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 
 *!
-
 !***>  '''Fall3'''
-Lista topOrganisationer inloggad som divaEverything användare
+Lista topOrganisationer inloggad som divaEverything användare. Listan bör innehålla bara topOrganisationer.
 
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | topOrganisation | =~/"toNo":"12"/ | OK |
+| $adminAuthToken | topOrganisation | =~/^(?!.*"name":"linkedRecordId","value":"rootOrganisation")(?=.*"name":"linkedRecordId","value":"topOrganisation")(?!.*"name":"linkedRecordId","value":"subOrganisation").*$/ | OK |
 
 Spara datan som listningen ger ifrån sig för organisation 1750.
 
@@ -78,13 +76,12 @@ Läs topOrganisation
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 
 *!
-
 !***>  '''Fall4'''
-Lista subOrganisationer inloggad som divaEverything användare
+Lista subOrganisationer inloggad som divaEverything användare. Listan bör innehålla bara subOrganisationer.
 
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | subOrganisation | =~/"toNo":"49"/ | OK |
+| $adminAuthToken | subOrganisation | =~/^(?!.*"name":"linkedRecordId","value":"rootOrganisation")(?!.*"name":"linkedRecordId","value":"topOrganisation")(?=.*"name":"linkedRecordId","value":"subOrganisation").*$/ | OK |
 
 Spara datan som listningen ger ifrån sig för organisation 1455.
 
@@ -103,7 +100,6 @@ Säkerställ att den sparade datan överensstämmer med originaldatan.
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 
 *!
-
 
 !3 Roller
 !4 !-SystemAdmin-!
@@ -114,13 +110,15 @@ Säkerställ att den sparade datan överensstämmer med originaldatan.
 
  
 !***> '''Fall1'''
-Läs listan på organisationer och kontrollera att de är 63st och att minst en har domain lika med uu (dvs. vi får läsa domain)
+Listan bör innehålla alla tre organisationtyper (rootOrganisation, topOrganisation och subOrganisation)
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $systemAdminAuthToken | organisation | =~/"toNo":"63"/ | OK |
+| $systemAdminAuthToken | organisation | =~/^(?=.*"name":"linkedRecordId","value":"rootOrganisation")(?=.*"name":"linkedRecordId","value":"topOrganisation")(?=.*"name":"linkedRecordId","value":"subOrganisation").*$/ | OK |
+
+Listan bör innehålla bara organisationer från båda UU och KTH.
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $systemAdminAuthToken | organisation | =~/"name":"domain","value":"uu"/ | OK |
+| $systemAdminAuthToken | organisation | =~/^(?=.*"name":"domain","value":"uu")(?=.*"name":"domain","value":"kth").*$/ | OK |
 
 Spara datan som listningen ger ifrån sig för organisation 1750.
 
@@ -139,15 +137,16 @@ Säkerställ att den sparade datan överensstämmer med originaldatan.
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 
 *!
-
 !***> '''Fall2'''
-Läs listan på rootOrganisationer och kontrollera att de är 2 och att minst en har domain lika med uu (dvs. vi får läsa domain)
+Listan bör innehålla bara rootOrganisationer.
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $systemAdminAuthToken | rootOrganisation | =~/"toNo":"2"/ | OK |
+| $systemAdminAuthToken | rootOrganisation | =~/^(?=.*"name":"linkedRecordId","value":"rootOrganisation")(?!.*"name":"linkedRecordId","value":"topOrganisation")(?!.*"name":"linkedRecordId","value":"subOrganisation").*$/ | OK |
+
+Listan bör innehålla organisationer från båda UU och KTH.
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $systemAdminAuthToken | rootOrganisation | =~/"name":"domain","value":"uu"/ | OK |
+| $systemAdminAuthToken | rootOrganisation | =~/^(?=.*"name":"domain","value":"uu")(?=.*"name":"domain","value":"kth").*$/ | OK |
 
 Spara datan som listningen ger ifrån sig för organisation 1748.
 
@@ -165,17 +164,16 @@ Säkerställ att den sparade datan överensstämmer med originaldatan.
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 
 *!
-
-
-
 !***> '''Fall3'''
-Läs listan på topOrganisationer och kontrollera att de är 12 och att minst en har domain lika med uu (dvs. vi får läsa domain)
+Listan bör innehålla bara topOrganisationer.
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $systemAdminAuthToken | topOrganisation | =~/"toNo":"12"/ | OK |
+| $systemAdminAuthToken | topOrganisation | =~/^(?!.*"name":"linkedRecordId","value":"rootOrganisation")(?=.*"name":"linkedRecordId","value":"topOrganisation")(?!.*"name":"linkedRecordId","value":"subOrganisation").*$/ | OK |
+
+Listan bör innehålla organisationer från båda UU och KTH.
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $systemAdminAuthToken | topOrganisation | =~/"name":"domain","value":"uu"/ | OK |
+| $systemAdminAuthToken | topOrganisation | =~/^(?=.*"name":"domain","value":"uu")(?=.*"name":"domain","value":"kth").*$/ | OK |
 
 Spara datan som listningen ger ifrån sig för organisation 1750.
 
@@ -191,19 +189,18 @@ Läs topOrganisation
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 
 *!
-
 !***> '''Fall4'''
-Läs listan på subOrganisationer och kontrollera att de är 49 och att minst en har domain lika med uu (dvs. vi får läsa domain)
+Listan bör innehålla bara subOrganisationer.
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $systemAdminAuthToken | subOrganisation | =~/"toNo":"49"/ | OK |
+| $systemAdminAuthToken | subOrganisation | =~/^(?!.*"name":"linkedRecordId","value":"rootOrganisation")(?!.*"name":"linkedRecordId","value":"topOrganisation")(?=.*"name":"linkedRecordId","value":"subOrganisation").*$/ | OK |
+
+Listan bör innehålla organisationer från båda UU och KTH.
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $systemAdminAuthToken | subOrganisation | =~/"name":"domain","value":"uu"/ | OK |
+| $systemAdminAuthToken | subOrganisation | =~/^(?=.*"name":"domain","value":"uu")(?=.*"name":"domain","value":"kth").*$/ | OK |
 
 Spara datan som listningen ger ifrån sig för organisation 1455.
-
-
 !| ComparerFixture |
 | authToken | type |indexToStore| testReadRecordListAndStoreRecords? |
 | $adminAuthToken | subOrganisation |46||
@@ -218,7 +215,6 @@ Säkerställ att den sparade datan överensstämmer med originaldatan.
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 
 *!
-
 !4 !-DomainAdmin-!
  * '''Fall1:''' !-DomainAdmin ska inte kunna lista organisationer, varken abstrakta, root, top eller sub-!
 
