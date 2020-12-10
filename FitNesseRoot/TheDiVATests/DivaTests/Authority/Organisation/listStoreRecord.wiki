@@ -1,0 +1,6 @@
+---
+Help: Store a Record from a List
+---
+!| ComparerFixture |
+| authToken | type |idToStore| testReadRecordListAndStoreRecordById? |
+| ${currentAuthToken} | ${recordType} |${recordId} |${expectedListResult}|

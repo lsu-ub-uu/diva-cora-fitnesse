@@ -8,61 +8,34 @@ Det skall gå att lista organisationer via REST API:et.
  * '''Fall2:''' !-Det ska gå att lista organisationer, som är rootOrganisationer-!
  * '''Fall3:''' !-Det ska gå att lista organisationer, som är topOrganisationer -!
  * '''Fall4:''' !-Det ska gå att lista organisationer, som är subOrganisationer -!
+ 
+
+!define currentAuthToken {$adminAuthToken}
+
 
 !***>  '''Fall1'''
 Lista organisationer inloggad som divaEverything användare, via den abstrakta organisation. Listan bör innehålla alla tre organisationtyper (rootOrganisation, topOrganisation och subOrganisation)
-
-!| RecordEndpointFixture |
-| authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | organisation | =~/^(?=.*"name":"linkedRecordId","value":"rootOrganisation")(?=.*"name":"linkedRecordId","value":"topOrganisation")(?=.*"name":"linkedRecordId","value":"subOrganisation").*$/ | OK |
-
-Spara datan som listningen ger ifrån sig för organisation 1750.
-
-!| ComparerFixture |
-| authToken | type |indexToStore| testReadRecordListAndStoreRecords? |
-| $adminAuthToken | organisation |60||
-Läs topOrganisation
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750
+!define recordType {organisation}
+!define expectedListResult {=~/^(?=.*"name":"linkedRecordId","value":"rootOrganisation")(?=.*"name":"linkedRecordId","value":"topOrganisation")(?=.*"name":"linkedRecordId","value":"subOrganisation").*$/}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.listStoreRecord
 
 Säkerställ att den sparade datan överensstämmer med originaldatan.
-
 !define expectedCompareResult {OK}
 !define expectedActionResult {Action read_incoming_links is missing.}
 !define expectedPermissionResult {OK}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
-
-
-!| ComparerFixture |
-| authToken | type |idToStore| testReadRecordListAndStoreRecordById? |
-| $adminAuthToken | organisation |1750||
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750
-
-Säkerställ att den sparade datan överensstämmer med originaldatan.
-
-!define expectedCompareResult {OK}
-!define expectedActionResult {Action read_incoming_links is missing.}
-!define expectedPermissionResult {OK}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
-
 
 *!
 !***>  '''Fall2'''
 Lista rootOrganisationer inloggad som divaEverything användare. Listan bör innehålla bara rootOrganisationer.
 
-!| RecordEndpointFixture |
-| authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | rootOrganisation | =~/^(?=.*"name":"linkedRecordId","value":"rootOrganisation")(?!.*"name":"linkedRecordId","value":"topOrganisation")(?!.*"name":"linkedRecordId","value":"subOrganisation").*$/ | OK |
-
-Spara datan som listningen ger ifrån sig för organisation 1748.
-
-!| ComparerFixture |
-| authToken | type |indexToStore| testReadRecordListAndStoreRecords? |
-| $adminAuthToken | rootOrganisation |0||
-Läs rootOrganisation
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataRootOrganisation1748
+!define recordType {rootOrganisation}
+!define expectedListResult {=~/^(?=.*"name":"linkedRecordId","value":"rootOrganisation")(?!.*"name":"linkedRecordId","value":"topOrganisation")(?!.*"name":"linkedRecordId","value":"subOrganisation").*$/}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.listStoreRecord
 
 Säkerställ att den sparade datan överensstämmer med originaldatan.
-
 !define expectedCompareResult {OK}
 !define expectedActionResult {Action read_incoming_links is missing.}
 !define expectedPermissionResult {OK}
@@ -72,18 +45,12 @@ Säkerställ att den sparade datan överensstämmer med originaldatan.
 !***>  '''Fall3'''
 Lista topOrganisationer inloggad som divaEverything användare. Listan bör innehålla bara topOrganisationer.
 
-!| RecordEndpointFixture |
-| authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | topOrganisation | =~/^(?!.*"name":"linkedRecordId","value":"rootOrganisation")(?=.*"name":"linkedRecordId","value":"topOrganisation")(?!.*"name":"linkedRecordId","value":"subOrganisation").*$/ | OK |
-
-Spara datan som listningen ger ifrån sig för organisation 1750.
-
-!| ComparerFixture |
-| authToken | type |indexToStore| testReadRecordListAndStoreRecords? |
-| $adminAuthToken | topOrganisation |10||
-Läs topOrganisation
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750
+!define recordType {topOrganisation}
+!define expectedListResult {=~/^(?!.*"name":"linkedRecordId","value":"rootOrganisation")(?=.*"name":"linkedRecordId","value":"topOrganisation")(?!.*"name":"linkedRecordId","value":"subOrganisation").*$/}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.listStoreRecord
 
+Säkerställ att den sparade datan överensstämmer med originaldatan.
 !define expectedCompareResult {OK}
 !define expectedActionResult {Action read_incoming_links is missing.}
 !define expectedPermissionResult {OK}
@@ -92,22 +59,12 @@ Läs topOrganisation
 *!
 !***>  '''Fall4'''
 Lista subOrganisationer inloggad som divaEverything användare. Listan bör innehålla bara subOrganisationer.
-
-!| RecordEndpointFixture |
-| authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | subOrganisation | =~/^(?!.*"name":"linkedRecordId","value":"rootOrganisation")(?!.*"name":"linkedRecordId","value":"topOrganisation")(?=.*"name":"linkedRecordId","value":"subOrganisation").*$/ | OK |
-
-Spara datan som listningen ger ifrån sig för organisation 1455.
-
-
-!| ComparerFixture |
-| authToken | type |indexToStore| testReadRecordListAndStoreRecords? |
-| $adminAuthToken | subOrganisation |46||
-Läs subOrganisation
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataSubOrganisation1455
+!define recordType {subOrganisation}
+!define expectedListResult {=~/^(?!.*"name":"linkedRecordId","value":"rootOrganisation")(?!.*"name":"linkedRecordId","value":"topOrganisation")(?=.*"name":"linkedRecordId","value":"subOrganisation").*$/}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.listStoreRecord
 
 Säkerställ att den sparade datan överensstämmer med originaldatan.
-
 !define expectedCompareResult {OK}
 !define expectedActionResult {Action read_incoming_links is missing.}
 !define expectedPermissionResult {OK}
@@ -122,110 +79,65 @@ Säkerställ att den sparade datan överensstämmer med originaldatan.
  * '''Fall3:''' !-SystemAdmin ska kunna lista organisationer, som är topOrganisationer -!
  * '''Fall4:''' !-SystemAdmin ska kunna lista organisationer, som är subOrganisationer -!
 
+!define currentAuthToken {$systemAdminAuthToken}
  
 !***> '''Fall1'''
-Listan bör innehålla alla tre organisationtyper (rootOrganisation, topOrganisation och subOrganisation)
-!| RecordEndpointFixture |
-| authToken | type | testReadRecordList? | getStatusType? |
-| $systemAdminAuthToken | organisation | =~/^(?=.*"name":"linkedRecordId","value":"rootOrganisation")(?=.*"name":"linkedRecordId","value":"topOrganisation")(?=.*"name":"linkedRecordId","value":"subOrganisation").*$/ | OK |
+Listan bör innehålla alla tre organisationtyper (rootOrganisation, topOrganisation och subOrganisation) och den bör också innehålla organisationer från båda UU och KTH.
 
-Listan bör innehålla bara organisationer från båda UU och KTH.
-!| RecordEndpointFixture |
-| authToken | type | testReadRecordList? | getStatusType? |
-| $systemAdminAuthToken | organisation | =~/^(?=.*"name":"domain","value":"uu")(?=.*"name":"domain","value":"kth").*$/ | OK |
-
-Spara datan som listningen ger ifrån sig för organisation 1750.
-
-!| ComparerFixture |
-| authToken | type |indexToStore| testReadRecordListAndStoreRecords? |
-| $adminAuthToken | organisation |60||
-Läs topOrganisation
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750
+!define recordType {organisation}
+!define expectedListResult {=~/^(?=.*"name":"linkedRecordId","value":"rootOrganisation")(?=.*"name":"linkedRecordId","value":"topOrganisation")(?=.*"name":"linkedRecordId","value":"subOrganisation")(?=.*"name":"domain","value":"uu")(?=.*"name":"domain","value":"kth").*$/}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.listStoreRecord
 
 Säkerställ att den sparade datan överensstämmer med originaldatan.
-
-
 !define expectedCompareResult {OK}
-!define expectedActionResult {Action read_incoming_links is missing.}
-!define expectedPermissionResult {OK}
+!define expectedActionResult {Action delete is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission domain is missing.}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 
 *!
 !***> '''Fall2'''
-Listan bör innehålla bara rootOrganisationer.
-!| RecordEndpointFixture |
-| authToken | type | testReadRecordList? | getStatusType? |
-| $systemAdminAuthToken | rootOrganisation | =~/^(?=.*"name":"linkedRecordId","value":"rootOrganisation")(?!.*"name":"linkedRecordId","value":"topOrganisation")(?!.*"name":"linkedRecordId","value":"subOrganisation").*$/ | OK |
+Listan bör innehålla bara rootOrganisationer. Listan bör innehålla organisationer från båda UU och KTH.
 
-Listan bör innehålla organisationer från båda UU och KTH.
-!| RecordEndpointFixture |
-| authToken | type | testReadRecordList? | getStatusType? |
-| $systemAdminAuthToken | rootOrganisation | =~/^(?=.*"name":"domain","value":"uu")(?=.*"name":"domain","value":"kth").*$/ | OK |
-
-Spara datan som listningen ger ifrån sig för organisation 1748.
-
-!| ComparerFixture |
-| authToken | type |indexToStore| testReadRecordListAndStoreRecords? |
-| $adminAuthToken | rootOrganisation |0||
-Läs rootOrganisation
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataRootOrganisation1748
+!define recordType {rootOrganisation}
+!define expectedListResult {=~/^(?=.*"name":"linkedRecordId","value":"rootOrganisation")(?!.*"name":"linkedRecordId","value":"topOrganisation")(?!.*"name":"linkedRecordId","value":"subOrganisation")(?=.*"name":"domain","value":"uu")(?=.*"name":"domain","value":"kth").*$/}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.listStoreRecord
 
 Säkerställ att den sparade datan överensstämmer med originaldatan.
-
 !define expectedCompareResult {OK}
-!define expectedActionResult {Action read_incoming_links is missing.}
-!define expectedPermissionResult {OK}
+!define expectedActionResult {Action delete is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission domain is missing.}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 
 *!
 !***> '''Fall3'''
-Listan bör innehålla bara topOrganisationer.
-!| RecordEndpointFixture |
-| authToken | type | testReadRecordList? | getStatusType? |
-| $systemAdminAuthToken | topOrganisation | =~/^(?!.*"name":"linkedRecordId","value":"rootOrganisation")(?=.*"name":"linkedRecordId","value":"topOrganisation")(?!.*"name":"linkedRecordId","value":"subOrganisation").*$/ | OK |
+Listan bör innehålla bara topOrganisationer. Listan bör innehålla organisationer från båda UU och KTH.
 
-Listan bör innehålla organisationer från båda UU och KTH.
-!| RecordEndpointFixture |
-| authToken | type | testReadRecordList? | getStatusType? |
-| $systemAdminAuthToken | topOrganisation | =~/^(?=.*"name":"domain","value":"uu")(?=.*"name":"domain","value":"kth").*$/ | OK |
-
-Spara datan som listningen ger ifrån sig för organisation 1750.
-
-!| ComparerFixture |
-| authToken | type |indexToStore| testReadRecordListAndStoreRecords? |
-| $adminAuthToken | topOrganisation |10||
-Läs topOrganisation
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750
+!define recordType {topOrganisation}
+!define expectedListResult {=~/^(?!.*"name":"linkedRecordId","value":"rootOrganisation")(?=.*"name":"linkedRecordId","value":"topOrganisation")(?!.*"name":"linkedRecordId","value":"subOrganisation")(?=.*"name":"domain","value":"uu")(?=.*"name":"domain","value":"kth").*$/}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.listStoreRecord
 
+Säkerställ att den sparade datan överensstämmer med originaldatan.
 !define expectedCompareResult {OK}
-!define expectedActionResult {Action read_incoming_links is missing.}
-!define expectedPermissionResult {OK}
+!define expectedActionResult {Action delete is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission domain is missing.}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 
 *!
 !***> '''Fall4'''
-Listan bör innehålla bara subOrganisationer.
-!| RecordEndpointFixture |
-| authToken | type | testReadRecordList? | getStatusType? |
-| $systemAdminAuthToken | subOrganisation | =~/^(?!.*"name":"linkedRecordId","value":"rootOrganisation")(?!.*"name":"linkedRecordId","value":"topOrganisation")(?=.*"name":"linkedRecordId","value":"subOrganisation").*$/ | OK |
+Listan bör innehålla bara subOrganisationer. Listan bör innehålla organisationer från båda UU och KTH.
 
-Listan bör innehålla organisationer från båda UU och KTH.
-!| RecordEndpointFixture |
-| authToken | type | testReadRecordList? | getStatusType? |
-| $systemAdminAuthToken | subOrganisation | =~/^(?=.*"name":"domain","value":"uu")(?=.*"name":"domain","value":"kth").*$/ | OK |
-
-Spara datan som listningen ger ifrån sig för organisation 1455.
-!| ComparerFixture |
-| authToken | type |indexToStore| testReadRecordListAndStoreRecords? |
-| $adminAuthToken | subOrganisation |46||
-Läs subOrganisation
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataSubOrganisation1455
+!define recordType {subOrganisation}
+!define expectedListResult {=~/^(?!.*"name":"linkedRecordId","value":"rootOrganisation")(?!.*"name":"linkedRecordId","value":"topOrganisation")(?=.*"name":"linkedRecordId","value":"subOrganisation")(?=.*"name":"domain","value":"uu")(?=.*"name":"domain","value":"kth").*$/}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.listStoreRecord
 
 Säkerställ att den sparade datan överensstämmer med originaldatan.
-
 !define expectedCompareResult {OK}
-!define expectedActionResult {Action read_incoming_links is missing.}
-!define expectedPermissionResult {OK}
+!define expectedActionResult {Action delete is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission domain is missing.}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 
 *!
