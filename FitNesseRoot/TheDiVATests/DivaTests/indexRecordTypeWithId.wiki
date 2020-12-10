@@ -1,0 +1,5 @@
+!***> Indexera ${recordType} with ${recordId}
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? | getCreatedId? |
+| ${currentAuthToken} | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"${recordType}"}]},{"name":"recordId","value":"${recordId}"},{"name":"type","value":"index"}]} | | ${expectedResult} | $createdId2= |
+*!
