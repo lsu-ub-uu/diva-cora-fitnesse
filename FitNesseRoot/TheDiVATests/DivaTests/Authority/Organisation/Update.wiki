@@ -47,7 +47,7 @@ Det ska vara möjligt att uppdatera Organisation.
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkReadCheckReset
 *!
 
-!3 Data valideringar
+!3 Datavalideringar
 !4 Överordnad och tidigare organisation
 !-Överordnad organisation på en topOrganisation kan bara vara en rootOrganisation-!
 
