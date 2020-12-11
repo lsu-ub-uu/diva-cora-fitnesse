@@ -57,7 +57,7 @@ Det ska vara möjligt att uppdatera Organisation.
  * '''Fall 1d:''' !-Linked recordType är rootOrganisation men recordId pekar på en subOrganisation-!
 
 !***> '''Fall 1a'''
-!define customJsonPart {!-,{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"topOrganisation"},{"name":"linkedRecordId","value":"1756"}]}],"repeatId":"0"}-!}
+!define customJsonPart {!-,{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"topOrganisation"},{"name":"linkedRecordId","value":"1756"}]}]}-!}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750NoDomainChange
 !define updateData  customUpdateData
 !define expectedUpdateResult {BAD_REQUEST}
@@ -65,7 +65,7 @@ Det ska vara möjligt att uppdatera Organisation.
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
 *!
 !***> '''Fall 1b'''
-!define customJsonPart {!-,{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"rootOrganisation"},{"name":"linkedRecordId","value":"1756"}]}],"repeatId":"0"}-!}
+!define customJsonPart {!-,{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"rootOrganisation"},{"name":"linkedRecordId","value":"1756"}]}]}-!}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750NoDomainChange
 !define updateData  customUpdateData
 !define expectedUpdateResult {BAD_REQUEST}
@@ -73,7 +73,7 @@ Det ska vara möjligt att uppdatera Organisation.
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
 *!
 !***> '''Fall 1c'''
-!define customJsonPart {!-,{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"subOrganisation"},{"name":"linkedRecordId","value":"1455"}]}],"repeatId":"0"}-!}
+!define customJsonPart {!-,{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"subOrganisation"},{"name":"linkedRecordId","value":"1455"}]}]}-!}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750NoDomainChange
 !define updateData  customUpdateData
 !define expectedUpdateResult {BAD_REQUEST}
@@ -81,7 +81,7 @@ Det ska vara möjligt att uppdatera Organisation.
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
 *!
 !***> '''Fall 1d'''
-!define customJsonPart {!-,{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"rootOrganisation"},{"name":"linkedRecordId","value":"1455"}]}],"repeatId":"0"}-!}
+!define customJsonPart {!-,{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"rootOrganisation"},{"name":"linkedRecordId","value":"1455"}]}]}-!}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750NoDomainChange
 !define updateData  customUpdateData
 !define expectedUpdateResult {BAD_REQUEST}
@@ -133,7 +133,7 @@ Det ska vara möjligt att uppdatera Organisation.
 !define expectedUpdateResult {BAD_REQUEST}
 
 !***> '''Fall 1a'''
-!define customJsonPart {!-,{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"rootOrganisation"},{"name":"linkedRecordId","value":"1749"}]}],"repeatId":"0"}-!}
+!define customJsonPart {!-,{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"rootOrganisation"},{"name":"linkedRecordId","value":"1749"}]}]}-!}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750NoDomainChange
 !define updateData  customUpdateData
 !define expectedAnswer {Links to organisations from another domain is not allowed.}
@@ -170,7 +170,7 @@ Det ska vara möjligt att uppdatera Organisation.
 !define expectedUpdateResult {BAD_REQUEST}
 
 !***> '''Fall 1a'''
-!define customJsonPart {!-,{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"topOrganisation"},{"name":"linkedRecordId","value":"1750"}]}],"repeatId":"0"}-!}
+!define customJsonPart {!-,{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"topOrganisation"},{"name":"linkedRecordId","value":"1750"}]}]}-!}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750NoDomainChange
 !define updateData  customUpdateData
 !define expectedAnswer {Data is not valid: [DataRecordLink with nameInData:organisationLink must have an recordType:rootOrganisation]}
@@ -199,25 +199,17 @@ Det ska vara möjligt att uppdatera Organisation.
 *!
 
 !4 Samma organisation får inte finnas mer än en gång i parent eller predecessor listorna
- * '''Fall 1a:''' !-Det ska inte gå att lägga till samma organisation som överordnad mer än en gång, på en topOrganisation. Två nya lika överordnad organisationer skickas med.-!
- * '''Fall 1b:''' !-Det ska inte gå att lägga till samma organisation som överordnad mer än en gång, på en subOrganisation. Två nya lika överordnad organisationer skickas med.-!
+TopOrganisation får bara ha en överordnad organisation, därför behöver vi inte kolla detta här.
+
+ * '''Fall 1:''' !-Det ska inte gå att lägga till samma organisation som överordnad mer än en gång, på en subOrganisation. Två nya lika överordnad organisationer skickas med.-!
  * '''Fall 2a:''' !-Det ska inte gå att lägga till samma organisation som tidigare organisation mer än en gång, på en topOrganisation. Två nya lika tididgare organisationer skickas med.-!
  * '''Fall 2b:''' !-Det ska inte gå att lägga till samma organisation som tidigare organisation mer än en gång, på en subOrganisation. Två nya lika tididgare organisationer skickas med.-!
  * '''Fall 3a:''' !-Det ska inte gå att lägga till samma organisation som föregående och överordnad samtidigt, på en topOrganisation. Det ska inte gå att göra det.-!
  * '''Fall 3b:''' !-Det ska inte gå att lägga till samma organisation som tidigare och överordnad samtidigt, på en subOrganisation. Det ska inte gå att göra det.-!
 
 !style_orange[INFO: För att testa fall ett och två vi änvänder oss av ett regex för att hitta att det BARA finns EN förekomst av parent/predecessor i svaret på update anropet.]
-!***> '''Fall 1a'''
 
-!define customJsonPart {!-,{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"rootOrganisation"},{"name":"linkedRecordId","value":"1748"}]}],"repeatId":"0"},{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"rootOrganisation"},{"name":"linkedRecordId","value":"1748"}]}],"repeatId":"1"}-!}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750NoDomainChange
-!define updateData  customUpdateData
-!define expectedAnswer {=~/^(?:(?!"parentOrganisation").)*"parentOrganisation"(?!.*"parentOrganisation").*$/}
-!define expectedUpdateResult {OK}
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
-!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetRecord
-*!
-!***> '''Fall 1b'''
+!***> '''Fall 1'''
 !define customJsonPart {!-,{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"topOrganisation"},{"name":"linkedRecordId","value":"1750"}]}],"repeatId":"0"},{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"topOrganisation"},{"name":"linkedRecordId","value":"1750"}]}],"repeatId":"1"}-!}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataSubOrganisation1454NoDomainChange
 !define updateData  customUpdateData
@@ -247,7 +239,7 @@ Det ska vara möjligt att uppdatera Organisation.
 *!
 !***> '''Fall 3a'''
 
-!define customJsonPart {!-,{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"rootOrganisation"},{"name":"linkedRecordId","value":"1748"}]}],"repeatId":"0"},{"name":"earlierOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"rootOrganisation"},{"name":"linkedRecordId","value":"1748"}]}],"repeatId":"1"}-!}
+!define customJsonPart {!-,{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"rootOrganisation"},{"name":"linkedRecordId","value":"1748"}]}]},{"name":"earlierOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"rootOrganisation"},{"name":"linkedRecordId","value":"1748"}]}],"repeatId":"1"}-!}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750NoDomainChange
 !define updateData  customUpdateData
 !define expectedAnswer {Organisation not updated due to same parent and predecessor}
