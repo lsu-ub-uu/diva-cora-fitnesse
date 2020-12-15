@@ -32,9 +32,6 @@ Det skall gå att söka organisationer via REST API:et.
 !define recordId {1757}
 !include -seamless .TheDiVATests.DivaTests.indexRecordTypeWithId
 
-
-
-
 *!
 !***> Sök organisation som divaEverything. Kontrollerar att vi kan söka rootOrgansiation, topOrganisation och subOrganisation och se att fälten ÄR med i svaret.
 !define currentAuthToken {$adminAuthToken}
@@ -78,8 +75,6 @@ OBS: Just nu sökfunktionen bara hittar ord inte delar av ett ord. Om man vill s
  * '''Fall 6:''' Det ska gå att söka med bara organisationstyp
  * '''Fall 7:''' Det ska gå att söka med organisationsnamn även när tecken å, ä eller ö finns i namnet
  * '''Fall 8:''' Det ska gå att söka i kombination av flera fält (domän, organisationsnamn, organisationsid, organisationstyp och organisationsnummer)
- * '''Fall 9:''' Det ska gå att söka organisation med hjälp av autosök AVSTÄNGD
- * '''Fall 10:''' Det ska gå att söka organisation söks med autocomplete i registreringsformuläret AVSTÄNGD
 
 !***> '''Fall 1'''
 
@@ -130,12 +125,12 @@ Det går inte flera domän samtidigt
 *!
 !***> '''Fall 4'''
 
-!-Först söker vi hela organisationsnummer 202100-2932 och sen med del av den 202100*-!
+!-Först söker vi hela organisationsnummer 202100-2932 och sen med del av den 202100-175*. I andra söket ska vi ha träff på organisation 1750 och 1757, men inte på 1748, 1749-!
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrgNumberSearchTerm","value":"202100-2935"}]}]}]} | =~/"totalNo":"1"/ | OK |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrgNumberSearchTerm","value":"202100-2*"}]}]}]} | =~/"totalNo":"2"/ | OK |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrgNumberSearchTerm","value":"202100-1750"}]}]}]} | =~/"totalNo":"1"/ | OK |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrgNumberSearchTerm","value":"202100-175*"}]}]}]} | =~/^(?=.*"name":"id","value":"1750")(?=.*"name":"id","value":"1757")(?!.*"name":"id","value":"1748")(?!.*"name":"id","value":"1749").*$/ | OK |
 
 !-När vi söker med hela organisationsnumret fast utan bindesträck får vi inget träff.-!
 
@@ -188,28 +183,11 @@ Det går inte flera domän samtidigt
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
 | $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"Uppsala*"},{"name":"divaOrganisationDomainSearchTerm","value":"uu"}]}]}]} | =~/"name":"id","value":"1750"/ | OK |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"1750"},{"name":"divaOrgTypeSearchTerm","value":"university"},{"name":"divaOrgNumberSearchTerm","value":"202100-2935"}]}]}]} | =~/"name":"id","value":"1750"/ | OK |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"Uppsala*"},{"name":"divaOrganisationDomainSearchTerm","value":"uu"},{"name":"recordIdSearchTerm","value":"1750"},{"name":"divaOrgTypeSearchTerm","value":"university"},{"name":"divaOrgNumberSearchTerm","value":"202100-2935"}]}]}]} | =~/"name":"id","value":"1750"/ | OK |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"1750"},{"name":"divaOrgTypeSearchTerm","value":"university"},{"name":"divaOrgNumberSearchTerm","value":"202100-1750"}]}]}]} | =~/"name":"id","value":"1750"/ | OK |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"Uppsala*"},{"name":"divaOrganisationDomainSearchTerm","value":"uu"},{"name":"recordIdSearchTerm","value":"1750"},{"name":"divaOrgTypeSearchTerm","value":"university"},{"name":"divaOrgNumberSearchTerm","value":"202100-1750"}]}]}]} | =~/"name":"id","value":"1750"/ | OK |
 
 *!
-!***> '''Fall 9''' AVSTÄNGT
 
-!| comment |
-| RecordEndpointFixture |
-| authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | | | OK |
-
-*!
-!***> '''Fall 10''' AVSTÄNGT
-
-!| comment |
-| Sökstöd autocomplete vid registrering av fält som är baserade på listval [[CORA-1013][https://jira.epc.ub.uu.se/browse/CORA-1013]] Listvalen |
-| RecordEndpointFixture |
-| authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | !-
--! | | OK |
-
-*!
 !3 Roller
 !4 !-SystemAdmin-!
 !-Systemadmin får söka och läsa alla begränsade fält.-!
@@ -319,7 +297,6 @@ Domain KTH
 !define expectedPermissionResult {Write permission domain is missing.}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 *!
-
 !***> '''Fall 4'''
 !-Vi ett rootOrganisation från KTH domän med UU domain admin användare-!
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataRootOrganisation1749
