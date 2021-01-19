@@ -38,7 +38,6 @@ organisation har:
    * organisationName(textVar, 1-1, '''noRestrictions''')
    * alternativeName(group, 1-1, '''noRestrictions''')
    * closedDate (textVar, 0-1, '''noRestrictions ''')
-   * 
 
 !4 topOrganisation
  * topOrganisation(group)
@@ -224,7 +223,7 @@ Kontrollera barnen
 
 !| MetadataLinkFixture |
 | linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? | getRecordPartConstraint? |
-| metadataGroup | recordInfoDivaGroup | 1 | 1 | noRestrictions |
+| metadataGroup | recordInfoRootOrganisationGroup | 1 | 1 | noRestrictions |
 | metadataGroup | divaOrganisationNameGroup | 1 | 1 | noRestrictions |
 | metadataGroup | divaOrganisationAlternativeNameGroup | 1 | 1 | noRestrictions |
 | metadataTextVariable | divaOrganisationClosedTextVar | 0 | 1 | noRestrictions |
@@ -347,7 +346,6 @@ Kontrollera barnen
 | metadataGroup | divaOrganisationParentOrgGroup | 0 | X | noRestrictions |
 | metadataGroup | earlierOrganisationGroup | 0 | X | noRestrictions |
 | metadataTextVariable | divaOrganisationClosedTextVar | 0 | 1 | noRestrictions |
-| metadataCollectionVariable | domainCollectionVar | 1 | 1 | |
 
 #recordInfo
 
@@ -390,7 +388,6 @@ Kontrollera barnen
 | metadataGroup | divaOrganisationParentOrgGroup | 0 | X | noRestrictions |
 | metadataGroup | earlierOrganisationGroup | 0 | X | noRestrictions |
 | metadataTextVariable | divaOrganisationClosedTextVar | 0 | 1 | noRestrictions |
-| metadataCollectionVariable | domainCollectionVar | 1 | 1 | write |
 
 #recordInfo
 
