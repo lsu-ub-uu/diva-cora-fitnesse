@@ -154,7 +154,7 @@ Kontrollera barnen
 
 !| MetadataLinkFixture |
 | linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? | getRecordPartConstraint? |
-| metadataGroup | recordInfoDivaGroup | 1 | 1 | noRestrictions |
+| metadataGroup | recordInfoDefaultOrganisationGroup | 1 | 1 | noRestrictions |
 | metadataGroup | divaOrganisationNameGroup | 1 | 1 | noRestrictions |
 | metadataGroup | divaOrganisationAlternativeNameGroup | 1 | 1 | noRestrictions |
 | metadataGroup | organisationAddressGroup | 0 | 1 | noRestrictions |
