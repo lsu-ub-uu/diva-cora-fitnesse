@@ -1,0 +1,100 @@
+---
+Test
+---
+!2 Indexera
+Det ska gå att indexera alla typer av organisationer.
+
+!define currentAuthToken {$adminAuthToken}
+
+!define expectedResult {CREATED}
+
+!define recordType {organisation}
+!define recordId {1750}
+!include -seamless .TheDiVATests.DivaTests.indexRecordTypeWithId
+
+!define recordType {rootOrganisation}
+!define recordId {1748}
+!include -seamless .TheDiVATests.DivaTests.indexRecordTypeWithId
+
+!define recordType {topOrganisation}
+!define recordId {1751}
+!include -seamless .TheDiVATests.DivaTests.indexRecordTypeWithId
+
+!define recordType {subOrganisation}
+!define recordId {1455}
+!include -seamless .TheDiVATests.DivaTests.indexRecordTypeWithId
+
+!3 Roller
+!4 !-SystemAdmin-!
+
+SystemAdmin ska kunna indexera alla typer av organisation.
+
+!define currentAuthToken {$systemAdminAuthToken}
+
+!define expectedResult {CREATED}
+
+!define recordType {organisation}
+!define recordId {1750}
+!include -seamless .TheDiVATests.DivaTests.indexRecordTypeWithId
+
+!define recordType {rootOrganisation}
+!define recordId {1748}
+!include -seamless .TheDiVATests.DivaTests.indexRecordTypeWithId
+
+!define recordType {topOrganisation}
+!define recordId {1751}
+!include -seamless .TheDiVATests.DivaTests.indexRecordTypeWithId
+
+!define recordType {subOrganisation}
+!define recordId {1455}
+!include -seamless .TheDiVATests.DivaTests.indexRecordTypeWithId
+
+
+!4 !-DomainAdmin-!
+
+DomainAdmin får inte indexera organisationer.
+
+!define currentAuthToken {$domainAdminAuthToken}
+
+!define expectedResult {UNAUTHORIZED}
+
+!define recordType {organisation}
+!define recordId {1750}
+!include -seamless .TheDiVATests.DivaTests.indexRecordTypeWithId
+
+!define recordType {rootOrganisation}
+!define recordId {1748}
+!include -seamless .TheDiVATests.DivaTests.indexRecordTypeWithId
+
+!define recordType {topOrganisation}
+!define recordId {1751}
+!include -seamless .TheDiVATests.DivaTests.indexRecordTypeWithId
+
+!define recordType {subOrganisation}
+!define recordId {1455}
+!include -seamless .TheDiVATests.DivaTests.indexRecordTypeWithId
+
+
+!4 !-Guest-!
+
+Guest får inte indexera organisationer.
+
+!define currentAuthToken {$guestAuthToken}
+
+!define expectedResult {UNAUTHORIZED}
+
+!define recordType {organisation}
+!define recordId {1750}
+!include -seamless .TheDiVATests.DivaTests.indexRecordTypeWithId
+
+!define recordType {rootOrganisation}
+!define recordId {1748}
+!include -seamless .TheDiVATests.DivaTests.indexRecordTypeWithId
+
+!define recordType {topOrganisation}
+!define recordId {1751}
+!include -seamless .TheDiVATests.DivaTests.indexRecordTypeWithId
+
+!define recordType {subOrganisation}
+!define recordId {1455}
+!include -seamless .TheDiVATests.DivaTests.indexRecordTypeWithId
