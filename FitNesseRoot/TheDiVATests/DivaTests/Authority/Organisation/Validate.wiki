@@ -1,0 +1,56 @@
+---
+Test
+---
+!2 Validera
+Det ska gå att validera en organisation innan den skapas eller uppdateras. 
+Bara Systemadmin ska kunna validera organisationer. Varken Domainadmin eller guest ska kunna validera organisationer.
+
+!3 !-SystemAdmin-!
+!define currentAuthToken {$systemAdminAuthToken}
+!define valid {true}
+!define statusType {OK}
+!***> '''!-SystemAdmin-! ska kunna validera alla organisationstyper'''
+
+!4 !-RootOrganisation-!
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataRootOrganisation1748NoDomainChange
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.testValidation
+!4 !-TopOrganisation
+-!
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.testValidation
+!4 !-SubOrganisation-!
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataSubOrganisation1455
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.testValidation
+*!
+!3 !-DomainAdmin-!
+!define currentAuthToken {$domainAdminUUAuthToken}
+!define valid {null}
+!define statusType {FORBIDDEN}
+!***> '''!-DomainAdmin-! ska INTE kunna validera någon organisationstyp'''
+
+!4 !-RootOrganisation-!
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataRootOrganisation1748NoDomainChange
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.testValidation
+!4 !-TopOrganisation-!
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.testValidation
+!4 !-SubOrganisation-!
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataSubOrganisation1455
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.testValidation
+*!
+!3 Guest
+!define currentAuthToken {$guestToken}
+!define valid {null}
+!define statusType {FORBIDDEN}
+!***> '''Guest ska INTE kunna validera någon organisationstyp'''
+
+!4 !-RootOrganisation-!
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataRootOrganisation1748NoDomainChange
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.testValidation
+!4 !-TopOrganisation-!
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.testValidation
+!4 !-SubOrganisation-!
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataSubOrganisation1455
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.testValidation
+*!
