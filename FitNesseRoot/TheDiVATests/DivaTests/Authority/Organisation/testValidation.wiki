@@ -1,0 +1,3 @@
+!| MetadataValidationFixture |
+| authToken | type | json | testValidateRecord? | getValid? | getStatusType? |
+| ${currentAuthToken} | workOrder | {"order":{"name":"validationOrder","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"${recordType}"}]},{"name":"validateLinks","value":"true"},{"name":"metadataToValidate","value":"existing"}]},"record": ${updateData}} | | ${valid} | ${statusType} |
