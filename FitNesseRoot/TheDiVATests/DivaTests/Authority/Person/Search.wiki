@@ -24,9 +24,10 @@ Domänsök för person finns inte ännu men bör skapas
 | $adminAuthToken | publicPersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"XXXSearchTerm","value":"nrm"}]}]}]} | =~/"name":"id","value":"1400"/ | OK |
 
 *!
-!***> Test sök person med bara namn
+!***> Test sök person med bara namn (AVSTÄNGT)
 
-!| RecordEndpointFixture |
+!| comment |
+| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
 | $adminAuthToken | publicPersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"personNameSearchTerm","value":"**"}]}]}]} | | OK |
 | $adminAuthToken | publicPersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"personNameSearchTerm","value":"Testsson"}]}]}]} | =~/"name":"id","value":"authority-person:60566"/ | OK |
@@ -52,7 +53,8 @@ Domänsök för person finns inte ännu men bör skapas
 
 *!
 !***> Test sök person med bara ORCID
-!|Comment|
+
+!| Comment |
 | RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
 | $adminAuthToken | publicPersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"personIdSearchTerm","value":"0000-1111-2222-3333"}]}]}]} | =~/"name":"id","value":"person:7693868718030160"/ | OK |
@@ -68,16 +70,18 @@ Organisationsök för person finns inte ännu men bör skapas
 | $adminAuthToken | publicPersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"XXXXSearchTerm","value":"university"}]}]}]} | =~/"name":"id","value":"1750"/ | OK |
 
 *!
-!***> Skapa en person som vi sedan ska söka efter
+!***> Skapa en person som vi sedan ska söka efter (AVSTÄNGT)
 
-!| RecordEndpointFixture |
+!| comment |
+| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? | getCreatedId? |
 | $adminAuthToken | person | {"name":"authorityPerson","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"public","value":"yes"},{"name":"authorizedName","children":[{"name":"familyName","value":"Testsson"},{"name":"givenName","value":"Testur"}]},{"name":"identifiers","children":[{"name":"ORCID","children":[{"name":"ORCIDValue","value":"0000-4444-2222-3333"}]}]},{"name":"biography","children":[{"name":"personBiography","value":"This is a very interesting"},{"name":"language","value":"eng"}],"repeatId":"1"}]} | | CREATED | $createdId= |
 
 *!
-!***> Test sök person med fritext
+!***> Test sök person med fritext (AVSTÄNGT)
 
-!| RecordEndpointFixture |
+!| comment |
+| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
 | $adminAuthToken | publicPersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"personGeneralSearchTerm","value":"interesting"}]}]}]} | =~/$createdId/ | OK |
 
