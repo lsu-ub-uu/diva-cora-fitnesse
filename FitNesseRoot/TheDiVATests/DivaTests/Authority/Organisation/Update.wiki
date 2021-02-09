@@ -420,7 +420,7 @@ Systemadmin får uppdatera organisationer från alla domäner förutom fältet '
 !define expectedUpdateResult {OK}
 !define expectedAnswer {}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
-!define expectedCompareResult {Child with nameInData domain does not have the correct value.}
+!define expectedCompareResult {Child with nameInData domain does not have the correct value (uu expected kth).}
 !define expectedActionResult {Action delete is missing. Action read_incoming_links is missing.}
 !define expectedPermissionResult {Write permission domain is missing.}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkReadCheckReset
@@ -431,7 +431,7 @@ Systemadmin får uppdatera organisationer från alla domäner förutom fältet '
 !define expectedUpdateResult {OK}
 !define expectedAnswer {}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
-!define expectedCompareResult {Child with nameInData domain does not have the correct value.}
+!define expectedCompareResult {Child with nameInData domain does not have the correct value (kth expected havochvatten).}
 !define expectedActionResult {Action delete is missing. Action read_incoming_links is missing.}
 !define expectedPermissionResult {Write permission domain is missing.}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkReadCheckReset
@@ -444,7 +444,7 @@ Systemadmin får uppdatera organisationer från alla domäner förutom fältet '
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750
 !define expectedUpdateResult {OK}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
-!define expectedCompareResult {Child with nameInData domain does not have the correct value.}
+!define expectedCompareResult {Child with nameInData domain does not have the correct value (uu expected kth).}
 !define expectedActionResult {Action delete is missing. Action read_incoming_links is missing.}
 !define expectedPermissionResult {Write permission domain is missing.}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkReadCheckReset
@@ -454,7 +454,7 @@ Systemadmin får uppdatera organisationer från alla domäner förutom fältet '
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1751
 !define expectedUpdateResult {OK}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
-!define expectedCompareResult {Child with nameInData domain does not have the correct value.}
+!define expectedCompareResult {Child with nameInData domain does not have the correct value (kth expected konstfack).}
 !define expectedActionResult {Action delete is missing. Action read_incoming_links is missing.}
 !define expectedPermissionResult {Write permission domain is missing.}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkReadCheckReset
@@ -466,7 +466,7 @@ Systemadmin får uppdatera organisationer från alla domäner förutom fältet '
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataSubOrganisation1455
 !define expectedUpdateResult {OK}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
-!define expectedCompareResult {Child with nameInData domain does not have the correct value.}
+!define expectedCompareResult {Child with nameInData domain does not have the correct value (uu expected kth).}
 !define expectedActionResult {Action delete is missing. Action read_incoming_links is missing.}
 !define expectedPermissionResult {Write permission domain is missing.}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkReadCheckReset
@@ -476,7 +476,7 @@ Systemadmin får uppdatera organisationer från alla domäner förutom fältet '
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataSubOrganisation1456
 !define expectedUpdateResult {OK}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
-!define expectedCompareResult {Child with nameInData domain does not have the correct value.}
+!define expectedCompareResult {Child with nameInData domain does not have the correct value (kth expected uu).}
 !define expectedActionResult {Action delete is missing. Action read_incoming_links is missing.}
 !define expectedPermissionResult {Write permission domain is missing.}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkReadCheckReset
@@ -538,7 +538,7 @@ Systemadmin får uppdatera organisationer från alla domäner förutom fältet '
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataSubOrganisation1455
 !define expectedUpdateResult {OK}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
-!define expectedCompareResult {Child with nameInData domain does not have the correct value.}
+!define expectedCompareResult {Child with nameInData domain does not have the correct value (uu expected kth).}
 !define expectedActionResult {Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
 !define expectedPermissionResult {Write permission domain is missing.}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkReadCheckReset
