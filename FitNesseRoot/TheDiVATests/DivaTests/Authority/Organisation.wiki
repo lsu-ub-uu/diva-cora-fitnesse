@@ -24,3 +24,4 @@ Uppsala universitet
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.Search
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.Index
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.Validate
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.IncomingLinks

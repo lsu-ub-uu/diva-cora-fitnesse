@@ -1,0 +1,97 @@
+---
+Test
+---
+!2 Incoming links
+
+!style_red[Eftersom vi ännu inte har implementerat stöd för att spara incomingLinks från DiVA powered by Cora, så är den resulterande dataListan tom.]
+
+
+!define expectedResponse {!-{"dataList":{"fromNo":"1","data":[],"totalNo":"0","containDataOfType":"recordToRecordLink","toNo":"0"}}-!}
+!define expectedStatus {OK}
+
+!3 !-SystemAdmin-!
+!define currentAuthToken {$systemAdminAuthToken}
+
+!***> '''!-SystemAdmin-! får en tom lista som svar för alla organisationstyper'''
+
+!4 !-RootOrganisation-!
+
+!define recordType {rootOrganisation}
+!define id {1748}
+
+!include -seamless .TheDiVATests.DivaTests.testIncomingLinks
+
+!4 !-TopOrganisation-!
+
+!define recordType {topOrganisation}
+!define id {1750}
+
+!include -seamless .TheDiVATests.DivaTests.testIncomingLinks
+
+
+!4 !-SubOrganisation-!
+
+!define recordType {subOrganisation}
+!define id {1455}
+
+!include -seamless .TheDiVATests.DivaTests.testIncomingLinks
+
+*!
+
+!3 !-DomainAdmin-!
+!define currentAuthToken {$domainAdminUUAuthToken}
+
+!***> '''!-DomainAdmin-! får en tom lista som svar för alla organisationstyper'''
+
+!4 !-RootOrganisation-!
+
+!define recordType {rootOrganisation}
+!define id {1748}
+
+!include -seamless .TheDiVATests.DivaTests.testIncomingLinks
+
+!4 !-TopOrganisation-!
+
+!define recordType {topOrganisation}
+!define id {1750}
+
+!include -seamless .TheDiVATests.DivaTests.testIncomingLinks
+
+
+!4 !-SubOrganisation-!
+
+!define recordType {subOrganisation}
+!define id {1455}
+
+!include -seamless .TheDiVATests.DivaTests.testIncomingLinks
+
+*!
+
+!3 Guest
+!define currentAuthToken {$guestToken}
+
+!***> '''Guest får en tom lista som svar för alla organisationstyper'''
+
+!4 !-RootOrganisation-!
+
+!define recordType {rootOrganisation}
+!define id {1748}
+
+!include -seamless .TheDiVATests.DivaTests.testIncomingLinks
+
+!4 !-TopOrganisation-!
+
+!define recordType {topOrganisation}
+!define id {1750}
+
+!include -seamless .TheDiVATests.DivaTests.testIncomingLinks
+
+
+!4 !-SubOrganisation-!
+
+!define recordType {subOrganisation}
+!define id {1455}
+
+!include -seamless .TheDiVATests.DivaTests.testIncomingLinks
+
+*!
