@@ -3,7 +3,7 @@ Test
 ---
 !2 Incoming links
 
-!style_red[Eftersom vi ännu inte har implementerat stöd för att läsa incomingLinks från DiVA powered by Cora, så är den resulterande dataListan tom.]
+!style_red[Eftersom vi ännu inte har implementerat stöd för att spara incomingLinks från DiVA powered by Cora, så är den resulterande dataListan tom.]
 
 
 !define expectedResponse {!-{"dataList":{"fromNo":"1","data":[],"totalNo":"0","containDataOfType":"recordToRecordLink","toNo":"0"}}-!}
