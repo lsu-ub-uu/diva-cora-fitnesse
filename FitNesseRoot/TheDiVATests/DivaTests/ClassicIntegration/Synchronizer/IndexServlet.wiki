@@ -1,0 +1,27 @@
+---
+Test
+---
+!2 !-IndexServlet-!
+
+Med !-IndexServleten-! kan vi trigga indexeringen av poster. Detta krävs för att kunna indexera om poster i Cora efter att en ändring har gjorts via Classic. 
+
+!define systemUnderTestUrl {http://localhost:38482}
+
+!***> Configure !-RestFixture-!
+
+| Table:smartrics.rest.fitnesse.fixture.RestFixtureConfig | |
+| restfixture.default.headers | Content-Type: application/vnd.uub.record+json|
+| restfixture.content.handlers.map | application/vnd.uub.record+json=JSON |
+| http.client.connection.timeout | 7000 |
+
+*!
+
+
+1. Indexera
+2. Söka efter XY
+3. ta bort indexeringen för XY
+4. indexera om
+5. söka efter XY och 
+
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${systemUnderTestUrl} |
+| GET | /synchronizer/synchronizer/index?recordType=organisation&recordId=1 | 401| | |
