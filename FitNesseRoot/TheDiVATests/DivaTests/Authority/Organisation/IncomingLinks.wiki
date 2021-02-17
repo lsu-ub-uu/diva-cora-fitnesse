@@ -17,14 +17,14 @@ Test
 !4 !-RootOrganisation-!
 
 !define recordType {rootOrganisation}
-!define id {1748}
+!define recordId {1748}
 
 !include -seamless .TheDiVATests.DivaTests.testIncomingLinks
 
 !4 !-TopOrganisation-!
 
 !define recordType {topOrganisation}
-!define id {1750}
+!define recordId {1750}
 
 !include -seamless .TheDiVATests.DivaTests.testIncomingLinks
 
@@ -32,7 +32,7 @@ Test
 !4 !-SubOrganisation-!
 
 !define recordType {subOrganisation}
-!define id {1455}
+!define recordId {1455}
 
 !include -seamless .TheDiVATests.DivaTests.testIncomingLinks
 
@@ -46,14 +46,14 @@ Test
 !4 !-RootOrganisation-!
 
 !define recordType {rootOrganisation}
-!define id {1748}
+!define recordId {1748}
 
 !include -seamless .TheDiVATests.DivaTests.testIncomingLinks
 
 !4 !-TopOrganisation-!
 
 !define recordType {topOrganisation}
-!define id {1750}
+!define recordId {1750}
 
 !include -seamless .TheDiVATests.DivaTests.testIncomingLinks
 
@@ -61,7 +61,7 @@ Test
 !4 !-SubOrganisation-!
 
 !define recordType {subOrganisation}
-!define id {1455}
+!define recordId {1455}
 
 !include -seamless .TheDiVATests.DivaTests.testIncomingLinks
 
@@ -75,14 +75,14 @@ Test
 !4 !-RootOrganisation-!
 
 !define recordType {rootOrganisation}
-!define id {1748}
+!define recordId {1748}
 
 !include -seamless .TheDiVATests.DivaTests.testIncomingLinks
 
 !4 !-TopOrganisation-!
 
 !define recordType {topOrganisation}
-!define id {1750}
+!define recordId {1750}
 
 !include -seamless .TheDiVATests.DivaTests.testIncomingLinks
 
@@ -90,7 +90,7 @@ Test
 !4 !-SubOrganisation-!
 
 !define recordType {subOrganisation}
-!define id {1455}
+!define recordId {1455}
 
 !include -seamless .TheDiVATests.DivaTests.testIncomingLinks
 
