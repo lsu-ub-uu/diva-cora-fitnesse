@@ -1,3 +1,3 @@
 !| RecordEndpointFixture |
 | authToken | type | id | testReadIncomingLinks? | getStatusType? |
-| ${currentAuthToken} | ${recordType} | ${id} | ${expectedResponse} | ${expectedStatus} |
+| ${currentAuthToken} | ${recordType} | ${recordId} | ${expectedResponse} | ${expectedStatus} |
