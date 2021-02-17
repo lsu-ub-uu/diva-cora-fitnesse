@@ -2,26 +2,37 @@
 Test
 ---
 !2 !-IndexServlet-!
+Med !-IndexServleten-! kan vi trigga indexeringen av poster. Detta krävs för att kunna indexera om poster i Cora efter att en ändring har gjorts via Classic.
 
-Med !-IndexServleten-! kan vi trigga indexeringen av poster. Detta krävs för att kunna indexera om poster i Cora efter att en ändring har gjorts via Classic. 
-
-!define systemUnderTestUrl {http://localhost:38482}
-
+#!define systemUnderTestUrl {http://localhost:38482}
 !***> Configure !-RestFixture-!
 
 | Table:smartrics.rest.fitnesse.fixture.RestFixtureConfig | |
-| restfixture.default.headers | Content-Type: application/vnd.uub.record+json|
-| restfixture.content.handlers.map | application/vnd.uub.record+json=JSON |
 | http.client.connection.timeout | 7000 |
 
 *!
-
-
 1. Indexera
 2. Söka efter XY
 3. ta bort indexeringen för XY
 4. indexera om
-5. söka efter XY och 
+5. söka efter XY och
 
-| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${systemUnderTestUrl} |
-| GET | /synchronizer/synchronizer/index?recordType=organisation&recordId=1 | 401| | |
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | http://172.20.0.1:38482 |
+| GET | /synchronizer/synchronizer/index?recordType=topOrganisation&recordId=1 | 200 | Content-Length: 0 | no-body |
+
+
+
+!-Först söker efter ett ID: 1750, sen söker vi efter två olika ID: 1750 och 1751-!
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"1"}]}]}]} | =~/"name":"id","value":"1"/ | OK |
+
+
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | http://172.20.0.1:38482 |
+| GET | /synchronizer/synchronizer/index?recordType=topOrganisation&recordId=1&workOrderType=removeFromIndex | 200 | Content-Length: 0 | no-body |
+
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"1"}]}]}]} | =~/"name":"id","value":"1"/ | OK |
