@@ -1,0 +1,67 @@
+---
+Test
+---
+!2 !-IndexServlet-!
+Med !-IndexServleten-! kan vi trigga indexeringen av poster och ta bort indexeringen av poster. Parametrar är recordType, recordId och workOrderType, varav de första två är obligatoriska. För parametern workOrderType är default-värdet "index". 
+Detta krävs för att kunna indexera om poster i Cora efter att en ändring har gjorts via Classic.
+
+!define baseUrl {http://diva-docker-synchronizer:8080}
+!***> Configure !-RestFixture-!
+
+| Table:smartrics.rest.fitnesse.fixture.RestFixtureConfig | |
+| http.client.connection.timeout | 7000 |
+
+*!
+
+!define recordType {topOrganisation}
+!define recordId {1}
+
+!***> Indexera record ${recordType} med ID ${recordId}
+
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${baseUrl} |
+| GET | /synchronizer/synchronizer/index?recordType=${recordType}&recordId=${recordId} | 200 | Content-Length: 0 | no-body |
+
+*!
+
+!***> Använd publicOrganisationSearch för att söka efter recordId ${recordId} och säkerställ att den hittas
+
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"${recordId}"}]}]}]} | =~/"name":"id","value":"1"/ | OK |
+
+*!
+
+
+!***> Ta bort indexeringen för record ${recordType} med ID ${recordId}
+
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${baseUrl} |
+| GET | /synchronizer/synchronizer/index?recordType=${recordType}&recordId=${recordId}&workOrderType=removeFromIndex | 200 | Content-Length: 0 | no-body |
+
+*!
+
+!***> Använd publicOrganisationSearch för att söka efter recordId ${recordId} och säkerställ att den inte hittas
+
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"${recordId}"}]}]}]} | =~/"totalNo":"0"/ | OK |
+
+*!
+
+
+!***> Indexera record ${recordType} med ID ${recordId}
+
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${baseUrl} |
+| GET | /synchronizer/synchronizer/index?recordType=${recordType}&recordId=${recordId} | 200 | Content-Length: 0 | no-body |
+
+*!
+
+!***> Använd publicOrganisationSearch för att söka efter recordId ${recordId} och säkerställ att den hittas
+
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"${recordId}"}]}]}]} | =~/"name":"id","value":"1"/ | OK |
+
+*!

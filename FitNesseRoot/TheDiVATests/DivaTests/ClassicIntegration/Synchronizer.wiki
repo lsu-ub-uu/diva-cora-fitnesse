@@ -1,0 +1,6 @@
+---
+Suite
+---
+!1 Synchronizer
+
+!include -seamless .TheDiVATests.DivaTests.ClassicIntegration.Synchronizer.IndexServlet
