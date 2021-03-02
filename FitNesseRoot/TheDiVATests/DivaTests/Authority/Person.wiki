@@ -1,6 +1,6 @@
 ---
 Help: Person
-Suite
+Test
 ---
 !1 Person
 Personsposten är en så kallad auktoritetspost i syfte att identifiera personer i relation till publikationer och projekt.
@@ -14,7 +14,7 @@ I DiVA powered by Cora är personer....
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.RecordType
 #!include -seamless .TheDiVATests.DivaTests.Authority.Person.Create
-#!include -seamless .TheDiVATests.DivaTests.Authority.Person.Read
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.Read
 #!include -seamless .TheDiVATests.DivaTests.Authority.Person.Update
 #!include -seamless .TheDiVATests.DivaTests.Authority.Person.Delete
 #!include -seamless .TheDiVATests.DivaTests.Authority.Person.List
@@ -25,5 +25,5 @@ I DiVA powered by Cora är personer....
 
 
 
-!1 Tests for persons stored in Fedora Commons
-!contents -R4 -g -p -f -h
+#!1 Tests for persons stored in Fedora Commons
+#!contents -R4 -g -p -f -h

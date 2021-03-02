@@ -16,6 +16,7 @@ Det ska vara möjligt att uppdatera Organisation.
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataRootOrganisation1748NoDomainChange
 !define expectedUpdateResult {OK}
+!define expectedAnswer {}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
 !define expectedCompareResult {OK}
 !define expectedActionResult {Action read_incoming_links is missing.}

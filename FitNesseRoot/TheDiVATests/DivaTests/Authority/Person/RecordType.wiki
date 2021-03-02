@@ -21,9 +21,9 @@ Det som står listat här är nameInData.
      * domain (domain, 1-X, '''noRestrictions ''')
    * authorisedName(textVar, 1-1, '''noRestrictions''')
    * academicTitle(textVar, 0-1, '''noRestrictions''')
-   * yearOfBirth(textVar, 0-1, '''noRestrictions''')
-   * yearOfDeath(textVar, 0-1, '''noRestrictions''')
-   * emailAddress(textVar, 0-1, '''noRestrictions''')
+   * yearOfBirth(textVar, 0-1, '''readWrite''')
+   * yearOfDeath(textVar, 0-1, '''readWrite''')
+   * emailAddress(textVar, 0-1, '''readWrite''')
    * alternativeName(group, 0-X, '''noRestrictions''')
      * givenName (textVar, 0-1, '''noRestrictions ''')
      * familyName (textVar, 0-1, '''noRestrictions ''')
@@ -38,7 +38,7 @@ Det som står listat här är nameInData.
      * affiliation (textVar, 1-1, '''noRestrictions ''')
      * affiliationFromYear (textVar, 0-1, '''noRestrictions ''')
      * affiliationUntilYear (textVar, 0-1, '''noRestrictions ''')
-   * localIdentifier(group, 0-X, '''noRestrictions''')
+   * localIdentifier(group, 0-X, '''readWrite''')
      * domain (colVar, 1-1, '''noRestrictions ''')
      * identifier (textVar, 1-1, '''noRestrictions ''')
    * ORCID_ID(textVar, 0-X, '''noRestrictions''')
@@ -259,7 +259,7 @@ Notera att rättigheterna som kontrolleras i det här avsnittet gäller, vilka r
 !define currentAuthToken {$systemAdminAuthToken}
 !define currentRecordType {person}
 !define expectedPermissionResult {Action update is missing. Action delete is missing. Action index is missing. Action create is missing.}
-#!include -seamless .TheDiVATests.DivaTests.checkActionsForRecordType
+!include -seamless .TheDiVATests.DivaTests.checkActionsForRecordType
 *!
 !4 !-DomainAdmin-!
 !-DomainAdmin har tillgång till validate och search för person  postTypen-!

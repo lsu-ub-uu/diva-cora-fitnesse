@@ -15,3 +15,17 @@ authority-person:60566 is a minimal person
 | $adminAuthToken | person | authority-person:60566 | | OK |
 
 *!
+!***> Case 1
+!define currentAuthToken {$adminAuthToken}
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.dataPerson60566
+!define expectedCreateResult {CREATED}
+!define expectedAnswer {}
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action read_incoming_links is missing.}
+!define expectedPermissionResult {OK}
+
+!define expectedCompareData originalData
+!include -seamless .HelperPages.readCheck
+
+*!
