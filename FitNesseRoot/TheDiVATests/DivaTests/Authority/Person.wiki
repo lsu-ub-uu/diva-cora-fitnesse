@@ -2,5 +2,28 @@
 Help: Person
 Suite
 ---
+!1 Person
+Personsposten är en så kallad auktoritetspost i syfte att identifiera personer i relation till publikationer och projekt.
+
+Data innehåller bland annat namn och kopplingar till organisationer.
+
+Personer läses och uppdateras i Fedora Commons från Classic.
+
+I DiVA powered by Cora är personer....
+
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.RecordType
+#!include -seamless .TheDiVATests.DivaTests.Authority.Person.Create
+#!include -seamless .TheDiVATests.DivaTests.Authority.Person.Read
+#!include -seamless .TheDiVATests.DivaTests.Authority.Person.Update
+#!include -seamless .TheDiVATests.DivaTests.Authority.Person.Delete
+#!include -seamless .TheDiVATests.DivaTests.Authority.Person.List
+#!include -seamless .TheDiVATests.DivaTests.Authority.Person.Search
+#!include -seamless .TheDiVATests.DivaTests.Authority.Person.Index
+#!include -seamless .TheDiVATests.DivaTests.Authority.Person.Validate
+#!include -seamless .TheDiVATests.DivaTests.Authority.Person.IncomingLinks
+
+
+
 !1 Tests for persons stored in Fedora Commons
 !contents -R4 -g -p -f -h
