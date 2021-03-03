@@ -1,0 +1,114 @@
+---
+Test
+---
+!contents -R2 -g -p -f -h
+Kontrollera att rollerna har tillgång till rätt rättigheter för grundläggande Cora data.
+
+!2 Tillgängliga roller:
+ * SystemAdmin
+ * DomainAdmin
+ * Guest
+
+!2 Guest
+!define currentAuthToken {$guestToken}
+#!define valid {null}
+
+!3 Built-in metadata
+Collection Variable
+
+!define recordType {metadataCollectionVariable}
+!***> setUp
+
+!define currentAuthToken {$adminAuthToken}
+!define statusType {CREATED}
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testMetadataCollectionVariableCollectionVar"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"divaTestSystem"}],"name":"dataDivider"}]},{"name":"nameInData","value":"testWithThreeItems"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestText"}],"name":"textId"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestDefText"}],"name":"defTextId"},{"name":"refCollection","children":[{"name":"linkedRecordType","value":"metadataItemCollection"},{"name":"linkedRecordId","value":"yesNoCollection"}]}],"attributes":{"type":"collectionVariable"}} | | ${statusType} |
+
+!define currentAuthToken {$guestToken}
+*!
+!***> Read collectionVariable
+
+!define statusType {OK}
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | typeOfResourceCollectionVar | | ${statusType} |
+
+*!
+!***> List collectionVariable
+
+!define statusType {OK}
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | | ${statusType} |
+
+*!
+!***> Create collectionVariable
+
+!define statusType {FORBIDDEN}
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testWithThreeItemsCollectionVar"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"divaTestSystem"}],"name":"dataDivider"}]},{"name":"nameInData","value":"testWithThreeItems"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestText"}],"name":"textId"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestDefText"}],"name":"defTextId"},{"name":"refCollection","children":[{"name":"linkedRecordType","value":"metadataItemCollection"},{"name":"linkedRecordId","value":"yesNoCollection"}]}],"attributes":{"type":"collectionVariable"}} | | ${statusType} |
+
+*!
+!***> Update collectionVariable
+
+!define statusType {FORBIDDEN}
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | testMetadataCollectionVariableCollectionVar | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testMetadataCollectionVariableCollectionVar"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"metadataCollectionVariable"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:1299694997493014"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"divaTestSystem"}]},{"name":"tsCreated","value":"2021-03-03T14:08:08.517350Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:1299694997493014"}]},{"name":"tsUpdated","value":"2021-03-03T14:08:08.517350Z"}],"repeatId":"0"}]},{"name":"nameInData","value":"testWithThreeItems"},{"name":"textId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestDefText"}]},{"name":"refCollection","children":[{"name":"linkedRecordType","value":"metadataItemCollection"},{"name":"linkedRecordId","value":"yesNoCollection"}]}],"attributes":{"type":"collectionVariable"}} | | ${statusType} |
+
+*!
+
+
+Index
+
+{"children":[{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"metadataCollectionVariable"}],"name":"recordType"},{"name":"recordId","value":"testMetadataCollectionVariableCollectionVar"},{"name":"type","value":"index"}],"name":"workOrder"}
+
+Search
+
+!***> Delete collectionVariable
+
+!define statusType {FORBIDDEN}
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| ${currentAuthToken} | presentationCollectionVar | testMetadataOutputPCollVar | | ${statusType} |
+| ${currentAuthToken} | presentationCollectionVar | testMetadataPCollVar | | ${statusType} |
+| ${currentAuthToken} | ${recordType} | testMetadataCollectionVariableCollectionVar | | ${statusType} |
+| ${currentAuthToken} | coraText | someTestText | | ${statusType} |
+| ${currentAuthToken} | coraText | someTestDefText | | ${statusType} |
+
+*!
+
+!***> reset
+
+!define currentAuthToken {$adminAuthToken}
+!define statusType {OK}
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| ${currentAuthToken} | presentationCollectionVar | testMetadataOutputPCollVar | | ${statusType} |
+| ${currentAuthToken} | presentationCollectionVar | testMetadataPCollVar | | ${statusType} |
+| ${currentAuthToken} | ${recordType} | testMetadataCollectionVariableCollectionVar | | ${statusType} |
+| ${currentAuthToken} | coraText | someTestText | | ${statusType} |
+| ${currentAuthToken} | coraText | someTestDefText | | ${statusType} |
+
+!define currentAuthToken {$guestToken}
+*!
+Metadata Group!-
+-!Medatada Number Variable!-
+-!Metadata Text Variable!-
+-!Record Link!-
+-!Record Link Abstract
+
+!3 Pre-defined metadata
+AppTokenBinaryCollectTermIdLoginLoginUnit!-
+-!Metadata Record LinkPermissionRecordInfoRecordTypeSearchSearchTermSystemSystemOneUserTextUserWorkOrder
+
+!2 Typ av rättigheter:
+ * read
+ * list
+ * create
+ * update
+ * search
+ * index
+ * delete
