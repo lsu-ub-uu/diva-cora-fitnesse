@@ -84,5 +84,4 @@ public class DivaToCoraFormatFixture {
 	public String getDivaXML() {
 		return xml;
 	}
-
 }

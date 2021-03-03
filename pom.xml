@@ -31,10 +31,12 @@
 	<name>DiVA Cora Fitnesse</name>
 
 	<properties>
+		<logger.version>2.1.0</logger.version>
+		<coralog4j.version>2.1.0</coralog4j.version>
 		<json.version>2.1.0</json.version>
 		<httphandler.version>2.1.0</httphandler.version>
 		<fitnesseintegration.version>3.0.0</fitnesseintegration.version>
-		<divamixedstorage.version>4.3.0</divamixedstorage.version>
+		<divamixedstorage.version>4.4-SNAPSHOT</divamixedstorage.version>
 		<javax.ws.rs.version>2.1.1</javax.ws.rs.version>
 		<coradata.version>3.7.0</coradata.version>
 		<basicdata.version>1.11.0</basicdata.version>
@@ -55,6 +57,18 @@
 			<artifactId>testng</artifactId>
 			<version>${testng.version}</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>se.uu.ub.cora</groupId>
+			<artifactId>logger</artifactId>
+			<version>${logger.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>se.uu.ub.cora</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${coralog4j.version}</version>
+			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>se.uu.ub.cora</groupId>
