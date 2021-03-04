@@ -14,10 +14,9 @@ Kontrollera att rollerna har tillgång till rätt rättigheter för grundläggan
 #!define valid {null}
 
 !3 Built-in metadata
-Collection Variable
-
+!2 Listvariabel
 !define recordType {metadataCollectionVariable}
-Skapa en listavariabel (collectionVaiable) som sedan ska användas i testerna.
+Skapa en listavariabel (collectionVariable) som sedan ska användas i testerna.
 
 !***> setUp
 
@@ -73,8 +72,8 @@ Skapa en listavariabel (collectionVaiable) som sedan ska användas i testerna.
 
 !define statusType {FORBIDDEN}
 !| RecordEndpointFixture |
-| authToken | type | json | testCreateRecord? | getStatusType? |
-| ${currentAuthToken} | workOrder | {"name":"metadataSearch","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"testMetadataCollectionVariableCollectionVar"}]}]}]} | | ${statusType} |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| ${currentAuthToken} | metadataSearch | {"name":"metadataSearch","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"testMetadataCollectionVariableCollectionVar"}]}]}]} | | ${statusType} |
 
 *!
 !***> Delete collectionVariable
@@ -89,7 +88,7 @@ Skapa en listavariabel (collectionVaiable) som sedan ska användas i testerna.
 | ${currentAuthToken} | coraText | someTestDefText | | ${statusType} |
 
 *!
-!***> reset
+!***> Återställ
 
 !define currentAuthToken {$adminAuthToken}
 !define statusType {OK}
@@ -161,8 +160,8 @@ Skapa en textvariabel (metadataTextVariable) som sedan ska användas i testerna.
 
 !define statusType {FORBIDDEN}
 !| RecordEndpointFixture |
-| authToken | type | json | testCreateRecord? | getStatusType? |
-| ${currentAuthToken} | workOrder | {"name":"metadataSearch","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"testMetadataTextVariableTextVar"}]}]}]} | | ${statusType} |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| ${currentAuthToken} | metadataSearch | {"name":"metadataSearch","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"testMetadataTextVariableTextVar"}]}]}]} | | ${statusType} |
 
 *!
 !***> Ta bort textvariabel
@@ -177,7 +176,7 @@ Skapa en textvariabel (metadataTextVariable) som sedan ska användas i testerna.
 | ${currentAuthToken} | coraText | someTestDefText | | ${statusType} |
 
 *!
-!***> reset
+!***> Återställ
 
 !define currentAuthToken {$adminAuthToken}
 !define statusType {OK}
@@ -186,6 +185,346 @@ Skapa en textvariabel (metadataTextVariable) som sedan ska användas i testerna.
 | ${currentAuthToken} | presentationVar | testMetadataOutputPVar | | ${statusType} |
 | ${currentAuthToken} | presentationVar | testMetadataPVar | | ${statusType} |
 | ${currentAuthToken} | ${recordType} | testMetadataTextVariableTextVar | | ${statusType} |
+| ${currentAuthToken} | coraText | someTestText | | ${statusType} |
+| ${currentAuthToken} | coraText | someTestDefText | | ${statusType} |
+
+*!
+!2 Nummervariabel
+!define recordType {metadataNumberVariable}
+Skapa en nummervariabel (metadataNumberVariable) som sedan ska användas i testerna.
+
+!***> setUp
+
+!define currentAuthToken {$adminAuthToken}
+!define statusType {CREATED}
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testMetadataNumberVarNumberVar"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"divaTestSystem"}]}]},{"name":"nameInData","value":"testMetadataNumberVar"},{"name":"min","value":"0"},{"name":"max","value":"5"},{"name":"warningMin","value":"0"},{"name":"warningMax","value":"5"},{"name":"numberOfDecimals","value":"0"},{"name":"textId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someTestText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someTestDefText"}]}],"attributes":{"type":"numberVariable"}} | | ${statusType} |
+
+*!
+!define currentAuthToken {$guestToken}
+!***> Läs nummervariabel
+
+!define statusType {OK}
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | testMetadataNumberVarNumberVar | | ${statusType} |
+
+*!
+!***> Lista nummervariabel
+
+!define statusType {OK}
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | | ${statusType} |
+
+*!
+!***> Skapa nummervariabel
+
+!define statusType {FORBIDDEN}
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testOtherMetadataNumberVarNumberVar"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"divaTestSystem"}]}]},{"name":"nameInData","value":"testMetadataNumberVar"},{"name":"min","value":"0"},{"name":"max","value":"5"},{"name":"warningMin","value":"0"},{"name":"warningMax","value":"5"},{"name":"numberOfDecimals","value":"0"},{"name":"textId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someTestText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someTestDefText"}]}],"attributes":{"type":"numberVariable"}} | | ${statusType} |
+
+*!
+!***> Uppdatera nummervariabel
+
+!define statusType {FORBIDDEN}
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | testMetadataTextVariableTextVar | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testMetadataNumberVarNumberVar"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"metadataNumberVariable"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"141414"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]},{"name":"tsCreated","value":"2018-11-30T14:10:24.119000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"141414"}]},{"name":"tsUpdated","value":"2018-11-30T14:10:24.119000Z"}],"repeatId":"0"}]},{"name":"nameInData","value":"keeptHis"},{"name":"textId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someTestText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someTestDefText"}]},{"name":"min","value":"0"},{"name":"max","value":"20"},{"name":"warningMin","value":"2"},{"name":"warningMax","value":"10"},{"name":"numberOfDecimals","value":"0"}],"attributes":{"type":"numberVariable"}} | | ${statusType} |
+
+*!
+!***> Indexera nummervariabel
+
+!define statusType {FORBIDDEN}
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| ${currentAuthToken} | workOrder | {"children":[{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"metadataNumberVariable"}],"name":"recordType"},{"name":"recordId","value":"testMetadataNumberVarNumberVar"},{"name":"type","value":"index"}],"name":"workOrder"} | | ${statusType} |
+
+*!
+!***> Sök nummervariabel
+
+!define statusType {FORBIDDEN}
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| ${currentAuthToken} | metadataSearch | {"name":"metadataSearch","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"testMetadataNumberVarNumberVar"}]}]}]} | | ${statusType} |
+
+*!
+!***> Ta bort nummervariabel
+
+!define statusType {FORBIDDEN}
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| ${currentAuthToken} | presentationNumberVar | testMetadataOutputPNumVar | | ${statusType} |
+| ${currentAuthToken} | presentationNumberVar | testMetadataPNUmVar | | ${statusType} |
+| ${currentAuthToken} | ${recordType} | testMetadataNumberVarNumberVar | | ${statusType} |
+| ${currentAuthToken} | coraText | someTestText | | ${statusType} |
+| ${currentAuthToken} | coraText | someTestDefText | | ${statusType} |
+
+*!
+!***> Återställ
+
+!define currentAuthToken {$adminAuthToken}
+!define statusType {OK}
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| ${currentAuthToken} | presentationNumberVar | testMetadataOutputPNumVar | | ${statusType} |
+| ${currentAuthToken} | presentationNumberVar | testMetadataPNumVar | | ${statusType} |
+| ${currentAuthToken} | ${recordType} | testMetadataNumberVarNumberVar | | ${statusType} |
+| ${currentAuthToken} | coraText | someTestText | | ${statusType} |
+| ${currentAuthToken} | coraText | someTestDefText | | ${statusType} |
+
+*!
+!2 Länk
+!define recordType {metadataRecordLink}
+Skapa en metadatalänk (metadataRecordLink) som sedan ska användas i testerna.
+
+!***> setUp
+
+!define currentAuthToken {$adminAuthToken}
+!define statusType {CREATED}
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testMetadataLinkRecordLink"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"divaTestSystem"}]}]},{"name":"nameInData","value":"testMetadataLink"},{"name":"linkedRecordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"coraText"}]},{"name":"textId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someTestText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someTestDefText"}]}],"attributes":{"type":"recordLink"}} | | ${statusType} |
+
+*!
+!define currentAuthToken {$guestToken}
+!***> Läs metadatalänk
+
+!define statusType {OK}
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | testMetadataLinkRecordLink | | ${statusType} |
+
+*!
+!***> Lista metadatalänk
+
+!define statusType {OK}
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | | ${statusType} |
+
+*!
+!***> Skapa metadatalänk
+
+!define statusType {FORBIDDEN}
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testOtherMetadataLinkRecordLink"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"divaTestSystem"}]}]},{"name":"nameInData","value":"testMetadataLink"},{"name":"linkedRecordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"coraText"}]},{"name":"textId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someTestText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someTestDefText"}]}],"attributes":{"type":"recordLink"}} | | ${statusType} |
+
+*!
+!***> Uppdatera metadatalänk
+
+!define statusType {FORBIDDEN}
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | testMetadataLinkRecordLink | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testMetadataLinkRecordLink"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"metadataRecordLink"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"systemOneUser"},{"name":"linkedRecordId","value":"141414"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]},{"name":"tsCreated","value":"2017-10-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"systemOneUser"},{"name":"linkedRecordId","value":"141414"}]},{"name":"tsUpdated","value":"2017-11-01T17:49:58.000000Z"}],"repeatId":"0"}]},{"name":"nameInData","value":"presentedRecordType"},{"name":"textId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someTestText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someTestDefText"}]},{"name":"linkedRecordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"recordType"}]}],"attributes":{"type":"recordLink"}} | | ${statusType} |
+
+*!
+!***> Indexera metadatalänk
+
+!define statusType {FORBIDDEN}
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| ${currentAuthToken} | workOrder | {"children":[{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"metadataRecordLink"}],"name":"recordType"},{"name":"recordId","value":"testMetadataLinkRecordLink"},{"name":"type","value":"index"}],"name":"workOrder"} | | ${statusType} |
+
+*!
+!***> Sök metadatalänk
+
+!define statusType {FORBIDDEN}
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| ${currentAuthToken} | metadataSearch | {"name":"metadataSearch","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"testMetadataNumberVarNumberVar"}]}]}]} | | ${statusType} |
+
+*!
+!***> Ta bort metadatalänk
+
+!define statusType {FORBIDDEN}
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| ${currentAuthToken} | presentationRecordLink | testMetadataOutputPLink | | ${statusType} |
+| ${currentAuthToken} | presentationRecordLink | testMetadataLinkRecordPLink | | ${statusType} |
+| ${currentAuthToken} | ${recordType} | testMetadataLinkRecordLink | | ${statusType} |
+
+*!
+!***> Återställ
+
+!define currentAuthToken {$adminAuthToken}
+!define statusType {OK}
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| ${currentAuthToken} | presentationRecordLink | testMetadataOutputPLink | | ${statusType} |
+| ${currentAuthToken} | presentationRecordLink | testMetadataLinkRecordPLink | | ${statusType} |
+| ${currentAuthToken} | ${recordType} | testMetadataLinkRecordLink | | ${statusType} |
+| ${currentAuthToken} | coraText | someTestText | | ${statusType} |
+| ${currentAuthToken} | coraText | someTestDefText | | ${statusType} |
+
+*!
+!2 Resurslänk
+!define recordType {metadataResourceLink}
+Skapa en resurslänk (metadataResourceLink) som sedan ska användas i testerna.
+
+!***> setUp
+
+!define currentAuthToken {$adminAuthToken}
+!define statusType {CREATED}
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| ${currentAuthToken} | coraText | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"someTestText"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"divaTestSystem"}]}]},{"name":"textPart","children":[{"name":"text","value":"En text"}],"attributes":{"type":"default","lang":"sv"}}]} | | ${statusType} |
+| ${currentAuthToken} | coraText | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"someTestDefText"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"divaTestSystem"}]}]},{"name":"textPart","children":[{"name":"text","value":"En def text"}],"attributes":{"type":"default","lang":"sv"}}]} | | ${statusType} |
+| ${currentAuthToken} | ${recordType} | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testMetadataResourceLinkResLink"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"divaTestSystem"}]}]},{"name":"nameInData","value":"testMetadataResourceLink"},{"name":"textId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someTestText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someTestDefText"}]}],"attributes":{"type":"resourceLink"}} | | ${statusType} |
+
+*!
+!define currentAuthToken {$guestToken}
+!***> Läs resurslänk
+
+!define statusType {OK}
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | testMetadataResourceLinkResLink | | ${statusType} |
+
+*!
+!***> Lista resurslänk
+
+!define statusType {OK}
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | | ${statusType} |
+
+*!
+!***> Skapa resurslänk
+
+!define statusType {FORBIDDEN}
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testOtherMetadataResourceLinkResLink"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"divaTestSystem"}]}]},{"name":"nameInData","value":"testMetadataResourceLink"},{"name":"textId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someTestText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someTestDefText"}]}],"attributes":{"type":"resourceLink"}} | | ${statusType} |
+
+*!
+!***> Uppdatera resurslänk
+
+!define statusType {FORBIDDEN}
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | testMetadataResourceLinkResLink | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testMetadataResourceLinkResLink"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"metadataResourceLink"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"systemOneUser"},{"name":"linkedRecordId","value":"12345"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]},{"name":"tsCreated","value":"2017-10-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"systemOneUser"},{"name":"linkedRecordId","value":"12345"}]},{"name":"tsUpdated","value":"2017-11-01T17:49:57.000000Z"}],"repeatId":"0"}]},{"name":"nameInData","value":"testMetadataResourceLink"},{"name":"textId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someTestText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someTestDefText"}]}],"attributes":{"type":"resourceLink"}} | | ${statusType} |
+
+*!
+!***> Indexera resurslänk
+
+!define statusType {FORBIDDEN}
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| ${currentAuthToken} | workOrder | {"children":[{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"metadataResourceLink"}],"name":"recordType"},{"name":"recordId","value":"testMetadataResourceLinkResLink"},{"name":"type","value":"index"}],"name":"workOrder"} | | ${statusType} |
+
+*!
+!***> Sök resurslänk
+
+!define statusType {FORBIDDEN}
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| ${currentAuthToken} | metadataSearch | {"name":"metadataSearch","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"testMetadataResourceLinkResLink"}]}]}]} | | ${statusType} |
+
+*!
+!***> Ta bort resurslänk
+
+!define statusType {FORBIDDEN}
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | testMetadataResourceLinkResLink | | ${statusType} |
+
+*!
+!***> Återställ
+
+!define currentAuthToken {$adminAuthToken}
+!define statusType {OK}
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | testMetadataResourceLinkResLink | | ${statusType} |
+| ${currentAuthToken} | coraText | someTestText | | ${statusType} |
+| ${currentAuthToken} | coraText | someTestDefText | | ${statusType} |
+
+*!
+!2 Metadatagrupp
+!define recordType {metadataGroup}
+Skapa en metadatagrupp (metadataGroup) som sedan ska användas i testerna.
+
+!***> setUp
+
+!define currentAuthToken {$adminAuthToken}
+!define statusType {CREATED}
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| ${currentAuthToken} | metadataTextVariable | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testMetadataTextVariableTextVar"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"divaTestSystem"}]}]},{"name":"nameInData","value":"testMetadataTextVariableT"},{"name":"regEx","value":"+*"},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someTestDefText"}]},{"name":"textId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someTestText"}]}],"attributes":{"type":"textVariable"}} | | ${statusType} |
+| ${currentAuthToken} | ${recordType} | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testMetadataGroupGroup"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"divaTestSystem"}]}]},{"name":"nameInData","value":"testMetadataGroup"},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"repeatMin","value":"0"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadataTextVariable"},{"name":"linkedRecordId","value":"testMetadataTextVariableTextVar"}]}],"repeatId":"0"}]},{"name":"excludePGroupCreation","value":"true"}],"attributes":{"type":"group"}} | | ${statusType} |
+
+*!
+!define currentAuthToken {$guestToken}
+!***> Läs metadatagrupp
+
+!define statusType {OK}
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | testMetadataGroupGroup | | ${statusType} |
+
+*!
+!***> Lista metadatagrupp
+
+!define statusType {OK}
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | | ${statusType} |
+
+*!
+!***> Skapa metadatagrupp
+
+!define statusType {FORBIDDEN}
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testOtherMetadataGroupGroup"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"divaTestSystem"}]}]},{"name":"nameInData","value":"testMetadataGroup"},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"repeatMin","value":"0"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadataTextVariable"},{"name":"linkedRecordId","value":"testMetadataTextVariableTextVar"}]}],"repeatId":"0"}]},{"name":"excludePGroupCreation","value":"true"}],"attributes":{"type":"group"}} | | ${statusType} |
+
+*!
+!***> Uppdatera metadatagrupp
+
+!define statusType {FORBIDDEN}
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | testMetadataGroupGroup | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testMetadataGroupGroup"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"metadataGroup"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"systemOneUser"},{"name":"linkedRecordId","value":"141414"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"divaTestSystem"}]},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"systemOneUser"},{"name":"linkedRecordId","value":"141414"}]},{"name":"tsUpdated","value":"2017-11-01T17:46:48.000000Z"}],"repeatId":"0"}]},{"name":"nameInData","value":"testMetadataGroup"},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"repeatMin","value":"0"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadataTextVariable"},{"name":"linkedRecordId","value":"testMetadataTextVariableTextVar"}]}],"repeatId":"0"}]},{"name":"excludePGroupCreation","value":"true"}],"attributes":{"type":"group"}} | | ${statusType} |
+
+*!
+!***> Indexera metadatagrupp
+
+!define statusType {FORBIDDEN}
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| ${currentAuthToken} | workOrder | {"children":[{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"metadataGroup"}],"name":"recordType"},{"name":"recordId","value":"testMetadataGroupGroup"},{"name":"type","value":"index"}],"name":"workOrder"} | | ${statusType} |
+
+*!
+!***> Sök metadatagrupp
+
+!define statusType {FORBIDDEN}
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| ${currentAuthToken} | metadataSearch | {"name":"metadataSearch","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"testMetadataGroupGroup"}]}]}]} | | ${statusType} |
+
+*!
+!***> Ta bort metadatagrupp
+
+!define statusType {FORBIDDEN}
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | testMetadataGroupGroup | | ${statusType} |
+
+*!
+!***> Återställ
+
+!define currentAuthToken {$adminAuthToken}
+!define statusType {OK}
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | testMetadataGroupGroup | | ${statusType} |
+| ${currentAuthToken} | presentationVar | testMetadataOutputPVar | | ${statusType} |
+| ${currentAuthToken} | presentationVar | testMetadataPVar | | ${statusType} |
+| ${currentAuthToken} | metadataTextVariable | testMetadataTextVariableTextVar | | ${statusType} |
 | ${currentAuthToken} | coraText | someTestText | | ${statusType} |
 | ${currentAuthToken} | coraText | someTestDefText | | ${statusType} |
 
