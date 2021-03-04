@@ -71,7 +71,7 @@ Skapa en listavariabel (collectionVaiable) som sedan ska användas i testerna.
 *!
 !***> Sök collectionVariable
 
- !define statusType {FORBIDDEN}
+!define statusType {FORBIDDEN}
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
 | ${currentAuthToken} | workOrder | {"name":"metadataSearch","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"testMetadataCollectionVariableCollectionVar"}]}]}]} | | ${statusType} |
@@ -102,6 +102,93 @@ Skapa en listavariabel (collectionVaiable) som sedan ska användas i testerna.
 | ${currentAuthToken} | coraText | someTestDefText | | ${statusType} |
 
 !define currentAuthToken {$guestToken}
+*!
+!2 Textvariabel
+!define recordType {metadataTextVariable}
+Skapa en textvariabel (metadataTextVariable) som sedan ska användas i testerna.
+
+!***> setUp
+
+!define currentAuthToken {$adminAuthToken}
+!define statusType {CREATED}
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testMetadataTextVariableTextVar"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"divaTestSystem"}]}]},{"name":"nameInData","value":"testMetadataTextVariableT"},{"name":"regEx","value":"+*"},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someTestDefText"}]},{"name":"textId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someTestText"}]}],"attributes":{"type":"textVariable"}} | | ${statusType} |
+
+*!
+!define currentAuthToken {$guestToken}
+!***> Läs textvariabel
+
+!define statusType {OK}
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | metadataIdTextVar | | ${statusType} |
+
+*!
+!***> Lista textvariabel
+
+!define statusType {OK}
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | | ${statusType} |
+
+*!
+!***> Skapa textvariabel
+
+!define statusType {FORBIDDEN}
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testOtherMetadataTextVariableTextVar"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"divaTestSystem"}]}]},{"name":"nameInData","value":"testMetadataTextVariableT"},{"name":"regEx","value":"+*"},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someTestDefText"}]},{"name":"textId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someTestText"}]}],"attributes":{"type":"textVariable"}} | | ${statusType} |
+
+*!
+!***> Uppdatera textvariabel
+
+!define statusType {FORBIDDEN}
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | testMetadataTextVariableTextVar | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testMetadataTextVariableTextVar"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"metadataTextVariable"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"systemOneUser"},{"name":"linkedRecordId","value":"12345"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"divaTestSystem"}]},{"name":"tsCreated","value":"2017-10-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"systemOneUser"},{"name":"linkedRecordId","value":"12345"}]},{"name":"tsUpdated","value":"2017-11-01T17:54:13.000000Z"}],"repeatId":"0"}]},{"name":"nameInData","value":"metadataId"},{"name":"textId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someTestText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someTestDefText"}]},{"name":"regEx","value":"(^[0-9A-Za-z:-_]{2,50}$)"}],"attributes":{"type":"textVariable"}} | | ${statusType} |
+
+*!
+!***> Indexera textvariabel
+
+!define statusType {FORBIDDEN}
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| ${currentAuthToken} | workOrder | {"children":[{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"metadataTextVariable"}],"name":"recordType"},{"name":"recordId","value":"testMetadataTextVariableTextVar"},{"name":"type","value":"index"}],"name":"workOrder"} | | ${statusType} |
+
+*!
+!***> Sök textvariabel
+
+!define statusType {FORBIDDEN}
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| ${currentAuthToken} | workOrder | {"name":"metadataSearch","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"testMetadataTextVariableTextVar"}]}]}]} | | ${statusType} |
+
+*!
+!***> Ta bort textvariabel
+
+!define statusType {FORBIDDEN}
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| ${currentAuthToken} | presentationVar | testMetadataOutputPVar | | ${statusType} |
+| ${currentAuthToken} | presentationVar | testMetadataPVar | | ${statusType} |
+| ${currentAuthToken} | ${recordType} | testMetadataTextVariableTextVar | | ${statusType} |
+| ${currentAuthToken} | coraText | someTestText | | ${statusType} |
+| ${currentAuthToken} | coraText | someTestDefText | | ${statusType} |
+
+*!
+!***> reset
+
+!define currentAuthToken {$adminAuthToken}
+!define statusType {OK}
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| ${currentAuthToken} | presentationVar | testMetadataOutputPVar | | ${statusType} |
+| ${currentAuthToken} | presentationVar | testMetadataPVar | | ${statusType} |
+| ${currentAuthToken} | ${recordType} | testMetadataTextVariableTextVar | | ${statusType} |
+| ${currentAuthToken} | coraText | someTestText | | ${statusType} |
+| ${currentAuthToken} | coraText | someTestDefText | | ${statusType} |
+
 *!
 Metadata Group!-
 -!Medatada Number Variable!-
