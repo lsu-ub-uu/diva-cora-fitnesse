@@ -754,7 +754,7 @@ Skapa ett listelement för språk (languageCollectionItem) som sedan ska använd
 *!
 *!
 
-!***> !-RecordType-!
+!***> !-Posttyp-!
 !define recordType {recordType}
 Skapa en recordType som sedan ska användas i testerna.
 
@@ -840,7 +840,175 @@ Skapa en recordType som sedan ska användas i testerna.
 | $adminAuthToken | presentationGroup | someTestRecordTypePGroup | | ${statusType} |
 | $adminAuthToken | metadataGroup | someTestRecordTypeGroup | | ${statusType} |
 
+*!
+*!
+
+!***> !-Inloggning webredirect-!
+!define recordType {loginWebRedirect}
+!define recordTypeSwedish {inloggning webredirect}
+!define recordTypeId {someTestInloggningAwr}
+
+Skapa en ${recordTypeSwedish} som sedan ska användas i testerna.
+
+!***> setUp
+
+!define statusType {CREATED}
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | ${recordType} | {"name":"login","children":[{"name":"recordInfo","children":[{"name":"id","value":"${recordTypeId}"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"loginName","value":"someTest"},{"name":"url","value":"www.example.com"}],"attributes":{"type":"webRedirect"}} | | ${statusType} |
+
+*!
+!***> ${userRole} får '''läsa''' ${recordTypeSwedish}
+
+!define statusType {OK}
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | ${recordTypeId} | | ${statusType} |
+
+*!
+!***> ${userRole} får '''lista''' ${recordTypeSwedish}
+
+!define statusType {OK}
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | | ${statusType} |
+
+*!
+!***> ${userRole} får '''inte skapa''' ${recordTypeSwedish}
+
+!define statusType {FORBIDDEN}
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | {"name":"login","children":[{"name":"recordInfo","children":[{"name":"id","value":"${recordTypeId}"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"loginName","value":"someTest"},{"name":"url","value":"www.example.com"}],"attributes":{"type":"webRedirect"}} | | ${statusType} |
+
+*!
+!***> ${userRole} får '''inte uppdatera''' ${recordTypeSwedish}
+
+!define statusType {FORBIDDEN}
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | someTestRecordType | {"name":"login","children":[{"name":"recordInfo","children":[{"name":"id","value":"${recordTypeId}"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"loginWebRedirect"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:490742519075086"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2021-03-16T13:01:39.831073Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:490742519075086"}]},{"name":"tsUpdated","value":"2021-03-16T13:01:39.831073Z"}],"repeatId":"0"}]},{"name":"loginName","value":"someOtherTest"},{"name":"url","value":"www.example.com"}],"attributes":{"type":"webRedirect"}} | | ${statusType} |
+
+*!
+!***> ${userRole} får '''inte indexera''' ${recordTypeSwedish}
+
+!define statusType {FORBIDDEN}
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| ${currentAuthToken} | workOrder | {"children":[{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"${recordType}"}],"name":"recordType"},{"name":"recordId","value":"${recordTypeId}"},{"name":"type","value":"index"}],"name":"workOrder"} | | ${statusType} |
+
+*!
+!***> ${userRole} får '''inte söka''' ${recordTypeSwedish}
+
+!define statusType {FORBIDDEN}
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| ${currentAuthToken} | metadataSearch | {"name":"metadataSearch","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"${recordTypeId}"}]}]}]} | | ${statusType} |
+
+*!
+!***> ${userRole} får '''inte ta bort''' ${recordTypeSwedish}
+
+!define statusType {FORBIDDEN}
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | ${recordTypeId} | | ${statusType} |
+
+*!
+!***> Återställ
+
+!define statusType {OK}
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $adminAuthToken | ${recordType} | ${recordTypeId} | | ${statusType} |
 
 *!
 *!
+
+!***> !-Inloggningsenhet-!
+!define recordType {loginUnit}
+!define recordTypeSwedish {inloggningsenhet}
+!define recordTypeId {someTestLoginUnit}
+
+Skapa en ${recordTypeSwedish} som sedan ska användas i testerna.
+
+!***> setUp
+
+!define statusType {CREATED}
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | loginWebRedirect | {"name":"login","children":[{"name":"recordInfo","children":[{"name":"id","value":"someTestInloggningAwr"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"loginName","value":"someTest"},{"name":"url","value":"www.example.com"}],"attributes":{"type":"webRedirect"}} | | ${statusType} |
+| $adminAuthToken | coraText | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"someTestLoginUnitText"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"textPart","children":[{"name":"text","value":"TestText"}],"attributes":{"type":"default","lang":"sv"}}]} | | ${statusType} |
+| $adminAuthToken | ${recordType} | {"name":"loginUnit","children":[{"name":"recordInfo","children":[{"name":"id","value":"${recordTypeId}"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"loginInfo","children":[{"name":"login","children":[{"name":"linkedRecordType","value":"loginWebRedirect"},{"name":"linkedRecordId","value":"someTestInloggningAwr"}]},{"name":"loginDescription","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someTestLoginUnitText"}]}]}]} | | ${statusType} |
+
+
+
+*!
+!***> ${userRole} får '''läsa''' ${recordTypeSwedish}
+
+!define statusType {OK}
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | ${recordTypeId} | | ${statusType} |
+
+*!
+!***> ${userRole} får '''lista''' ${recordTypeSwedish}
+
+!define statusType {OK}
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | | ${statusType} |
+
+*!
+!***> ${userRole} får '''inte skapa''' ${recordTypeSwedish}
+
+!define statusType {FORBIDDEN}
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | {"name":"login","children":[{"name":"recordInfo","children":[{"name":"id","value":"${recordTypeId}"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"loginName","value":"someTest"},{"name":"url","value":"www.example.com"}],"attributes":{"type":"webRedirect"}} | | ${statusType} |
+
+*!
+!***> ${userRole} får '''inte uppdatera''' ${recordTypeSwedish}
+
+!define statusType {FORBIDDEN}
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | someTestRecordType | {"name":"loginUnit","children":[{"name":"recordInfo","children":[{"name":"id","value":"someTestLoginUnit"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"loginUnit"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:1299694997493014"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2021-03-16T13:16:52.253424Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:1299694997493014"}]},{"name":"tsUpdated","value":"2021-03-16T13:16:52.253424Z"}],"repeatId":"0"}]},{"name":"loginInfo","children":[{"name":"login","children":[{"name":"linkedRecordType","value":"loginWebRedirect"},{"name":"linkedRecordId","value":"someOtherTestInloggningAwr"}]},{"name":"loginDescription","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someTestLoginUnitText"}]}]}]} | | ${statusType} |
+
+*!
+!***> ${userRole} får '''inte indexera''' ${recordTypeSwedish}
+
+!define statusType {FORBIDDEN}
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| ${currentAuthToken} | workOrder | {"children":[{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"${recordType}"}],"name":"recordType"},{"name":"recordId","value":"${recordTypeId}"},{"name":"type","value":"index"}],"name":"workOrder"} | | ${statusType} |
+
+*!
+!***> ${userRole} får '''inte söka''' ${recordTypeSwedish}
+
+!define statusType {FORBIDDEN}
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| ${currentAuthToken} | metadataSearch | {"name":"metadataSearch","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"${recordTypeId}"}]}]}]} | | ${statusType} |
+
+*!
+!***> ${userRole} får '''inte ta bort''' ${recordTypeSwedish}
+
+!define statusType {FORBIDDEN}
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | ${recordTypeId} | | ${statusType} |
+
+*!
+!***> Återställ
+
+!define statusType {OK}
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $adminAuthToken | ${recordType} | ${recordTypeId} | | ${statusType} |
+| $adminAuthToken | loginWebRedirect | someTestInloggningAwr | | ${statusType} |
+| $adminAuthToken | coraText | someTestLoginUnitText | | ${statusType} |
+
+*!
+*!
+
 
