@@ -13,10 +13,23 @@ Kontrollera att rollerna har tillgång till rätt rättigheter för grundläggan
 
 
 !3 Pre-defined metadata
-AppTokenBinaryCollectTerm!-
--!IdLoginLoginUnit!-
--!Metadata Record LinkPermissionRecordInfoRecordTypeSearchSearchTermSystemSystemOneUser!-
--!TextUserWorkOrder
+ * AppToken
+ * Binary
+ * CollectTerm
+ * Id
+ * Login
+ * LoginUnit
+ * Metadata Record Link
+ * Permission
+ * RecordInfo
+ * RecordType
+ * Search
+ * SearchTerm
+ * System
+ * SystemOneUser
+ * Text
+ * User
+ * WorkOrder
 
 !2 Typ av rättigheter:
  * read

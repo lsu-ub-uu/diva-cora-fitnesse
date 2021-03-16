@@ -2,10 +2,11 @@
 Test
 ---
 !define userRole {!-SystemAdmin-!}
-!2 ${userRole}
 !define currentAuthToken {$systemAdminAuthToken}
-!3 Built-in metadata
-!4 Listvariabel
+
+!2 ${userRole}
+
+!***> Listvariabel
 !define recordType {metadataCollectionVariable}
 Skapa en listavariabel (collectionVariable) som sedan ska användas i testerna.
 
@@ -87,7 +88,9 @@ Skapa en listavariabel (collectionVariable) som sedan ska användas i testerna.
 | $adminAuthToken | coraText | someTestDefText | | ${statusType} |
 
 *!
-!4 Textvariabel
+*!
+
+!***> Textvariabel
 !define recordType {metadataTextVariable}
 Skapa en textvariabel (metadataTextVariable) som sedan ska användas i testerna.
 
@@ -171,7 +174,9 @@ Skapa en textvariabel (metadataTextVariable) som sedan ska användas i testerna.
 | $adminAuthToken | coraText | someTestDefText | | ${statusType} |
 
 *!
-!4 Nummervariabel
+*!
+
+!***> Nummervariabel
 !define recordType {metadataNumberVariable}
 Skapa en nummervariabel (metadataNumberVariable) som sedan ska användas i testerna.
 
@@ -255,7 +260,9 @@ Skapa en nummervariabel (metadataNumberVariable) som sedan ska användas i teste
 | $adminAuthToken | coraText | someTestDefText | | ${statusType} |
 
 *!
-!4 Länk
+*!
+
+!***> Länk
 !define recordType {metadataRecordLink}
 Skapa en metadatalänk (metadataRecordLink) som sedan ska användas i testerna.
 
@@ -338,7 +345,9 @@ Skapa en metadatalänk (metadataRecordLink) som sedan ska användas i testerna.
 | $adminAuthToken | coraText | someTestDefText | | ${statusType} |
 
 *!
-!4 Resurslänk
+*!
+
+!***> Resurslänk
 !define recordType {metadataResourceLink}
 Skapa en resurslänk (metadataResourceLink) som sedan ska användas i testerna.
 
@@ -418,7 +427,9 @@ Skapa en resurslänk (metadataResourceLink) som sedan ska användas i testerna.
 | $adminAuthToken | coraText | someTestDefText | | ${statusType} |
 
 *!
-!4 Metadatagrupp
+*!
+
+!***> Metadatagrupp
 !define recordType {metadataGroup}
 Skapa en metadatagrupp (metadataGroup) som sedan ska användas i testerna.
 
@@ -501,7 +512,9 @@ Skapa en metadatagrupp (metadataGroup) som sedan ska användas i testerna.
 | $adminAuthToken | coraText | someTestDefText | | ${statusType} |
 
 *!
-!4 Text
+*!
+
+!***> Text
 !define recordType {coraText}
 Skapa en text (coraText) som sedan ska användas i testerna.
 
@@ -578,7 +591,9 @@ Skapa en text (coraText) som sedan ska användas i testerna.
 | $adminAuthToken | ${recordType} | someTestText | | ${statusType} |
 
 *!
-!4 Listelement
+*!
+
+!***> Listelement
 !define recordType {genericCollectionItem}
 Skapa ett listelement (genericCollectionItem) som sedan ska användas i testerna.
 
@@ -656,7 +671,9 @@ Skapa ett listelement (genericCollectionItem) som sedan ska användas i testerna
 | $adminAuthToken | coraText | someTestDefText | | ${statusType} |
 
 *!
-!4 Listelement för språk
+*!
+
+!***> Listelement för språk
 !define recordType {languageCollectionItem}
 Skapa ett listelement för språk (languageCollectionItem) som sedan ska användas i testerna.
 
@@ -734,3 +751,95 @@ Skapa ett listelement för språk (languageCollectionItem) som sedan ska använd
 | $adminAuthToken | coraText | someTestDefText | | ${statusType} |
 
 *!
+*!
+
+!***> !-RecordType-!
+!define recordType {recordType}
+Skapa en recordType som sedan ska användas i testerna.
+
+!***> setUp
+
+!define statusType {CREATED}
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | ${recordType} | {"name":"recordType","children":[{"name":"abstract","value":"false"},{"name":"recordInfo","children":[{"name":"id","value":"someTestRecordType"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"userSuppliedId","value":"false"},{"name":"groupOfRecordType","value":"metadata","repeatId":"0"},{"name":"public","value":"false"},{"name":"textId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someTestText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someTestDefText"}]}]} | | ${statusType} |
+
+*!
+!***> ${userRole} får '''läsa''' posttyp
+
+!define statusType {OK}
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | someTestRecordType | | ${statusType} |
+
+*!
+!***> ${userRole} får '''lista''' posttyp
+
+!define statusType {OK}
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | | ${statusType} |
+
+*!
+!***> ${userRole} får '''inte skapa''' posttyp
+
+!define statusType {FORBIDDEN}
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | {"name":"recordType","children":[{"name":"abstract","value":"false"},{"name":"recordInfo","children":[{"name":"id","value":"someOtherTestRecordType"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"userSuppliedId","value":"false"},{"name":"groupOfRecordType","value":"metadata","repeatId":"0"},{"name":"public","value":"false"},{"name":"textId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someTestText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someTestDefText"}]}]} | | ${statusType} |
+
+*!
+!***> ${userRole} får '''inte uppdatera''' posttyp
+
+!define statusType {FORBIDDEN}
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | someTestRecordType | {"name":"recordType","children":[{"name":"abstract","value":"false"},{"name":"recordInfo","children":[{"name":"id","value":"someTestRecordType"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"recordType"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"userSuppliedId","value":"false"},{"name":"groupOfRecordType","value":"metadata","repeatId":"0"},{"name":"public","value":"false"},{"name":"textId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someTestText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someTestDefText"}]}]} | | ${statusType} |
+
+*!
+!***> ${userRole} får '''indexera''' posttyp
+
+!define statusType {CREATED}
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| ${currentAuthToken} | workOrder | {"children":[{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"recordType"}],"name":"recordType"},{"name":"recordId","value":"someTestRecordType"},{"name":"type","value":"index"}],"name":"workOrder"} | | ${statusType} |
+
+*!
+!***> ${userRole} får '''inte söka''' posttyp
+
+!define statusType {FORBIDDEN}
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| ${currentAuthToken} | metadataSearch | {"name":"metadataSearch","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"someTestRecordType"}]}]}]} | | ${statusType} |
+
+*!
+!***> ${userRole} får '''inte ta bort''' posttyp
+
+!define statusType {FORBIDDEN}
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | someTestRecordType | | ${statusType} |
+
+*!
+!***> Återställ
+
+!define statusType {OK}
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $adminAuthToken | search | someTestRecordTypeSearch | | ${statusType} |
+| $adminAuthToken | ${recordType} | someTestRecordType | | ${statusType} |
+| $adminAuthToken | coraText | someTestText | | ${statusType} |
+| $adminAuthToken | coraText | someTestDefText | | ${statusType} |
+| $adminAuthToken | presentationGroup | someTestRecordTypeNewPGroup | | ${statusType} |
+| $adminAuthToken | metadataGroup | someTestRecordTypeNewGroup | | ${statusType} |
+| $adminAuthToken | presentationGroup | someTestRecordTypeMenuPGroup | | ${statusType} |
+| $adminAuthToken | presentationGroup | someTestRecordTypeListPGroup | | ${statusType} |
+| $adminAuthToken | presentationGroup | someTestRecordTypeAutocompletePGroup | | ${statusType} |
+| $adminAuthToken | presentationGroup | someTestRecordTypeOutputPGroup | | ${statusType} |
+| $adminAuthToken | presentationGroup | someTestRecordTypePGroup | | ${statusType} |
+| $adminAuthToken | metadataGroup | someTestRecordTypeGroup | | ${statusType} |
+
+
+*!
+*!
+
