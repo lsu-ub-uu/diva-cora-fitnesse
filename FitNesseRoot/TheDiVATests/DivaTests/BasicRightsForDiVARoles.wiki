@@ -18,8 +18,6 @@ Kontrollera att rollerna har tillgång till rätt rättigheter för grundläggan
  * CollectTerm
  * Id
  * Login
- * LoginUnit
- * Metadata Record Link
  * Permission
  * RecordInfo
  * RecordType
@@ -27,7 +25,6 @@ Kontrollera att rollerna har tillgång till rätt rättigheter för grundläggan
  * SearchTerm
  * System
  * SystemOneUser
- * Text
  * User
  * WorkOrder
 
