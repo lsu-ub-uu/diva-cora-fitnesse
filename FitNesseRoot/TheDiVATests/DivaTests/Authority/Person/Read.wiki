@@ -6,26 +6,24 @@ Test
 !1 Testing reading a person
 It should be possible to read a person from the REST API.
 
-!***> Read authority-person:60566 as Json
-
-authority-person:60566 is a minimal person
+!***> Read authority-person:106 as Json
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | person | authority-person:60566 | | OK |
+| $adminAuthToken | person | authority-person:106 | | OK |
 
 *!
 !***> Case 1
 !define currentAuthToken {$adminAuthToken}
 
-!include -seamless .TheDiVATests.DivaTests.Authority.Person.dataPerson60566
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.dataPerson106
 !define expectedCreateResult {CREATED}
 !define expectedAnswer {}
 !define expectedCompareResult {OK}
 !define expectedActionResult {Action read_incoming_links is missing.}
-!define expectedPermissionResult {OK}
+!define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
 
 !define expectedCompareData originalData
-!include -seamless .HelperPages.readCheck
+#!include -seamless .HelperPages.readCheck
 
 *!
