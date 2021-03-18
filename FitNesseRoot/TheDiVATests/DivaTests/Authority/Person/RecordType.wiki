@@ -84,9 +84,8 @@ Kontrollera barnen
 | $adminAuthToken | metadataTextVariable | personEmailTextVar | 0 | 1 | emailAddress | noRestrictions |
 | $adminAuthToken | metadataGroup | personAlternativeNameGroup | 0 | X | alternativeName | noRestrictions |
 | $adminAuthToken | metadataGroup | personURLGroup | 0 | X | externalURL | noRestrictions |
-| $adminAuthToken | metadataGroup | personAffiliationGroup | 0 | X | affiliation | noRestrictions |
+| $adminAuthToken | metadataRecordLink | personDomainPartLink | 0 | X | personDomainPart | noRestrictions |
 | $adminAuthToken | metadataGroup | personOtherAffiliationGroup | 0 | X | otherAffiliation | noRestrictions |
-| $adminAuthToken | metadataGroup | personIdentifiersLocalIdentifierGroup | 0 | X | localIdentifier | noRestrictions |
 | $adminAuthToken | metadataTextVariable | personORCIDValueTextVar | 0 | X | ORCID_ID | noRestrictions |
 | $adminAuthToken | metadataTextVariable | personVIAFValueTextVar | 0 | X | VIAF_ID | noRestrictions |
 | $adminAuthToken | metadataTextVariable | personLibrisValueTextVar | 0 | X | Libris_ID | noRestrictions |
@@ -117,9 +116,8 @@ Kontrollera barnen
 | $adminAuthToken | metadataTextVariable | personEmailTextVar | 0 | 1 | emailAddress | noRestrictions |
 | $adminAuthToken | metadataGroup | personAlternativeNameGroup | 0 | X | alternativeName | noRestrictions |
 | $adminAuthToken | metadataGroup | personURLGroup | 0 | X | externalURL | noRestrictions |
-| $adminAuthToken | metadataGroup | personAffiliationGroup | 0 | X | affiliation | noRestrictions |
+| $adminAuthToken | metadataRecordLink | personDomainPartLink | 0 | X | personDomainPart | noRestrictions |
 | $adminAuthToken | metadataGroup | personOtherAffiliationGroup | 0 | X | otherAffiliation | noRestrictions |
-| $adminAuthToken | metadataGroup | personIdentifiersLocalIdentifierGroup | 0 | X | localIdentifier | noRestrictions |
 | $adminAuthToken | metadataTextVariable | personORCIDValueTextVar | 0 | X | ORCID_ID | noRestrictions |
 | $adminAuthToken | metadataTextVariable | personVIAFValueTextVar | 0 | X | VIAF_ID | noRestrictions |
 | $adminAuthToken | metadataTextVariable | personLibrisValueTextVar | 0 | X | Libris_ID | noRestrictions |
@@ -145,7 +143,7 @@ Kontrollera barnen
 | $adminAuthToken | metadataTextVariable | tsCreatedTextVar | 1 | 1 | tsCreated | noRestrictions |
 | $adminAuthToken | metadataGroup | updatedGroup | 1 | X | updated | noRestrictions |
 | $adminAuthToken | metadataCollectionVariable | personPublicCollectionVar | 1 | 1 | public | noRestrictions |
-| $adminAuthToken | metadataCollectionVariable | domainCollectionVar | 1 | X | domain | noRestrictions |
+| $adminAuthToken | metadataCollectionVariable | domainCollectionVar | 0 | X | domain | noRestrictions |
 
 *!
 !***> Kontrollera updated 

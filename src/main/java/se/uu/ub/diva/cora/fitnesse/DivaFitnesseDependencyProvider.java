@@ -21,6 +21,8 @@ package se.uu.ub.diva.cora.fitnesse;
 import java.lang.reflect.Method;
 
 import se.uu.ub.cora.diva.mixedstorage.fedora.DivaFedoraConverterFactory;
+import se.uu.ub.cora.xmlutils.transformer.CoraTransformationFactory;
+import se.uu.ub.cora.xmlutils.transformer.XsltTransformationFactory;
 
 public class DivaFitnesseDependencyProvider {
 	private static DivaFedoraConverterFactory converterFactory;
@@ -32,12 +34,16 @@ public class DivaFitnesseDependencyProvider {
 
 	public static void setConverterFactoryClassName(String converterFactoryClassName) {
 		try {
-			Class<?>[] cArg = new Class[1];
+			Class<?>[] cArg = new Class[2];
 			cArg[0] = String.class;
+			cArg[1] = CoraTransformationFactory.class;
 			Method constructor = Class.forName(converterFactoryClassName)
-					.getMethod("usingFedoraURL", cArg);
+					.getMethod("usingFedoraURLAndTransformerFactory", cArg);
+
+			XsltTransformationFactory transformationFactory = new XsltTransformationFactory();
 			converterFactory = (DivaFedoraConverterFactory) constructor.invoke(null,
-					"someFakeUrlSinceItsNotUsedHereButCodeRefactoringIsNeededElsewhere");
+					"someFakeUrlSinceItsNotUsedHereButCodeRefactoringIsNeededElsewhere",
+					transformationFactory);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

@@ -24,6 +24,7 @@ import static org.testng.Assert.assertTrue;
 import org.testng.annotations.Test;
 
 import se.uu.ub.cora.diva.mixedstorage.fedora.DivaFedoraConverterFactoryImp;
+import se.uu.ub.cora.xmlutils.transformer.XsltTransformationFactory;
 
 public class DivaFitnesseDependencyProviderTest {
 	@Test
@@ -52,6 +53,8 @@ public class DivaFitnesseDependencyProviderTest {
 		assertTrue(converterFactory instanceof DivaFedoraConverterFactoryImp);
 		assertEquals(converterFactory.getFedoraURL(),
 				"someFakeUrlSinceItsNotUsedHereButCodeRefactoringIsNeededElsewhere");
+		assertTrue(
+				converterFactory.getCoraTransformerFactory() instanceof XsltTransformationFactory);
 	}
 
 }
