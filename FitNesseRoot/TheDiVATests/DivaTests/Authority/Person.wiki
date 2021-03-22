@@ -9,27 +9,7 @@ Data innehåller bland annat namn och kopplingar till organisationer.
 
 Personer läses och uppdateras i Fedora Commons från Classic.
 
-I DiVA powered by Cora är personer....
-
-	
-    * det går att lista söka läsa den minsta posten (ID och nån lokalID eller ORCID)
-
-	* Det ska inte gå att läsa raderade personposter
-    
-	* När personpost är publik 
-    	* Alla får läsa den och alla fält ska kunnas läsa
-    * När person är icke publik
-    	* Systemadmin, domänadmin får söka, lista och läsa.
-        * Guest får bara läsa authorisednamn, får inte lista och söka
-    
-    * Person som saknar domän 
-    	* systemadmin får lista söka och läsa
-        * domänadmin får lista söka
-        * guest söka och läsa
-    
-    * Guest får inte läsa lokalidentifikator, men alla får läsa affiliering till organisationer.
-    * Guest får aldring läsa födelseår, dödsår, e-postadress och lokalt ID
-    
+I DiVA powered by Cora är personer....    
 
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.RecordType
