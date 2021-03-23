@@ -5,6 +5,6 @@ Help: Compare an in memory stored record according to variables
 
 !| ChildComparerFixture |
 | children | testCheckContainWithValues? |
-| ${expectedCompareData} | ${expectedCompareResult} |
+| ${expectedUpdatedData} | ${expectedCompareResult} |
 
 *!

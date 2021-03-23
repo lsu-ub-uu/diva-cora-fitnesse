@@ -3,53 +3,65 @@ Test
 ---
 !contents -R2 -g -p -f -h
 !2 Läsa
-It should be possible to read a person from the REST API.
-
-!3 Roller
-!4 !-SystemAdmin-!
-
-	* Systemadmin ska kunna läsa 
-	
-    * det går att lista söka läsa den minsta posten (ID och nån lokalID eller ORCID)
-
-	* Det ska inte gå att läsa raderade personposter
-    
-	* När personpost är publik 
-    	* Alla får läsa den och alla fält ska kunnas läsa
-    * När person är icke publik
-    	* Systemadmin, domänadmin får söka, lista och läsa.
-        * Guest får bara läsa authorisednamn, får inte lista och söka
-    
-    * Person som saknar domän 
-    	* systemadmin får lista söka och läsa
-        * domänadmin får lista söka
-        * guest söka och läsa
-    
-!4 !-DomainAdmin-!
+Det skall gå att läsa personer via REST API:et och i svaret få med vilka rättigheter den inloggade användaren har både på post och delpostnivå.
+!style_red[Kontrollera actionLinks för personer, eftersom vi ännu inte implementerat stöd för att radera en personer, eller läsa incomingLinks från DiVA powered by Cora, så är dessa inte med.]
 
 
-!4 !-Guest-!
-	* Guest får inte läsa lokalidentifikator, men alla får läsa affiliering till organisationer.
-    * Guest får aldring läsa födelseår, dödsår, e-postadress och lokalt ID
+!***> Läs personer som divaEverything via den och se att fälten ÄR med i svaret
 
-!***> Read authority-person:106 as Json
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
 | $adminAuthToken | person | authority-person:106 | | OK |
 
-*!
-!***> Case 1
-!define currentAuthToken {$adminAuthToken}
 
+!define currentAuthToken {$adminAuthToken}
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.dataPerson106
+!define expectedCreateResult {CREATED}
+!define expectedAnswer {}
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action read_incoming_links is missing.}
+!define expectedPermissionResult {OK}
+
+!include -seamless .HelperPages.readCheck
+
+*!
+
+!3 Roller
+!4 !-SystemAdmin-!
+ * Systemadmin ska kunna läsa
+ * det går att lista söka läsa den minsta posten (ID och nån lokalID eller ORCID)
+   * Det ska inte gå att läsa raderade personposter
+ 
+ * När personpost är publik
+   * Alla får läsa den och alla fält ska kunnas läsa
+ * När person är icke publik
+   * Systemadmin, domänadmin får söka, lista och läsa.
+ * Guest får bara läsa authorisednamn, får inte lista och söka
+
+ * Person som saknar domän
+   * systemadmin får lista söka och läsa
+ * domänadmin får lista söka
+ * guest söka och läsa
+ 
+!***> Case 1
+
+!define currentAuthToken {$adminAuthToken}
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.dataPerson106
 !define expectedCreateResult {CREATED}
 !define expectedAnswer {}
 !define expectedCompareResult {OK}
 !define expectedActionResult {Action read_incoming_links is missing.}
 !define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
-
 !define expectedCompareData originalData
 #!include -seamless .HelperPages.readCheck
 
 *!
+
+!4 !-DomainAdmin-!
+!4 !-Guest-!
+ * Guest får inte läsa lokalidentifikator, men alla får läsa affiliering till organisationer.
+ * Guest får aldring läsa födelseår, dödsår, e-postadress och lokalt ID
+
+
+
