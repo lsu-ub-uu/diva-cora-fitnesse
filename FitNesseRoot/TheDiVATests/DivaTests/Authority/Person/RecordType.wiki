@@ -47,11 +47,22 @@ Det som står listat här är nameInData.
 
 !4 !-PersonDomainPart-!
  * personDomainPart(group)
+   * recordInfo (group, 1-1, '''noRestrictions''')
+     * id (textVar, 1-1, '''noRestrictions ''')
+     * type (link, 1-1, '''noRestrictions ''')
+     * createdBy (link, 1-1, '''noRestrictions ''')
+     * dataDivider (link, 1-1, '''noRestrictions ''')
+     * tsCreated (textVar, 1-1, '''noRestrictions ''')
+     * updated(group, 1-X, '''noRestrictions''')
+     * public (colVar, 1-1, '''noRestrictions ''')
+     * domain (domain, 1-1, '''write''')
    * identifier(textVar, 0-1, '''readWrite''')
    * affiliation(group, 0-X, '''noRestrictions''')
      * organisationLink (recordLink, 1-1, '''noRestrictions ''')
      * affiliationFromYear (textVar, 0-1, '''noRestrictions ''')
      * affiliationUntilYear (textVar, 0-1, '''noRestrictions ''')
+     
+   identifier och affiliation får inte båda vara 0.  
 
 !3 Test av recordType för person
 
@@ -355,6 +366,22 @@ Kontrollera barnen
 | $adminAuthToken | metadataGroup | personAffiliationGroup | 0 | X | affiliation | noRestrictions |
 
 
+Kontrollera recordInfo
+
+!| RecordEndpointFixture |
+| type | id | testReadRecordAndStoreJson? |
+| metadataGroup | recordInfoAutogneratedWithDomainNewGroup | |
+
+!|ChildComparerFixture|
+|expectedNumberOfChildren|testCheckNumberOfChildren?|
+|3|OK|
+
+!| MetadataLinkFixture |
+| authToken | linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? | getNameInData? | getRecordPartConstraint? |
+| $adminAuthToken | metadataRecordLink | dataDividerDivaLink | 1 | 1 | dataDivider | noRestrictions |
+| $adminAuthToken | metadataCollectionVariable | personPublicCollectionVar | 1 | 1 | public | noRestrictions |
+| $adminAuthToken | metadataCollectionVariable | domainCollectionVar | 1 | 1 | domain | noRestrictions |
+
 *!
 
 Läs topnivå metadatagruppen för en '''befintlig''' person, och kontrollera att den har rätt barn
@@ -379,6 +406,27 @@ Kontrollera barnen
 | $adminAuthToken | metadataTextVariable | personLocalValueTextVar | 0 | 1 | identifier | readWrite |
 | $adminAuthToken | metadataGroup | personAffiliationGroup | 0 | X | affiliation | noRestrictions |
 
+Kontrollera recordInfo
+
+!| RecordEndpointFixture |
+| type | id | testReadRecordAndStoreJson? |
+| metadataGroup | recordInfoWithDomainGroup | |
+
+!|ChildComparerFixture|
+|expectedNumberOfChildren|testCheckNumberOfChildren?|
+|8|OK|
+
+!| MetadataLinkFixture |
+| authToken | linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? | getNameInData? | getRecordPartConstraint? |
+| $adminAuthToken | metadataTextVariable | idTextVar | 1 | 1 | id | noRestrictions |
+| $adminAuthToken | metadataRecordLink | recordTypeLink | 1 | 1 | type | noRestrictions |
+| $adminAuthToken | metadataRecordLink | createdByLink | 1 | 1 | createdBy | noRestrictions |
+| $adminAuthToken | metadataRecordLink | dataDividerDivaLink | 1 | 1 | dataDivider | noRestrictions |
+| $adminAuthToken | metadataTextVariable | tsCreatedTextVar | 1 | 1 | tsCreated | noRestrictions |
+| $adminAuthToken | metadataGroup | updatedGroup | 1 | X | updated | noRestrictions |
+| $adminAuthToken | metadataCollectionVariable | personPublicCollectionVar | 1 | 1 | public | noRestrictions |
+| $adminAuthToken | metadataCollectionVariable | domainCollectionVar | 1 | 1 | domain | write |
+
 *!
 
 !***> Kontrollera affiliation
@@ -400,6 +448,8 @@ Kontrollera barnen
 | $adminAuthToken | metadataRecordLink | divaOrganisationLink | 1 | 1 | organisationLink | noRestrictions |
 | $adminAuthToken | metadataTextVariable | personAffiliationFromTextVar | 0 | 1 | affiliationFromYear | noRestrictions |
 | $adminAuthToken | metadataTextVariable | personAffiliationUntilTextVar | 0 | 1 | affiliationUntilYear | noRestrictions |
+
+*!
 
 *!
 
