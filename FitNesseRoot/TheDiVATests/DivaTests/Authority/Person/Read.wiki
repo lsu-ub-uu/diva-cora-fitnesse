@@ -6,52 +6,52 @@ Test
 Det skall gå att läsa personer via REST API:et och i svaret få med vilka rättigheter den inloggade användaren har både på post och delpostnivå.
 
 !style_red[Kontrollera actionLinks för personer, eftersom vi ännu inte implementerat stöd för att radera en personer, eller läsa incomingLinks från DiVA powered by Cora, så är dessa inte med.]
-!***> Läs personer som divaEverything via den och se att fälten ÄR med i svaret
+
+!***> Läs personer som divaEverything via den och se att fälten är med i svaret
+
+Personpost är byggt med en superpost (personpost) och en subpost (personDomainPart)
 
 !define currentAuthToken {$adminAuthToken}
 
 !***> Läs personpost
-!| RecordEndpointFixture |
-| authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | person | authority-person:106 | | OK |
-
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
 !define expectedCreateResult {CREATED}
 !define expectedAnswer {}
 !define expectedCompareResult {OK}
 !define expectedActionResult {Action read_incoming_links is missing.}
 !define expectedPermissionResult {Write permission domain is missing.}
+!define expectedExistFieldsResult {OK}
 !include -seamless .HelperPages.readCheck
+#!include -seamless .HelperPages.existsFieldsOnRecord
+
+
 *!
 !***> Läs personDomainPart
-
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Kth
 !define expectedCreateResult {CREATED}
 !define expectedAnswer {}
 !define expectedCompareResult {OK}
 !define expectedActionResult {Action read_incoming_links is missing.}
-!define expectedPermissionResult {OK}
+!define expectedPermissionResult {Write permission domain is missing. Write permission public is missing.}
 !include -seamless .HelperPages.readCheck
+
 *!
 !***> Läs personDomainPart
-!| RecordEndpointFixture |
-| authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | personDomainPart | authority-person:106:test | | OK |
-
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Test
 !define expectedCreateResult {CREATED}
 !define expectedAnswer {}
 !define expectedCompareResult {OK}
 !define expectedActionResult {Action read_incoming_links is missing.}
-!define expectedPermissionResult {OK}
+!define expectedPermissionResult {Write permission domain is missing. Write permission public is missing.}
 !include -seamless .HelperPages.readCheck
+
 *!
 *!
 
 
 Det ska gå att läsa alla mjöliga kombinationer av personpost som det går att skapa i Classic. Följande fall täcker alla varianter som vi kan forvänta oss att läsa från fedora
 
-OBS Två nya fall ska komma in i listan. authority 116, 117, 118
+OBS Två nya fall ska komma in i listan. authority 118
 
 
  * '''Fall 1:''' Det ska gå att läsa en personpost som är markerat som icke-publikt men som är fullt ifylld så att vi kan se att inget som inte ska komma ut kommer ut, ska det finnas minst en affiliering
@@ -64,6 +64,19 @@ OBS Två nya fall ska komma in i listan. authority 116, 117, 118
    * '''Fall 5.3:''' Det ska gå att läsa en personpost som är minimal skapat via klienten, bara lokalt ID  
  * '''Fall 6:''' Det ska gå att läsa en personpost som är så fel ur Cora-perspektiv vi kan tänka oss kan finnas i Classic. Den behöver inte gå att spara i Cora. (T.ex. ORCID som inte är ORCID, mejl som inte är mejl, URL som inte är URL, etc.)
  * '''Fall 7:''' Det ska inte gå att läsa en personpost som är *raderad*
+ * '''Fall 8:''' Det ska gå att läsa en personpost som har en lokal identifikator men inga affilierade organisationer
+ * '''Fall 9:''' Det ska gå att läsa en personpost som har ingen lokal identifikator men affilierade organisationer
+
+!***> Kvar att skriva in i olika fall
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | person | authority-person:118 | | OK |
+| $adminAuthToken | person | authority-person:119 | | OK |
+| $adminAuthToken | person | authority-person:120 | | OK |
+| $adminAuthToken | person | authority-person:121 | | OK |
+| $adminAuthToken | person | authority-person:122 | | OK |
+| $adminAuthToken | person | authority-person:123 | | OK |
+*!
 
 !***> '''Fall 1:'''
 !***> Läs personpost
@@ -82,16 +95,12 @@ OBS Två nya fall ska komma in i listan. authority 116, 117, 118
 
 *!
 !***> Läs personDomainPart
-!| RecordEndpointFixture |
-| authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | personDomainPart | authority-person:111:uu | | OK |
-
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart111Uu
 !define expectedCreateResult {CREATED}
 !define expectedAnswer {}
 !define expectedCompareResult {OK}
 !define expectedActionResult {Action read_incoming_links is missing.}
-!define expectedPermissionResult {OK}
+!define expectedPermissionResult {Write permission domain is missing. Write permission public is missing.}
 !include -seamless .HelperPages.readCheck
 
 *!
@@ -100,7 +109,18 @@ OBS Två nya fall ska komma in i listan. authority 116, 117, 118
 | authToken | type | id | testReadRecord? | getStatusType? |
 | $adminAuthToken | personDomainPart | authority-person:111:test | | OK |
 
-!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPartTest
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart111Test
+!define expectedCreateResult {CREATED}
+!define expectedAnswer {}
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission domain is missing. Write permission public is missing.}
+!include -seamless .HelperPages.readCheck
+*!
+*!
+!***> '''Fall 2:'''
+!***> Läs personpost
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson112
 !define expectedCreateResult {CREATED}
 !define expectedAnswer {}
 !define expectedCompareResult {OK}
@@ -109,48 +129,41 @@ OBS Två nya fall ska komma in i listan. authority 116, 117, 118
 !include -seamless .HelperPages.readCheck
 
 *!
-
-*!
-!***> '''Fall 2:'''
-!| RecordEndpointFixture |
-| authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | person | authority-person:112 | | OK |
-
-#!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson112
+!***> Läs personDomainPart
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart112Uu
 !define expectedCreateResult {CREATED}
 !define expectedAnswer {}
 !define expectedCompareResult {OK}
 !define expectedActionResult {Action read_incoming_links is missing.}
-!define expectedPermissionResult {OK}
-#!include -seamless .HelperPages.readCheck
-
+!define expectedPermissionResult {Write permission domain is missing. Write permission public is missing.}
+!include -seamless .HelperPages.readCheck
 *!
+*!
+
 !***> '''Fall 3:'''
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
 | $adminAuthToken | person | authority-person:110 | | OK |
 
-#!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson110
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson110
 !define expectedCreateResult {CREATED}
 !define expectedAnswer {}
 !define expectedCompareResult {OK}
 !define expectedActionResult {Action read_incoming_links is missing.}
-!define expectedPermissionResult {OK}
-#!include -seamless .HelperPages.readCheck
+!define expectedPermissionResult {Write permission domain is missing.}
+!include -seamless .HelperPages.readCheck
 *!
-!***> '''Fall 4:'''
-!| RecordEndpointFixture |
-| authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | person | authority-person:115 | | OK |
 
-#!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson115
+!***> '''Fall 4:'''
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson115
 !define expectedCreateResult {CREATED}
 !define expectedAnswer {}
 !define expectedCompareResult {OK}
 !define expectedActionResult {Action read_incoming_links is missing.}
-!define expectedPermissionResult {OK}
-#!include -seamless .HelperPages.readCheck
+!define expectedPermissionResult {Write permission domain is missing.}
+!include -seamless .HelperPages.readCheck
 *!
+****************************** '''Här är vi....'''
 !***> '''Fall 5.1:'''
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
@@ -161,7 +174,7 @@ OBS Två nya fall ska komma in i listan. authority 116, 117, 118
 !define expectedAnswer {}
 !define expectedCompareResult {OK}
 !define expectedActionResult {Action read_incoming_links is missing.}
-!define expectedPermissionResult {OK}
+!define expectedPermissionResult {Write permission domain is missing.}
 #!include -seamless .HelperPages.readCheck
 *!
 !***> '''Fall 5.2:'''
@@ -174,7 +187,7 @@ OBS Två nya fall ska komma in i listan. authority 116, 117, 118
 !define expectedAnswer {}
 !define expectedCompareResult {OK}
 !define expectedActionResult {Action read_incoming_links is missing.}
-!define expectedPermissionResult {OK}
+!define expectedPermissionResult {Write permission domain is missing.}
 #!include -seamless .HelperPages.readCheck
 *!
 !***> '''Fall 5.3:'''
@@ -187,7 +200,7 @@ OBS Två nya fall ska komma in i listan. authority 116, 117, 118
 !define expectedAnswer {}
 !define expectedCompareResult {OK}
 !define expectedActionResult {Action read_incoming_links is missing.}
-!define expectedPermissionResult {OK}
+!define expectedPermissionResult {Write permission domain is missing.}
 #!include -seamless .HelperPages.readCheck
 *!
 !***> '''Fall 6:'''
@@ -200,7 +213,7 @@ OBS Två nya fall ska komma in i listan. authority 116, 117, 118
 !define expectedAnswer {}
 !define expectedCompareResult {OK}
 !define expectedActionResult {Action read_incoming_links is missing.}
-!define expectedPermissionResult {OK}
+!define expectedPermissionResult {Write permission domain is missing.}
 #!include -seamless .HelperPages.readCheck
 *!
 !***> '''Fall 7:'''
@@ -213,15 +226,39 @@ OBS Två nya fall ska komma in i listan. authority 116, 117, 118
 !define expectedAnswer {}
 !define expectedCompareResult {OK}
 !define expectedActionResult {Action read_incoming_links is missing.}
-!define expectedPermissionResult {OK}
+!define expectedPermissionResult {Write permission domain is missing.}
 #!include -seamless .HelperPages.readCheck
 *!
 
+!***> '''Fall 8:'''
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
 | $adminAuthToken | person | authority-person:116 | | OK |
+
+#!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson116
+!define expectedCreateResult {CREATED}
+!define expectedAnswer {}
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission domain is missing.}
+#!include -seamless .HelperPages.readCheck
+*!
+
+!***> '''Fall 9:'''
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
 | $adminAuthToken | person | authority-person:117 | | OK |
-| $adminAuthToken | person | authority-person:118 | | OK |
+
+#!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson117
+!define expectedCreateResult {CREATED}
+!define expectedAnswer {}
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission domain is missing.}
+#!include -seamless .HelperPages.readCheck
+*!
+
+
 
 
 
@@ -241,6 +278,13 @@ OBS Två nya fall ska komma in i listan. authority 116, 117, 118
    * systemadmin får lista söka och läsa
  * domänadmin får lista söka
  * guest söka och läsa
+ 
+ 
+ Pippi personpost för UU och test domain
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | person | authority-person:118 | | OK |
+
 
 !4 !-SystemAdmin-!
 !define currentAuthToken {$systemAdminAuthToken}
