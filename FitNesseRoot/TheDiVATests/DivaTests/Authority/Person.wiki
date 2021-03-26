@@ -9,7 +9,7 @@ Data innehåller bland annat namn och kopplingar till organisationer.
 
 Personer läses och uppdateras i Fedora Commons från Classic.
 
-I DiVA powered by Cora är personer....
+I DiVA powered by Cora är personer....    
 
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.RecordType

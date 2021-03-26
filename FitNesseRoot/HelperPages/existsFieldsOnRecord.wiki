@@ -1,0 +1,10 @@
+---
+Help: Find out if the fields exists or not exist on an in memory stored record according to a list.
+---
+!***> Check if fiels exists for record data ${recordId}
+
+!| ChildComparerFixture |
+| children | testCheckContain? |
+| ${expectedExistFields} | ${expectedExistFieldsResult} |
+
+*!
