@@ -4,5 +4,5 @@ Help: Data for person recordType
 !***> Data for person recordType
 
 !define recordType {person}
-!define recordPermissions {!-{"read":["yearOfBirth","yearOfDeath","emailAddress"], "write":["domain","yearOfBirth","yearOfDeath","emailAddress","personDomainPart"]}-!}
+!define recordPermissions {!-{"read":["academicTitle","emailAddress","yearOfBirth","yearOfDeath","alternativeName","externalURL","otherAffiliation","ORCID_ID","VIAF_ID","Libris_ID","biographyEnglish","biographySwedish","personDomainPart"], "write":["domain","academicTitle","emailAddress","yearOfBirth","yearOfDeath","alternativeName","externalURL","otherAffiliation","ORCID_ID","VIAF_ID","Libris_ID","biographyEnglish","biographySwedish","personDomainPart"]}-!}
 *!
