@@ -1,0 +1,8 @@
+---
+Help: Data for person recordType
+---
+!***> Data for person recordType
+
+!define recordType {person}
+!define recordPermissions {!-{"read":["yearOfBirth","yearOfDeath","emailAddress"], "write":["domain","yearOfBirth","yearOfDeath","emailAddress","personDomainPart"]}-!}
+*!

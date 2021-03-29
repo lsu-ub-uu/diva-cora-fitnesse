@@ -1,0 +1,7 @@
+---
+Help: Data for personDomainPart recordType
+---
+!***> Data for personDomainPart recordType
+
+!define recordType {personDomainPart}
+!define recordPermissions {!-{"read":["identifier"], "write":["identifier","domain", "public"]}-!}

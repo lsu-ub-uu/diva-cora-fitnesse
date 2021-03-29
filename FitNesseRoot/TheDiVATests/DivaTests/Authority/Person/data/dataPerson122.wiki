@@ -3,9 +3,8 @@ Help: Data for person authority-person:122
 ---
 !***> Data for person authority-person:122
 
-!define recordType {person}
 !define recordId {authority-person:122}
-!define recordPermissions {!-{"read":["yearOfBirth","yearOfDeath","emailAddress"], "write":["domain","yearOfBirth","yearOfDeath","emailAddress","personDomainPart"]}-!}
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonRecordType
 
 #!define createData {!--!}
 !define expectedCreatedData {!-{"children":[{"children":[{"name":"id","value":"authority-person:122"},{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"person"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"http://localhost:8082/diva/rest/record/recordType/person","accept":"application/vnd.uub.record+json"}},"name":"type"},{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"rinst123"}],"name":"createdBy"},{"name":"tsCreated","value":"2021-03-25T10:24:54.743Z"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"http://localhost:8082/diva/rest/record/system/diva","accept":"application/vnd.uub.record+json"}},"name":"dataDivider"},{"name":"public","value":"yes"}],"name":"recordInfo"},{"repeatId":"0","children":[{"name":"givenName","value":"Betty"}],"name":"alternativeName"}],"name":"person"}-!}
