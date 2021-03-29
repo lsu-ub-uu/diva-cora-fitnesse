@@ -4,7 +4,7 @@ Help: Data for person authority-person:110
 !***> Data for person authority-person:110
 
 !define recordType {person}
-!define recordId {authority-person:111}
+!define recordId {authority-person:110}
 !define recordPermissions {!-{"read":["yearOfBirth","yearOfDeath","emailAddress"], "write":["domain","yearOfBirth","yearOfDeath","emailAddress","personDomainPart"]}-!}
 
 #!define createData {!--!}

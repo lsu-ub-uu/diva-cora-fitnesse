@@ -1,0 +1,27 @@
+---
+Help: Data for person authority-person:107
+---
+!***> Data for person authority-person:107
+
+!define recordType {person}
+!define recordId {authority-person:107}
+!define recordPermissions {!-{"read":["yearOfBirth","yearOfDeath","emailAddress"], "write":["domain","yearOfBirth","yearOfDeath","emailAddress","personDomainPart"]}-!}
+
+
+#!define createData {!--!}
+!define expectedCreatedData {!-{"children":[{"children":[{"name":"id","value":"authority-person:107"},{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"person"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"http://localhost:8082/diva/rest/record/recordType/person","accept":"application/vnd.uub.record+json"}},"name":"type"},{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"rinst123"}],"name":"createdBy"},{"name":"tsCreated","value":"2021-03-23T10:17:24.727Z"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"http://localhost:8082/diva/rest/record/system/diva","accept":"application/vnd.uub.record+json"}},"name":"dataDivider"},{"name":"public","value":"yes"}],"name":"recordInfo"}],"name":"person"}-!}
+
+#!define updateData {!--!}
+#!define expectedUpdatedData updateData
+
+#!define originalData {!--!}
+#!define expectedOriginalData originalData
+ 
+#!define searchId {testWorkoutExtendedSearch}
+#!define searchQueryData {!--!}
+
+# customUpdateData is a json string which can be filled with extra json using the variable customJsonPart
+#!define jsonPart customJsonPart
+#!define customJsonPart {}
+#!define customUpdateData {!--!}
+*!
