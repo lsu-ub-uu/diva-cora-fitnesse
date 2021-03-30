@@ -4,4 +4,4 @@ Help: Data for personDomainPart recordType
 !***> Data for personDomainPart recordType
 
 !define recordType {personDomainPart}
-!define recordPermissions {!-{"read":["identifier"], "write":["identifier","domain", "public"]}-!}
+!define recordPermissions {!-{"read":["createdBy","updated","public","domain","identifier"], "write":["id","type","createdBy","dataDivider","tsCreated","updated","public","domain","identifier"]}-!}
