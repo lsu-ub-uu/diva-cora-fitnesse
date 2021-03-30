@@ -44,7 +44,7 @@ Det ska gå att läsa alla mjöliga kombinationer av personpost som det går att
  * '''Fall 1:''' Det ska gå att läsa en personpost som är markerat som icke-publikt men som är fullt ifylld så att vi kan se att inget som inte ska komma ut kommer ut, ska det finnas minst en affiliering
  * '''Fall 2:''' Det ska gå att läsa en personpost som är markerat som publikt som är fullt ifylld, ska det finnas minst två personDomainParts med affilieringar
  * '''Fall 3:''' Det ska gå att läsa en personpost som är markerat som publikt men som inte har någon kopplat personDomainPart
- * '''Fall 4:''' Det ska gå att läsa en personpost som har bara det nödvändigaste ifylld ur Cora-perspektiv
+ * '''Fall 4:''' Det ska gå att läsa en personpost som har bara det nödvändigaste ifylld ur Cora-perspektiv. (public and authorisedName. Ingen domän definerad)
  * '''Fall 5:''' Det ska gå att läsa en personpost som bara har det nödvändigaste ifylld ur Classic-perspektiv.
    * '''Fall 5.1:''' Det ska gå att läsa en personpost som är minimal skapat via klienten, alla fält är tomma.
    * '''Fall 5.2:''' Det ska gå att läsa en personpost som är minimal skapat via klienten, bara ORCID 
@@ -280,8 +280,7 @@ Det ska gå att läsa alla mjöliga kombinationer av personpost som det går att
  * '''Fall 1:''' Det ska gå att läsa personposter se alla fält från alla domäner.
  * '''Fall 2:''' När personpost är icke publik det ska gå att läsa alla fält utan begränsningar. 
  * '''Fall 3:''' Det ska gå att läsa personposter som saknar domän.
- * '''Fall 4:''' Det ska gå inte att läsa raderade personposter
-
+# * '''Fall 4:''' Det ska inte gå att läsa raderade personposter
 
 !***> Fall 1
 !***> Det ska gå att läsa person med domän (KTH och Test)
@@ -356,6 +355,15 @@ Det ska gå att läsa alla mjöliga kombinationer av personpost som det går att
 !include -seamless .HelperPages.readCheck
 *!
 *!
+!***> Fall 3
+Personposten har ingen domän, men vi borde ärndå kunna se alla fält.
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson110
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
+!include -seamless .HelperPages.readCheck
+*!
+*!
 ****************************** '''Här är vi....'''
 !4 !-DomainAdmin-!
 !define currentAuthToken {$domainAdminUUAuthToken}
@@ -363,12 +371,13 @@ Det ska gå att läsa alla mjöliga kombinationer av personpost som det går att
  * '''Fall 1:''' Det ska gå att läsa personposter från alla domän och se alla fält.
  * '''Fall 2:''' Det ska gå att läsa personposter från alla domän och se alla fält som är icke publika.
  * '''Fall 3:''' Det ska gå att läsa personposter som saknar domän.
- * '''Fall 4:''' Det ska gå inte att läsa raderade personposter
+ * '''Fall 4:''' Det ska inte gå att läsa raderade personposter
 
 !4 !-Guest-!
 
  * '''Fall 1:''' Guest får inte läsa födelseår, dödsår, e-postadress och lokalt ID men den får läsa affiliering till organisationer.
  * '''Fall 2:''' Guest får bara läsa authorisedName om personpost är ickePublik 
+ * '''Fall 3:''' Det ska inte gå att läsa raderade personposter
 !define currentAuthToken {$guestToken}
 
 !***> Fall 1
