@@ -439,7 +439,6 @@ Personposten har ingen domän, men vi borde ärndå kunna se alla fält.
 !define currentAuthToken {$guestToken}
  * '''Fall 1:''' Guest får inte läsa födelseår, dödsår, e-postadress och lokalt ID men den får läsa affiliering till organisationer.
  * '''Fall 2:''' Guest får bara läsa authorisedName om personpost är ickePublik 
- * '''Fall 3:''' Det ska inte gå att läsa raderade personposter
 
 !***> Fall 1
 Guest får läsa från alla domän däremot får inte se födelseår, dödsår, e-postadress och lokalt ID men den får läsa affiliering till organisationer
@@ -472,18 +471,18 @@ Det finns lokalid i den här personDomainPart men vi får inte läsa den.
 !***> Läs personpost
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson111
 !define expectedCompareResult {Child with nameInData createdBy and type group is missing. Child with nameInData updated and type group and repeatId 0 is missing. Child with nameInData public and type atomic is missing. Child with nameInData domain and type atomic and repeatId 0 is missing. Child with nameInData domain and type atomic and repeatId 1 is missing. Child with nameInData academicTitle and type atomic is missing. Child with nameInData yearOfBirth and type atomic is missing. Child with nameInData yearOfDeath and type atomic is missing. Child with nameInData emailAddress and type atomic is missing. Child with nameInData alternativeName and type group and repeatId 0 is missing. Child with nameInData externalURL and type group and repeatId 0 is missing. Child with nameInData externalURL and type group and repeatId 1 is missing. Child with nameInData otherAffiliation and type group and repeatId 0 is missing. Child with nameInData ORCID_ID and type atomic and repeatId 0 is missing. Child with nameInData VIAF_ID and type atomic and repeatId 0 is missing. Child with nameInData Libris_ID and type atomic and repeatId 0 is missing. Child with nameInData biographyEnglish and type group is missing. Child with nameInData biographySwedish and type group is missing. Child with nameInData personDomainPart and type group and repeatId 0 is missing. Child with nameInData personDomainPart and type group and repeatId 1 is missing.}
-!define expectedActionResult {Action update is missing. Action delete is missing. Action index is missing. Action read_incoming_links is missing.}Action delete is missing. Action read_incoming_links is missing.}
+!define expectedActionResult {Action update is missing. Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
 !define expectedPermissionResult {Read permission createdBy is missing. Read permission updated is missing. Read permission public is missing. Read permission domain is missing. Read permission academicTitle is missing. Read permission emailAddress is missing. Read permission yearOfBirth is missing. Read permission yearOfDeath is missing. Read permission alternativeName is missing. Read permission externalURL is missing. Read permission otherAffiliation is missing. Read permission ORCID_ID is missing. Read permission VIAF_ID is missing. Read permission Libris_ID is missing. Read permission biographyEnglish is missing. Read permission biographySwedish is missing. Read permission personDomainPart is missing. Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission public is missing. Write permission domain is missing. Write permission academicTitle is missing. Write permission emailAddress is missing. Write permission yearOfBirth is missing. Write permission yearOfDeath is missing. Write permission alternativeName is missing. Write permission externalURL is missing. Write permission otherAffiliation is missing. Write permission ORCID_ID is missing. Write permission VIAF_ID is missing. Write permission Libris_ID is missing. Write permission biographyEnglish is missing. Write permission biographySwedish is missing. Write permission personDomainPart is missing.}
 !include -seamless .HelperPages.readCheck
 *!
 !***> Läs personDomainPart
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | personDomainPart | authority-person:111:uu | | FORBIDDEN |
+| $guestToken | personDomainPart | authority-person:111:uu | | FORBIDDEN |
 *!
 !***> Läs personDomainPart
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | personDomainPart | authority-person:111:test | | FORBIDDEN |
+| $guestToken | personDomainPart | authority-person:111:test | | FORBIDDEN |
 *!
 *!
