@@ -54,7 +54,7 @@ Det ska gå att läsa alla mjöliga kombinationer av personpost som det går att
    * '''Fall 5.7:''' Det ska gå att läsa en personpost som är minimal skapat via klienten, bara alternative first name
    * '''Fall 5.8:''' Det ska gå att läsa en personpost som är minimal skapat via klienten, bara email
  * '''Fall 6:''' Det ska gå att läsa en personpost som är så fel ur Cora-perspektiv vi kan tänka oss kan finnas i Classic. Den behöver inte gå att spara i Cora. (T.ex. ORCID som inte är ORCID, mejl som inte är mejl, URL som inte är URL, etc.)
- * '''Fall 7:''' Det ska inte gå att läsa en personpost som är '''raderad''' !style_red[OBS INTE IMPLEMENTERAD ÄNNU]
+ * '''Fall 7:''' Det ska inte gå att läsa en personpost som är '''raderad''' !style_red[OBS Raderade personposter filtreras bort vid inläsningen från Fedora]
  * '''Fall 8:''' Det ska gå att läsa en personpost som har en lokal identifikator men inga affilierade organisationer
  * '''Fall 9:''' Det ska gå att läsa en personpost som har ingen lokal identifikator men affilierade organisationer
  
@@ -207,18 +207,14 @@ Det ska gå att läsa alla mjöliga kombinationer av personpost som det går att
 *!
 !***> '''Fall 7:'''
 !***> Läs personpost
-!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson113
-!define expectedCompareResult {FORBIDDEN}
-!define expectedActionResult {Action read_incoming_links is missing.}
-!define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
-!include -seamless .HelperPages.readCheck
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | person | authority-person:113 | | NOT_FOUND |
 *!
 !***> Läs personDomainPart
-!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart113Test
-!define expectedCompareResult {OK}
-!define expectedActionResult {Action read_incoming_links is missing.}
-!define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
-!include -seamless .HelperPages.readCheck
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | personDomainPart | authority-person:113:test | | NOT_FOUND |
 *!
 *!
 !***> '''Fall 8:'''
