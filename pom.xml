@@ -33,7 +33,7 @@
 	<properties>
 		<logger.version>2.2.0</logger.version>
 		<coralog4j.version>2.2.0</coralog4j.version>
-		<json.version>2.2.0</json.version>
+		<json.version>2.3-SNAPSHOT</json.version>
 		<httphandler.version>2.2.0</httphandler.version>
 		<fitnesseintegration.version>3.2-SNAPSHOT</fitnesseintegration.version>
 		<divamixedstorage.version>4.4.0</divamixedstorage.version>
@@ -74,7 +74,7 @@
 			<groupId>se.uu.ub.cora</groupId>
 			<artifactId>json</artifactId>
 			<version>${json.version}</version>
-			<scope>compile</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>se.uu.ub.cora</groupId>

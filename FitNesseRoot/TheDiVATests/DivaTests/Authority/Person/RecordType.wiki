@@ -445,7 +445,7 @@ Kontrollera barnen
 
 *!
 *!
-!3 Roller !style_red[OBS! ej aktiva än]
+!3 Roller
 Notera att rättigheterna som kontrolleras i det här avsnittet gäller, vilka rättigheter man har på postTypen inte enstaka poster. Rättigheterna för enstaka poster kontrolleras under de olika testerna för rättigheter så som read, update, etc.
 
 !4 !-SystemAdmin-!
