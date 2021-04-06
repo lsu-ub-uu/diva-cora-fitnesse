@@ -31,11 +31,11 @@
 	<name>DiVA Cora Fitnesse</name>
 
 	<properties>
-		<logger.version>2.2.0</logger.version>
+		<logger.version>2.3-SNAPSHOT</logger.version>
 		<coralog4j.version>2.2.0</coralog4j.version>
 		<json.version>2.3-SNAPSHOT</json.version>
 		<httphandler.version>2.2.0</httphandler.version>
-		<fitnesseintegration.version>3.1.0</fitnesseintegration.version>
+		<fitnesseintegration.version>3.2-SNAPSHOT</fitnesseintegration.version>
 		<divamixedstorage.version>4.4.0</divamixedstorage.version>
 		<javax.ws.rs.version>2.1.1</javax.ws.rs.version>
 		<coradata.version>3.8.0</coradata.version>
