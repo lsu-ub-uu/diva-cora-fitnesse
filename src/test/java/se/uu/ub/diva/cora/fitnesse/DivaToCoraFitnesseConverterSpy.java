@@ -1,5 +1,7 @@
 package se.uu.ub.diva.cora.fitnesse;
 
+import java.util.Map;
+
 import se.uu.ub.cora.data.DataGroup;
 import se.uu.ub.cora.diva.mixedstorage.fedora.DivaFedoraToCoraConverter;
 
@@ -11,6 +13,12 @@ public class DivaToCoraFitnesseConverterSpy implements DivaFedoraToCoraConverter
 	public DataGroup fromXML(String xml) {
 		this.xml = xml;
 		return new DataGroupSpy("DataGroupReturnedFromSpy");
+	}
+
+	@Override
+	public DataGroup fromXMLWithParameters(String xml, Map<String, Object> parameters) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
