@@ -1,0 +1,58 @@
+---
+Test
+---
+!2 Indexera
+
+ * '''Fall1:''' !-Det ska gå att indexera alla personer.-!
+ * '''Fall2:''' !-Det ska inte gå att indexera personer som är '''raderade'''.-!
+
+!***>  '''Fall1'''
+!define currentAuthToken {$adminAuthToken}
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson112
+!define expectedResult {CREATED}
+!include -seamless .HelperPages.indexRecordTypeWithId
+*!
+!***>  '''Fall2'''
+!define currentAuthToken {$adminAuthToken}
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson113
+!define expectedResult {NOT_FOUND}
+!include -seamless .HelperPages.indexRecordTypeWithId
+*!
+
+
+!3 Roller
+!4 !-SystemAdmin-!
+
+ * '''Fall1:''' !-SystemAdmin ska kunna indexera personer.-!
+
+!***>  '''Fall1'''
+!define currentAuthToken {$systemAdminAuthToken}
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson112
+!define expectedResult {CREATED}
+!include -seamless .HelperPages.indexRecordTypeWithId
+*!
+
+!4 !-DomainAdmin-!
+ * '''Fall1:''' !-DomainAdmin får inte indexera organisationer.-!
+
+!***>  '''Fall1'''
+!define currentAuthToken {$domainAdminAuthToken}
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson112
+!define expectedResult {UNAUTHORIZED}
+!include -seamless .HelperPages.indexRecordTypeWithId
+*!
+
+!4 !-Guest-!
+ * '''Fall1:''' !-Guest får inte indexera organisationer.-!
+
+!***>  '''Fall1'''
+!define currentAuthToken {$guestAuthToken}
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson112
+!define expectedResult {UNAUTHORIZED}
+!include -seamless .HelperPages.indexRecordTypeWithId
+*!

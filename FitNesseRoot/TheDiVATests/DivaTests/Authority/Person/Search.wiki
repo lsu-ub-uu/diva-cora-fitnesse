@@ -1,157 +1,216 @@
 ---
 Test
 ---
-!contents -R2 -g -p -f -h
-!1 Sök efter person
-!4 
-!4 Person går att söka på med hjälp av ** (tom söksträng)
-!***> Indexerar person
+!1 Sök
+Det skall gå att söka personer via REST API:et.
+ 
+!***> !-SetUp (Indexerar personer)-!
 
-!| RecordEndpointFixture |
-| authToken | type | json | testCreateRecord? | getStatusType? | getCreatedId? |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"person"}]},{"name":"recordId","value":"authority-person:60566"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
-
+!define currentAuthToken {$adminAuthToken}
+!define recordType {person}
+!define expectedResult {CREATED}
+!define recordId {authority-person:106}
+!include -seamless .HelperPages.indexRecordTypeWithId
+!define recordId {authority-person:107}
+!include -seamless .HelperPages.indexRecordTypeWithId
+!define recordId {authority-person:108}
+!include -seamless .HelperPages.indexRecordTypeWithId
+!define recordId {authority-person:109}
+!include -seamless .HelperPages.indexRecordTypeWithId
+!define recordId {authority-person:110}
+!include -seamless .HelperPages.indexRecordTypeWithId
+!define recordId {authority-person:111}
+!include -seamless .HelperPages.indexRecordTypeWithId
+!define recordId {authority-person:112}
+!include -seamless .HelperPages.indexRecordTypeWithId
+!define recordId {authority-person:114}
+!include -seamless .HelperPages.indexRecordTypeWithId
+!define recordId {authority-person:115}
+!include -seamless .HelperPages.indexRecordTypeWithId
+!define recordId {authority-person:116}
+!include -seamless .HelperPages.indexRecordTypeWithId
+!define recordId {authority-person:117}
+!include -seamless .HelperPages.indexRecordTypeWithId
+!define recordId {authority-person:118}
+!include -seamless .HelperPages.indexRecordTypeWithId
+!define recordId {authority-person:119}
+!include -seamless .HelperPages.indexRecordTypeWithId
+!define recordId {authority-person:120}
+!include -seamless .HelperPages.indexRecordTypeWithId
+!define recordId {authority-person:121}
+!include -seamless .HelperPages.indexRecordTypeWithId
+!define recordId {authority-person:122}
+!include -seamless .HelperPages.indexRecordTypeWithId
+!define recordId {authority-person:123}
+!include -seamless .HelperPages.indexRecordTypeWithId
+!define recordId {authority-person:124}
+!include -seamless .HelperPages.indexRecordTypeWithId
 *!
-!***> Test sök person med bara domän AVSTÄNGT
+!***> Sök person som divaEverything. Kontrollerar att vi kan söka person.
 
-Domänsök för person finns inte ännu men bör skapas
+!define currentAuthToken {$adminAuthToken}
 
-!| comment |
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
+!include -seamless .HelperPages.searchRecord
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
+!include -seamless .HelperPages.checkOriginal
+*!
+!style_orange[Vilka test fall behöver vi?]
+OBS: Just nu sökfunktionen bara hittar ord inte delar av ett ord. Om man vill söka delar av ord bör man ha * i slutet av sökordet.
+
+ * '''Fall 1:''' Det ska gå att söka i personsid, personsnamn, personsnummer  med hjälp av ** (tom söksträng) !style_red[AVSTÄNGT]
+ * '''Fall 2:''' Det ska gå att söka med bara en domän !style_red[AVSTÄNGT]
+ * '''Fall 3:''' Det ska gå att söka med bara en eller flera personsid !style_red[AVSTÄNGT]
+ * '''Fall 4:''' Det ska gå att söka med bara personsnamn !style_red[AVSTÄNGT]
+ * '''Fall 5:''' Det ska gå att söka med bara personstyp !style_red[AVSTÄNGT]
+ * '''Fall 6:''' Det ska gå att söka med personsnamn även när tecken å, ä eller ö finns i namnet !style_red[AVSTÄNGT]
+ * '''Fall 7:''' Det ska gå att söka i kombination av flera fält (domän, personsnamn, personsid, personstyp och personsnummer) !style_red[AVSTÄNGT]
+
+!***> '''Fall 1'''
+
+!-Vi söker id med **-!
+
+!|comment|
 | RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicPersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"XXXSearchTerm","value":"vti"}]}]}]} | =~/"name":"id","value":"1350"/ | OK |
-| $adminAuthToken | publicPersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"XXXSearchTerm","value":"test"}]}]}]} | =~/"name":"id","value":"50".*"name":"id","value":"51"/ | OK |
-| $adminAuthToken | publicPersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"XXXSearchTerm","value":"nrm"}]}]}]} | =~/"name":"id","value":"1400"/ | OK |
+| $adminAuthToken | publicpersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"personIdSearchTerm","value":"**"}]}]}]} | | OK |
 
-*!
-!***> Test sök person med bara namn (AVSTÄNGT)
+!-Vi söker personsnamn med **-!
 
-!| comment |
+!|comment|
 | RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicPersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"personNameSearchTerm","value":"**"}]}]}]} | | OK |
-| $adminAuthToken | publicPersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"personNameSearchTerm","value":"Testsson"}]}]}]} | =~/"name":"id","value":"authority-person:60566"/ | OK |
-| $adminAuthToken | publicPersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"personNameSearchTerm","value":"ingenPersonSomHarDetHärNamnet"}]}]}]} | =~/"totalNo":"0"/ | OK |
+| $adminAuthToken | publicpersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divapersonNameSearchTerm","value":"**"}]}]}]} | | OK |
 
 *!
-!***> Test sök person först med bara namn, sen med både namn och domän AVSTÄNGT
+!***> '''Fall 2'''
 
-Domänsök för person finns inte ännu men bör skapas
+Vi söker person med domän VTI och sen söker UU domän
 
-!| comment |
+!|comment|
 | RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicPersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"personNameSearchTerm","value":"Uppsala*"}]}]}]} | =~/"name":"id","value":"50".*"name":"id","value":"1750"/ | OK |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"personNameSearchTerm","value":"Uppsala*"},{"name":"XXXXDomainSearchTerm","value":"uu"}]}]}]} | =~/"name":"id","value":"1750"/ | OK |
+| $adminAuthToken | publicpersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divapersonDomainSearchTerm","value":"kth"}]}]}]} | =~/"name":"id","value":"1456"/ | OK |
+| $adminAuthToken | publicpersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divapersonDomainSearchTerm","value":"uu"}]}]}]} | =~/"name":"id","value":"1750".*"name":"id","value":"1748"/ | OK |
 
-*!
-!***> Test sök person med bara id
+Det går inte flera domän samtidigt
 
-!| RecordEndpointFixture |
-| authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicPersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"personIdSearchTerm","value":"authority-person:60566"}]}]}]} | =~/"name":"id","value":"authority-person:60566"/ | OK |
-
-*!
-!***> Test sök person med bara ORCID
-
-!| Comment |
+!|comment|
 | RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicPersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"personIdSearchTerm","value":"0000-1111-2222-3333"}]}]}]} | =~/"name":"id","value":"person:7693868718030160"/ | OK |
+| $adminAuthToken | publicpersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divapersonDomainSearchTerm","value":"kth uu"}]}]}]} | Data is not valid: [Data value:kth uu NOT found in collection:domain] | BAD_REQUEST |
 
 *!
-!***> Test sök person med bara organisations (AVSTÄNGT)
+!***> '''Fall 3'''
 
-Organisationsök för person finns inte ännu men bör skapas
+!-Först söker efter ett ID: 1750, sen söker vi efter två olika ID: 1750 och 1751-!
 
-!| comment |
+!|comment|
 | RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicPersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"XXXXSearchTerm","value":"university"}]}]}]} | =~/"name":"id","value":"1750"/ | OK |
+| $adminAuthToken | publicpersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"1750"}]}]}]} | =~/"name":"id","value":"1750"/ | OK |
+| $adminAuthToken | publicpersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"1750 1751"}]}]}]} | =~/"totalNo":"2"/ | OK |
 
 *!
-!***> Skapa en person som vi sedan ska söka efter (AVSTÄNGT)
+!***> '''Fall 4'''
 
-!| comment |
-| RecordEndpointFixture |
-| authToken | type | json | testCreateRecord? | getStatusType? | getCreatedId? |
-| $adminAuthToken | person | {"name":"authorityPerson","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"public","value":"yes"},{"name":"authorizedName","children":[{"name":"familyName","value":"Testsson"},{"name":"givenName","value":"Testur"}]},{"name":"identifiers","children":[{"name":"ORCID","children":[{"name":"ORCIDValue","value":"0000-4444-2222-3333"}]}]},{"name":"biography","children":[{"name":"personBiography","value":"This is a very interesting"},{"name":"language","value":"eng"}],"repeatId":"1"}]} | | CREATED | $createdId= |
+!-Vi söker två ord "Stockholms person" som borde hitta ett person, sen "ingenpersonSomHarDetHärNamnet" som borde inte hitta nån och till slut "Stockholms ingenpersonSomHarDetHärNamnet" som borde hitta också ett person-!
 
-*!
-!***> Test sök person med fritext (AVSTÄNGT)
-
-!| comment |
+!|comment|
 | RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicPersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"personGeneralSearchTerm","value":"interesting"}]}]}]} | =~/$createdId/ | OK |
+| $adminAuthToken | publicpersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divapersonNameSearchTerm","value":"Kungliga Tekniska Högskolan"}]}]}]} | =~/"name":"id","value":"1751"/ | OK |
+| $adminAuthToken | publicpersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divapersonNameSearchTerm","value":"ingenpersonSomHarDetHärNamnet"}]}]}]} | =~/"totalNo":"0"/ | OK |
+| $adminAuthToken | publicpersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divapersonNameSearchTerm","value":"Kungliga ingenpersonSomHarDetHärNamnet"}]}]}]} | =~/"name":"id","value":"1751"/ | OK |
 
 *!
-!4 Person går att söka på med hjälp av autosök
-!***> Test sök med "autosök" söksträng (AVSTÄNGT)
+!***> '''Fall 5'''
 
-!| comment |
+!-Vi söker ett universitetstyp som borde ge oss vara ett träff-!
+
+!|comment|
 | RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicPersonSearch | | | OK |
+| $adminAuthToken | publicpersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrgTypeSearchTerm","value":"university"}]}]}]} | =~/"name":"id","value":"1750"/ | OK |
 
-*!
-!4 Person söks med autocomplete i registreringsformuläret
-!***> Test sök i regformulär med "autocomplete" (AVSTÄNGT)
+!-Det skall inte gå att söka flera typ samtidigt-!
 
-!| comment |
-| Sökstöd autocomplete vid registrering av fält som är baserade på listval [[CORA-1013][https://jira.epc.ub.uu.se/browse/CORA-1013]] Listvalen |
+!|comment|
 | RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOPersonSearch | !-
--! | | OK |
+| $adminAuthToken | publicpersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrgTypeSearchTerm","value":"university museum"}]}]}]} | Data is not valid: [Data value:university museum NOT found in collection:divapersonOrgType] | BAD_REQUEST |
 
 *!
-!***> Uppdatera person XXX med nytt ORCID AVSTÄNGT
+!***> '''Fall 6'''
 
-!| comment |
-| RecordEndpointFixture |
-| authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | divaOrganisation | 1750 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1750"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Uppsala universitet"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"Uppsala University"},{"name":"language","value":"en"}]},{"name":"domain","value":"uu"},{"name":"URL","value":"http://uu.se"},{"name":"organisationType","value":"university"},{"name":"organisationNumber","value":"202100-2222"},{"name":"eligible","value":"yes"},{"name":"showInDefence","value":"yes"},{"name":"topLevel","value":"no"},{"name":"showInPortal","value":"yes"},{"name":"rootOrganisation","value":"no"}]} | | OK |
+!-Vi kollar att det går att söka med å, ä och ö.-!
 
-*!
-!4 Person kan sökas även när tecken å, ä eller ö finns i namnet
-!***> Test sök med å, ä eller ö i söksträng
-
-!| RecordEndpointFixture |
-| authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicPersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"personNameSearchTerm","value":"*å*"}]}]}]} | | OK |
-
-*!
-!4 Person kan ha alternativt namn
-!***> Indexerar person som inte har något alternativt namn
-
-!| RecordEndpointFixture |
-| authToken | type | json | testCreateRecord? | getStatusType? | getCreatedId? |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"person"}]},{"name":"recordId","value":"authority-person:60566"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
-
-*!
-!***> Test sök efter person utan alternativt namn, för att se att sökningen fungerar (AVSTÄNGT)
-
-!| comment |
+!|comment|
 | RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicPersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"personNameSearchTerm","value":"Person som saknar alternativt namn"}]}]}]} | =~/"name":"id","value":"XXX"/ | OK |
+| $adminAuthToken | publicpersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divapersonNameSearchTerm","value":"*å*"}]}]}]} | | OK |
+| $adminAuthToken | publicpersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divapersonNameSearchTerm","value":"*ä*"}]}]}]} | | OK |
+| $adminAuthToken | publicpersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divapersonNameSearchTerm","value":"*ö*"}]}]}]} | | OK |
 
 *!
-!***> Återställ uppdaterat data AVSTÄNGT
+!***> '''Fall 7'''
 
-!| comment |
+!-Vi gör tre sök. Den första med personsnamn och domän, den andra med id och typ och den tredje med personsnamn, domän, id, och typ-!
+
+!|comment|
 | RecordEndpointFixture |
-| authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | divaOrganisation | 1750 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1750"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Uppsala universitet"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"Uppsala University"},{"name":"language","value":"en"}]},{"name":"domain","value":"uu"},{"name":"URL","value":"http://uu.se"},{"name":"organisationType","value":"university"},{"name":"organisationNumber","value":"1111-2222"},{"name":"eligible","value":"yes"},{"name":"showInDefence","value":"yes"},{"name":"topLevel","value":"no"},{"name":"showInPortal","value":"yes"},{"name":"rootOrganisation","value":"no"}]} | | OK |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | publicpersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divapersonNameSearchTerm","value":"Uppsala*"},{"name":"divapersonDomainSearchTerm","value":"uu"}]}]}]} | =~/"name":"id","value":"1750"/ | OK |
+| $adminAuthToken | publicpersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"1750"},{"name":"divaOrgTypeSearchTerm","value":"university"}]}]}]} | =~/"name":"id","value":"1750"/ | OK |
+| $adminAuthToken | publicpersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divapersonNameSearchTerm","value":"Uppsala*"},{"name":"divapersonDomainSearchTerm","value":"uu"},{"name":"recordIdSearchTerm","value":"1750"},{"name":"divaOrgTypeSearchTerm","value":"university"}]}]}]} | =~/"name":"id","value":"1750"/ | OK |
 
 *!
-!2 Ta bort skapat data
-!***> Ta bort person
+!3 Roller
+!4 !-SystemAdmin-!
+!define currentAuthToken {$systemAdminAuthToken}
+!-Systemadmin får söka och läsa alla begränsade fält.-!
 
-!| comment |
-| RecordEndpointFixture |
-| authToken | type | id | testDeleteRecord? | getStatusType? |
-| $adminAuthToken | person | $createdId | | OK |
+ * '''Fall 1:''' !-SystemAdmin ska kunna söka en person.-!
+ 
+!***> '''Fall 1:'''
 
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
+!include -seamless .HelperPages.searchRecord
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action update is missing. Action delete is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission public is missing. Write permission domain is missing. Write permission academicTitle is missing. Write permission emailAddress is missing. Write permission yearOfBirth is missing. Write permission yearOfDeath is missing. Write permission alternativeName is missing. Write permission externalURL is missing. Write permission otherAffiliation is missing. Write permission ORCID_ID is missing. Write permission VIAF_ID is missing. Write permission Libris_ID is missing. Write permission biographyEnglish is missing. Write permission biographySwedish is missing. Write permission personDomainPart is missing.}
+!include -seamless .HelperPages.checkOriginal
+*!
+
+!4 !-DomainAdmin-!
+!define currentAuthToken {$domainAdminUUAuthToken}
+!-DomainAdmin får söka och läsa alla begränsade fält från sin egna och andras domäner.-!
+
+ * '''Fall 1:''' !-DomainAdmin ska kunna söka en person.-!
+ 
+!***> '''Fall 1:'''
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
+!include -seamless .HelperPages.searchRecord
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action update is missing. Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission public is missing. Write permission domain is missing. Write permission academicTitle is missing. Write permission emailAddress is missing. Write permission yearOfBirth is missing. Write permission yearOfDeath is missing. Write permission alternativeName is missing. Write permission externalURL is missing. Write permission otherAffiliation is missing. Write permission ORCID_ID is missing. Write permission VIAF_ID is missing. Write permission Libris_ID is missing. Write permission biographyEnglish is missing. Write permission biographySwedish is missing. Write permission personDomainPart is missing.}
+!include -seamless .HelperPages.checkOriginal
+*!
+!4 Guest
+!define currentAuthToken {$guestToken}
+!-Guest får söka men inte läsa begränsade fälten i person oavsett domän.-!
+
+ * '''Fall 1:''' Guest ska kunna söka och läsa en person, oavsett vilken domän den är knuten till.
+
+!***> '''Fall 1:'''
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
+!include -seamless .HelperPages.searchRecord
+!define expectedCompareResult {Child with nameInData createdBy and type group is missing. Did not find a match for child with nameInData yearOfBirth and value 1918. Did not find a match for child with nameInData yearOfDeath and value 2021. Did not find a match for child with nameInData emailAddress and value pippi.langstrump@villekulla.se.}
+!define expectedActionResult {Action update is missing. Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Read permission createdBy is missing. Read permission updated is missing. Read permission emailAddress is missing. Read permission yearOfBirth is missing. Read permission yearOfDeath is missing. Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission public is missing. Write permission domain is missing. Write permission academicTitle is missing. Write permission emailAddress is missing. Write permission yearOfBirth is missing. Write permission yearOfDeath is missing. Write permission alternativeName is missing. Write permission externalURL is missing. Write permission otherAffiliation is missing. Write permission ORCID_ID is missing. Write permission VIAF_ID is missing. Write permission Libris_ID is missing. Write permission biographyEnglish is missing. Write permission biographySwedish is missing. Write permission personDomainPart is missing.}
+!include -seamless .HelperPages.checkOriginal
 *!

@@ -18,10 +18,10 @@ Help: Data for person authority-person:106
 #!define expectedUpdatedData updateData
 
 #!define originalData {!--!}
-#!define expectedOriginalData originalData
+!define expectedOriginalData expectedCreatedData
  
-#!define searchId {testWorkoutExtendedSearch}
-#!define searchQueryData {!--!}
+!define searchId {publicPersonSearch}
+!define searchQueryData {!-{"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"personIdSearchTerm","value":"authority-person:106"}]}]}]}-!}
 
 # customUpdateData is a json string which can be filled with extra json using the variable customJsonPart
 #!define jsonPart customJsonPart

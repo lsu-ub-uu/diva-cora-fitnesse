@@ -65,7 +65,7 @@ Det som står listat här är nameInData.
 
    identifier och affiliation får inte båda vara 0.
 
-!3 Test av recordType för person
+!3 !-RecordType-!
 !***> Person
 
 !***> Läs posttyp Person

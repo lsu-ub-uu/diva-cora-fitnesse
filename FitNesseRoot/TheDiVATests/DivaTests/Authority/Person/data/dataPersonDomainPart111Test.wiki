@@ -1,5 +1,7 @@
 ---
-Help: Data for personDomainPart authority-person:111:test
+Help: Data for personDomainPart !-authority-person:111:test-!
+Static
+Test: no
 ---
 !***> Data for personDomainPart authority-person:111:test
 
