@@ -14,6 +14,7 @@ Help: Data for person authority-person:112
 
 #!define originalData {!--!}
 #!define expectedOriginalData originalData
+!define expectedOriginalData expectedCreatedData
  
 #!define searchId {testWorkoutExtendedSearch}
 #!define searchQueryData {!--!}

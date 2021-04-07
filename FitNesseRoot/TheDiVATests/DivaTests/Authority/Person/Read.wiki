@@ -54,7 +54,7 @@ Det ska gå att läsa en personpost som:
    * '''Fall 5.6:''' minimal, bara alternative last name
    * '''Fall 5.7:''' minimal, bara alternative first name
    * '''Fall 5.8:''' minimal, bara email
- * '''Fall 6:''' är så fel ur Cora-perspektiv vi kan tänka oss kan finnas i Classic. Den behöver inte gå att spara i Cora. (T.ex. ORCID som inte är ORCID, mejl som inte är mejl, URL som inte är URL, etc.)
+ * '''Fall 6:''' !style_red[AVSTÄNGT,för att biografi innehåller många formateringar etc. som just nu är lite oklart hur vi skall hantera] är så fel ur Cora-perspektiv vi kan tänka oss kan finnas i Classic. Den behöver inte gå att spara i Cora. (T.ex. ORCID som inte är ORCID, mejl som inte är mejl, URL som inte är URL, etc.) 
  * '''Fall 7:''' Det ska INTE gå att läsa en personpost som är '''raderad''' !style_orange[OBS Raderade personposter filtreras bort vid inläsningen från Fedora]
  * '''Fall 8:''' har en lokal identifikator men som saknar affilierade organisationer
  * '''Fall 9:''' saknar lokala identifikator men som har affilierade organisationer
@@ -265,23 +265,35 @@ Det ska gå att läsa en personpost som:
 !***> Läs personpost
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
 !define expectedCompareResult {OK}
-!define expectedActionResult { Action delete is missing. Action read_incoming_links is missing.}
-!define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
+#!define expectedActionResult { Action delete is missing. Action read_incoming_links is missing.}
+#!define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
+
+!define expectedActionResult { Action update is missing. Action delete is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission public is missing. Write permission domain is missing. Write permission academicTitle is missing. Write permission emailAddress is missing. Write permission yearOfBirth is missing. Write permission yearOfDeath is missing. Write permission alternativeName is missing. Write permission externalURL is missing. Write permission otherAffiliation is missing. Write permission ORCID_ID is missing. Write permission VIAF_ID is missing. Write permission Libris_ID is missing. Write permission biographyEnglish is missing. Write permission biographySwedish is missing. Write permission personDomainPart is missing.}
+
 !define expectedCompareData originalData
 !include -seamless .HelperPages.readCheck
 *!
 !***> Läs personDomainPart
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Kth
 !define expectedCompareResult {OK}
-!define expectedActionResult { Action delete is missing. Action read_incoming_links is missing.}
-!define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
+#!define expectedActionResult { Action delete is missing. Action read_incoming_links is missing.}
+#!define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
+
+!define expectedActionResult { Action update is missing. Action delete is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission public is missing. Write permission domain is missing. Write permission identifier is missing.}
+
 !include -seamless .HelperPages.readCheck
 *!
 !***> Läs personDomainPart
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Test
 !define expectedCompareResult {OK}
-!define expectedActionResult { Action delete is missing. Action read_incoming_links is missing.}
-!define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
+#!define expectedActionResult {Action delete is missing. Action read_incoming_links is missing.}
+#!define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
+
+!define expectedActionResult {Action update is missing. Action delete is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission public is missing. Write permission domain is missing. Write permission identifier is missing.}
+
 !include -seamless .HelperPages.readCheck
 *!
 *!
@@ -289,23 +301,35 @@ Det ska gå att läsa en personpost som:
 !***> Läs personDomainPart
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson118
 !define expectedCompareResult {OK}
-!define expectedActionResult { Action delete is missing. Action read_incoming_links is missing.}
-!define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
+#!define expectedActionResult { Action delete is missing. Action read_incoming_links is missing.}
+#!define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
+
+!define expectedActionResult {Action update is missing. Action delete is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission public is missing. Write permission domain is missing. Write permission academicTitle is missing. Write permission emailAddress is missing. Write permission yearOfBirth is missing. Write permission yearOfDeath is missing. Write permission alternativeName is missing. Write permission externalURL is missing. Write permission otherAffiliation is missing. Write permission ORCID_ID is missing. Write permission VIAF_ID is missing. Write permission Libris_ID is missing. Write permission biographyEnglish is missing. Write permission biographySwedish is missing. Write permission personDomainPart is missing.}
+
 !define expectedCompareData originalData
 !include -seamless .HelperPages.readCheck
 *!
 !***> Läs personDomainPart
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart118Uu
 !define expectedCompareResult {OK}
-!define expectedActionResult { Action delete is missing. Action read_incoming_links is missing.}
-!define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
+#!define expectedActionResult { Action delete is missing. Action read_incoming_links is missing.}
+#!define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
+
+!define expectedActionResult {Action update is missing. Action delete is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission public is missing. Write permission domain is missing. Write permission identifier is missing.}
+
 !include -seamless .HelperPages.readCheck
 *!
 !***> Läs personDomainPart
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart118Test
 !define expectedCompareResult {OK}
-!define expectedActionResult { Action delete is missing. Action read_incoming_links is missing.}
-!define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
+#!define expectedActionResult { Action delete is missing. Action read_incoming_links is missing.}
+#!define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
+
+!define expectedActionResult {Action update is missing. Action delete is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission public is missing. Write permission domain is missing. Write permission identifier is missing.}
+
 !include -seamless .HelperPages.readCheck
 *!
 *!
@@ -314,22 +338,34 @@ Det ska gå att läsa en personpost som:
 !***> Läs personpost
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson111
 !define expectedCompareResult {OK}
-!define expectedActionResult { Action delete is missing. Action read_incoming_links is missing.}
-!define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
+#!define expectedActionResult { Action delete is missing. Action read_incoming_links is missing.}
+#!define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
+
+!define expectedActionResult {Action update is missing. Action delete is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission public is missing. Write permission domain is missing. Write permission academicTitle is missing. Write permission emailAddress is missing. Write permission yearOfBirth is missing. Write permission yearOfDeath is missing. Write permission alternativeName is missing. Write permission externalURL is missing. Write permission otherAffiliation is missing. Write permission ORCID_ID is missing. Write permission VIAF_ID is missing. Write permission Libris_ID is missing. Write permission biographyEnglish is missing. Write permission biographySwedish is missing. Write permission personDomainPart is missing.}
+
 !include -seamless .HelperPages.readCheck
 *!
 !***> Läs personDomainPart
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart111Uu
 !define expectedCompareResult {OK}
-!define expectedActionResult { Action delete is missing. Action read_incoming_links is missing.}
-!define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
+#!define expectedActionResult { Action delete is missing. Action read_incoming_links is missing.}
+#!define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
+
+!define expectedActionResult {Action update is missing. Action delete is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission public is missing. Write permission domain is missing. Write permission identifier is missing.}
+
 !include -seamless .HelperPages.readCheck
 *!
 !***> Läs personDomainPart
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart111Test
 !define expectedCompareResult {OK}
-!define expectedActionResult { Action delete is missing. Action read_incoming_links is missing.}
-!define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
+#!define expectedActionResult { Action delete is missing. Action read_incoming_links is missing.}
+#!define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
+
+!define expectedActionResult {Action update is missing. Action delete is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission public is missing. Write permission domain is missing. Write permission identifier is missing.}
+
 !include -seamless .HelperPages.readCheck
 *!
 *!
@@ -337,8 +373,13 @@ Det ska gå att läsa en personpost som:
 Personposten har ingen domän, men vi borde ärndå kunna se alla fält. 
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson110
 !define expectedCompareResult {OK}
-!define expectedActionResult { Action delete is missing. Action read_incoming_links is missing.}
-!define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
+#!define expectedActionResult { Action delete is missing. Action read_incoming_links is missing.}
+#!define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
+
+!define expectedActionResult {Action update is missing. Action delete is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission public is missing. Write permission domain is missing. Write permission academicTitle is missing. Write permission emailAddress is missing. Write permission yearOfBirth is missing. Write permission yearOfDeath is missing. Write permission alternativeName is missing. Write permission externalURL is missing. Write permission otherAffiliation is missing. Write permission ORCID_ID is missing. Write permission VIAF_ID is missing. Write permission Libris_ID is missing. Write permission biographyEnglish is missing. Write permission biographySwedish is missing. Write permission personDomainPart is missing.}
+
+
 !include -seamless .HelperPages.readCheck
 *!
 !4 !-DomainAdmin-!
@@ -354,23 +395,36 @@ En domänAdmin användare för UU får läsa en personpost som är från UU dom�
 !***> Läs personDomainPart
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson118
 !define expectedCompareResult {OK}
-!define expectedActionResult {Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
-!define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
+#!define expectedActionResult {Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
+#!define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
+
+!define expectedActionResult {Action update is missing. Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission public is missing. Write permission domain is missing. Write permission academicTitle is missing. Write permission emailAddress is missing. Write permission yearOfBirth is missing. Write permission yearOfDeath is missing. Write permission alternativeName is missing. Write permission externalURL is missing. Write permission otherAffiliation is missing. Write permission ORCID_ID is missing. Write permission VIAF_ID is missing. Write permission Libris_ID is missing. Write permission biographyEnglish is missing. Write permission biographySwedish is missing. Write permission personDomainPart is missing.}
+
+
 !define expectedCompareData originalData
 !include -seamless .HelperPages.readCheck
 *!
 !***> Läs personDomainPart
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart118Uu
 !define expectedCompareResult {OK}
-!define expectedActionResult {Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
-!define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
+#!define expectedActionResult {Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
+#!define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
+
+!define expectedActionResult {Action update is missing. Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission public is missing. Write permission domain is missing. Write permission identifier is missing.}
+
 !include -seamless .HelperPages.readCheck
 *!
 !***> Läs personDomainPart
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart118Test
 !define expectedCompareResult {OK}
-!define expectedActionResult {Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
-!define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
+#!define expectedActionResult {Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
+#!define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
+
+!define expectedActionResult {Action update is missing. Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission public is missing. Write permission domain is missing. Write permission identifier is missing.}
+
 !include -seamless .HelperPages.readCheck
 *!
 *!
@@ -379,23 +433,36 @@ En domänAdmin användare för UU får läsa en personpost som är från nån an
 !***> Läs personpost
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
 !define expectedCompareResult {OK}
-!define expectedActionResult {Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
-!define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
+#!define expectedActionResult {Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
+#!define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
+
+!define expectedActionResult {Action update is missing. Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission public is missing. Write permission domain is missing. Write permission academicTitle is missing. Write permission emailAddress is missing. Write permission yearOfBirth is missing. Write permission yearOfDeath is missing. Write permission alternativeName is missing. Write permission externalURL is missing. Write permission otherAffiliation is missing. Write permission ORCID_ID is missing. Write permission VIAF_ID is missing. Write permission Libris_ID is missing. Write permission biographyEnglish is missing. Write permission biographySwedish is missing. Write permission personDomainPart is missing.}
+
+
 !define expectedCompareData originalData
 !include -seamless .HelperPages.readCheck
 *!
 !***> Läs personDomainPart
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Kth
 !define expectedCompareResult {OK}
-!define expectedActionResult {Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
-!define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
+#!define expectedActionResult {Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
+#!define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
+
+!define expectedActionResult {Action update is missing. Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission public is missing. Write permission domain is missing. Write permission identifier is missing.}
+
 !include -seamless .HelperPages.readCheck
 *!
 !***> Läs personDomainPart
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Test
 !define expectedCompareResult {OK}
-!define expectedActionResult {Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
-!define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
+#!define expectedActionResult {Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
+#!define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
+
+!define expectedActionResult {Action update is missing. Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission public is missing. Write permission domain is missing. Write permission identifier is missing.}
+
 !include -seamless .HelperPages.readCheck
 *!
 *!
@@ -404,22 +471,34 @@ En domänAdmin användare för UU får läsa en personpost som är från nån an
 !***> Läs personpost
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson111
 !define expectedCompareResult {OK}
-!define expectedActionResult {Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
-!define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
+#!define expectedActionResult {Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
+#!define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
+
+!define expectedActionResult {Action update is missing. Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission public is missing. Write permission domain is missing. Write permission academicTitle is missing. Write permission emailAddress is missing. Write permission yearOfBirth is missing. Write permission yearOfDeath is missing. Write permission alternativeName is missing. Write permission externalURL is missing. Write permission otherAffiliation is missing. Write permission ORCID_ID is missing. Write permission VIAF_ID is missing. Write permission Libris_ID is missing. Write permission biographyEnglish is missing. Write permission biographySwedish is missing. Write permission personDomainPart is missing.}
+
 !include -seamless .HelperPages.readCheck
 *!
 !***> Läs personDomainPart
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart111Uu
 !define expectedCompareResult {OK}
-!define expectedActionResult {Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
-!define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
+#!define expectedActionResult {Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
+#!define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
+
+!define expectedActionResult {Action update is missing. Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission public is missing. Write permission domain is missing. Write permission identifier is missing.}
+
 !include -seamless .HelperPages.readCheck
 *!
 !***> Läs personDomainPart
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart111Test
 !define expectedCompareResult {OK}
-!define expectedActionResult {Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
-!define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
+#!define expectedActionResult {Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
+#!define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
+
+!define expectedActionResult {Action update is missing. Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission public is missing. Write permission domain is missing. Write permission identifier is missing.}
+
 !include -seamless .HelperPages.readCheck
 *!
 *!
@@ -427,8 +506,12 @@ En domänAdmin användare för UU får läsa en personpost som är från nån an
 Personposten har ingen domän, men vi borde ärndå kunna se alla fält. 
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson110
 !define expectedCompareResult {OK}
-!define expectedActionResult {Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
-!define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
+#!define expectedActionResult {Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
+#!define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
+
+!define expectedActionResult {Action update is missing. Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission public is missing. Write permission domain is missing. Write permission academicTitle is missing. Write permission emailAddress is missing. Write permission yearOfBirth is missing. Write permission yearOfDeath is missing. Write permission alternativeName is missing. Write permission externalURL is missing. Write permission otherAffiliation is missing. Write permission ORCID_ID is missing. Write permission VIAF_ID is missing. Write permission Libris_ID is missing. Write permission biographyEnglish is missing. Write permission biographySwedish is missing. Write permission personDomainPart is missing.}
+
 !include -seamless .HelperPages.readCheck
 *!
 !4 !-Guest-!

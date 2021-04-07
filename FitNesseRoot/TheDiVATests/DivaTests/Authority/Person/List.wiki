@@ -1,0 +1,112 @@
+---
+Help: Lista
+Test
+---
+!2 Lista
+Det skall gå att lista personer via REST API:et.
+ * '''Fall1:''' !-Det ska gå att lista person-!
+ * '''Fall2:''' !-Det ska gå att lista personDomainPart-!
+ * '''Fall3:''' !-Det ska inte gå att lista raderade person-!
+ * '''Fall4:''' !-Det ska inte gå att lista raderade personDomainPart-!
+ * '''Fall5:''' !-Lista personer och kontrollera att olika exempelposter är med i listan-!
+ 
+!define currentAuthToken {$adminAuthToken}
+
+!***>  '''Fall1'''
+Lista personer inloggad som divaEverything användare.
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson112
+!define expectedListResult {=~/^(?=.*"name":"linkedRecordId","value":"person").*$/}
+!include -seamless .HelperPages.listStoreRecord
+
+Säkerställ att den sparade datan överensstämmer med originaldatan.
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
+!include -seamless .HelperPages.checkOriginal
+*!
+!***>  '''Fall2''' !style_red[AVSTÄNGT, ännu inte implementerat listning av personDomainPart]
+Lista personerDomainPart inloggad som divaEverything användare.
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart112Uu
+!define expectedListResult {=~/^(?=.*"name":"linkedRecordId","value":"personDomainPart").*$/}
+#!include -seamless .HelperPages.listStoreRecord
+
+Säkerställ att den sparade datan överensstämmer med originaldatan.
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
+#!include -seamless .HelperPages.checkOriginal
+*!
+!***>  '''Fall3'''
+Lista personer inloggad som divaEverything användare, och kontrollera att den i Fedora borttagna posten (113) inte är med i listan.
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson113
+!define expectedListResult {=~/^(?=.*"name":"recordId","value":"authority-person:112")(?!.*"name":"recordId","value":"authority-person:113").*$/}
+!include -seamless .HelperPages.listStoreRecord
+*!
+!***>  '''Fall4''' !style_red[AVSTÄNGT, ännu inte implementerat listning av personDomainPart]
+Lista personer inloggad som divaEverything användare, och kontrollera att den i Fedora borttagna posten (113) inte är med i listan.
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart113Test
+!define expectedListResult {=~/^(?=.*"name":"recordId","value":"authority-person:112")(?!.*"name":"recordId","value":"authority-person:113").*$/}
+#!include -seamless .HelperPages.listStoreRecord
+*!
+!***>  '''Fall5'''
+Lista personer inloggad som divaEverything användare, och kontrollera att olika exempelposter är med i listan.
+!define recordType {person}
+!define expectedListResult {=~/^(?=.*"authority-person:106")(?=.*"authority-person:107")(?=.*"authority-person:108")(?=.*"authority-person:109")(?=.*"authority-person:110")(?=.*"authority-person:111")(?=.*"authority-person:112")(?!.*"name":"recordId","value":"authority-person:113")(?=.*"authority-person:114")(?=.*"authority-person:115")(?=.*"authority-person:116")(?=.*"authority-person:117")(?=.*"authority-person:118")(?=.*"authority-person:119")(?=.*"authority-person:120")(?=.*"authority-person:121")(?=.*"authority-person:122")(?=.*"authority-person:123")(?=.*"authority-person:124").*$/}
+!include -seamless .HelperPages.listStoreRecord
+*!
+
+!3 Roller
+!4 !-SystemAdmin-!
+ * '''Fall1:''' !-SystemAdmin ska kunna lista personer-!
+ * '''Fall2:''' !-SystemAdmin ska kunna lista personeDomainPart-!
+
+!define currentAuthToken {$systemAdminAuthToken}
+ 
+!***>  '''Fall1'''
+Lista personer inloggad som systemAdmin användare.
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson112
+!define expectedListResult {=~/^(?=.*"name":"linkedRecordId","value":"person").*$/}
+!include -seamless .HelperPages.listStoreRecord
+
+Säkerställ att den sparade datan överensstämmer med originaldatan.
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action update is missing. Action delete is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission public is missing. Write permission domain is missing. Write permission academicTitle is missing. Write permission emailAddress is missing. Write permission yearOfBirth is missing. Write permission yearOfDeath is missing. Write permission alternativeName is missing. Write permission externalURL is missing. Write permission otherAffiliation is missing. Write permission ORCID_ID is missing. Write permission VIAF_ID is missing. Write permission Libris_ID is missing. Write permission biographyEnglish is missing. Write permission biographySwedish is missing. Write permission personDomainPart is missing.}
+!include -seamless .HelperPages.checkOriginal
+*!
+!***>  '''Fall2''' !style_red[AVSTÄNGT, ännu inte implementerat listning av personDomainPart]
+Lista personerDomainPart inloggad som systemAdmin användare.
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart112Uu
+!define expectedListResult {=~/^(?=.*"name":"linkedRecordId","value":"personDomainPart").*$/}
+#!include -seamless .HelperPages.listStoreRecord
+
+Säkerställ att den sparade datan överensstämmer med originaldatan.
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
+#!include -seamless .HelperPages.checkOriginal
+*!
+
+
+!4 !-DomainAdmin-!
+ * '''Fall1:''' !-DomainAdmin ska inte kunna lista personer-!
+
+!***> '''Fall1'''
+
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $domainAdminUUAuthToken | person | | FORBIDDEN |
+| $domainAdminUUAuthToken | personDomainPart | | FORBIDDEN |
+
+*!
+!4 Guest
+ * '''Fall1:''' Guest ska inte kunna lista personer
+
+!***> '''Fall1'''
+
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $guestToken | person | | FORBIDDEN |
+| $guestToken | personDomainPart | | FORBIDDEN |
+
+*!
