@@ -60,113 +60,59 @@ Det skall gå att söka personer via REST API:et.
 !style_orange[Vilka test fall behöver vi?]
 OBS: Just nu sökfunktionen bara hittar ord inte delar av ett ord. Om man vill söka delar av ord bör man ha * i slutet av sökordet.
 
- * '''Fall 1:''' Det ska gå att söka i personsid, personsnamn, personsnummer  med hjälp av ** (tom söksträng) !style_red[AVSTÄNGT]
- * '''Fall 2:''' Det ska gå att söka med bara en domän !style_red[AVSTÄNGT]
- * '''Fall 3:''' Det ska gå att söka med bara en eller flera personsid !style_red[AVSTÄNGT]
- * '''Fall 4:''' Det ska gå att söka med bara personsnamn !style_red[AVSTÄNGT]
- * '''Fall 5:''' Det ska gå att söka med bara personstyp !style_red[AVSTÄNGT]
- * '''Fall 6:''' Det ska gå att söka med personsnamn även när tecken å, ä eller ö finns i namnet !style_red[AVSTÄNGT]
- * '''Fall 7:''' Det ska gå att söka i kombination av flera fält (domän, personsnamn, personsid, personstyp och personsnummer) !style_red[AVSTÄNGT]
+ * '''Fall 1:''' Det ska gå att söka i fritextsök. 
+  * '''Fall 1a:''' Det ska gå att söka med hjälp av * (tom söksträng). !style_red[Ej testad] !style_red[OBS!! Bör träffa postId också.]
+  * '''Fall 1b:''' Det ska gå att söka med förnamn !style_red[Ej testad]
+  * '''Fall 1b:''' Det ska gå att söka med del av förnamn !style_red[Ej testad]
+  * '''Fall 1c:''' Det ska gå att söka med efternamn !style_red[Ej testad]
+  * '''Fall 1d:''' Det ska gå att söka med alternativt förnamn !style_red[Ej testad]
+  * '''Fall 1e:''' Det ska gå att söka med alternativt efternamn !style_red[Ej testad]
+  * '''Fall 1f:''' Det ska gå att söka med identifikator postid !style_red[Ej testad]
+  * '''Fall 1g:''' Det ska gå att söka med identifikator ORCID !style_red[Ej testad]
+  * '''Fall 1h:''' Det ska gå att söka med identifikator VIAF !style_red[Ej testad]
+  * '''Fall 1i:''' Det ska gå att söka med identifikator Libris-ID !style_red[Ej testad]
+  * '''Fall 1j:''' Det ska gå att söka med annan organisation namn !style_red[Ej testad]
+  * '''Fall 1k:''' Det ska gå att söka med annan biografi svenska !style_red[Ej testad]
+  * '''Fall 1l:''' Det ska gå att söka med annan biografi engelska !style_red[Ej testad]
+ * '''Fall 2:''' Det ska gå att söka i Personnamn
+  * '''Fall 2a:''' Det ska gå att söka med hjälp av * (tom söksträng)  !style_red[Ej testad]
+  * '''Fall 2b:''' Det ska gå att söka med förnamn  !style_red[Ej testad]
+  * '''Fall 2c:''' Det ska gå att söka med efternamn  !style_red[Ej testad]
+  * '''Fall 2d:''' Det ska gå att söka med alternativt förnamn !style_red[Ej testad]
+  * '''Fall 2e:''' Det ska gå att söka med alternativt efternamn !style_red[Ej testad]
+ * '''Fall 3:''' Det ska gå att söka i Identifikatorer
+  * '''Fall 3a:''' Det ska gå att söka med hjälp av * (tom söksträng)  !style_red[Ej testad]
+  * '''Fall 3b:''' Det ska gå att söka med ORCID id !style_red[Ej testad]
+  * '''Fall 3c:''' Det ska gå att söka med VIAF id !style_red[Ej testad]
+  * '''Fall 3d:''' Det ska gå att söka med Libris id !style_red[Ej testad]
+ * '''Fall 4:''' Det ska gå att söka i Lokalt id !style_red[AVSTÄNGT] 
+ * '''Fall 5:''' Det ska gå att söka i Organisation !style_red[AVSTÄNGT] 
+ 
 
-!***> '''Fall 1'''
+!***> '''Fall 1a'''
+!-Vi söker id med *-!
 
-!-Vi söker id med **-!
-
-!|comment|
-| RecordEndpointFixture |
+!| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicpersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"personIdSearchTerm","value":"**"}]}]}]} | | OK |
-
-!-Vi söker personsnamn med **-!
-
-!|comment|
-| RecordEndpointFixture |
-| authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicpersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divapersonNameSearchTerm","value":"**"}]}]}]} | | OK |
-
+| $adminAuthToken | publicPersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"personGeneralSearchTerm","value":"*"}]}]}]} |  | OK |
 *!
-!***> '''Fall 2'''
-
-Vi söker person med domän VTI och sen söker UU domän
-
-!|comment|
-| RecordEndpointFixture |
-| authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicpersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divapersonDomainSearchTerm","value":"kth"}]}]}]} | =~/"name":"id","value":"1456"/ | OK |
-| $adminAuthToken | publicpersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divapersonDomainSearchTerm","value":"uu"}]}]}]} | =~/"name":"id","value":"1750".*"name":"id","value":"1748"/ | OK |
-
-Det går inte flera domän samtidigt
+!***> '''Fall 1b'''
+!-Vi söker id med *-!
 
 !|comment|
 | RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicpersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divapersonDomainSearchTerm","value":"kth uu"}]}]}]} | Data is not valid: [Data value:kth uu NOT found in collection:domain] | BAD_REQUEST |
-
+| $adminAuthToken | publicpersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"personGeneralSearchTerm","value":"Anders"}]}]}]} | | OK |
 *!
-!***> '''Fall 3'''
-
-!-Först söker efter ett ID: 1750, sen söker vi efter två olika ID: 1750 och 1751-!
+!***> '''Fall 1c'''
+!-Vi söker id med *-!
 
 !|comment|
 | RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicpersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"1750"}]}]}]} | =~/"name":"id","value":"1750"/ | OK |
-| $adminAuthToken | publicpersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"1750 1751"}]}]}]} | =~/"totalNo":"2"/ | OK |
-
+| $adminAuthToken | publicpersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"personGeneralSearchTerm","value":"Celsius"}]}]}]} | | OK |
 *!
-!***> '''Fall 4'''
 
-!-Vi söker två ord "Stockholms person" som borde hitta ett person, sen "ingenpersonSomHarDetHärNamnet" som borde inte hitta nån och till slut "Stockholms ingenpersonSomHarDetHärNamnet" som borde hitta också ett person-!
-
-!|comment|
-| RecordEndpointFixture |
-| authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicpersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divapersonNameSearchTerm","value":"Kungliga Tekniska Högskolan"}]}]}]} | =~/"name":"id","value":"1751"/ | OK |
-| $adminAuthToken | publicpersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divapersonNameSearchTerm","value":"ingenpersonSomHarDetHärNamnet"}]}]}]} | =~/"totalNo":"0"/ | OK |
-| $adminAuthToken | publicpersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divapersonNameSearchTerm","value":"Kungliga ingenpersonSomHarDetHärNamnet"}]}]}]} | =~/"name":"id","value":"1751"/ | OK |
-
-*!
-!***> '''Fall 5'''
-
-!-Vi söker ett universitetstyp som borde ge oss vara ett träff-!
-
-!|comment|
-| RecordEndpointFixture |
-| authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicpersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrgTypeSearchTerm","value":"university"}]}]}]} | =~/"name":"id","value":"1750"/ | OK |
-
-!-Det skall inte gå att söka flera typ samtidigt-!
-
-!|comment|
-| RecordEndpointFixture |
-| authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicpersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrgTypeSearchTerm","value":"university museum"}]}]}]} | Data is not valid: [Data value:university museum NOT found in collection:divapersonOrgType] | BAD_REQUEST |
-
-*!
-!***> '''Fall 6'''
-
-!-Vi kollar att det går att söka med å, ä och ö.-!
-
-!|comment|
-| RecordEndpointFixture |
-| authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicpersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divapersonNameSearchTerm","value":"*å*"}]}]}]} | | OK |
-| $adminAuthToken | publicpersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divapersonNameSearchTerm","value":"*ä*"}]}]}]} | | OK |
-| $adminAuthToken | publicpersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divapersonNameSearchTerm","value":"*ö*"}]}]}]} | | OK |
-
-*!
-!***> '''Fall 7'''
-
-!-Vi gör tre sök. Den första med personsnamn och domän, den andra med id och typ och den tredje med personsnamn, domän, id, och typ-!
-
-!|comment|
-| RecordEndpointFixture |
-| authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicpersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divapersonNameSearchTerm","value":"Uppsala*"},{"name":"divapersonDomainSearchTerm","value":"uu"}]}]}]} | =~/"name":"id","value":"1750"/ | OK |
-| $adminAuthToken | publicpersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"1750"},{"name":"divaOrgTypeSearchTerm","value":"university"}]}]}]} | =~/"name":"id","value":"1750"/ | OK |
-| $adminAuthToken | publicpersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divapersonNameSearchTerm","value":"Uppsala*"},{"name":"divapersonDomainSearchTerm","value":"uu"},{"name":"recordIdSearchTerm","value":"1750"},{"name":"divaOrgTypeSearchTerm","value":"university"}]}]}]} | =~/"name":"id","value":"1750"/ | OK |
-
-*!
 !3 Roller
 !4 !-SystemAdmin-!
 !define currentAuthToken {$systemAdminAuthToken}
