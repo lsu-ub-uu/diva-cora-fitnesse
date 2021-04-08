@@ -24,17 +24,17 @@ Säkerställ att den sparade datan överensstämmer med originaldatan.
 !define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
 !include -seamless .HelperPages.checkOriginal
 *!
-!***>  '''Fall2''' !style_red[AVSTÄNGT, ännu inte implementerat listning av personDomainPart]
+!***>  '''Fall2'''
 Lista personerDomainPart inloggad som divaEverything användare.
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart112Uu
 !define expectedListResult {=~/^(?=.*"name":"linkedRecordId","value":"personDomainPart").*$/}
-#!include -seamless .HelperPages.listStoreRecord
+!include -seamless .HelperPages.listStoreRecord
 
 Säkerställ att den sparade datan överensstämmer med originaldatan.
 !define expectedCompareResult {OK}
 !define expectedActionResult {Action read_incoming_links is missing.}
-!define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
-#!include -seamless .HelperPages.checkOriginal
+!define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
+!include -seamless .HelperPages.checkOriginal
 *!
 !***>  '''Fall3'''
 Lista personer inloggad som divaEverything användare, och kontrollera att den i Fedora borttagna posten (113) inte är med i listan.
@@ -42,11 +42,11 @@ Lista personer inloggad som divaEverything användare, och kontrollera att den i
 !define expectedListResult {=~/^(?=.*"name":"recordId","value":"authority-person:112")(?!.*"name":"recordId","value":"authority-person:113").*$/}
 !include -seamless .HelperPages.listStoreRecord
 *!
-!***>  '''Fall4''' !style_red[AVSTÄNGT, ännu inte implementerat listning av personDomainPart]
+!***>  '''Fall4'''
 Lista personer inloggad som divaEverything användare, och kontrollera att den i Fedora borttagna posten (113) inte är med i listan.
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart113Test
-!define expectedListResult {=~/^(?=.*"name":"recordId","value":"authority-person:112")(?!.*"name":"recordId","value":"authority-person:113").*$/}
-#!include -seamless .HelperPages.listStoreRecord
+!define expectedListResult {=~/^(?=.*"name":"recordId","value":"authority-person:112:uu")(?!.*"name":"recordId","value":"authority-person:113:test").*$/}
+!include -seamless .HelperPages.listStoreRecord
 *!
 !***>  '''Fall5'''
 Lista personer inloggad som divaEverything användare, och kontrollera att olika exempelposter är med i listan.
@@ -74,19 +74,18 @@ Säkerställ att den sparade datan överensstämmer med originaldatan.
 !define expectedPermissionResult {Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission public is missing. Write permission domain is missing. Write permission academicTitle is missing. Write permission emailAddress is missing. Write permission yearOfBirth is missing. Write permission yearOfDeath is missing. Write permission alternativeName is missing. Write permission externalURL is missing. Write permission otherAffiliation is missing. Write permission ORCID_ID is missing. Write permission VIAF_ID is missing. Write permission Libris_ID is missing. Write permission biographyEnglish is missing. Write permission biographySwedish is missing. Write permission personDomainPart is missing.}
 !include -seamless .HelperPages.checkOriginal
 *!
-!***>  '''Fall2''' !style_red[AVSTÄNGT, ännu inte implementerat listning av personDomainPart]
+!***>  '''Fall2'''
 Lista personerDomainPart inloggad som systemAdmin användare.
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart112Uu
 !define expectedListResult {=~/^(?=.*"name":"linkedRecordId","value":"personDomainPart").*$/}
-#!include -seamless .HelperPages.listStoreRecord
+!include -seamless .HelperPages.listStoreRecord
 
 Säkerställ att den sparade datan överensstämmer med originaldatan.
 !define expectedCompareResult {OK}
-!define expectedActionResult {Action read_incoming_links is missing.}
-!define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
-#!include -seamless .HelperPages.checkOriginal
+!define expectedActionResult {Action update is missing. Action delete is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission public is missing. Write permission domain is missing. Write permission identifier is missing.}
+!include -seamless .HelperPages.checkOriginal
 *!
-
 
 !4 !-DomainAdmin-!
  * '''Fall1:''' !-DomainAdmin ska inte kunna lista personer-!
