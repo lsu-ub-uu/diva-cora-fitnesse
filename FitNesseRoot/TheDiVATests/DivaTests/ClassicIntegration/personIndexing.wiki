@@ -1,0 +1,26 @@
+---
+Test
+---
+#!path {java.class.path}
+!define COMMAND_PATTERN {/usr/lib/jvm/java-16-openjdk/bin/java -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8000 -cp %p %m}
+
+!2 !-IndexServlet-!
+Med !-IndexServleten-! kan vi trigga indexeringen av poster och ta bort indexeringen av poster. Parametrar är recordType, recordId och workOrderType, varav de första två är obligatoriska. För parametern workOrderType är default-värdet "index". 
+Detta krävs för att kunna indexera om poster i Cora efter att en ändring har gjorts via Classic.
+
+!define recordType {topOrganisation}
+!define recordId {1}
+
+!***> Använd publicOrganisationSearch för att söka efter recordId ${recordId} och säkerställ att den hittas
+
+!| JmsMessageRoutingInfoFixture |
+| hostname | port | routingKey | username | password | createInHolder |
+| localhost | 1111 | fedora.api.x.y | user | somePassword | |
+
+
+!| MessageSenderFixture |
+| headers | sendMessage |
+|{Name:Bob,Address:There,Time:Now}| Some message to send |
+
+
+*!
