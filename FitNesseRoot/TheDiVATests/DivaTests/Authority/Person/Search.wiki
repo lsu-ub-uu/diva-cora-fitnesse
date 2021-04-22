@@ -88,6 +88,12 @@ OBS: Just nu sökfunktionen bara hittar ord inte delar av ett ord. Om man vill s
  * '''Fall 4:''' Det ska gå att söka i Lokalt id !style_red[AVSTÄNGT] 
  * '''Fall 5:''' Det ska gå att söka i Organisation !style_red[AVSTÄNGT] 
  
+ Andra fall:
+ * Det ska gå att söka med kombination av två olika term (AND)
+ * Vill vi hantera OR ?
+ * Felaktiga term. 
+ * Börja att söka med delar av ord utan att använda * ?
+ * Mjölighet att ta bor sök knappen.  
 
 !***> '''Fall 1a'''
 !-Vi söker id med *-!
