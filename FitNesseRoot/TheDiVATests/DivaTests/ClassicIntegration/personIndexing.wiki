@@ -14,13 +14,14 @@ Detta krävs för att kunna indexera om poster i Cora efter att en ändring har 
 !***> Använd publicOrganisationSearch för att söka efter recordId ${recordId} och säkerställ att den hittas
 
 !| JmsMessageRoutingInfoFixture |
-| hostname | port | routingKey | username | password | createInHolder |
+| hostname | port | routingKey | username | password | createInHolder? |
 | localhost | 1111 | fedora.api.x.y | user | somePassword | |
 
 
+
 !| MessageSenderFixture |
-| headers | sendMessage |
-|{Name:Bob,Address:There,Time:Now}| Some message to send |
+| headers | message | sendMessage? |
+| {Name:Bob,Address:There,Time:Now} | Some message to send | OK |
 
 
 *!

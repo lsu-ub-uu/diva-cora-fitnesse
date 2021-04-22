@@ -42,6 +42,7 @@
 		<basicdata.version>1.12.0</basicdata.version>
 		<commons-text.version>1.9</commons-text.version>
 		<smartrics-RestFixture.version>4.4</smartrics-RestFixture.version>
+		<activemq.version>1.2-SNAPSHOT</activemq.version>
 	</properties>
 
 	<scm>
@@ -124,6 +125,12 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-text</artifactId>
 			<version>${commons-text.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>se.uu.ub.cora</groupId>
+			<artifactId>activemq</artifactId>
+			<version>${activemq.version}</version>
+			<scope>runtime</scope>
 		</dependency>
 	</dependencies>
 
