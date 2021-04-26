@@ -22,7 +22,7 @@
 	<parent>
 		<groupId>se.uu.ub.cora</groupId>
 		<artifactId>cora-parent</artifactId>
-		<version>1.3.0</version>
+		<version>1.3.1</version>
 	</parent>
 
 	<artifactId>divacorafitnesse</artifactId>
@@ -35,13 +35,14 @@
 		<coralog4j.version>2.2.0</coralog4j.version>
 		<json.version>2.3.0</json.version>
 		<httphandler.version>2.2.0</httphandler.version>
-		<fitnesseintegration.version>3.2.0</fitnesseintegration.version>
-		<divamixedstorage.version>4.5.0</divamixedstorage.version>
+		<fitnesseintegration.version>3.3.0</fitnesseintegration.version>
+		<divamixedstorage.version>4.6.0</divamixedstorage.version>
 		<javax.ws.rs.version>2.1.1</javax.ws.rs.version>
 		<coradata.version>3.8.0</coradata.version>
 		<basicdata.version>1.12.0</basicdata.version>
 		<commons-text.version>1.9</commons-text.version>
 		<smartrics-RestFixture.version>4.4</smartrics-RestFixture.version>
+		<activemq.version>1.2.0</activemq.version>
 	</properties>
 
 	<scm>
@@ -124,6 +125,12 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-text</artifactId>
 			<version>${commons-text.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>se.uu.ub.cora</groupId>
+			<artifactId>activemq</artifactId>
+			<version>${activemq.version}</version>
+			<scope>runtime</scope>
 		</dependency>
 	</dependencies>
 

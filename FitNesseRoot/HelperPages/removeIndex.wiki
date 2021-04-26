@@ -1,0 +1,10 @@
+---
+Help: Remove an index from a recordType
+---
+
+!***> Ta bort indexeringen för record ${recordType} med ID ${recordId}
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? | getCreatedId? |
+| ${currentAuthToken} | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"${recordType}"}]},{"name":"recordId","value":"${recordId}"},{"name":"type","value":"removeFromIndex"}]} | | CREATED | $createdId2= |
+*!
