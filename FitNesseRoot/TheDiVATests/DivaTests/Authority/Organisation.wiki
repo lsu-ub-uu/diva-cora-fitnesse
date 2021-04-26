@@ -1,6 +1,6 @@
 ---
 Help: Organisation
-Suite
+Test
 ---
 !1 Organisation
 Organisationsposten är en så kallad auktoritetspost i syfte att identifiera organisationen i relation till publikationer, projekt och personer.

@@ -1,0 +1,2 @@
+#!1 Data for persons stored in Fedora Commons
+!contents -R4 -g -p -f -h

@@ -1,0 +1,26 @@
+---
+Help: Data for personDomainPart authority-person:112:uu
+---
+!***> Data for personDomainPart authority-person:112:uu
+
+!define recordId {authority-person:112:uu}
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPartRecordType
+
+#!define createData {!--!}
+!define expectedCreatedData {!-{"children":[{"children":[{"name":"id","value":"authority-person:112:uu"},{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"personDomainPart"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"http://localhost:8082/diva/rest/record/recordType/personDomainPart","accept":"application/vnd.uub.record+json"}},"name":"type"},{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"rinst123"}],"name":"createdBy"},{"name":"tsCreated","value":"2021-03-23T13:46:04.970Z"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"http://localhost:8082/diva/rest/record/system/diva","accept":"application/vnd.uub.record+json"}},"name":"dataDivider"},{"repeatId":"0","children":[{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"rinst123"}],"name":"updatedBy"},{"name":"tsUpdated","value":"2021-03-24T04:25:30.434Z"}],"name":"updated"},{"name":"domain","value":"uu"}],"name":"recordInfo"},{"repeatId":"0","children":[{"children":[{"name":"linkedRecordType","value":"organisation"},{"name":"linkedRecordId","value":"1750"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"http://localhost:8082/diva/rest/record/organisation/1750","accept":"application/vnd.uub.record+json"}},"name":"organisationLink"},{"name":"affiliationFromYear","value":"1730"},{"name":"affiliationUntilYear","value":"1744"}],"name":"affiliation"},{"name":"identifier","value":"geren324"}],"name":"personDomainPart"}-!}
+
+#!define updateData {!--!}
+#!define expectedUpdatedData updateData
+
+#!define originalData {!--!}
+#!define expectedOriginalData originalData
+!define expectedOriginalData expectedCreatedData
+ 
+#!define searchId {testWorkoutExtendedSearch}
+#!define searchQueryData {!-{"name":"searchTestWorkoutExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"cirkelfys1"}]}]}]}-!}
+
+# customUpdateData is a json string which can be filled with extra json using the variable customJsonPart
+#!define jsonPart customJsonPart
+#!define customJsonPart {}
+#!define customUpdateData {!-{"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1455"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"subOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"},{"name":"selectable","value":"yes"}]},{"name":"organisationName","children":[{"name":"name","value":"Teologiska fakulteten"},{"name":"language","value":"sv"}]},{"name":"organisationAlternativeName","children":[{"name":"name","value":"Teologiska fakulteten"},{"name":"language","value":"en"}]},{"name":"domain","value":"uu"},{"name":"URL","value":"http://somethingelse.se/"},{"name":"organisationType","value":"university"}-!${jsonPart}!-]}-!}
+*!
