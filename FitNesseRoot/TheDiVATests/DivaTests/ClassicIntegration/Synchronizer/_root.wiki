@@ -1,0 +1,8 @@
+---
+Suite
+---
+!1 Synchronizer
+Synchronizer är en tjänst som lyssnar efter http anrop, inkodade extra i Classic, för att indexera om ändrade poster i Cora.
+
+
+!include -seamless .TheDiVATests.DivaTests.ClassicIntegration.Synchronizer.OrganisationIndexing

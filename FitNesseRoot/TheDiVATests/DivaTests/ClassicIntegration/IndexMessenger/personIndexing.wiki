@@ -1,6 +1,8 @@
 ---
 Test
 ---
+!2 !-Indexering av personposter ifrån Classic-!
+
 !***> Konfigurationen för testet 
 !| Import |
 | fitnesse.fixtures | 
@@ -11,10 +13,9 @@ Test
 
 !define currentAuthToken {$adminAuthToken}
 !define recordType {person}
-!define sleepTime {1000}
+!define sleepTime {2000}
 *!
 
-!2 !-Indexering av personposter ifrån Classic-!
 När det skapas nya personposter eller görs ändringar på befintliga personposter i Classic så vill vi att dessa poster ska indexeras (om) i Cora Solr. När det sker händelser i Classics fedora, läggs det meddelanden i ett kösystem som diva-indexmessenger prenumererar på. Vissa av dessa meddelanden kan knytas till för oss relevanta händelser, som skapning, uppdatering eller radering av en personpost. I alla dessa fall är det önskade resultatet att posten indexeras (om) i Cora-solr.
 
  * '''Fall 1:''' När en ny personpost skapas, ska den indexeras i Cora. 

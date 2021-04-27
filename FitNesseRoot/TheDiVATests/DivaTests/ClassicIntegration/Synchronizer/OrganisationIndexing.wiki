@@ -1,9 +1,10 @@
 ---
 Test
 ---
-!2 !-IndexServlet-!
-Med !-IndexServleten-! kan vi trigga indexeringen av poster och ta bort indexeringen av poster. Parametrar är recordType, recordId och workOrderType, varav de första två är obligatoriska. För parametern workOrderType är default-värdet "index". 
-Detta krävs för att kunna indexera om poster i Cora efter att en ändring har gjorts via Classic.
+!2 !-Organisationsindexering-!
+För att testa att Cora biten av indexering av personer fungerar när ändringar görs i Classic, simulerar vi här anrop, som normalt sker från Classic till !-IndexServleten-! vid ändringar i personposter.
+
+Parametrar är recordType, recordId och workOrderType, varav de första två är obligatoriska. För parametern workOrderType är default-värdet "index". 
 
 !define baseUrl {http://synchronizer:8080}
 !***> Configure !-RestFixture-!
