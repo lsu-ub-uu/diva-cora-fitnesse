@@ -11,7 +11,7 @@ Test
 
 !define currentAuthToken {$adminAuthToken}
 !define recordType {person}
-!define sleepTime {5000}
+!define sleepTime {1000}
 *!
 
 !2 !-Indexering av personposter ifrån Classic-!
