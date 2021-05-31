@@ -59,7 +59,7 @@ Test av metadata för att skapa en ny artikel
 | metadataGroup | articleGroup | |
 
 *!
-Test av metadata för skapandet av en ny studentuppsats
+Test av metadata för skapandet av en ny artikel
 
 !***> Kontrollera barn för articleGroup
 
