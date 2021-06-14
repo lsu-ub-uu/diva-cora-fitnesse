@@ -3,4 +3,4 @@ Help: Test av actions för en recordType
 ---
 !| ActionComparerFixture |
 | authToken | type | id | actions | testReadAndStoreRecord? | testCheckActions? |
-| ${currentAuthToken} | recordType | ${currentRecordType} | {"actions":["read","update", "delete", "index", "read_incoming_links", "create", "validate", "list", "search"]} | | ${expectedPermissionResult} |
+| ${currentAuthToken} | recordType | ${currentRecordType} | {"actions":["read","update", "delete", "index", "read_incoming_links", "create", "validate", "list", "search", "batch_index"]} | | ${expectedPermissionResult} |

@@ -451,12 +451,12 @@ Notera att rättigheterna som kontrolleras i det här avsnittet gäller, vilka r
 !4 !-SystemAdmin-!
 !-SystemAdmin har tillgång till validate, list och search för person postTypen-!
 
-!style_red[Validate är inte implementerat än för personpost, därför finns med i expectedPermissionResult ]
+!style_red[Validate och batch_index för personpost är inte implementerade än, därför finns de med i expectedPermissionResult ]
 !***> Kontrollera de actions systemAdmin får med i recordType för person
 
 !define currentAuthToken {$systemAdminAuthToken}
 !define currentRecordType {person}
-!define expectedPermissionResult {Action update is missing. Action delete is missing. Action index is missing. Action create is missing. Action validate is missing.}
+!define expectedPermissionResult {Action update is missing. Action delete is missing. Action index is missing. Action create is missing. Action validate is missing. Action batch_index is missing.}
 !include -seamless .TheDiVATests.DivaTests.checkActionsForRecordType
 *!
 !4 !-DomainAdmin-!
@@ -466,8 +466,8 @@ Notera att rättigheterna som kontrolleras i det här avsnittet gäller, vilka r
 
 !define currentAuthToken {$domainAdminUUAuthToken}
 !define currentRecordType {person}
-!define expectedPermissionResult {Action update is missing. Action delete is missing. Action index is missing. Action create is missing. Action validate is missing. Action list is missing.}
-#!include -seamless .TheDiVATests.DivaTests.checkActionsForRecordType
+!define expectedPermissionResult {Action update is missing. Action delete is missing. Action index is missing. Action create is missing. Action validate is missing. Action list is missing. Action batch_index is missing.}
+!include -seamless .TheDiVATests.DivaTests.checkActionsForRecordType
 
 *!
 !4 !-Guest-!
@@ -477,7 +477,7 @@ Notera att rättigheterna som kontrolleras i det här avsnittet gäller, vilka r
 
 !define currentAuthToken {$guestToken}
 !define currentRecordType {person}
-!define expectedPermissionResult {Action update is missing. Action delete is missing. Action index is missing. Action create is missing. Action validate is missing. Action list is missing.}
-#!include -seamless .TheDiVATests.DivaTests.checkActionsForRecordType
+!define expectedPermissionResult {Action update is missing. Action delete is missing. Action index is missing. Action create is missing. Action validate is missing. Action list is missing. Action batch_index is missing.}
+!include -seamless .TheDiVATests.DivaTests.checkActionsForRecordType
 
 *!
