@@ -1,0 +1,6 @@
+!***> Skapa ett !-IndexBatchJob-! för posttypen ${recordType}
+!| RecordEndpointFixture |
+| authToken | type | json | testBatchIndexing? | getStatusType? | getCreatedId? |
+| ${currentAuthToken} | ${recordType} | ${json} | | ${expectedResult} | $createdId =  |
+
+*!

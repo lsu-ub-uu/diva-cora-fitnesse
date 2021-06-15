@@ -1,0 +1,136 @@
+---
+Test
+---
+!2 Batchindexering
+Det ska gå att batchindexera alla organisationsposttyper via ett !-IndexBatchJob-!. !-IndexBatchJobbet-! startas på en gång, så vi kan förvänta oss resultat ganska omgående. Än så länge har vi inget sätt att väntar tills ett !-IndexBatchJob-! har kört klart, vilket är varför vi användar oss av sleepTime i dessa tester.
+
+!***> Setup
+
+!| Import |
+| fitnesse.fixtures |
+
+!define sleepTime {1000}
+!define json {}
+!define searchId {publicOrganisationSearch}
+*!
+
+!define currentAuthToken {$adminAuthToken}
+!define expectedResult {CREATED}
+!define expectedDeleteResult {OK}
+
+!define recordType {organisation}
+!3 Posttyp ${recordType}
+!define recordTypeForIndexRemoval {subOrganisation}
+!define recordId1 {51}
+!define recordId2 {250}
+!define searchQueryData {!-{"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"-!${recordId1} ${recordId2}!-"}]}]}]}-!}
+!define json {!-{"name":"indexSettings","children":[{"name":"filter","children":[{"name":"fromNo","value":"1"},{"name":"toNo","value":"2"}]}]}-!}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.BatchIndexing.testBatchIndexing
+
+!define recordType {rootOrganisation}
+!3 Posttyp ${recordType}
+!define recordTypeForIndexRemoval {rootOrganisation}
+!define recordId1 {1748}
+!define recordId2 {1749}
+!define searchId {publicOrganisationSearch}
+!define searchQueryData {!-{"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"-!${recordId1} ${recordId2}!-"}]}]}]}-!}
+!define json {!-{"name":"indexSettings","children":[{"name":"filter","children":[{"name":"fromNo","value":"1"},{"name":"toNo","value":"2"}]}]}-!}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.BatchIndexing.testBatchIndexing
+
+!define recordType {topOrganisation}
+!3 Posttyp ${recordType}
+!define recordTypeForIndexRemoval {${recordType}}
+!define recordId1 {1}
+!define recordId2 {1350}
+!define searchQueryData {!-{"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"-!${recordId1} ${recordId2}!-"}]}]}]}-!}
+!define json {!-{"name":"indexSettings","children":[{"name":"filter","children":[{"name":"fromNo","value":"1"},{"name":"toNo","value":"2"}]}]}-!}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.BatchIndexing.testBatchIndexing
+
+!define recordType {subOrganisation}
+!3 Posttyp ${recordType}
+!define recordTypeForIndexRemoval {subOrganisation}
+!define recordId1 {50}
+!define recordId2 {51}
+!define searchQueryData {!-{"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"-!${recordId1} ${recordId2}!-"}]}]}]}-!}
+!define json {!-{"name":"indexSettings","children":[{"name":"filter","children":[{"name":"fromNo","value":"1"},{"name":"toNo","value":"2"}]}]}-!}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.BatchIndexing.testBatchIndexing
+
+!3 Roller
+!4 !-SystemAdmin-!
+!-SystemAdmin-! ska kunna batchindexera alla organisationsposttyper.
+
+!define currentAuthToken {$systemAdminAuthToken}
+!define expectedResult {CREATED}
+!define expectedDeleteResult {OK}
+
+!define recordType {organisation}
+'''Posttyp ${recordType}'''
+!define recordTypeForIndexRemoval {subOrganisation}
+!define recordId1 {51}
+!define recordId2 {250}
+!define searchQueryData {!-{"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"-!${recordId1} ${recordId2}!-"}]}]}]}-!}
+!define json {!-{"name":"indexSettings","children":[{"name":"filter","children":[{"name":"fromNo","value":"1"},{"name":"toNo","value":"2"}]}]}-!}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.BatchIndexing.testBatchIndexing
+
+!define recordType {rootOrganisation}
+'''Posttyp ${recordType}'''
+!define recordTypeForIndexRemoval {rootOrganisation}
+!define recordId1 {1748}
+!define recordId2 {1749}
+!define searchId {publicOrganisationSearch}
+!define searchQueryData {!-{"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"-!${recordId1} ${recordId2}!-"}]}]}]}-!}
+!define json {!-{"name":"indexSettings","children":[{"name":"filter","children":[{"name":"fromNo","value":"1"},{"name":"toNo","value":"2"}]}]}-!}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.BatchIndexing.testBatchIndexing
+
+!define recordType {topOrganisation}
+'''Posttyp ${recordType}'''
+!define recordTypeForIndexRemoval {${recordType}}
+!define recordId1 {1}
+!define recordId2 {1350}
+!define searchQueryData {!-{"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"-!${recordId1} ${recordId2}!-"}]}]}]}-!}
+!define json {!-{"name":"indexSettings","children":[{"name":"filter","children":[{"name":"fromNo","value":"1"},{"name":"toNo","value":"2"}]}]}-!}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.BatchIndexing.testBatchIndexing
+
+!define recordType {subOrganisation}
+'''Posttyp ${recordType}'''
+!define recordTypeForIndexRemoval {subOrganisation}
+!define recordId1 {50}
+!define recordId2 {51}
+!define searchQueryData {!-{"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"-!${recordId1} ${recordId2}!-"}]}]}]}-!}
+!define json {!-{"name":"indexSettings","children":[{"name":"filter","children":[{"name":"fromNo","value":"1"},{"name":"toNo","value":"2"}]}]}-!}
+!include -seamless .TheDiVATests.DivaTests.Authority.Organisation.BatchIndexing.testBatchIndexing
+
+
+!4 !-DomainAdmin-!
+!-DomainAdmin-! ska inte kunna batchindexera någon organisationsposttyp.
+
+!define currentAuthToken {$domainAdminAuthToken}
+!define expectedResult {UNAUTHORIZED}
+!define recordType {organisation}
+!include -seamless .TheDiVATests.DivaTests.batchIndexRecordType
+
+!define recordType {rootOrganisation}
+!include -seamless .TheDiVATests.DivaTests.batchIndexRecordType
+
+!define recordType {topOrganisation}
+!include -seamless .TheDiVATests.DivaTests.batchIndexRecordType
+
+!define recordType {subOrganisation}
+!include -seamless .TheDiVATests.DivaTests.batchIndexRecordType
+
+!4 Guest
+Guest ska inte kunna batchindexera någon organisationsposttyp.
+
+!define currentAuthToken {$guestAuthToken}
+!define expectedResult {UNAUTHORIZED}
+!define recordType {organisation}
+!include -seamless .TheDiVATests.DivaTests.batchIndexRecordType
+
+!define recordType {rootOrganisation}
+!include -seamless .TheDiVATests.DivaTests.batchIndexRecordType
+
+!define recordType {topOrganisation}
+!include -seamless .TheDiVATests.DivaTests.batchIndexRecordType
+
+!define recordType {subOrganisation}
+!include -seamless .TheDiVATests.DivaTests.batchIndexRecordType

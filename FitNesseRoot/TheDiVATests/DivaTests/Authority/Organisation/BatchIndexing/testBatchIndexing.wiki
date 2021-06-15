@@ -1,0 +1,40 @@
+!***> Vi tar bort indexeringen för recordType ${recordTypeForIndexRemoval} ${recordId1} och ${recordId2}
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? | 
+| ${currentAuthToken} | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"${recordTypeForIndexRemoval}"}]},{"name":"recordId","value":"${recordId1}"},{"name":"type","value":"removeFromIndex"}]} | | CREATED |
+| ${currentAuthToken} | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"${recordTypeForIndexRemoval}"}]},{"name":"recordId","value":"${recordId2}"},{"name":"type","value":"removeFromIndex"}]} | | CREATED |
+*!
+
+
+!***> Vi kollar att vi får '''noll''' träff för en sökning efter recordId ${recordId1} och ${recordId2} (i.e. att de '''inte är''' indexerade i solr)
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| ${currentAuthToken} | ${searchId} | ${searchQueryData} | =~/"data":\[\],"totalNo":"0"/ | OK |
+*!
+
+
+!include -seamless .TheDiVATests.DivaTests.batchIndexRecordType
+
+!***> Vi kollar att !-IndexBatchJobbet-! indexerar exakt 2 poster [DETTA ÄR INTE IMPLEMENTERAT ÄN]
+!| RecordEndpointFixture |
+| authToken  | type | id | testReadRecord? | getStatusType? |
+| ${currentAuthToken} | indexBatchJob |  $createdId | =~/"totalNumberToIndex","value":"2"/ | OK |
+*!
+
+
+!***> Vi väntar ${sleepTime} millisekunder så att Cora hinner läsa och indexera posten
+!| Sleep | ${sleepTime} |
+*!
+
+
+!***> Vi kollar att vi får '''två''' träffar för en sökning efter recordId ${recordId1} och ${recordId2} (i.e. att de '''är''' indexerade i solr)
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| ${currentAuthToken} | ${searchId} | ${searchQueryData} | =~/"totalNo":"2"/ | OK |
+*!
+
+!***> Vi tar bort det skapade !-IndexBatchJobbet-!
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $adminAuthToken | indexBatchJob | $createdId | | ${expectedDeleteResult} |
+*!
