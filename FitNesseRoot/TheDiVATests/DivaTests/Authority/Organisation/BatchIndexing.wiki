@@ -6,9 +6,6 @@ Det ska gå att batchindexera alla organisationsposttyper via ett !-IndexBatchJo
 
 !***> Setup
 
-!| Import |
-| fitnesse.fixtures |
-
 !define sleepTime {1000}
 !define json {}
 !define searchId {publicOrganisationSearch}
@@ -49,8 +46,8 @@ Det ska gå att batchindexera alla organisationsposttyper via ett !-IndexBatchJo
 !define recordType {subOrganisation}
 !3 Posttyp ${recordType}
 !define recordTypeForIndexRemoval {subOrganisation}
-!define recordId1 {50}
-!define recordId2 {51}
+!define recordId1 {51}
+!define recordId2 {250}
 !define searchQueryData {!-{"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"-!${recordId1} ${recordId2}!-"}]}]}]}-!}
 !define json {!-{"name":"indexSettings","children":[{"name":"filter","children":[{"name":"fromNo","value":"1"},{"name":"toNo","value":"2"}]}]}-!}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.BatchIndexing.testBatchIndexing
@@ -94,8 +91,8 @@ Det ska gå att batchindexera alla organisationsposttyper via ett !-IndexBatchJo
 !define recordType {subOrganisation}
 '''Posttyp ${recordType}'''
 !define recordTypeForIndexRemoval {subOrganisation}
-!define recordId1 {50}
-!define recordId2 {51}
+!define recordId1 {51}
+!define recordId2 {250}
 !define searchQueryData {!-{"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"-!${recordId1} ${recordId2}!-"}]}]}]}-!}
 !define json {!-{"name":"indexSettings","children":[{"name":"filter","children":[{"name":"fromNo","value":"1"},{"name":"toNo","value":"2"}]}]}-!}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.BatchIndexing.testBatchIndexing

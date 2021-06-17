@@ -21,9 +21,14 @@
 | ${currentAuthToken} | indexBatchJob |  $createdId | =~/"totalNumberToIndex","value":"2"/ | OK |
 *!
 
+#!***> Vi väntar ${sleepTime} millisekunder så att Cora hinner läsa och indexera posten
+#!| Sleep | ${sleepTime} |
+#*!
 
-!***> Vi väntar ${sleepTime} millisekunder så att Cora hinner läsa och indexera posten
-!| Sleep | ${sleepTime} |
+!***> Vi inväntar och tar bort det skapade !-IndexBatchJobbet-!
+!|RecordEndpointFixture |
+| authToken | type | id | sleepTime | maxNumberOfReads | deleteIndexBatchJobWhenFinished? | getStatusType? |
+| $adminAuthToken | indexBatchJob | $createdId | ${sleepTime} | 5 |  | OK |
 *!
 
 
@@ -33,9 +38,4 @@
 | ${currentAuthToken} | ${searchId} | ${searchQueryData} | =~/"totalNo":"2"/ | OK |
 *!
 
-!***> Vi tar bort det skapade !-IndexBatchJobbet-!
-!|RecordEndpointFixture |
-| authToken | type | id | sleepTime | maxRepeatCount | deleteIndexBatchJobWhenFinished? |
-| $adminAuthToken | indexBatchJob | $createdId | 1000 | 5 |  |
 
-*!
