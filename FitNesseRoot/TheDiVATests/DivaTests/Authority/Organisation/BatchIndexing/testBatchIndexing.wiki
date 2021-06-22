@@ -21,16 +21,17 @@
 | ${currentAuthToken} | indexBatchJob |  $createdId | =~/"totalNumberToIndex","value":"2"/ | OK |
 *!
 
-#!***> Vi väntar ${sleepTime} millisekunder så att Cora hinner läsa och indexera posten
-#!| Sleep | ${sleepTime} |
-#*!
-
-!***> Vi inväntar och tar bort det skapade !-IndexBatchJobbet-!
+!***> Vi inväntar det skapade !-IndexBatchJobbet-!
 !|RecordEndpointFixture |
-| authToken | type | id | sleepTime | maxNumberOfReads | deleteIndexBatchJobWhenFinished? | getStatusType? |
-| $adminAuthToken | indexBatchJob | $createdId | ${sleepTime} | 5 |  | OK |
+| authToken | type | id | sleepTime | maxNumberOfReads | waitUntilIndexBatchJobIsFinished? | getStatusType? | 
+| $adminAuthToken | indexBatchJob | $createdId | ${sleepTime} | ${maxNumberOfReads} | finished | OK |
 *!
 
+!***> Vi kollar att !-IndexBatchJobbet-! har indexerat exakt 2 poster
+!| RecordEndpointFixture |
+| authToken  | type | id | testReadRecord? | getStatusType? |
+| ${currentAuthToken} | indexBatchJob |  $createdId | =~/"numberOfProcessedRecords","value":"2"/ | OK |
+*!
 
 !***> Vi kollar att vi får '''två''' träffar för en sökning efter recordId ${recordId1} och ${recordId2} (i.e. att de '''är''' indexerade i solr)
 !| RecordEndpointFixture |
@@ -38,4 +39,8 @@
 | ${currentAuthToken} | ${searchId} | ${searchQueryData} | =~/"totalNo":"2"/ | OK |
 *!
 
-
+!***> Radera det skapade !-IndexBatchJobbet-!
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $adminAuthToken | indexBatchJob | $createdId | | OK |
+*!
