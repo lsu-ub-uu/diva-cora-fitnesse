@@ -18,16 +18,18 @@ Det ska gå att batchindexera alla organisationsposttyper via ett !-IndexBatchJo
 
 !define recordType {organisation}
 !3 Posttyp ${recordType}
-!define recordTypeForIndexRemoval {subOrganisation}
-!define recordId1 {51}
-!define recordId2 {250}
+!define recordTypeForIndexRemoval1 {topOrganisation}
+!define recordTypeForIndexRemoval2 {subOrganisation}
+!define recordId1 {1}
+!define recordId2 {50}
 !define searchQueryData {!-{"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"-!${recordId1} ${recordId2}!-"}]}]}]}-!}
 !define json {!-{"name":"indexSettings","children":[{"name":"filter","children":[{"name":"fromNo","value":"1"},{"name":"toNo","value":"2"}]}]}-!}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.BatchIndexing.testBatchIndexing
 
 !define recordType {rootOrganisation}
 !3 Posttyp ${recordType}
-!define recordTypeForIndexRemoval {rootOrganisation}
+!define recordTypeForIndexRemoval1 {${recordType}}
+!define recordTypeForIndexRemoval2 {${recordType}}
 !define recordId1 {1748}
 !define recordId2 {1749}
 !define searchId {publicOrganisationSearch}
@@ -37,7 +39,8 @@ Det ska gå att batchindexera alla organisationsposttyper via ett !-IndexBatchJo
 
 !define recordType {topOrganisation}
 !3 Posttyp ${recordType}
-!define recordTypeForIndexRemoval {${recordType}}
+!define recordTypeForIndexRemoval1 {${recordType}}
+!define recordTypeForIndexRemoval2 {${recordType}}
 !define recordId1 {1}
 !define recordId2 {1350}
 !define searchQueryData {!-{"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"-!${recordId1} ${recordId2}!-"}]}]}]}-!}
@@ -46,9 +49,10 @@ Det ska gå att batchindexera alla organisationsposttyper via ett !-IndexBatchJo
 
 !define recordType {subOrganisation}
 !3 Posttyp ${recordType}
-!define recordTypeForIndexRemoval {subOrganisation}
-!define recordId1 {51}
-!define recordId2 {250}
+!define recordTypeForIndexRemoval1 {${recordType}}
+!define recordTypeForIndexRemoval2 {${recordType}}
+!define recordId1 {50}
+!define recordId2 {51}
 !define searchQueryData {!-{"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"-!${recordId1} ${recordId2}!-"}]}]}]}-!}
 !define json {!-{"name":"indexSettings","children":[{"name":"filter","children":[{"name":"fromNo","value":"1"},{"name":"toNo","value":"2"}]}]}-!}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.BatchIndexing.testBatchIndexing
@@ -62,17 +66,19 @@ Det ska gå att batchindexera alla organisationsposttyper via ett !-IndexBatchJo
 !define expectedDeleteResult {OK}
 
 !define recordType {organisation}
-'''Posttyp ${recordType}'''
-!define recordTypeForIndexRemoval {subOrganisation}
-!define recordId1 {51}
-!define recordId2 {250}
+!3 Posttyp ${recordType}
+!define recordTypeForIndexRemoval1 {topOrganisation}
+!define recordTypeForIndexRemoval2 {subOrganisation}
+!define recordId1 {1}
+!define recordId2 {50}
 !define searchQueryData {!-{"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"-!${recordId1} ${recordId2}!-"}]}]}]}-!}
 !define json {!-{"name":"indexSettings","children":[{"name":"filter","children":[{"name":"fromNo","value":"1"},{"name":"toNo","value":"2"}]}]}-!}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.BatchIndexing.testBatchIndexing
 
 !define recordType {rootOrganisation}
-'''Posttyp ${recordType}'''
-!define recordTypeForIndexRemoval {rootOrganisation}
+!3 Posttyp ${recordType}
+!define recordTypeForIndexRemoval1 {${recordType}}
+!define recordTypeForIndexRemoval2 {${recordType}}
 !define recordId1 {1748}
 !define recordId2 {1749}
 !define searchId {publicOrganisationSearch}
@@ -81,8 +87,9 @@ Det ska gå att batchindexera alla organisationsposttyper via ett !-IndexBatchJo
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.BatchIndexing.testBatchIndexing
 
 !define recordType {topOrganisation}
-'''Posttyp ${recordType}'''
-!define recordTypeForIndexRemoval {${recordType}}
+!3 Posttyp ${recordType}
+!define recordTypeForIndexRemoval1 {${recordType}}
+!define recordTypeForIndexRemoval2 {${recordType}}
 !define recordId1 {1}
 !define recordId2 {1350}
 !define searchQueryData {!-{"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"-!${recordId1} ${recordId2}!-"}]}]}]}-!}
@@ -90,10 +97,11 @@ Det ska gå att batchindexera alla organisationsposttyper via ett !-IndexBatchJo
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.BatchIndexing.testBatchIndexing
 
 !define recordType {subOrganisation}
-'''Posttyp ${recordType}'''
-!define recordTypeForIndexRemoval {subOrganisation}
-!define recordId1 {51}
-!define recordId2 {250}
+!3 Posttyp ${recordType}
+!define recordTypeForIndexRemoval1 {${recordType}}
+!define recordTypeForIndexRemoval2 {${recordType}}
+!define recordId1 {50}
+!define recordId2 {51}
 !define searchQueryData {!-{"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"-!${recordId1} ${recordId2}!-"}]}]}]}-!}
 !define json {!-{"name":"indexSettings","children":[{"name":"filter","children":[{"name":"fromNo","value":"1"},{"name":"toNo","value":"2"}]}]}-!}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.BatchIndexing.testBatchIndexing
