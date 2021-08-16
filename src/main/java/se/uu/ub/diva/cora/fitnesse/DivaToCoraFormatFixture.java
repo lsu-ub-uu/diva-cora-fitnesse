@@ -20,13 +20,12 @@ package se.uu.ub.diva.cora.fitnesse;
 
 import org.apache.commons.text.StringEscapeUtils;
 
-import se.uu.ub.cora.basicdata.converter.DataToJsonConverterFactoryImp;
 import se.uu.ub.cora.data.DataGroup;
 import se.uu.ub.cora.data.converter.DataToJsonConverter;
+import se.uu.ub.cora.data.converter.DataToJsonConverterFactory;
+import se.uu.ub.cora.data.converter.DataToJsonConverterProvider;
 import se.uu.ub.cora.diva.mixedstorage.fedora.DivaFedoraConverterFactory;
 import se.uu.ub.cora.diva.mixedstorage.fedora.DivaFedoraToCoraConverter;
-import se.uu.ub.cora.json.builder.JsonBuilderFactory;
-import se.uu.ub.cora.json.builder.org.OrgJsonBuilderFactoryAdapter;
 
 public class DivaToCoraFormatFixture {
 
@@ -76,9 +75,9 @@ public class DivaToCoraFormatFixture {
 	}
 
 	private DataToJsonConverter createDataGroupToJsonConverter(DataGroup dataGroup) {
-		DataToJsonConverterFactoryImp dataToJsonConverterFactory = new DataToJsonConverterFactoryImp();
-		JsonBuilderFactory factory = new OrgJsonBuilderFactoryAdapter();
-		return dataToJsonConverterFactory.createForDataElement(factory, dataGroup);
+		DataToJsonConverterFactory dataToJsonConverterFactory = DataToJsonConverterProvider
+				.createImplementingFactory();
+		return dataToJsonConverterFactory.factorUsingConvertible(dataGroup);
 	}
 
 	public String getDivaXML() {

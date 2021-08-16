@@ -22,7 +22,7 @@
 	<parent>
 		<groupId>se.uu.ub.cora</groupId>
 		<artifactId>cora-parent</artifactId>
-		<version>1.3.1</version>
+		<version>1.4.1</version>
 	</parent>
 
 	<artifactId>divacorafitnesse</artifactId>
@@ -31,18 +31,18 @@
 	<name>DiVA Cora Fitnesse</name>
 
 	<properties>
-		<logger.version>2.2.0</logger.version>
-		<coralog4j.version>2.2.0</coralog4j.version>
-		<json.version>2.3.0</json.version>
-		<httphandler.version>2.2.0</httphandler.version>
-		<fitnesseintegration.version>3.4.0</fitnesseintegration.version>
-		<divamixedstorage.version>4.6.0</divamixedstorage.version>
+		<logger.version>2.3.0</logger.version>
+		<coralog4j.version>2.3.0</coralog4j.version>
+		<json.version>2.5.0</json.version>
+		<httphandler.version>2.3.0</httphandler.version>
+		<fitnesseintegration.version>3.5.0</fitnesseintegration.version>
+		<divamixedstorage.version>4.8.0</divamixedstorage.version>
 		<javax.ws.rs.version>2.1.1</javax.ws.rs.version>
-		<coradata.version>3.8.0</coradata.version>
-		<basicdata.version>1.12.0</basicdata.version>
+		<coradata.version>5.1.0</coradata.version>
+		<basicdata.version>3.2.0</basicdata.version>
 		<commons-text.version>1.9</commons-text.version>
 		<smartrics-RestFixture.version>4.4</smartrics-RestFixture.version>
-		<activemq.version>1.2.0</activemq.version>
+		<activemq.version>1.3.0</activemq.version>
 	</properties>
 
 	<scm>
