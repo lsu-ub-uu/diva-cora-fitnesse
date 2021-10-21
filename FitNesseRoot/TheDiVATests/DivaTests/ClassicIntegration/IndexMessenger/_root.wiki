@@ -1,7 +1,0 @@
----
-Suite
----
-!1 IndexMessenger
-IndexMessenger är en tjänst som lyssnar på meddelanden från Fedora Commons, och ser till att Cora indexerar om poster när ändringar görs i Fedora.
- 
-!include -seamless .TheDiVATests.DivaTests.ClassicIntegration.IndexMessenger.personIndexing
