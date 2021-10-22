@@ -1,0 +1,10 @@
+---
+Help: Test read a record
+---
+!***> Test read record ${recordType} ${recordId}
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| ${currentAuthToken} |  ${recordType} | ${recordId} | | ${statusType} |
+
+*!
