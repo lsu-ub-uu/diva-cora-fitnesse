@@ -34,6 +34,12 @@ När det sker händelser i Classics fedora (Ny, uppdaterad, raderad eller purged
 
  
 !***> Fall 1
+!***> Vi förbereder testet. 
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
+Vi ta bort index för ${recordId} i solr
+
+!include -seamless .HelperPages.removeIndex
+*!
 
 !***> Vi kollar att posten finns i lagringen, men att den inte är indexerat
 
