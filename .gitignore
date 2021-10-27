@@ -6,3 +6,5 @@
 *.iml
 /dependency-reduced-pom.xml
 /test-output/
+RerunLastFailures_*
+coraLog4j*

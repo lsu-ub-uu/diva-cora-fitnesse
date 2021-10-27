@@ -1,0 +1,17 @@
+---
+Suite
+---
+!1 Tester för synchronisering mellan Classic och Cora när poster förändras i Classic.
+Då vi har svårt att testa i Classic, testar vi de delar av integrationen som är uppsatta från Coras håll, och simulerar anrop som motsvarar de som borde komma från olika delar av Classic.
+
+Det finns för närvarande två typer av integrationer
+1. '''!- ClassicFedoraSynchronizer -!'''  är en tjänst som lyssnar på meddelanden från Fedora Commons, och ser till att Cora indexerar om poster när ändringar görs i Fedora.Används just nu för att synchronisera ''personer''.
+2. '''!- Synchronizer -!''' är en tjänst som lyssnar efter http anrop, inkodade extra i Classic, för att indexera om ändrade poster i Cora. Används just nu för att synchronisera ''organisationer''.
+
+!***> !-ClassicFedoraSynchronizer (Person)-!
+!include -seamless .TheDiVATests.DivaTests.ClassicSynchronization.ClassicFedoraSynchronizer
+*!
+
+!***> !-Synchronizer (Organisation)-!
+!include -seamless .TheDiVATests.DivaTests.ClassicSynchronization.Synchronizer
+*!
