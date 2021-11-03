@@ -33,8 +33,9 @@
 | ${currentAuthToken} | indexBatchJob |  $createdId | =~/"numberOfProcessedRecords","value":"2"/ | OK |
 *!
 
-!***> Vi kollar att vi får '''två''' träffar för en sökning efter recordId ${recordId1} och ${recordId2} (i.e. att de '''är''' indexerade i solr)
-!| RecordEndpointFixture |
+!***> Vi kollar att vi får '''två''' träffar för en sökning efter recordId ${recordId1} och ${recordId2} (i.e. att de '''är''' indexerade i solr) !style_red[AVSTÄNGT!!!]
+!|Comment|
+| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
 | ${currentAuthToken} | ${searchId} | ${searchQueryData} | =~/"totalNo":"2"/ | OK |
 *!
