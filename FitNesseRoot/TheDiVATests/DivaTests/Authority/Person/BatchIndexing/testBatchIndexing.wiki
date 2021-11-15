@@ -1,0 +1,45 @@
+!***> Vi tar bort indexeringen för recordType ${recordTypeForIndexRemoval} ${recordId1} och ${recordId2}
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? | 
+| ${currentAuthToken} | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"${recordTypeForIndexRemoval1}"}]},{"name":"recordId","value":"${recordId1}"},{"name":"type","value":"removeFromIndex"}]} | | CREATED |
+*!
+
+!***> Vi kollar att vi får '''noll''' träff för en sökning efter recordId ${recordId1} och ${recordId2} (i.e. att de '''inte är''' indexerade i solr)
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| ${currentAuthToken} | ${searchId} | ${searchQueryData} | =~/"data":\[\],"totalNo":"0"/ | OK |
+*!
+
+
+!include -seamless .TheDiVATests.DivaTests.batchIndexRecordType
+
+!***> Vi kollar att !-IndexBatchJobbet-! indexerar exakt 2 poster
+!| RecordEndpointFixture |
+| authToken  | type | id | testReadRecord? | getStatusType? |
+| ${currentAuthToken} | indexBatchJob |  $createdId | =~/"totalNumberToIndex","value":"2"/ | OK |
+*!
+
+!***> Vi inväntar det skapade !-IndexBatchJobbet-!
+!|RecordEndpointFixture |
+| authToken | type | id | sleepTime | maxNumberOfReads | waitUntilIndexBatchJobIsFinished? | getStatusType? | 
+| $adminAuthToken | indexBatchJob | $createdId | ${sleepTime} | ${maxNumberOfReads} | finished | OK |
+*!
+
+!***> Vi kollar att !-IndexBatchJobbet-! har indexerat exakt 2 poster
+!| RecordEndpointFixture |
+| authToken  | type | id | testReadRecord? | getStatusType? |
+| ${currentAuthToken} | indexBatchJob |  $createdId | =~/"numberOfProcessedRecords","value":"2"/ | OK |
+*!
+
+!***> Vi kollar att vi får '''två''' träffar för en sökning efter recordId ${recordId1} och ${recordId2} (i.e. att de '''är''' indexerade i solr) !style_red[AVSTÄNGT!!!]
+!|Comment|
+| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| ${currentAuthToken} | ${searchId} | ${searchQueryData} | =~/"totalNo":"2"/ | OK |
+*!
+
+!***> Radera det skapade !-IndexBatchJobbet-!
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $adminAuthToken | indexBatchJob | $createdId | | OK |
+*!

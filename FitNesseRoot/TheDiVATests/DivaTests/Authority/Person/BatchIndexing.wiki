@@ -1,0 +1,57 @@
+---
+Test
+---
+!define recordType {person}
+
+!2 Batchindexering för ${recordType}
+Det ska gå att batchindexera personer  via ett !-IndexBatchJob-!. !-IndexBatchJobbet-! startas på en gång, så vi kan förvänta oss resultat ganska omgående. Än så länge har vi inget sätt att väntar tills ett !-IndexBatchJob-! har kört klart, vilket är varför vi användar oss av sleepTime i dessa tester.
+
+!***> Setup
+!define sleepTime {1000}
+!define maxNumberOfReads {1000}
+!define json {}
+!define searchId {publicPersonSearch}
+*!
+
+!define currentAuthToken {$adminAuthToken}
+!define expectedResult {CREATED}
+!define expectedDeleteResult {OK}
+
+!define recordTypeForIndexRemoval1 {$recordType}
+!define recordId1 {authority-person:106}
+!define recordId2 {authority-person:107}
+!define searchQueryData {!-{"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"-!${recordId1} ${recordId2}!-"}]}]}]}-!}
+!define json {!-{"name":"indexSettings","children":[{"name":"filter","children":[{"name":"fromNo","value":"0"}]}]}-!}
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.BatchIndexing.testBatchIndexing
+
+!3 Roller
+!4 !-SystemAdmin-!
+!-SystemAdmin-! ska kunna batchindexera alla organisationsposttyper.
+
+!define currentAuthToken {$systemAdminAuthToken}
+!define expectedResult {CREATED}
+!define expectedDeleteResult {OK}
+
+
+!define recordTypeForIndexRemoval1 {$recordType}
+!define recordId1 {authority-person:106}
+!define recordId2 {authority-person:107}
+!define searchQueryData {!-{"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"-!${recordId1} ${recordId2}!-"}]}]}]}-!}
+!define json {!-{"name":"indexSettings","children":[{"name":"filter","children":[{"name":"fromNo","value":"0"}]}]}-!}
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.BatchIndexing.testBatchIndexing
+
+
+!4 !-DomainAdmin-!
+!-DomainAdmin-! ska inte kunna batchindexera någon organisationsposttyp.
+
+!define currentAuthToken {$domainAdminAuthToken}
+!define expectedResult {UNAUTHORIZED}
+!include -seamless .TheDiVATests.DivaTests.batchIndexRecordType
+
+
+!4 Guest
+Guest ska inte kunna batchindexera någon organisationsposttyp.
+
+!define currentAuthToken {$guestAuthToken}
+!define expectedResult {UNAUTHORIZED}
+!include -seamless .TheDiVATests.DivaTests.batchIndexRecordType
