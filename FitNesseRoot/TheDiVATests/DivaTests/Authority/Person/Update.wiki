@@ -1,6 +1,6 @@
 ---
 Help: Updating a person to Fedora Commons
-Test
+Static
 ---
 !contents -R2 -g -p -f -h
 !1 Testing updating a person

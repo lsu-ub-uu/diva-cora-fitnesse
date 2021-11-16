@@ -1,5 +1,5 @@
 ---
-Test
+Static
 ---
 !2 Metadata
 !3 Fält och begränsningar:

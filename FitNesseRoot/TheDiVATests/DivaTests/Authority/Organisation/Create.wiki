@@ -1,5 +1,5 @@
 ---
-Test
+Static
 ---
 !2 Skapa
 !***> Det går inte att skapa en ny organisation via den abstracta organisation

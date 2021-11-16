@@ -1,5 +1,5 @@
 ---
-Test
+Static
 ---
 !2 Radera
 !style_red['''Eftersom vi ännu inte implementerat stöd för att radera en organisation från DiVA powered by Cora, så får inte någon grupp göra det.''']
