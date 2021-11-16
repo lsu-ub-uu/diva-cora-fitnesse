@@ -1,7 +1,8 @@
 ---
-Test
+Static
 ---
 !define recordType {person}
+
 
 !2 Batchindexering för ${recordType}
 Det ska gå att batchindexera personer  via ett !-IndexBatchJob-!. !-IndexBatchJobbet-! startas på en gång, så vi kan förvänta oss resultat ganska omgående. Än så länge har vi inget sätt att väntar tills ett !-IndexBatchJob-! har kört klart, vilket är varför vi användar oss av sleepTime i dessa tester.
@@ -11,18 +12,53 @@ Det ska gå att batchindexera personer  via ett !-IndexBatchJob-!. !-IndexBatchJ
 !define maxNumberOfReads {1000}
 !define json {}
 !define searchId {publicPersonSearch}
-*!
 
+*!
+!***> Indexera utan indexSettings
 !define currentAuthToken {$adminAuthToken}
 !define expectedResult {CREATED}
 !define expectedDeleteResult {OK}
 
-!define recordTypeForIndexRemoval1 {$recordType}
+!define recordTypeForIndexRemoval1 {${recordType}}
+!define recordTypeForIndexRemoval2 {${recordType}}
 !define recordId1 {authority-person:106}
 !define recordId2 {authority-person:107}
-!define searchQueryData {!-{"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"-!${recordId1} ${recordId2}!-"}]}]}]}-!}
-!define json {!-{"name":"indexSettings","children":[{"name":"filter","children":[{"name":"fromNo","value":"0"}]}]}-!}
-!include -seamless .TheDiVATests.DivaTests.Authority.Person.BatchIndexing.testBatchIndexing
+!define numberOfProcessedRecords {18}
+!define searchQueryData {!-{"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"personIdSearchTerm","value":"-!${recordId1} ${recordId2}!-"}]}]}]}-!}
+!define json {}
+!include -seamless .HelperPages.testBatchIndexing
+*!
+
+
+!***> Indexera utan filter
+!define currentAuthToken {$adminAuthToken}
+!define expectedResult {CREATED}
+!define expectedDeleteResult {OK}
+
+!define recordTypeForIndexRemoval1 {${recordType}}
+!define recordTypeForIndexRemoval2 {${recordType}}
+!define recordId1 {authority-person:106}
+!define recordId2 {authority-person:107}
+!define numberOfProcessedRecords {18}
+!define searchQueryData {!-{"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"personIdSearchTerm","value":"-!${recordId1} ${recordId2}!-"}]}]}]}-!}
+!define json {!-{"name":"indexSettings","children":[]}-!}
+!include -seamless .HelperPages.testBatchIndexing
+*!
+
+!***> Indexera med start (fromNo) !style_red[AVSTÄNGT]
+!define currentAuthToken {$adminAuthToken}
+!define expectedResult {CREATED}
+!define expectedDeleteResult {OK}
+
+!define recordTypeForIndexRemoval1 {${recordType}}
+!define recordTypeForIndexRemoval2 {${recordType}}
+!define recordId1 {authority-person:106}
+!define recordId2 {authority-person:107}
+!define numberOfProcessedRecords {1}
+!define searchQueryData {!-{"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"personIdSearchTerm","value":"-!${recordId1} ${recordId2}!-"}]}]}]}-!}
+!define json {!-{"name":"indexSettings","children":[{"name":"filter","children":[{"name":"fromNo","value":"16"}]}]}-!}
+#!include -seamless .HelperPages.testBatchIndexing
+*!
 
 !3 Roller
 !4 !-SystemAdmin-!
@@ -33,12 +69,14 @@ Det ska gå att batchindexera personer  via ett !-IndexBatchJob-!. !-IndexBatchJ
 !define expectedDeleteResult {OK}
 
 
-!define recordTypeForIndexRemoval1 {$recordType}
+!define recordTypeForIndexRemoval1 {${recordType}}
+!define recordTypeForIndexRemoval2 {${recordType}}
 !define recordId1 {authority-person:106}
 !define recordId2 {authority-person:107}
-!define searchQueryData {!-{"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"-!${recordId1} ${recordId2}!-"}]}]}]}-!}
+!define numberOfProcessedRecords {18}
+!define searchQueryData {!-{"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"personIdSearchTerm","value":"-!${recordId1} ${recordId2}!-"}]}]}]}-!}
 !define json {!-{"name":"indexSettings","children":[{"name":"filter","children":[{"name":"fromNo","value":"0"}]}]}-!}
-!include -seamless .TheDiVATests.DivaTests.Authority.Person.BatchIndexing.testBatchIndexing
+!include -seamless .HelperPages.testBatchIndexing
 
 
 !4 !-DomainAdmin-!

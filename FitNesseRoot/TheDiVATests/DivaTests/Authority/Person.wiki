@@ -15,6 +15,7 @@ I DiVA powered by Cora är personer....
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.Read
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.List
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.Index
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.BatchIndexing
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.Search
 #!include -seamless .TheDiVATests.DivaTests.Authority.Person.Create
 #!include -seamless .TheDiVATests.DivaTests.Authority.Person.Update

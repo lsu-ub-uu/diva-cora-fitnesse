@@ -1,6 +1,6 @@
 ---
 Help: Lista
-Test
+Static
 ---
 !2 Lista
 Det skall gå att lista personer via REST API:et.
