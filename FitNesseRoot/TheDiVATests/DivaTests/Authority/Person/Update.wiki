@@ -1,57 +1,66 @@
 ---
-Help: Updating a person to Fedora Commons
-Static
+Test
 ---
-!contents -R2 -g -p -f -h
-!1 Testing updating a person
-It should be possible to update a person from the REST API.!-
--!First test reading..
+!2 Uppdatera
+Det ska vara möjligt att uppdatera Organisation.
 
-!***> Read person authority-person:60566
+ * '''Fall 1:''' Det ska gå att uppdatera person
+ * '''Fall 2:''' Det ska gå att uppdatera person domän delen (personDomainParts)
+ 
+!***> Fall 1
+!define currentAuthToken {$adminAuthToken}
+!-Update a testWorkout record as fitnesseAdmin, adding unrestricted and all restricted data parts-!
 
-!| comment |
-| RecordEndpointFixture |
-| authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | person | authority-person:60566 | =~/"name":"familyName","value":"Testsson"/ | OK |
-
+#!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
+#!define expectedUpdateResult {OK}
+#!define expectedAnswer {}
+#!define expectedCompareResult {OK}
+#!define expectedActionResult {Action read_incoming_links is missing.}
+#!define expectedPermissionResult {OK}
+#!include -seamless .HelperPages.updateCheckReadCheckReadCheckReset
 *!
-!***> Update authority-person:60566 with new family name
+ 
+!3 Roller
+!4 !-SystemAdmin-!
+!-SystemAdmin får ändra alla person och personDomainParts från alla domäner.-!
+ 
+ * '''Fall 1:''' !-SystemAdmin ska kunna uppdatera en person från alla domäner.-!
+ * '''Fall 2:''' !-SystemAdmin ska kunna uppdatera en personDomainParts från alla domäner.-!
 
-!| comment |
-| RecordEndpointFixture |
-| authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | person | authority-person:60566 | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"person"}],"name":"type"},{"name":"id","value":"authority-person:60566"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"12345"}],"name":"createdBy"},{"name":"tsCreated","value":"2016-09-02 10:59:47.428"},{"repeatId":"0","children":[{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"12345"}],"name":"updatedBy"},{"name":"tsUpdated","value":"2018-02-08 10:16:19.538"}],"name":"updated"}],"name":"recordInfo"},{"name":"public","value":"yes"},{"children":[{"name":"familyName","value":"SomeNewFamilyName"},{"name":"givenName","value":"Test"}],"name":"authorizedName"},{"repeatId":"0","children":[{"name":"familyName","value":"Erixon"},{"name":"givenName","value":"Karl"}],"name":"alternativeName"},{"repeatId":"1","children":[{"name":"familyName","value":"Testsson"},{"name":"givenName","value":"Test"}],"name":"alternativeName"},{"repeatId":"2","children":[{"name":"familyName","value":"Testsson"},{"name":"givenName","value":"Test"}],"name":"alternativeName"}],"name":"authorityPerson"} | | OK |
+!4 !-DomainAdmin-!
+!-DomainAdmin får uppdatera alla personer men bara kunna uppdatera personDomainParts som tillhör sin egen domän.-!
 
+ * '''Fall 1:''' !-DomainAdmin ska kunna uppdatera en person från alla domäner.-!
+ * '''Fall 2:''' !-DomainAdmin ska kunna uppdatera en personDomainParts från sin egen domän.-!
+ * '''Fall 3:''' !-DomainAdmin ska INTE kunna uppdatera en personDomainParts från sin egen domän.-!
+
+!4 Guest
+!-Guest får INTE uppdatera personer och inte heller personDomainParts-!
+ * '''Fall 1:''' Guest får INTE uppdatera personer.
+ * '''Fall 2:''' Guest får INTE uppdatera personeDomainPart.
+ 
+!***> Fall 1
+!define currentAuthToken {$userAuthToken}
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
+
+!define expectedUpdateResult {FORBIDDEN}
+!define expectedAnswer {}
+
+Update the record
+!include -seamless .HelperPages.updateRecord
 *!
-!***> Read person again to see that it is updated
+!***> Fall 2
+!define currentAuthToken {$userAuthToken}
 
-!| comment |
-| RecordEndpointFixture |
-| authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | person | authority-person:60566 | =~/"name":"familyName","value":"SomeNewFamilyName"/ | OK |
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Test
 
+!define expectedUpdateResult {FORBIDDEN}
+!define expectedAnswer {}
+
+Update the record
+!include -seamless .HelperPages.updateRecord
 *!
-!***> Update authority-person:60566 with new given name
 
-!| comment |
-| RecordEndpointFixture |
-| authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | person | authority-person:60566 | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"person"}],"name":"type"},{"name":"id","value":"authority-person:60566"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"12345"}],"name":"createdBy"},{"name":"tsCreated","value":"2016-09-02 10:59:47.428"},{"repeatId":"0","children":[{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"12345"}],"name":"updatedBy"},{"name":"tsUpdated","value":"2018-02-08 10:16:19.538"}],"name":"updated"}],"name":"recordInfo"},{"name":"public","value":"yes"},{"children":[{"name":"familyName","value":"SomeNewFamilyName"},{"name":"givenName","value":"SomeNewGivenName"}],"name":"authorizedName"},{"repeatId":"0","children":[{"name":"familyName","value":"Erixon"},{"name":"givenName","value":"Karl"}],"name":"alternativeName"},{"repeatId":"1","children":[{"name":"familyName","value":"Testsson"},{"name":"givenName","value":"Test"}],"name":"alternativeName"},{"repeatId":"2","children":[{"name":"familyName","value":"Testsson"},{"name":"givenName","value":"Test"}],"name":"alternativeName"}],"name":"authorityPerson"} | | OK |
 
-*!
-!***> Read person again to see that it is updated
 
-!| comment |
-| RecordEndpointFixture |
-| authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | person | authority-person:60566 | =~/"name":"givenName","value":"SomeNewGivenName"/ | OK |
-
-*!
-!***> Restore original authority-person:60566 with original name
-
-!| comment |
-| RecordEndpointFixture |
-| authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | person | authority-person:60566 | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"person"}],"name":"type"},{"name":"id","value":"authority-person:60566"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"12345"}],"name":"createdBy"},{"name":"tsCreated","value":"2016-09-02 10:59:47.428"},{"repeatId":"0","children":[{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"12345"}],"name":"updatedBy"},{"name":"tsUpdated","value":"2018-02-08 10:16:19.538"}],"name":"updated"}],"name":"recordInfo"},{"name":"public","value":"yes"},{"children":[{"name":"familyName","value":"Testsson"},{"name":"givenName","value":"Test"}],"name":"authorizedName"},{"repeatId":"0","children":[{"name":"familyName","value":"Erixon"},{"name":"givenName","value":"Karl"}],"name":"alternativeName"},{"repeatId":"1","children":[{"name":"familyName","value":"Testsson"},{"name":"givenName","value":"Test"}],"name":"alternativeName"},{"repeatId":"2","children":[{"name":"familyName","value":"Testsson"},{"name":"givenName","value":"Test"}],"name":"alternativeName"}],"name":"authorityPerson"} | | OK |
-
-*!
