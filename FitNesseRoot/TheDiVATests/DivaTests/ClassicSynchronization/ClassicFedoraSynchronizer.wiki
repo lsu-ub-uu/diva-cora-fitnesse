@@ -27,14 +27,9 @@ När det sker händelser i Classics fedora (Ny, uppdaterad, raderad eller purged
  * '''Fall 3:''' När en ny personpost skapas, ska den skapas i Cora lagring och indexeras i Cora. 
  * '''Fall 4:''' När en personpost raderas, ska den raderas i Cora lagring och indexeringen tas bort i Cora.
  * '''Fall 5:''' När en raderat personpost återaktiveras, ska den skapas i Cora lagring och indexeras i Cora. 
- * '''Fall 6:''' När en personpost uppdateras, ska den uppdateras i Cora lagring och indexeras i Cora. 
- 
- * '''Fall X:''' Kolla på att uppdatera post med uppdaterade persondomains ta bort persondomains som inte längre används.
- 
-  
-
-!style_red[TODO: Det ska komplementeras med andra fall när meddelandet innehåller felaktig data.]
-
+ * '''Fall 6:''' När en personpost uppdateras, ska den uppdateras i Cora lagring och indexeras i Cora.
+ * '''Fall 6a:''' När en person får en ny affiliering skall en motsvarande personDomainPart skapas i Cora.
+ * '''Fall 6b:''' När det tas bort en affiliering från en person skall motsvarande personDomainPart tas bort från Cora.
  
 !***> Fall 1a
 !***> Vi förbereder testet. 
@@ -339,6 +334,73 @@ Vi ta bort index för ${recordId} i solr
 
 *!
 *!
+
+
+
+*!
+!***> Fall 6a
+
+!***> Vi förbereder testet. 
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
+Vi ta bort index för ${recordId} i solr
+
+!include -seamless .HelperPages.removeIndex
+*!
+
+!***> Vi kollar att vi får '''noll''' träff för en sökning efter ${recordId} (i.e. att den '''inte är''' indexerat i solr)
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| ${currentAuthToken} | ${searchId} | ${searchQueryData} | =~/"data":\[\],"totalNo":"0"/ | OK |
+*!
+
+!define recordId {authority-person:106:test}
+!***> Vi ta bort a personDomainPart ${recordId} 
+!define recordType {personDomainPart}
+!define expectedUpdateResult {OK}
+!include -seamless .HelperPages.deleteRecord
+
+*!
+!define recordId {authority-person:106}
+!define recordType {person}
+
+!***> Vi kollar att vi får '''en''' träff när vi läser ${recordId} 
+!define statusType {OK}
+
+!include -seamless .HelperPages.testReadRecord
+
+
+*!
+
+!***> Vi simulerar att det uppdateras en personpost (${recordId}) i DiVA Classic 
+
+
+!| MessageSenderFixture |
+| headers | message | sendMessage? |
+| {methodName:modifyDatastreamByReference, pid:"${recordId}"} | <?xml version="1.0" encoding="UTF-8"?><entry xmlns="http://www.w3.org/2005/Atom" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:fedora-types="http://www.fedora.info/definitions/1/0/types/">  <id>urn:uuid:8c64a8a2-4f0d-4d6a-bc12-4ef2b6006c34</id>  <updated>2021-04-19T13:09:53.716Z</updated>  <author>    <name>fedoraAdmin</name>    <uri>http://localhost:8088/fedora</uri>  </author>  <title type="text">modifyDatastreamByReference</title>  <category term="${recordId}" scheme="fedora-types:pid" label="xsd:string"></category>  <category term="METADATA" scheme="fedora-types:dsID" label="xsd:string"></category>  <category term="" scheme="fedora-types:altIDs" label="fedora-types:ArrayOfString"></category>  <category term="XML metadata" scheme="fedora-types:dsLabel" label="xsd:string"></category>  <category term="" scheme="fedora-types:formatURI" label="xsd:string"></category>  <category term="uploaded://214321" scheme="fedora-types:dsLocation" label="xsd:string"></category>  <category term="null" scheme="fedora-types:checksumType" label="xsd:string"></category>  <category term="null" scheme="fedora-types:checksum" label="xsd:string"></category>  <category term="James Bond saved" scheme="fedora-types:logMessage" label="xsd:string"></category>  <category term="false" scheme="fedora-types:force" label="xsd:boolean"></category>  <summary type="text">${recordId}</summary>  <content type="text">2021-04-19T13:09:53.715Z</content>  <category term="32.1" scheme="info:fedora/fedora-system:def/view#version"></category>  <category term="info:fedora/fedora-system:ATOM-APIM-1.0" scheme="http://www.fedora.info/definitions/1/0/types/formatURI"></category></entry> | OK |
+*!
+
+!***> Vi väntar ${sleepTime} millisekunder så att Cora hinner läsa och indexera posten.
+!| Sleep | ${sleepTime} |
+*!
+
+!***> Vi kollar att vi får '''ett''' träff för en sökning efter ${recordId} (i.e. att den '''är''' indexerat i solr)
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| ${currentAuthToken} | ${searchId} | ${searchQueryData} | =~/"totalNo":"1"/ | OK |
+*!
+
+!***> Vi kollar att vi får '''ett''' träff när vi läser ${recordId}
+!define statusType {OK}
+!include -seamless .HelperPages.testReadRecord
+
+*!
+*!
+
+
+
+
+
+
 
 !***> Återställ posten
 !***> Vi simulerar att det skapas en personpost (${recordId}) i DiVA Classic 
