@@ -1,5 +1,5 @@
 ---
-Static
+Test
 ---
 !1 Sök
 Det skall gå att söka personer via REST API:et.
@@ -60,7 +60,10 @@ Det skall gå att söka personer via REST API:et.
 !style_orange[Vilka test fall behöver vi?]
 OBS: Just nu sökfunktionen bara hittar ord inte delar av ett ord. Om man vill söka delar av ord bör man ha * i slutet av sökordet.
 
- * '''Fall 1:''' Det ska gå att söka i fritextsök. 
+  * '''Fall 0a:''' Det ska gå att göra en tom sökning.
+  * '''Fall 0b:''' Det ska gå att "paginera" en sökning. 
+  
+  * '''Fall 1:''' Det ska gå att söka i fritextsök. 
   * '''Fall 1a:''' Det ska gå att söka med hjälp av * (tom söksträng). !style_red[Ej testad] !style_red[OBS!! Bör träffa postId också.]
   * '''Fall 1b:''' Det ska gå att söka med förnamn !style_red[Ej testad]
   * '''Fall 1b:''' Det ska gå att söka med del av förnamn !style_red[Ej testad]
@@ -87,6 +90,7 @@ OBS: Just nu sökfunktionen bara hittar ord inte delar av ett ord. Om man vill s
   * '''Fall 3d:''' Det ska gå att söka med Libris id !style_red[Ej testad]
  * '''Fall 4:''' Det ska gå att söka i Lokalt id !style_red[AVSTÄNGT] 
  * '''Fall 5:''' Det ska gå att söka i Organisation !style_red[AVSTÄNGT] 
+
  
  Andra fall:
  * Det ska gå att söka med kombination av två olika term (AND)
@@ -94,6 +98,23 @@ OBS: Just nu sökfunktionen bara hittar ord inte delar av ett ord. Om man vill s
  * Felaktiga term. 
  * Börja att söka med delar av ord utan att använda * ?
  * Mjölighet att ta bor sök knappen.  
+
+
+!***> '''Fall 0a'''
+!-Vi söker id utan att ange ett värde-!
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | publicPersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"personGeneralSearchTerm","value":"*"}]}]}]} | =~/"fromNo":"1".+"totalNo":"15".+"toNo":"15"/ | OK |
+*!
+!***> '''Fall 0b'''
+!-Vi söker id med *. Vi begränsar sökning med 6 rader från start rad 2-!
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | publicPersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"personGeneralSearchTerm","value":"*"}]}]},{"name":"rows","value":"6"},{"name":"start","value":"2"}]} |=~/"fromNo":"2".+"totalNo":"15".+"toNo":"7"/ | OK |
+*!
+
 
 !***> '''Fall 1a'''
 !-Vi söker id med *-!
