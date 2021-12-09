@@ -1,5 +1,5 @@
 ---
-Test
+Static
 ---
 !1 Sök
 Det skall gå att söka organisationer via REST API:et.
@@ -70,14 +70,14 @@ OBS: Just nu sökfunktionen bara hittar ord inte delar av ett ord. Om man vill s
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"*"}]}]}]} | =~/"fromNo":"1".+"totalNo":"7".+"toNo":"7"/ | OK |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"*"}]}]}]} | =~/"fromNo":"1".+"totalNo":"8".+"toNo":"8"/ | OK |
 *!
 !***> '''Fall 0b'''
 !-Vi söker id med *. Vi begränsar sökning med 4 rader från start rad 2-!
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"*"}]}]},{"name":"rows","value":"4"},{"name":"start","value":"2"}]} |=~/"fromNo":"2".+"totalNo":"7".+"toNo":"5"/ | OK |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"*"}]}]},{"name":"rows","value":"4"},{"name":"start","value":"2"}]} |=~/"fromNo":"2".+"totalNo":"8".+"toNo":"5"/ | OK |
 *!
 
 
