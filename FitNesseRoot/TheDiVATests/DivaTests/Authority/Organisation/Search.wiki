@@ -1,5 +1,5 @@
 ---
-Static
+Test
 ---
 !1 Sök
 Det skall gå att söka organisationer via REST API:et.
@@ -54,6 +54,9 @@ Det skall gå att söka organisationer via REST API:et.
 *!
 OBS: Just nu sökfunktionen bara hittar ord inte delar av ett ord. Om man vill söka delar av ord bör man ha * i slutet av sökordet.
 
+ * '''Fall 0a:''' Det ska gå att göra en tom sökning.
+ * '''Fall 0b:''' Det ska gå att "paginera" en sökning. 
+
  * '''Fall 1:''' Det ska gå att söka i organisationsid, organisationsnamn, organisationsnummer  med hjälp av ** (tom söksträng)
  * '''Fall 2:''' Det ska gå att söka med bara en domän
  * '''Fall 3:''' Det ska gå att söka med bara en eller flera organisationsid
@@ -61,6 +64,22 @@ OBS: Just nu sökfunktionen bara hittar ord inte delar av ett ord. Om man vill s
  * '''Fall 5:''' Det ska gå att söka med bara organisationstyp
  * '''Fall 6:''' Det ska gå att söka med organisationsnamn även när tecken å, ä eller ö finns i namnet
  * '''Fall 7:''' Det ska gå att söka i kombination av flera fält (domän, organisationsnamn, organisationsid, organisationstyp och organisationsnummer)
+
+!***> '''Fall 0a'''
+!-Vi söker id utan att ange ett värde (*)-!
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"*"}]}]}]} | =~/"fromNo":"1".+"totalNo":"7".+"toNo":"7"/ | OK |
+*!
+!***> '''Fall 0b'''
+!-Vi söker id med *. Vi begränsar sökning med 4 rader från start rad 2-!
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"*"}]}]},{"name":"rows","value":"4"},{"name":"start","value":"2"}]} |=~/"fromNo":"2".+"totalNo":"7".+"toNo":"5"/ | OK |
+*!
+
 
 !***> '''Fall 1'''
 
