@@ -18,7 +18,7 @@ I DiVA powered by Cora är personer....
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.BatchIndexing
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.Search
 #!include -seamless .TheDiVATests.DivaTests.Authority.Person.Create
-#!include -seamless .TheDiVATests.DivaTests.Authority.Person.Update
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.Update
 #!include -seamless .TheDiVATests.DivaTests.Authority.Person.Delete
 #!include -seamless .TheDiVATests.DivaTests.Authority.Person.Validate
 #!include -seamless .TheDiVATests.DivaTests.Authority.Person.IncomingLinks
