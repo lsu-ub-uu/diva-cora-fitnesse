@@ -7,9 +7,12 @@ Det ska vara möjligt att uppdatera Organisation.
  * '''Fall 1:''' Det ska gå att uppdatera person
  * '''Fall 2:''' Det ska gå att uppdatera person domän delen (personDomainParts)
  
- * '''Fall 3:''' Det ska gå att lägga till en ny personDomainPart till en befintligt person. (Create personDomainPart)
- * '''Fall 4:''' Det ska gå att ta bort en personDomainPart till en befintligt person. (Delete personDomainPart)
+ * '''Fall 3:''' Det ska gå att ta bort en personDomainPart till en befintligt person. (Delete personDomainPart)
+ * '''Fall 4:''' Det ska gå att lägga till en ny personDomainPart till en befintligt person. (Create personDomainPart)
  
+!3 Synchronizing with classic
+ * '''Fall 5:''' När en person uppdateras, personen ska synchronizeras och indexeras i Classic
+ * '''Fall 6:''' När en personDomainPart uppdateras, relaterad person posten ska synchronizeras och indexeras i Classic
  
 !***> Fall 1
 !define currentAuthToken {$adminAuthToken}
@@ -22,10 +25,9 @@ Det ska vara möjligt att uppdatera Organisation.
 !define expectedCompareResult {OK}
 
 !define expectedActionResult {Action read_incoming_links is missing.}
-!define expectedPermissionResult {OK}
+!define expectedPermissionResult {Write permission domain is missing.}
 !include -seamless .HelperPages.updateCheckReadCheckReadCheckReset
 *!
-
 !***> Fall 2
 !define currentAuthToken {$adminAuthToken}
 
@@ -37,9 +39,38 @@ Det ska vara möjligt att uppdatera Organisation.
 !define expectedCompareResult {OK}
 
 !define expectedActionResult {Action read_incoming_links is missing.}
-!define expectedPermissionResult {OK}
+!define expectedPermissionResult {Write permission domain is missing.}
 !include -seamless .HelperPages.updateCheckReadCheckReadCheckReset
 *!
+!***> Fall 3 Ta bort authority-person:106:test från personen authority-person:106
+!define currentAuthToken {$adminAuthToken}
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106-RemovePersonDomainPart
+#update
+!define expectedUpdateResult {OK}
+!define expectedAnswer {}
+#Compare
+!define expectedCompareResult {Ok}
+
+!define expectedActionResult {Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission domain is missing.}
+*!
+
+!***> Fall 4 Lägga till authority-person:106:test till personen authority-person:106
+!define currentAuthToken {$adminAuthToken}
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
+#update
+!define expectedUpdateResult {OK}
+!define expectedAnswer {}
+#Compare
+!define expectedCompareResult {OK}
+
+!define expectedActionResult {Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission domain is missing.}
+!include -seamless .HelperPages.updateCheckReadCheckReadCheckReset
+*!
+
  
 !3 Roller
 !4 !-SystemAdmin-!
