@@ -2,22 +2,26 @@
 Test
 ---
 !2 Uppdatera
-Det ska vara möjligt att uppdatera Organisation.
+Det ska vara möjligt att uppdatera Person.
 
  * '''Fall 1:''' Det ska gå att uppdatera person
- * '''Fall 2:''' Det ska gå att uppdatera person domän delen (personDomainParts)
+ * '''Fall 2:''' Det ska gå att uppdatera person domän delen (personDomainParts) !style_red[(Ej implementerad)]
  
- Person post innehåller en lista med länkar på personDomainParts. Ingen rol kommer att kunna skriva i den. För att kunna lägga till eller ta bort personDomainParts man kommer att behöva skapa eller radera personDomainParts. Server kommer då att lägga till respektive ta bort personDomainPart från listan i personposten, via idet från personDomainParts. 
+ Person post innehåller en lista med länkar på personDomainParts. Ingen roll kommer att kunna skriva i den. För att kunna lägga till eller ta bort personDomainParts man kommer att behöva skapa eller radera personDomainParts. Server kommer då att lägga till respektive ta bort personDomainPart från listan i personposten, via idet från personDomainParts. 
+  
+ * '''Fall 3:''' Det ska gå att lägga till en ny personDomainPart till en befintligt person. (Create personDomainPart) !style_red[(Ej implementerad)]
+ * '''Fall 4:''' Det ska gå att ta bort en personDomainPart till en befintligt person. (Delete personDomainPart)  !style_red[(Ej implementerad)]
+
+ * '''Fall 5:''' Vid uppdatering, när lokala id eller ORCID finns i ett publikation, lokala id eller ORCID ska inte uppdateras !style_red[(Ej implementerad)]
  
- * '''Fall 3:''' Det ska gå att ta bort en personDomainPart till en befintligt person. (Delete personDomainPart)
- * '''Fall 4:''' Det ska gå att lägga till en ny personDomainPart till en befintligt person. (Create personDomainPart)
- 
- * '''Fall 5:''' Det går inte att skpa en personDomainPart utan att det finns en person relaterad till den.
- * '''Fall 6:''' en personDomainPart kan bara ha EN relaterad person.
+ * '''Fall 6:''' Det går inte att skpa en personDomainPart utan att det finns en person relaterad till den. !style_red[(Ej implementerad)]
+ * '''Fall 7:''' En personDomainPart kan bara ha EN relaterad person. !style_red[(Ej implementerad)]
  
 !3 Synchronizing with classic
- * '''Fall 7:''' När en person uppdateras, personen ska synchronizeras och indexeras i Classic
- * '''Fall 8:''' När en personDomainPart uppdateras, relaterad person posten ska synchronizeras och indexeras i Classic
+ * '''Fall 8:''' När en person uppdateras, personen ska synchronizeras och indexeras i Classic
+ * '''Fall 9:''' När en personDomainPart skapas, relaterad person posten ska synchronizeras och indexeras i Classic !style_red[(Ej implementerad)]
+ * '''Fall 10:''' När en personDomainPart uppdateras, relaterad person posten ska synchronizeras och indexeras i Classic !style_red[(Ej implementerad)]
+ * '''Fall 11:''' När en personDomainPart ta bort, relaterad person posten ska synchronizeras och indexeras i Classic !style_red[(Ej implementerad)]
  
 
  
@@ -32,7 +36,7 @@ Det ska vara möjligt att uppdatera Organisation.
 !define expectedCompareResult {OK}
 
 !define expectedActionResult {Action read_incoming_links is missing.}
-!define expectedPermissionResult {Write permission domain is missing.}
+!define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.	}
 !include -seamless .HelperPages.updateCheckReadCheckReadCheckReset
 *!
 !***> Fall 2
@@ -46,35 +50,35 @@ Det ska vara möjligt att uppdatera Organisation.
 !define expectedCompareResult {OK}
 
 !define expectedActionResult {Action read_incoming_links is missing.}
-!define expectedPermissionResult {Write permission domain is missing.}
+!define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
 !include -seamless .HelperPages.updateCheckReadCheckReadCheckReset
 *!
-!***> Fall 3 Ta bort authority-person:106:test från personen authority-person:106
-!define currentAuthToken {$adminAuthToken}
+!***> Fall 3 Ta bort authority-person:106:test från personen authority-person:106 !style_red[(Ej implementerad)]
+#!define currentAuthToken {$adminAuthToken}
 
-!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106-RemovePersonDomainPart
+#!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106-RemovePersonDomainPart
 #update
-!define expectedUpdateResult {OK}
-!define expectedAnswer {}
+#!define expectedUpdateResult {OK}
+#!define expectedAnswer {}
 #Compare
-!define expectedCompareResult {Ok}
+#!define expectedCompareResult {Ok}
 
-!define expectedActionResult {Action read_incoming_links is missing.}
-!define expectedPermissionResult {Write permission domain is missing.}
+#!define expectedActionResult {Action read_incoming_links is missing.}
+#!define expectedPermissionResult {Write permission domain is missing.}
 *!
-!***> Fall 4 Lägga till authority-person:106:test till personen authority-person:106
-!define currentAuthToken {$adminAuthToken}
+!***> Fall 4 Lägga till authority-person:106:test till personen authority-person:106 !style_red[(Ej implementerad)]
+#!define currentAuthToken {$adminAuthToken}
 
-!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
+#!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
 #update
-!define expectedUpdateResult {OK}
-!define expectedAnswer {}
+#!define expectedUpdateResult {OK}
+#!define expectedAnswer {}
 #Compare
-!define expectedCompareResult {OK}
+#!define expectedCompareResult {OK}
 
-!define expectedActionResult {Action read_incoming_links is missing.}
-!define expectedPermissionResult {Write permission domain is missing.}
-!include -seamless .HelperPages.updateCheckReadCheckReadCheckReset
+#!define expectedActionResult {Action read_incoming_links is missing.}
+#!define expectedPermissionResult {Write permission domain is missing.}
+#!include -seamless .HelperPages.updateCheckReadCheckReadCheckReset
 *!
 
  
