@@ -7,6 +7,10 @@ Det ska vara möjligt att uppdatera Organisation.
  * '''Fall 1:''' Det ska gå att uppdatera person
  * '''Fall 2:''' Det ska gå att uppdatera person domän delen (personDomainParts)
  
+ * '''Fall 3:''' Det ska gå att lägga till en ny personDomainPart till en befintligt person. (Create personDomainPart)
+ * '''Fall 4:''' Det ska gå att ta bort en personDomainPart till en befintligt person. (Delete personDomainPart)
+ 
+ 
 !***> Fall 1
 !define currentAuthToken {$adminAuthToken}
 
