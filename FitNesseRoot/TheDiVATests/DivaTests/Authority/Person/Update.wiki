@@ -7,12 +7,19 @@ Det ska vara möjligt att uppdatera Organisation.
  * '''Fall 1:''' Det ska gå att uppdatera person
  * '''Fall 2:''' Det ska gå att uppdatera person domän delen (personDomainParts)
  
+ Person post innehåller en lista med länkar på personDomainParts. Ingen rol kommer att kunna skriva i den. För att kunna lägga till eller ta bort personDomainParts man kommer att behöva skapa eller radera personDomainParts. Server kommer då att lägga till respektive ta bort personDomainPart från listan i personposten, via idet från personDomainParts. 
+ 
  * '''Fall 3:''' Det ska gå att ta bort en personDomainPart till en befintligt person. (Delete personDomainPart)
  * '''Fall 4:''' Det ska gå att lägga till en ny personDomainPart till en befintligt person. (Create personDomainPart)
  
+ * '''Fall 5:''' Det går inte att skpa en personDomainPart utan att det finns en person relaterad till den.
+ * '''Fall 6:''' en personDomainPart kan bara ha EN relaterad person.
+ 
 !3 Synchronizing with classic
- * '''Fall 5:''' När en person uppdateras, personen ska synchronizeras och indexeras i Classic
- * '''Fall 6:''' När en personDomainPart uppdateras, relaterad person posten ska synchronizeras och indexeras i Classic
+ * '''Fall 7:''' När en person uppdateras, personen ska synchronizeras och indexeras i Classic
+ * '''Fall 8:''' När en personDomainPart uppdateras, relaterad person posten ska synchronizeras och indexeras i Classic
+ 
+
  
 !***> Fall 1
 !define currentAuthToken {$adminAuthToken}
@@ -55,7 +62,6 @@ Det ska vara möjligt att uppdatera Organisation.
 !define expectedActionResult {Action read_incoming_links is missing.}
 !define expectedPermissionResult {Write permission domain is missing.}
 *!
-
 !***> Fall 4 Lägga till authority-person:106:test till personen authority-person:106
 !define currentAuthToken {$adminAuthToken}
 
