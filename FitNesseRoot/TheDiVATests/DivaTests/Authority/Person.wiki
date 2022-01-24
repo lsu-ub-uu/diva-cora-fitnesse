@@ -7,23 +7,15 @@ Personsposten är en så kallad auktoritetspost i syfte att identifiera personer
 
 Data innehåller bland annat namn och kopplingar till organisationer.
 
-Personer läses och uppdateras i Fedora Commons från Classic.
+Personer läses och uppdateras i en databas och förändringar synchroniseras till Fedora Commons från Classic.
 
-I DiVA powered by Cora är informationen om en person delad på två posttyper, person och personDomainPart.
-Posttypen person innehåller gemensamma delar som kan ändras av användare från alla olika medlemmar.
-Posttypen personDomainPart innehåller information om en person som är specifik för en medlem, (lokaltid och organisationstillhörighet)
+I DiVA powered by Cora är informationen om en person delad på två posttyper, person och personDomainPart. Posttypen person innehåller gemensamma delar som kan ändras av användare från alla olika medlemmar. Posttypen personDomainPart innehåller information om en person som är specifik för en medlem, (lokaltid och organisationstillhörighet)
 
-För att hålla ihop person med sina personDomainParts har personposten en lista på personDomainPart.
-Denna lista kan inte uppdateras av någon användare utan uppdateras automatiskt av servern när man 
-lägger till eller tar bort en personDomainPart.
+För att hålla ihop person med sina personDomainParts har personposten en lista på personDomainPart. Denna lista kan inte uppdateras av någon användare utan uppdateras automatiskt av servern när man lägger till eller tar bort en personDomainPart.
 
-Person har i recordInfo en lista på ingående domäner, hämtade från kopplade personDomainParts.
-Denna lista kan inte uppdateras av någon användare utan uppdateras automatiskt av servern när man 
-lägger till eller tar bort en personDomainPart.
+Person har i recordInfo en lista på ingående domäner, hämtade från kopplade personDomainParts. Denna lista kan inte uppdateras av någon användare utan uppdateras automatiskt av servern när man lägger till eller tar bort en personDomainPart.
 
-PersonDomainPart har fältet public.
-Detta fält kan inte uppdateras av någon användare utan uppdateras automatiskt av servern när man 
-uppdaterar fältet public i recordInfo på personposten.
+!-PersonDomainPart-! har fältet public. Detta fält kan inte uppdateras av någon användare utan uppdateras automatiskt av servern när man  uppdaterar fältet public i recordInfo på personposten.
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.RecordType
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.Read
