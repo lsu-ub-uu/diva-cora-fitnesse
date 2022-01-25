@@ -7,5 +7,3 @@ Validate everything has been read correctly.
 Validate the '''response''' returned on the '''read''' call contains the expected record parts.
 !include -seamless .HelperPages.compareRecord
 !include -seamless .HelperPages.recordPermissions
-
-
