@@ -17,6 +17,9 @@ Personpost är byggt med en superpost (personpost) och en subpost (personDomainP
 !define expectedCompareResult {OK}
 !define expectedActionResult {Action read_incoming_links is missing.}
 !define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
+!define expectedMissingReadPartPermissions {none}
+!define expectedMissingWritePartPermissions {domain!-
+-!personDomainPart}
 !define expectedExistFieldsResult {OK}
 !include -seamless .HelperPages.readCheck
 #!include -seamless .HelperPages.existsFieldsOnRecord
