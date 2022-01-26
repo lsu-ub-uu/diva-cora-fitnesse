@@ -1,9 +1,10 @@
 ---
-Static
+Test
 ---
+
 !1 Sök
 Det skall gå att söka personer via REST API:et.
- 
+
 !***> !-SetUp (Indexerar personer)-!
 
 !define currentAuthToken {$adminAuthToken}
@@ -182,7 +183,7 @@ OBS: Just nu sökfunktionen bara hittar ord inte delar av ett ord. Om man vill s
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
 !include -seamless .HelperPages.searchRecord
-!define expectedCompareResult {Child with nameInData createdBy and type group is missing. Did not find a match for child with nameInData yearOfBirth and value 1918. Did not find a match for child with nameInData yearOfDeath and value 2021. Did not find a match for child with nameInData emailAddress and value pippi.langstrump@villekulla.se.}
+!define expectedCompareResult {Child with nameInData createdBy and type group is missing. Child with nameInData updated and type group and repeatId 0 is missing. Child with nameInData updated and type group and repeatId 1 is missing. Did not find a match for child with nameInData yearOfBirth and value 1918. Did not find a match for child with nameInData yearOfDeath and value 2021. Did not find a match for child with nameInData emailAddress and value pippi.langstrump@villekulla.se.}
 !define expectedActionResult {Action update is missing. Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
 !define expectedPermissionResult {Read permission createdBy is missing. Read permission updated is missing. Read permission emailAddress is missing. Read permission yearOfBirth is missing. Read permission yearOfDeath is missing. Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission public is missing. Write permission domain is missing. Write permission academicTitle is missing. Write permission emailAddress is missing. Write permission yearOfBirth is missing. Write permission yearOfDeath is missing. Write permission alternativeName is missing. Write permission externalURL is missing. Write permission otherAffiliation is missing. Write permission ORCID_ID is missing. Write permission VIAF_ID is missing. Write permission Libris_ID is missing. Write permission biographyEnglish is missing. Write permission biographySwedish is missing. Write permission personDomainPart is missing.}
 !include -seamless .HelperPages.checkOriginal

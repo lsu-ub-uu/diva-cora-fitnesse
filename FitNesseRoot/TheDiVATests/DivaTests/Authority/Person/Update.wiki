@@ -53,29 +53,29 @@ Uppdatering av den totala informationen om en person görs genom att personposte
 
 !***> Fall 1
 
-!define currentAuthToken {$adminAuthToken}
-!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
-!define expectedUpdateResult {OK}
-!define expectedAnswer {}
-!define expectedCompareResult {OK}
-!define expectedActionResult {Action read_incoming_links is missing.}
-!define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.        }
-!include -seamless .HelperPages.updateCheckReadCheckReadCheckReset
+#!define currentAuthToken {$adminAuthToken}
+#!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
+#!define expectedUpdateResult {OK}
+#!define expectedAnswer {}
+#!define expectedCompareResult {OK}
+#!define expectedActionResult {Action read_incoming_links is missing.}
+#!define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.        }
+#!include -seamless .HelperPages.updateCheckReadCheckReadCheckReset
 *!
 !***> Fall 2
 
-!define currentAuthToken {$adminAuthToken}
-!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Kth
-#update
-
-!define expectedUpdateResult {OK}
-!define expectedAnswer {}
-#Compare
-
-!define expectedCompareResult {OK}
-!define expectedActionResult {Action read_incoming_links is missing.}
-!define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
-!include -seamless .HelperPages.updateCheckReadCheckReadCheckReset
+#!define currentAuthToken {$adminAuthToken}
+#!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Kth
+##update
+#
+#!define expectedUpdateResult {OK}
+#!define expectedAnswer {}
+##Compare
+#
+#!define expectedCompareResult {OK}
+#!define expectedActionResult {Action read_incoming_links is missing.}
+#!define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
+#!include -seamless .HelperPages.updateCheckReadCheckReadCheckReset
 *!
 !***> Fall 3 Ta bort authority-person:106:test från personen authority-person:106 EJ IMPLEMENTERAD
 
@@ -143,21 +143,21 @@ Uppdatering av den totala informationen om en person görs genom att personposte
 
 !***> Fall 1
 
-!define currentAuthToken {$userAuthToken}
-!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
-!define expectedUpdateResult {FORBIDDEN}
-!define expectedAnswer {}
+#!define currentAuthToken {$userAuthToken}
+#!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
+#!define expectedUpdateResult {FORBIDDEN}
+#!define expectedAnswer {}
 Update the record
 
-!include -seamless .HelperPages.updateRecord
+#!include -seamless .HelperPages.updateRecord
 *!
 !***> Fall 2
 
-!define currentAuthToken {$userAuthToken}
-!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Test
-!define expectedUpdateResult {FORBIDDEN}
-!define expectedAnswer {}
+#!define currentAuthToken {$userAuthToken}
+#!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Test
+#!define expectedUpdateResult {FORBIDDEN}
+#!define expectedAnswer {}
 Update the record
 
-!include -seamless .HelperPages.updateRecord
+#!include -seamless .HelperPages.updateRecord
 *!
