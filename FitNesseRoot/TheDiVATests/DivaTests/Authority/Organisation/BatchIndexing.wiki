@@ -141,3 +141,13 @@ Guest ska inte kunna batchindexera någon organisationsposttyp.
 
 !define recordType {subOrganisation}
 !include -seamless .TheDiVATests.DivaTests.batchIndexRecordType
+
+!***> Vi tar bort indexeringen för poster som sök testet ej förväntar sig skall vara indexerade
+!define currentAuthToken {$adminAuthToken}
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? | 
+| ${currentAuthToken} | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"topOrganisation"}]},{"name":"recordId","value":"1"},{"name":"type","value":"removeFromIndex"}]} | | CREATED |
+| ${currentAuthToken} | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"subOrganisation"}]},{"name":"recordId","value":"50"},{"name":"type","value":"removeFromIndex"}]} | | CREATED |
+| ${currentAuthToken} | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"subOrganisation"}]},{"name":"recordId","value":"51"},{"name":"type","value":"removeFromIndex"}]} | | CREATED |
+| ${currentAuthToken} | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"topOrganisation"}]},{"name":"recordId","value":"1350"},{"name":"type","value":"removeFromIndex"}]} | | CREATED |
+*!
