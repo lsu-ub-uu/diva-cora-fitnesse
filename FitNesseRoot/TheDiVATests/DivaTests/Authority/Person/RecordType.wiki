@@ -4,7 +4,7 @@ Static
 !2 Metadata
 !3 Fält och begränsningar:
 !style_red[en inloggad användare skall kunna uppdatera "sin egen" personpost, men med begränsningar, dessa är ännu inte inlagda ]
-Det som står listat här är nameInData.
+Det som står listat här för uppdatering och läsning (ej ny) och namnen som står är nameInData.
 
 !4 Person
  * person (group)

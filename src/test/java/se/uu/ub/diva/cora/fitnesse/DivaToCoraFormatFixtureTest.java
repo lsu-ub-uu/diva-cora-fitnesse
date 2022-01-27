@@ -23,9 +23,6 @@ import static org.testng.Assert.assertEquals;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import se.uu.ub.diva.cora.fitnesse.DivaFitnesseDependencyProvider;
-import se.uu.ub.diva.cora.fitnesse.DivaToCoraFormatFixture;
-
 public class DivaToCoraFormatFixtureTest {
 	private DivaToCoraFormatFixture fixture;
 	private DivaToCoraConverterFactorySpy converterFactorySpy;

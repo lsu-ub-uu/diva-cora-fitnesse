@@ -5,4 +5,26 @@ Help: Data for person recordType
 
 !define recordType {person}
 !define recordPermissions {!-{"read":["createdBy","updated","public","domain","academicTitle","emailAddress","yearOfBirth","yearOfDeath","alternativeName","externalURL","otherAffiliation","ORCID_ID","VIAF_ID","Libris_ID","biographyEnglish","biographySwedish","personDomainPart"], "write":["id","type","createdBy","dataDivider","tsCreated","updated","public","domain","academicTitle","emailAddress","yearOfBirth","yearOfDeath","alternativeName","externalURL","otherAffiliation","ORCID_ID","VIAF_ID","Libris_ID","biographyEnglish","biographySwedish","personDomainPart"]}-!}
+
+!define recordReadPermissions {createdBy!-
+-!updated!-
+-!public!-
+-!domain!-
+-!academicTitle!-
+-!emailAddress!-
+-!yearOfBirth!-
+-!yearOfDeath!-
+-!alternativeName!-
+-!externalURL!-
+-!otherAffiliation!-
+-!ORCID_ID!-
+-!VIAF_ID!-
+-!Libris_ID!-
+-!biographyEnglish!-
+-!biographySwedish!-
+-!personDomainPart}
+
+#!define recordReadPermissions {!{createdBy:12, updated:12, public:21}}
+
+#domain","academicTitle","emailAddress","yearOfBirth","yearOfDeath","alternativeName","externalURL","otherAffiliation","ORCID_ID","VIAF_ID","Libris_ID","biographyEnglish","biographySwedish","personDomainPart"], "write":["id","type","createdBy","dataDivider","tsCreated","updated","public","domain","academicTitle","emailAddress","yearOfBirth","yearOfDeath","alternativeName","externalURL","otherAffiliation","ORCID_ID","VIAF_ID","Libris_ID","biographyEnglish","biographySwedish","personDomainPart"]}-!}
 *!

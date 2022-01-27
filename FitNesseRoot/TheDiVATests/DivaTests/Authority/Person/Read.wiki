@@ -1,5 +1,5 @@
 ---
-Static
+Test
 ---
 !2 Läsa
 Det skall gå att läsa personer via REST API:et och i svaret få med vilka rättigheter den inloggade användaren har både på post och delpostnivå.
@@ -17,6 +17,9 @@ Personpost är byggt med en superpost (personpost) och en subpost (personDomainP
 !define expectedCompareResult {OK}
 !define expectedActionResult {Action read_incoming_links is missing.}
 !define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
+!define expectedMissingReadPartPermissions {none}
+!define expectedMissingWritePartPermissions {domain!-
+-!personDomainPart}
 !define expectedExistFieldsResult {OK}
 !include -seamless .HelperPages.readCheck
 #!include -seamless .HelperPages.existsFieldsOnRecord
@@ -523,7 +526,7 @@ Personposten har ingen domän, men vi borde ärndå kunna se alla fält.
 Guest får läsa från alla domän däremot får inte se födelseår, dödsår, e-postadress och lokalt ID men den får läsa affiliering till organisationer
 !***> Läs personpost
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
-!define expectedCompareResult {Child with nameInData createdBy and type group is missing. Did not find a match for child with nameInData yearOfBirth and value 1918. Did not find a match for child with nameInData yearOfDeath and value 2021. Did not find a match for child with nameInData emailAddress and value pippi.langstrump@villekulla.se.}
+!define expectedCompareResult {Child with nameInData createdBy and type group is missing. Child with nameInData updated and type group and repeatId 0 is missing. Child with nameInData updated and type group and repeatId 1 is missing. Did not find a match for child with nameInData yearOfBirth and value 1918. Did not find a match for child with nameInData yearOfDeath and value 2021. Did not find a match for child with nameInData emailAddress and value pippi.langstrump@villekulla.se.}
 !define expectedActionResult {Action update is missing. Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
 !define expectedPermissionResult {Read permission createdBy is missing. Read permission updated is missing. Read permission emailAddress is missing. Read permission yearOfBirth is missing. Read permission yearOfDeath is missing. Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission public is missing. Write permission domain is missing. Write permission academicTitle is missing. Write permission emailAddress is missing. Write permission yearOfBirth is missing. Write permission yearOfDeath is missing. Write permission alternativeName is missing. Write permission externalURL is missing. Write permission otherAffiliation is missing. Write permission ORCID_ID is missing. Write permission VIAF_ID is missing. Write permission Libris_ID is missing. Write permission biographyEnglish is missing. Write permission biographySwedish is missing. Write permission personDomainPart is missing.}
 !define expectedCompareData originalData
@@ -532,7 +535,7 @@ Guest får läsa från alla domän däremot får inte se födelseår, dödsår, 
 Det finns ingen lokalid i den här personDomainPart.
 !***> Läs personDomainPart
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Kth
-!define expectedCompareResult {Child with nameInData createdBy and type group is missing.}
+!define expectedCompareResult {Child with nameInData createdBy and type group is missing. Child with nameInData updated and type group and repeatId 0 is missing. Child with nameInData updated and type group and repeatId 1 is missing. Did not find a match for child with nameInData identifier and value 3292.}
 !define expectedActionResult {Action update is missing. Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
 !define expectedPermissionResult {Read permission createdBy is missing. Read permission updated is missing. Read permission identifier is missing. Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission public is missing. Write permission domain is missing. Write permission identifier is missing.}
 !include -seamless .HelperPages.readCheck
