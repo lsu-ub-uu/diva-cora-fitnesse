@@ -35,7 +35,7 @@
 		<coralog4j.version>2.6.0</coralog4j.version>
 		<json.version>3.1.0</json.version>
 		<httphandler.version>2.4.0</httphandler.version>
-		<fitnesseintegration.version>3.7-SNAPSHOT</fitnesseintegration.version>
+		<fitnesseintegration.version>3.6.0</fitnesseintegration.version>
 		<divamixedstorage.version>4.10.0</divamixedstorage.version>
 		<javax.ws.rs.version>2.1.1</javax.ws.rs.version>
 		<coradata.version>5.3.0</coradata.version>
