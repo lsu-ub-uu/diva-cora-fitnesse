@@ -1,0 +1,27 @@
+---
+Help: Data for personDomainPart authority-person:106:uu
+Static
+Test: no
+---
+!***> Data for personDomainPart authority-person:106:uu
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPartRecordType
+!define recordId {authority-person:106:uu}
+
+#!define originalData {}
+#!define expectedOriginalData originalData
+
+!define createData {!-{"name":"personDomainPart","children":[{"name":"recordInfo","children":[{"name":"id","value":"authority-person:106:uu"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"personDomainPart"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"domain","value":"uu"},{"name":"public","value":"yes"}]},{"name":"identifier","value":"128912"},{"name":"affiliation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"organisation"},{"name":"linkedRecordId","value":"1750"}]},{"name":"affiliationFromYear","value":"1982"},{"name":"affiliationUntilYear","value":"2014"}],"repeatId":"0"}]}-!}
+!define expectedCreatedData createData
+
+#!define updateData {
+#!define expectedUpdatedData {}
+ 
+#!define searchId {}
+#!define searchQueryData {}
+
+# customUpdateData is a json string which can be filled with extra json using the variable customJsonPart
+#!define jsonPart customJsonPart
+#!define customJsonPart {}
+#!define customUpdateData {!--!}
+*!

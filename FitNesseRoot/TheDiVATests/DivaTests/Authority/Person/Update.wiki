@@ -9,9 +9,9 @@ En personpost innehåller en lista med länkar till personDomainParts. Ingen anv
 
 !3 Person
  * '''Fall 1:''' Det ska gå att uppdatera en person
-   * Det ska inte gå att ändra listan på domäner (i recordInfo) och ej heller listan på kopplade personDomainParts.
- * '''Fall 1A:''' Det ska gå att uppdatera fältet "public" i en person. !style_red[(Ej implementerad)]
    * Det uppdaterade fältet public ska uppdateras i alla relaterade person domän delar
+   * Det ska inte gå att ändra listan på domäner (i recordInfo) 
+   * Det ska inte gå att ändra listan på kopplade personDomainParts
  * '''Fall 1B:''' Om fältet "ORCID" uppdateras men den redan finns i en publikation i classic (sök i classic), skall ORCID inte uppdateras utan vara oförändrad !style_red[(Ej implementerad)]
 
 !3 !-Person domän delen-!
@@ -51,31 +51,38 @@ Uppdatering av den totala informationen om en person görs genom att personposte
  * '''Fall 7:''' När en person domän del uppdateras, ska den relaterade personposten synchronizeras och indexeras i Classic !style_red[(Ej implementerad)]
  * '''Fall 8:''' När en person domän del tas bort, ska den relaterade personposten synchronizeras och indexeras i Classic !style_red[(Ej implementerad)]
 
+!include -seamless .HelperPages.defineAdminAuthToken
 !***> Fall 1
 
-#!define currentAuthToken {$adminAuthToken}
-#!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
-#!define expectedUpdateResult {OK}
-#!define expectedAnswer {}
-#!define expectedCompareResult {OK}
-#!define expectedActionResult {Action read_incoming_links is missing.}
-#!define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.        }
-#!include -seamless .HelperPages.updateCheckReadCheckReadCheckReset
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
+!***> Define expected data
+!define expectedUpdateResult {OK}
+!define expectedAnswer {}
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
+*!
+!include -seamless .HelperPages.updateCheckReadCheckReadCheck
+
+!***> Det uppdaterade fältet public ska uppdateras i alla relaterade person domän delar
+!define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Kth
+!define expectedCreatedData expectedUpdatedDataTriggeredFromPerson
+!include -seamless .HelperPages.readCheck
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Test
+!define expectedCreatedData expectedUpdatedDataTriggeredFromPerson
+!include -seamless .HelperPages.readCheck
+*!
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
+!include -seamless .HelperPages.resetRecord
 *!
 !***> Fall 2
 
-#!define currentAuthToken {$adminAuthToken}
-#!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Kth
-##update
-#
-#!define expectedUpdateResult {OK}
-#!define expectedAnswer {}
-##Compare
-#
-#!define expectedCompareResult {OK}
-#!define expectedActionResult {Action read_incoming_links is missing.}
-#!define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
-#!include -seamless .HelperPages.updateCheckReadCheckReadCheckReset
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Uu
+!include -seamless .HelperPages.createCheckReadCheck
+
 *!
 !***> Fall 3 Ta bort authority-person:106:test från personen authority-person:106 EJ IMPLEMENTERAD
 
