@@ -18,16 +18,18 @@ En personpost innehåller en lista med länkar till personDomainParts. Ingen anv
 Uppdatering av den totala informationen om en person görs genom att personposten uppdateras, eller genom att relaterade personDomainParts läggs till, uppdateras eller tas bort. Därför finns här information om de olika fall som vi behövar ta hänsyn till när man förändrar personDomainParts, genom att lägga till, uppdatera eller ta bort dem.
 
 !4 Lägg till en person domän del
- * '''Fall 2:''' Det ska gå att lägga till en ny person domän del till en befintligt person. (Create personDomainPart).
+ * '''Fall 2:''' Det ska gå att lägga till en ny person domän del till en befintligt person (publik). (Create personDomainPart).
    * Personposthistoriken utökas med en ny update.
    * Den nya personDomainParten läggs till i listan med länkade person domän delar i personposten.
    * Domänen som personDomainPart tillhör läggs till i domän listan i personposten
    * Värdet på fältet "public" kopieras från person till den nya person domän delen
- * '''Fall 2A:''' Det ska inte gå att lägga till en ny personDomainPart med ett id som inte matchar en befintligt person.!style_red[(Ej implementerad)]
+ * '''Fall 2A:''' Det ska gå att lägga till en ny person domän del till en befintligt person (ej publik). (Create personDomainPart).
+   * Värdet på fältet "public" kopieras från person till den nya person domän delen
+ * '''Fall 2B:''' Det ska inte gå att lägga till en ny personDomainPart med ett id som inte matchar en befintligt person.
    * Om inte id:et på personDomainPart matchar en befintlig personpost, skall servern svara med BAD_REQUEST
- * '''Fall 2B:''' Det ska inte gå att lägga till en ny personDomainPart, där varken "identifier" eller "affiliation" finns med. !style_red[(Ej implementerad)]
+ * '''Fall 2C:''' Det ska inte gå att lägga till en ny personDomainPart, där varken "identifier" eller "affiliation" finns med. !style_red[(Ej implementerad)]
    * Saknas både "identifier" och "affiliation" skall servern svara med BAD_REQUEST
- * '''Fall 2C:''' En personDomainPart kan bara ha EN relaterad person. !style_red[(Ej implementerad)]
+ * '''Fall 2D:''' En personDomainPart kan bara ha EN relaterad person.
 
 !4 Uppdatera en person domän del
  * '''Fall 3:''' Det ska gå att uppdatera person domän delen (personDomainParts) !style_red[(Ej implementerad)]
@@ -79,55 +81,33 @@ Uppdatering av den totala informationen om en person görs genom att personposte
 !include -seamless .HelperPages.resetRecord
 *!
 !***> Fall 2
-
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Uu
+!define expectedCreateResult {CREATED}
+!define expectedCompareResult {Child with nameInData personLink and type group is missing.}
 !include -seamless .HelperPages.createCheckReadCheck
+*!
+
+!***> Fall 2A
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart111Kth
+!define expectedCreateResult {CREATED}
+!define expectedCompareResult {Did not find a match for child with nameInData public and value yes.}
+!include -seamless .HelperPages.createCheckReadCheck
+*!
+
+!***> Fall 2B
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart99999UU
+!define expectedCreateResult {BAD_REQUEST}
+!include -seamless .HelperPages.createRecord
+*!
+
+!***> Fall 4
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Uu
+!define expectedDeleteResult {OK}
+!include -seamless .HelperPages.deleteRecord
 
 *!
-!***> Fall 3 Ta bort authority-person:106:test från personen authority-person:106 EJ IMPLEMENTERAD
 
-#!define currentAuthToken {$adminAuthToken}
 
-#!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106-RemovePersonDomainPart
-
-#update
-
-#!define expectedUpdateResult {OK}
-
-#!define expectedAnswer {}
-
-#Compare
-
-#!define expectedCompareResult {Ok}
-
-#!define expectedActionResult {Action read_incoming_links is missing.}
-
-#!define expectedPermissionResult {Write permission domain is missing.}
-
-*!
-!***> Fall 4 Lägga till authority-person:106:test till personen authority-person:106 EJ IMPLEMENTERAD
-
-#!define currentAuthToken {$adminAuthToken}
-
-#!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
-
-#update
-
-#!define expectedUpdateResult {OK}
-
-#!define expectedAnswer {}
-
-#Compare
-
-#!define expectedCompareResult {OK}
-
-#!define expectedActionResult {Action read_incoming_links is missing.}
-
-#!define expectedPermissionResult {Write permission domain is missing.}
-
-#!include -seamless .HelperPages.updateCheckReadCheckReadCheckReset
-
-*!
 !3 Roller
 !4 !-SystemAdmin-!
 !-SystemAdmin får ändra alla person och personDomainParts från alla domäner.-!
