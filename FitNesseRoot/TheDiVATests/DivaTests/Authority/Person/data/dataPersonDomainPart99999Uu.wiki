@@ -6,7 +6,7 @@ Help: Data for personDomainPart authority-person:99999:uu
 !define recordId {authority-person:99999:uu}
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPartRecordType
 
-!define createData {!-{"name":"personDomainPart","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"domain","value":"uu"}]},{"name":"personLink","children":[{"name":"linkedRecordType","value":"person"},{"name":"linkedRecordId","value":"authority-person:99999"}]},{"name":"identifier","value":"128912"},{"name":"affiliation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"organisation"},{"name":"linkedRecordId","value":"1750"}]},{"name":"affiliationFromYear","value":"1982"},{"name":"affiliationUntilYear","value":"2014"}],"repeatId":"0"}]}-!}
+!define createData {!-{"name":"personDomainPart","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"domain","value":"uu"}]},{"name":"personLink","children":[{"name":"linkedRecordType","value":"person"},{"name":"linkedRecordId","value":"authority-person:99999"}]},{"name":"identifier","value":"128912","repeatId":"0"},{"name":"affiliation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"organisation"},{"name":"linkedRecordId","value":"1750"}]},{"name":"affiliationFromYear","value":"1982"},{"name":"affiliationUntilYear","value":"2014"}],"repeatId":"0"}]}-!}
 !define expectedCreatedData {!--!}
 
 *!

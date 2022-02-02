@@ -1,0 +1,27 @@
+---
+Help: Data for personDomainPart authority-person:106:gih
+Static
+Test: no
+---
+!***> Data for personDomainPart authority-person:106:gih
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPartRecordType
+!define recordId {authority-person:106:gih}
+
+#!define originalData {}
+#!define expectedOriginalData originalData
+
+!define createData {!-{"name":"personDomainPart","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"domain","value":"gih"}]},{"name":"personLink","children":[{"name":"linkedRecordType","value":"person"},{"name":"linkedRecordId","value":"authority-person:106"}]},{"name":"identifier","value":"128912","repeatId":"0"},{"name":"affiliation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"organisation"},{"name":"linkedRecordId","value":"1750"}]},{"name":"affiliationFromYear","value":"1982"},{"name":"affiliationUntilYear","value":"2014"}],"repeatId":"0"}]}-!}
+!define expectedCreatedData {}
+
+#!define updateData {
+#!define expectedUpdatedData {}
+ 
+#!define searchId {}
+#!define searchQueryData {}
+
+# customUpdateData is a json string which can be filled with extra json using the variable customJsonPart
+#!define jsonPart customJsonPart
+#!define customJsonPart {}
+#!define customUpdateData {!--!}
+*!
