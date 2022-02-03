@@ -178,32 +178,30 @@ Uppdatering av den totala informationen om en person görs genom att personposte
 !define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
 !include -seamless .HelperPages.readCheck
 *!
-
-!3 Dubblethantering
- * '''Fall X:''' Det ska inte gå att lägga till en person med en ORCID som redan finns .!style_red[(Ej implementerad)]
- * '''Fall Z:''' Det ska inte gå att lägga till en personDomainPart med en lokalId i samma domän som redan används av en annan personDomainPart.!style_red[(Ej implementerad)]
-
+#!3 Dubblethantering (oklart om dessa skall vara med, hur hanterar man att slå ihop inför en dublett borttagning?)
+# * '''Fall X:''' Det ska inte gå att lägga till en person med en ORCID som redan finns .!style_red[(Ej implementerad)]
+# * '''Fall Z:''' Det ska inte gå att lägga till en personDomainPart med en lokalId i samma domän som redan används av en annan personDomainPart.!style_red[(Ej implementerad)]
 
 !3 Synkronisering with classic
- * '''Fall 5:''' När en personpost uppdateras, ska personposten synchronizeras och indexeras i Classic
- * '''Fall 6:''' När en person domän del skapas, ska den relaterade personposten synchronizeras och indexeras i Classic !style_red[(Ej implementerad)]
- * '''Fall 7:''' När en person domän del uppdateras, ska den relaterade personposten synchronizeras och indexeras i Classic !style_red[(Ej implementerad)]
- * '''Fall 8:''' När en person domän del tas bort, ska den relaterade personposten synchronizeras och indexeras i Classic !style_red[(Ej implementerad)]
+ * '''Fall 5:''' När en personpost uppdateras, ska personposten synchronizeras och indexeras i Classic !style_orange[(Ej testad)]
+ * '''Fall 6:''' När en person domän del skapas, ska den relaterade personposten synchronizeras och indexeras i Classic !style_orange[(Ej testad)]
+ * '''Fall 7:''' När en person domän del uppdateras, ska den relaterade personposten synchronizeras och indexeras i Classic !style_orange[(Ej testad)]
+ * '''Fall 8:''' När en person domän del tas bort, ska den relaterade personposten synchronizeras och indexeras i Classic !style_orange[(Ej testad)]
 
 
-!3 Roller
-!4 !-SystemAdmin-!
+!3 Roller 
+!4 !-SystemAdmin-! !style_orange[(Ej konfigurerade eller testade)]
 !-SystemAdmin får ändra alla person och personDomainParts från alla domäner.-!
 
  * '''Fall 1:''' !-SystemAdmin ska kunna uppdatera en person från alla domäner.-!
  * '''Fall 2:''' !-SystemAdmin ska kunna uppdatera en personDomainParts från alla domäner.-!
 
-!4 !-DomainAdmin-!
+!4 !-DomainAdmin-! !style_orange[(Ej konfigurerade eller testade)]
 !-DomainAdmin får uppdatera alla personer men bara kunna uppdatera personDomainParts som tillhör sin egen domän.-!
 
  * '''Fall 1:''' !-DomainAdmin ska kunna uppdatera en person från alla domäner.-!
  * '''Fall 2:''' !-DomainAdmin ska kunna uppdatera en personDomainParts från sin egen domän.-!
- * '''Fall 3:''' !-DomainAdmin ska INTE kunna uppdatera en personDomainParts från sin egen domän.-!
+ * '''Fall 3:''' !-DomainAdmin ska INTE kunna uppdatera en personDomainParts från en annan domän.-!
 
 !4 Guest
 !-Guest får INTE uppdatera personer och inte heller personDomainParts-!
@@ -213,21 +211,18 @@ Uppdatering av den totala informationen om en person görs genom att personposte
 
 !***> Fall 1
 
-#!define currentAuthToken {$userAuthToken}
-#!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
-#!define expectedUpdateResult {FORBIDDEN}
-#!define expectedAnswer {}
+!define currentAuthToken {$userAuthToken}
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
+!define expectedUpdateResult {FORBIDDEN}
+!define expectedAnswer {}
 Update the record
-
-#!include -seamless .HelperPages.updateRecord
+!include -seamless .HelperPages.updateRecord
 *!
 !***> Fall 2
-
-#!define currentAuthToken {$userAuthToken}
-#!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Test
-#!define expectedUpdateResult {FORBIDDEN}
-#!define expectedAnswer {}
+!define currentAuthToken {$userAuthToken}
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Test
+!define expectedUpdateResult {FORBIDDEN}
+!define expectedAnswer {}
 Update the record
-
-#!include -seamless .HelperPages.updateRecord
+!include -seamless .HelperPages.updateRecord
 *!

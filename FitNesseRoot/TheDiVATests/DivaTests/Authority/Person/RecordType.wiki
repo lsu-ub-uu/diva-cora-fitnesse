@@ -468,9 +468,14 @@ Notera att rättigheterna som kontrolleras i det här avsnittet gäller, vilka r
 
 !style_red[Validate och batch_index för personpost är inte implementerade än, därför finns de med i expectedPermissionResult ]
 !***> Kontrollera de actions systemAdmin får med i recordType för person
-
 !define currentAuthToken {$systemAdminAuthToken}
 !define currentRecordType {person}
+!define expectedPermissionResult {Action update is missing. Action delete is missing. Action index is missing. Action create is missing. Action validate is missing. Action batch_index is missing.}
+!include -seamless .TheDiVATests.DivaTests.checkActionsForRecordType
+*!
+!***> Kontrollera de actions systemAdmin får med i recordType för personDomainPart
+!define currentAuthToken {$systemAdminAuthToken}
+!define currentRecordType {personDomainPart}
 !define expectedPermissionResult {Action update is missing. Action delete is missing. Action index is missing. Action create is missing. Action validate is missing. Action batch_index is missing.}
 !include -seamless .TheDiVATests.DivaTests.checkActionsForRecordType
 *!
@@ -478,21 +483,29 @@ Notera att rättigheterna som kontrolleras i det här avsnittet gäller, vilka r
 !-DomainAdmin har tillgång till validate och search för person  postTypen-!
 
 !***> Kontrollera de actions domainAdmin får med i recordType för person
-
 !define currentAuthToken {$domainAdminUUAuthToken}
 !define currentRecordType {person}
 !define expectedPermissionResult {Action update is missing. Action delete is missing. Action index is missing. Action create is missing. Action validate is missing. Action list is missing. Action batch_index is missing.}
 !include -seamless .TheDiVATests.DivaTests.checkActionsForRecordType
-
+*!
+!***> Kontrollera de actions domainAdmin får med i recordType för personDomainPart
+!define currentAuthToken {$domainAdminUUAuthToken}
+!define currentRecordType {personDomainPart}
+!define expectedPermissionResult {Action update is missing. Action delete is missing. Action index is missing. Action create is missing. Action validate is missing. Action list is missing. Action batch_index is missing.}
+!include -seamless .TheDiVATests.DivaTests.checkActionsForRecordType
 *!
 !4 !-Guest-!
 !-Guest har tillgång till search för person postTypen-!
 
-!***> Kontrollera de actions domainAdmin får med i recordType för person
-
+!***> Kontrollera de actions guest får med i recordType för person
 !define currentAuthToken {$guestToken}
 !define currentRecordType {person}
 !define expectedPermissionResult {Action update is missing. Action delete is missing. Action index is missing. Action create is missing. Action validate is missing. Action list is missing. Action batch_index is missing.}
 !include -seamless .TheDiVATests.DivaTests.checkActionsForRecordType
-
+*!
+!***> Kontrollera de actions guest får med i recordType för personDomainPart
+!define currentAuthToken {$guestToken}
+!define currentRecordType {personDomainPart}
+!define expectedPermissionResult {Action update is missing. Action delete is missing. Action index is missing. Action create is missing. Action validate is missing. Action list is missing. Action batch_index is missing.}
+!include -seamless .TheDiVATests.DivaTests.checkActionsForRecordType
 *!
