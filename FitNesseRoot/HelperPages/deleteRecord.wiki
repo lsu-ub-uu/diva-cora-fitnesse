@@ -1,0 +1,10 @@
+---
+Help: Delete a record according to variables
+---
+!***> Delete record, for recordType ${recordType} and id ${recordId}
+
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| ${currentAuthToken} | ${recordType} | ${recordId} | | ${expectedDeleteResult}|
+
+*!

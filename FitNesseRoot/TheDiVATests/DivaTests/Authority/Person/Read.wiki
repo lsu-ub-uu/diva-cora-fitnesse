@@ -535,7 +535,7 @@ Guest får läsa från alla domän däremot får inte se födelseår, dödsår, 
 Det finns ingen lokalid i den här personDomainPart.
 !***> Läs personDomainPart
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Kth
-!define expectedCompareResult {Child with nameInData createdBy and type group is missing. Child with nameInData updated and type group and repeatId 0 is missing. Child with nameInData updated and type group and repeatId 1 is missing. Did not find a match for child with nameInData identifier and value 3292.}
+!define expectedCompareResult {Child with nameInData createdBy and type group is missing. Child with nameInData updated and type group and repeatId 0 is missing. Child with nameInData updated and type group and repeatId 1 is missing. Did not find a match for child with nameInData identifier and value 3292 and repeatId 0.}
 !define expectedActionResult {Action update is missing. Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
 !define expectedPermissionResult {Read permission createdBy is missing. Read permission updated is missing. Read permission identifier is missing. Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission public is missing. Write permission domain is missing. Write permission identifier is missing.}
 !include -seamless .HelperPages.readCheck
@@ -543,7 +543,7 @@ Det finns ingen lokalid i den här personDomainPart.
 Det finns lokalid i den här personDomainPart men vi får inte läsa den.
 !***> Läs personDomainPart
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Test
-!define expectedCompareResult {Child with nameInData createdBy and type group is missing. Did not find a match for child with nameInData identifier and value 128912.}
+!define expectedCompareResult {Child with nameInData createdBy and type group is missing. Did not find a match for child with nameInData identifier and value 128912 and repeatId 0.}
 !define expectedActionResult {Action update is missing. Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
 !define expectedPermissionResult {Read permission createdBy is missing. Read permission updated is missing. Read permission identifier is missing. Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission public is missing. Write permission domain is missing. Write permission identifier is missing.}
 !include -seamless .HelperPages.readCheck

@@ -1,0 +1,27 @@
+---
+Help: Data for personDomainPart recordIdauthority-person:106:liu
+Static
+Test: no
+---
+!***> Data for personDomainPart authority-person:106:liu
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPartRecordType
+!define recordId {authority-person:106:liu}
+
+#!define originalData {}
+#!define expectedOriginalData originalData
+
+!define createData {!-{"name":"personDomainPart","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"domain","value":"liu"}]},{"name":"personLink","children":[{"name":"linkedRecordType","value":"person"},{"name":"linkedRecordId","value":"authority-person:106"}]}]}-!}
+!define expectedCreatedData {}
+
+#!define updateData {
+#!define expectedUpdatedData {}
+ 
+#!define searchId {}
+#!define searchQueryData {}
+
+# customUpdateData is a json string which can be filled with extra json using the variable customJsonPart
+#!define jsonPart customJsonPart
+#!define customJsonPart {}
+#!define customUpdateData {!--!}
+*!
