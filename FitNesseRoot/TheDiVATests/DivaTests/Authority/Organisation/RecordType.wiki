@@ -461,7 +461,7 @@ Kontrollera barnen
 !| MetadataLinkFixture |
 | linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? | getRecordPartConstraint? |
 | metadataTextVariable | divaOrganisationNameTextVar | 1 | 1 | noRestrictions |
-| metadataCollectionVariable | alternativeNameLanguageEnCollectionVar | 1 | 1 | noRestrictions |
+| metadataCollectionVariable | engLanguageCollectionVar | 1 | 1 | noRestrictions |
 
 *!
 !3 Roller
