@@ -62,7 +62,7 @@ Det ska vara möjligt att uppdatera Organisation.
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750NoDomainChange
 !define updateData  customUpdateData
 !define expectedUpdateResult {BAD_REQUEST}
-!define expectedAnswer {Data is not valid: [DataRecordLink with nameInData:organisationLink must have an recordType:rootOrganisation]}
+!define expectedAnswer {Error updating record with recordType: topOrganisation and recordId: 1750. Data is not valid: [DataRecordLink with nameInData:organisationLink must have an recordType:rootOrganisation]}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
 *!
 !***> '''Fall 1b'''
@@ -71,7 +71,7 @@ Det ska vara möjligt att uppdatera Organisation.
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750NoDomainChange
 !define updateData  customUpdateData
 !define expectedUpdateResult {BAD_REQUEST}
-!define expectedAnswer {Data is not valid: linkedRecord does not exists in storage for recordType: rootOrganisation and recordId: 1756}
+!define expectedAnswer {Error updating record with recordType: topOrganisation and recordId: 1750. Data is not valid: linkedRecord does not exists in storage for recordType: rootOrganisation and recordId: 1756}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
 *!
 !***> '''Fall 1c'''
@@ -80,7 +80,7 @@ Det ska vara möjligt att uppdatera Organisation.
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750NoDomainChange
 !define updateData  customUpdateData
 !define expectedUpdateResult {BAD_REQUEST}
-!define expectedAnswer {Data is not valid: [DataRecordLink with nameInData:organisationLink must have an recordType:rootOrganisation]}
+!define expectedAnswer {Error updating record with recordType: topOrganisation and recordId: 1750. Data is not valid: [DataRecordLink with nameInData:organisationLink must have an recordType:rootOrganisation]}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
 *!
 !***> '''Fall 1d'''
@@ -89,7 +89,7 @@ Det ska vara möjligt att uppdatera Organisation.
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750NoDomainChange
 !define updateData  customUpdateData
 !define expectedUpdateResult {BAD_REQUEST}
-!define expectedAnswer {Data is not valid: linkedRecord does not exists in storage for recordType: rootOrganisation and recordId: 1455}
+!define expectedAnswer {Error updating record with recordType: topOrganisation and recordId: 1750. Data is not valid: linkedRecord does not exists in storage for recordType: rootOrganisation and recordId: 1455}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
 *!
 !-Överordnad organisation på en subOrganisation kan det bara vara en topOrganisation eller en annan subOrganisation-!
@@ -119,7 +119,7 @@ Det ska vara möjligt att uppdatera Organisation.
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataSubOrganisation1455NoDomainChange
 !define updateData  customUpdateData
 !define expectedUpdateResult {BAD_REQUEST}
-!define expectedAnswer {Data is not valid: linkedRecord does not exists in storage for recordType: topOrganisation and recordId: 1748}
+!define expectedAnswer {Error updating record with recordType: subOrganisation and recordId: 1455. Data is not valid: linkedRecord does not exists in storage for recordType: topOrganisation and recordId: 1748}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
 *!
 !***> '''Fall 2c'''
@@ -128,7 +128,7 @@ Det ska vara möjligt att uppdatera Organisation.
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataSubOrganisation1455NoDomainChange
 !define updateData  customUpdateData
 !define expectedUpdateResult {BAD_REQUEST}
-!define expectedAnswer {Data is not valid: linkedRecord does not exists in storage for recordType: subOrganisation and recordId: 1748}
+!define expectedAnswer {Error updating record with recordType: subOrganisation and recordId: 1455. Data is not valid: linkedRecord does not exists in storage for recordType: subOrganisation and recordId: 1748}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
 *!
 !style_orange[!-TidigareOrganisation kan länkas till vilken organisationstyp som helst (rotOrganisation, topOrganisation, subOrganisation) och därför behöver inte utföra några extra test här.-!]
@@ -144,7 +144,7 @@ Det ska vara möjligt att uppdatera Organisation.
 !define customJsonPart {!-,{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"rootOrganisation"},{"name":"linkedRecordId","value":"1749"}]}]}-!}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750NoDomainChange
 !define updateData  customUpdateData
-!define expectedAnswer {Links to organisations from another domain is not allowed.}
+!define expectedAnswer {Error updating record with recordType: topOrganisation and recordId: 1750. Links to organisations from another domain is not allowed.}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
 *!
 !***> '''Fall 1b'''
@@ -152,7 +152,7 @@ Det ska vara möjligt att uppdatera Organisation.
 !define customJsonPart {!-,{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"topOrganisation"},{"name":"linkedRecordId","value":"1751"}]}],"repeatId":"0"}-!}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataSubOrganisation1455NoDomainChange
 !define updateData  customUpdateData
-!define expectedAnswer {Links to organisations from another domain is not allowed.}
+!define expectedAnswer {Error updating record with recordType: subOrganisation and recordId: 1455. Links to organisations from another domain is not allowed.}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
 *!
 !***> '''Fall 2a'''
@@ -160,7 +160,7 @@ Det ska vara möjligt att uppdatera Organisation.
 !define customJsonPart {!-,{"name":"earlierOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"rootOrganisation"},{"name":"linkedRecordId","value":"1749"}]}],"repeatId":"0"}-!}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750NoDomainChange
 !define updateData  customUpdateData
-!define expectedAnswer {Links to organisations from another domain is not allowed.}
+!define expectedAnswer {Error updating record with recordType: topOrganisation and recordId: 1750. Links to organisations from another domain is not allowed.}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
 *!
 !***> '''Fall 2b'''
@@ -168,7 +168,7 @@ Det ska vara möjligt att uppdatera Organisation.
 !define customJsonPart {!-,{"name":"earlierOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"topOrganisation"},{"name":"linkedRecordId","value":"1751"}]}],"repeatId":"0"}-!}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataSubOrganisation1455NoDomainChange
 !define updateData  customUpdateData
-!define expectedAnswer {Links to organisations from another domain is not allowed.}
+!define expectedAnswer {Error updating record with recordType: subOrganisation and recordId: 1455. Links to organisations from another domain is not allowed.}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
 *!
 !4 Ingen relation till sig själv
@@ -183,7 +183,7 @@ Det ska vara möjligt att uppdatera Organisation.
 !define customJsonPart {!-,{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"topOrganisation"},{"name":"linkedRecordId","value":"1750"}]}]}-!}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750NoDomainChange
 !define updateData  customUpdateData
-!define expectedAnswer {Data is not valid: [DataRecordLink with nameInData:organisationLink must have an recordType:rootOrganisation]}
+!define expectedAnswer {Error updating record with recordType: topOrganisation and recordId: 1750. Data is not valid: [DataRecordLink with nameInData:organisationLink must have an recordType:rootOrganisation]}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
 *!
 !***> '''Fall 1b'''
@@ -191,7 +191,7 @@ Det ska vara möjligt att uppdatera Organisation.
 !define customJsonPart {!-,{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"subOrganisation"},{"name":"linkedRecordId","value":"1455"}]}],"repeatId":"0"}-!}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataSubOrganisation1455NoDomainChange
 !define updateData  customUpdateData
-!define expectedAnswer {Organisation not updated due to link to self}
+!define expectedAnswer {Error updating record with recordType: subOrganisation and recordId: 1455. Organisation not updated due to link to self}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
 *!
 !***> '''Fall 2a'''
@@ -199,7 +199,7 @@ Det ska vara möjligt att uppdatera Organisation.
 !define customJsonPart {!-,{"name":"earlierOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"topOrganisation"},{"name":"linkedRecordId","value":"1750"}]}],"repeatId":"0"}-!}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750NoDomainChange
 !define updateData  customUpdateData
-!define expectedAnswer {Organisation not updated due to link to self}
+!define expectedAnswer {Error updating record with recordType: topOrganisation and recordId: 1750. Organisation not updated due to link to self}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
 *!
 !***> '''Fall 2b'''
@@ -207,7 +207,7 @@ Det ska vara möjligt att uppdatera Organisation.
 !define customJsonPart {!-,{"name":"earlierOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"subOrganisation"},{"name":"linkedRecordId","value":"1455"}]}],"repeatId":"0"}-!}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataSubOrganisation1455NoDomainChange
 !define updateData  customUpdateData
-!define expectedAnswer {Organisation not updated due to link to self}
+!define expectedAnswer {Error updating record with recordType: subOrganisation and recordId: 1455. Organisation not updated due to link to self}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
 *!
 !4 Samma organisation får inte finnas mer än en gång i parent eller predecessor listorna
@@ -255,7 +255,7 @@ TopOrganisation får bara ha en överordnad organisation, därför behöver vi i
 !define customJsonPart {!-,{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"rootOrganisation"},{"name":"linkedRecordId","value":"1748"}]}]},{"name":"earlierOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"rootOrganisation"},{"name":"linkedRecordId","value":"1748"}]}],"repeatId":"1"}-!}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750NoDomainChange
 !define updateData  customUpdateData
-!define expectedAnswer {Organisation not updated due to same parent and predecessor}
+!define expectedAnswer {Error updating record with recordType: topOrganisation and recordId: 1750. Organisation not updated due to same parent and predecessor}
 !define expectedUpdateResult {BAD_REQUEST}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetRecord
@@ -265,7 +265,7 @@ TopOrganisation får bara ha en överordnad organisation, därför behöver vi i
 !define customJsonPart {!-,{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"subOrganisation"},{"name":"linkedRecordId","value":"1455"}]}],"repeatId":"0"},{"name":"earlierOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"subOrganisation"},{"name":"linkedRecordId","value":"1455"}]}],"repeatId":"1"}-!}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataSubOrganisation1454NoDomainChange
 !define updateData  customUpdateData
-!define expectedAnswer {Organisation not updated due to same parent and predecessor}
+!define expectedAnswer {Error updating record with recordType: subOrganisation and recordId: 1454. Organisation not updated due to same parent and predecessor}
 !define expectedUpdateResult {BAD_REQUEST}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.resetRecord
@@ -296,7 +296,7 @@ Vi försöker att länka 1455 till 1454. Det ska inte gå.
 !define customJsonPart {!-,{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"subOrganisation"},{"name":"linkedRecordId","value":"1455"}]}],"repeatId":"0"}-!}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataSubOrganisation1454NoDomainChange
 !define updateData  customUpdateData
-!define expectedAnswer {Organisation not updated due to circular dependency with parent or predecessor}
+!define expectedAnswer {Error updating record with recordType: subOrganisation and recordId: 1454. Organisation not updated due to circular dependency with parent or predecessor}
 !define expectedUpdateResult {BAD_REQUEST}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
 *!
@@ -318,7 +318,7 @@ Vi länkar 1453 till 1455. Det ska inte gå
 !define customJsonPart {!-,{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"subOrganisation"},{"name":"linkedRecordId","value":"1455"}]}],"repeatId":"0"}-!}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataSubOrganisation1458NoDomainChange
 !define updateData  customUpdateData
-!define expectedAnswer {Organisation not updated due to circular dependency with parent or predecessor}
+!define expectedAnswer {Error updating record with recordType: subOrganisation and recordId: 1458. Organisation not updated due to circular dependency with parent or predecessor}
 !define expectedUpdateResult {BAD_REQUEST}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
 *!
@@ -346,7 +346,7 @@ Vi försöker att länka 1455 till 1750. Det ska inte gå.
 !define customJsonPart {!-,{"name":"earlierOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"organisation"},{"name":"linkedRecordId","value":"1750"}]}],"repeatId":"0"}-!}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataSubOrganisation1454NoDomainChange
 !define updateData  customUpdateData
-!define expectedAnswer {Organisation not updated due to circular dependency with parent or predecessor}
+!define expectedAnswer {Error updating record with recordType: subOrganisation and recordId: 1454. Organisation not updated due to circular dependency with parent or predecessor}
 !define expectedUpdateResult {BAD_REQUEST}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
 *!
@@ -368,7 +368,7 @@ Vi försöker att länka 1455 till 1750. Det ska inte gå.
 !define customJsonPart {!-,{"name":"earlierOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"organisation"},{"name":"linkedRecordId","value":"1750"}]}],"repeatId":"0"}-!}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataSubOrganisation1455NoDomainChange
 !define updateData  customUpdateData
-!define expectedAnswer {Organisation not updated due to circular dependency with parent or predecessor}
+!define expectedAnswer {Error updating record with recordType: subOrganisation and recordId: 1455. Organisation not updated due to circular dependency with parent or predecessor}
 !define expectedUpdateResult {BAD_REQUEST}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
 *!
@@ -409,7 +409,7 @@ Vi länkar 1454 till 1750, det ska inte gå.
 !define customJsonPart {!-,{"name":"parentOrganisation","children":[{"name":"organisationLink","children":[{"name":"linkedRecordType","value":"organisation"},{"name":"linkedRecordId","value":"1750"}]}],"repeatId":"0"}-!}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataSubOrganisation1454NoDomainChange
 !define updateData  customUpdateData
-!define expectedAnswer {Organisation not updated due to circular dependency with parent or predecessor}
+!define expectedAnswer {Error updating record with recordType: subOrganisation and recordId: 1454. Organisation not updated due to circular dependency with parent or predecessor}
 !define expectedUpdateResult {BAD_REQUEST}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.updateRecord
 *!
