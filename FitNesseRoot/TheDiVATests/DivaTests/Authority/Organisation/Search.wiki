@@ -109,7 +109,7 @@ Det går inte flera domän samtidigt
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationDomainSearchTerm","value":"kth uu"}]}]}]} | Data is not valid: [Data value:kth uu NOT found in collection:domain] | BAD_REQUEST |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationDomainSearchTerm","value":"kth uu"}]}]}]} | Error searching record with searchId: publicOrganisationSearch. Data is not valid: [Data value:kth uu NOT found in collection:domain] | BAD_REQUEST |
 
 *!
 !***> '''Fall 3'''
@@ -145,7 +145,7 @@ Det går inte flera domän samtidigt
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrgTypeSearchTerm","value":"university museum"}]}]}]} | Data is not valid: [Data value:university museum NOT found in collection:divaOrganisationOrgType] | BAD_REQUEST |
+| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrgTypeSearchTerm","value":"university museum"}]}]}]} | Error searching record with searchId: publicOrganisationSearch. Data is not valid: [Data value:university museum NOT found in collection:divaOrganisationOrgType] | BAD_REQUEST |
 
 *!
 !***> '''Fall 6'''
