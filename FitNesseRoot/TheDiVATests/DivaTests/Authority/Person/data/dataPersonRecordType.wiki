@@ -1,9 +1,11 @@
 ---
-Help: Data for person recordType
+Help: Data för person recordType
 ---
-!***> Data for person recordType
-
+!***> Data för recordType person
+!-RecordType är person-!
 !define recordType {person}
+
+Beskriver recordPartPermissions som finns för posttypen person:
 !define recordPermissions {!-{"read":["createdBy","updated","public","domain","academicTitle","emailAddress","yearOfBirth","yearOfDeath","alternativeName","externalURL","otherAffiliation","ORCID_ID","VIAF_ID","Libris_ID","biographyEnglish","biographySwedish","personDomainPart"], "write":["id","type","createdBy","dataDivider","tsCreated","updated","public","domain","academicTitle","emailAddress","yearOfBirth","yearOfDeath","alternativeName","externalURL","otherAffiliation","ORCID_ID","VIAF_ID","Libris_ID","biographyEnglish","biographySwedish","personDomainPart"]}-!}
 
 !define recordReadPermissions {createdBy!-

@@ -1,0 +1,36 @@
+---
+Help: Data for person authority-person:125
+---
+!***> Data för person authority-person:125
+Detta är en person som har Cora-minimum + 3st ORCID_ID och en kopplad domän uu, med tre lokala id:n
+
+!-RecordId är authority-person:125-!
+!define recordId {authority-person:125}
+
+Inkludera recordType person eftersom detta är en person
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonRecordType
+
+#Definiera hur data skall se ut för att skapa posten första gången
+#!define createData {!--!}
+
+Definiera hur datat skall se ut när posten är skapad / läses första gången
+!define expectedCreatedData {!-{"children":[{"children":[{"name":"id","value":"authority-person:125"},{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"person"}],"name":"type"},{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"rinst123"}],"name":"createdBy"},{"name":"tsCreated","value":"2021-03-24T09:34:26.374000Z"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"repeatId":"0","children":[{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"rinst123"}],"name":"updatedBy"},{"name":"tsUpdated","value":"2021-03-24T09:34:50.977000Z"}],"name":"updated"},{"name":"public","value":"yes"},{"repeatId":"0","name":"domain","value":"uu"}],"name":"recordInfo"},{"children":[{"name":"familyName","value":"Person"},{"name":"givenName","value":"125"}],"name":"authorisedName"},{"repeatId":"0","name":"ORCID_ID","value":"0000-0000-0000-0000"},{"repeatId":"1","name":"ORCID_ID","value":"1111-1111-1111-1111"},{"repeatId":"2","name":"ORCID_ID","value":"2222-2222-2222-2222"}],"name":"person"}-!}
+
+Definiera data för en ändring av persondatat, i detta fall är skillnaden att vi tagit bort ett ORCID_ID ur datat
+!define updateData {!-{"children":[{"children":[{"name":"id","value":"authority-person:125"},{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"person"}],"name":"type"},{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"rinst123"}],"name":"createdBy"},{"name":"tsCreated","value":"2021-03-24T09:34:26.374000Z"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"repeatId":"0","children":[{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"rinst123"}],"name":"updatedBy"},{"name":"tsUpdated","value":"2021-03-24T09:34:50.977000Z"}],"name":"updated"},{"name":"public","value":"yes"},{"repeatId":"0","name":"domain","value":"uu"}],"name":"recordInfo"},{"children":[{"name":"familyName","value":"Person"},{"name":"givenName","value":"125"}],"name":"authorisedName"},{"repeatId":"0","name":"ORCID_ID","value":"0000-0000-0000-0000"},{"repeatId":"1","name":"ORCID_ID","value":"1111-1111-1111-1111"}],"name":"person"}-!}
+
+Definiera hur datat skall se ut efter uppdateringen, då man ej kan ta bort ORCID_ID skall det se ut som det gjorde innan (samma som expectedCreatedData)
+!define expectedUpdatedData expectedCreatedData
+
+#!define originalData {!--!}
+#!define expectedOriginalData originalData
+ 
+#!define searchId {testWorkoutExtendedSearch}
+#!define searchQueryData {!--!}
+
+# customUpdateData is a json string which can be filled with extra json using the variable customJsonPart
+#!define jsonPart customJsonPart
+#!define customJsonPart {}
+#!define customUpdateData {!--!}
+*!
+
