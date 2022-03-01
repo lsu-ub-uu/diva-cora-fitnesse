@@ -106,14 +106,14 @@ OBS: Just nu sökfunktionen bara hittar ord inte delar av ett ord. Om man vill s
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicPersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"personGeneralSearchTerm","value":"*"}]}]}]} | =~/"fromNo":"1".+"totalNo":"15".+"toNo":"15"/ | OK |
+| $adminAuthToken | publicPersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"personGeneralSearchTerm","value":"*"}]}]}]} | =~/"fromNo":"1".+"totalNo":"16".+"toNo":"16"/ | OK |
 *!
 !***> '''Fall 0b'''
 !-Vi söker id med *. Vi begränsar sökning med 6 rader från start rad 2-!
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicPersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"personGeneralSearchTerm","value":"*"}]}]},{"name":"rows","value":"6"},{"name":"start","value":"2"}]} |=~/"fromNo":"2".+"totalNo":"15".+"toNo":"7"/ | OK |
+| $adminAuthToken | publicPersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"personGeneralSearchTerm","value":"*"}]}]},{"name":"rows","value":"6"},{"name":"start","value":"2"}]} |=~/"fromNo":"2".+"totalNo":"16".+"toNo":"7"/ | OK |
 *!
 
 
