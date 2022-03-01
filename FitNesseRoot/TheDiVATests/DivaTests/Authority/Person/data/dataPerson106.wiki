@@ -1,10 +1,12 @@
 ---
-Help: Data for person authority-person:106
+Help: Data för person authority-person:106
 ---
-!***> Data for person authority-person:106
+!***> Data för person authority-person:106
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonRecordType
+!-RecordId är authority-person:106-!
 !define recordId {authority-person:106}
+
 
 #!define expectedExistFields {!-{"children":[{"name":"recordInfo"},{"name":"familyName"},{"name":"givenName"},{"name":"authorisedName"},{"name":"academicTitle"},{"name":"yearOfBirth"},{"name":"yearOfDeath"},{"name":"emailAddress"},{"name":"familyName"},{"name":"givenName"},{"name":"alternativeName"},{"name":"linkTitle"},{"name":"URL"},{"name":"externalURL"},{"name":"affiliation"},{"name":"affiliationFromYear"},{"name":"affiliationUntilYear"},{"name":"otherAffiliation"},{"name":"ORCID_ID"},{"name":"biography"},{"name":"language"},{"name":"biographyEnglish"},{"name":"biography"},{"name":"language"},{"name":"biographySwedish"},{"name":"personDomainPart"}]}-!}
 !define expectedExistFields {!-{"children":[{"name":"recordInfo"},{"children":[{"name":"familyName2"},{"name":"givenName"}],"name":"authorisedName"},{"name":"academicTitle"},{"name":"yearOfBirth"},{"name":"yearOfDeath"},{"name":"emailAddress"},{"name":"alternativeName"},{"name":"externalURL"},{"name":"otherAffiliation"},{"name":"ORCID_ID"},{"name":"VIAF_ID"},{"name":"Libris_ID"},{"name":"biographyEnglish"},{"name":"biographySwedish"},{"name":"personDomainPart"}]}-!}

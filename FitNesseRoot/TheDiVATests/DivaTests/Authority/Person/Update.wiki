@@ -11,13 +11,14 @@ Vid borttagning av en personDomainPart kommer servern att ta bort domänen och l
 Alla grundfunktionallitet (ej beroende på användare), testas med en användare med alla rättigheter.
 !include -seamless .HelperPages.defineAdminAuthToken
 !3 Person
- * '''Fall 1:''' Det ska gå att uppdatera en person
+ * '''Fall 1A:''' Det ska gå att uppdatera en person
    * Det uppdaterade fältet public ska uppdateras i alla relaterade person domän delar
    * Det ska inte gå att ändra listan på domäner (i recordInfo) 
    * Det ska inte gå att ändra listan på kopplade personDomainParts
- * '''Fall 1B:''' Om fältet "ORCID" uppdateras men den redan finns i en publikation i classic (sök i classic), skall ORCID inte uppdateras utan vara oförändrad !style_red[(Ej implementerad)]
+ * '''Fall 1B:''' Om ett befintligt "ORCID" tas bort, skall detta ORCID inte tas bort utan vara kvar oförändrat
+ * '''Fall 1C:''' Om ett befintligt "ORCID" ändras, skall detta ORCID inte ändras utan vara kvar oförändrat, dessutom skall det man ändrar till läggas till som om det vore nytt (en ändring är i princip en kombination av en borttagning och en tilläggning) !style_red[(Ej implementerad)]
 
-!***> Fall 1
+!***> Fall 1A Det ska gå att uppdatera en person
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
 !***> Define expected data
@@ -44,6 +45,22 @@ Alla grundfunktionallitet (ej beroende på användare), testas med en användare
 !include -seamless .HelperPages.resetRecord
 *!
 
+!***> Fall 1B Borttagning av ORCID_ID skall ej gå
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson125
+
+!***> Definiera förväntat resultat när vi försöker uppdatera
+!define expectedUpdateResult {OK}
+!define expectedAnswer {}
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
+*!
+!include -seamless .HelperPages.updateCheckReadCheckReadCheck
+
+Vi behöver inte återställa datat eftersom inget ändrades
+*!
+
 !3 !-Person domän delen-!
 Uppdatering av den totala informationen om en person görs genom att personposten uppdateras, eller genom att relaterade personDomainParts läggs till, uppdateras eller tas bort. Därför finns här information om de olika fall som vi behövar ta hänsyn till när man förändrar personDomainParts, genom att lägga till, uppdatera eller ta bort dem. En personDomainPart kan genom hur metadata är uppsatt bara ha en relaterad person.
 
@@ -65,9 +82,11 @@ Uppdatering av den totala informationen om en person görs genom att personposte
    * Vid försök skall servern svara med BAD_REQUEST
    
 !***> Fall 2
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Uu
 !define expectedCreateResult {CREATED}
 !define expectedCompareResult {Child with nameInData personLink and type group is missing.}
+!define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
 !include -seamless .HelperPages.createCheckReadCheck
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
