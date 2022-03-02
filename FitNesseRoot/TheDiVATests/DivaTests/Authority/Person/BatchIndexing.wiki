@@ -23,7 +23,7 @@ Det ska gå att batchindexera personer  via ett !-IndexBatchJob-!. !-IndexBatchJ
 !define recordTypeForIndexRemoval2 {${recordType}}
 !define recordId1 {authority-person:106}
 !define recordId2 {authority-person:107}
-!define numberOfProcessedRecords {18}
+!define numberOfProcessedRecords {19}
 !define searchQueryData {!-{"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"personIdSearchTerm","value":"-!${recordId1} ${recordId2}!-"}]}]}]}-!}
 !define json {}
 !include -seamless .HelperPages.testBatchIndexing
@@ -39,7 +39,7 @@ Det ska gå att batchindexera personer  via ett !-IndexBatchJob-!. !-IndexBatchJ
 !define recordTypeForIndexRemoval2 {${recordType}}
 !define recordId1 {authority-person:106}
 !define recordId2 {authority-person:107}
-!define numberOfProcessedRecords {18}
+!define numberOfProcessedRecords {19}
 !define searchQueryData {!-{"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"personIdSearchTerm","value":"-!${recordId1} ${recordId2}!-"}]}]}]}-!}
 !define json {!-{"name":"indexSettings","children":[]}-!}
 !include -seamless .HelperPages.testBatchIndexing
@@ -73,7 +73,7 @@ Det ska gå att batchindexera personer  via ett !-IndexBatchJob-!. !-IndexBatchJ
 !define recordTypeForIndexRemoval2 {${recordType}}
 !define recordId1 {authority-person:106}
 !define recordId2 {authority-person:107}
-!define numberOfProcessedRecords {18}
+!define numberOfProcessedRecords {19}
 !define searchQueryData {!-{"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"personIdSearchTerm","value":"-!${recordId1} ${recordId2}!-"}]}]}]}-!}
 !define json {!-{"name":"indexSettings","children":[{"name":"filter","children":[{"name":"fromNo","value":"0"}]}]}-!}
 !include -seamless .HelperPages.testBatchIndexing
