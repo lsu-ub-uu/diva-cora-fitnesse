@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Uppsala University Library
+ * Copyright 2018, 2022 Uppsala University Library
  *
  * This file is part of Cora.
  *
@@ -20,12 +20,12 @@ package se.uu.ub.diva.cora.fitnesse;
 
 import org.apache.commons.text.StringEscapeUtils;
 
+import se.uu.ub.cora.classicfedorasynchronizer.FedoraConverterFactory;
+import se.uu.ub.cora.classicfedorasynchronizer.FedoraToCoraConverter;
 import se.uu.ub.cora.data.DataGroup;
 import se.uu.ub.cora.data.converter.DataToJsonConverter;
 import se.uu.ub.cora.data.converter.DataToJsonConverterFactory;
 import se.uu.ub.cora.data.converter.DataToJsonConverterProvider;
-import se.uu.ub.cora.diva.mixedstorage.fedora.DivaFedoraConverterFactory;
-import se.uu.ub.cora.diva.mixedstorage.fedora.DivaFedoraToCoraConverter;
 
 public class DivaToCoraFormatFixture {
 
@@ -59,12 +59,12 @@ public class DivaToCoraFormatFixture {
 	}
 
 	private DataGroup convertXMLToDataGroup() {
-		DivaFedoraToCoraConverter converter = createConverterForCurrentType();
+		FedoraToCoraConverter converter = createConverterForCurrentType();
 		return converter.fromXML(xml);
 	}
 
-	private DivaFedoraToCoraConverter createConverterForCurrentType() {
-		DivaFedoraConverterFactory converterFactory = DivaFitnesseDependencyProvider
+	private FedoraToCoraConverter createConverterForCurrentType() {
+		FedoraConverterFactory converterFactory = DivaFitnesseDependencyProvider
 				.getConverterFactory();
 		return converterFactory.factorToCoraConverter(type);
 	}
