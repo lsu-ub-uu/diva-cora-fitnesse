@@ -8,3 +8,4 @@
 /test-output/
 RerunLastFailures_*
 coraLog4j*
+/${sys::catalina.base}/
