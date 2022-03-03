@@ -77,7 +77,6 @@ Test av metadata för uppdatering av projekt
 | metadataGroup | abstractGroup | 0 | 10 |
 | metadataGroup | projectKeywordsSwedishGroup | 0 | 1 |
 | metadataGroup | projectKeywordsEnglishGroup | 0 | 1 |
-| metadataGroup | publicationKeywordsGroup | 0 | 10 |
 | metadataRecordLink | nationalSubjectCategoryLink | 0 | 10 |
 | metadataGroup | projectContributorsGroup | 0 | 1 |
 | metadataRecordLink | funderLink | 0 | 10 |
