@@ -39,7 +39,7 @@
 		<javax.ws.rs.version>2.1.1</javax.ws.rs.version>
 		<coradata.version>5.4.0</coradata.version>
 		<basicdata.version>3.5.0</basicdata.version>
-		<classicfedorasynchronizer.version>1.8-SNAPSHOT</classicfedorasynchronizer.version>
+		<classicfedorasynchronizer.version>1.8.0</classicfedorasynchronizer.version>
 		<xmlutils.version>1.3.0</xmlutils.version>
 		<commons-text.version>1.9</commons-text.version>
 		<smartrics-RestFixture.version>4.4</smartrics-RestFixture.version>
