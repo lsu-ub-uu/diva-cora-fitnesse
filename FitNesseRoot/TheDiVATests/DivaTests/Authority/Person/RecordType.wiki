@@ -471,12 +471,14 @@ Notera att rättigheterna som kontrolleras i det här avsnittet gäller, vilka r
 !define currentAuthToken {$systemAdminAuthToken}
 !define currentRecordType {person}
 !define expectedPermissionResult {Action update is missing. Action delete is missing. Action index is missing. Action create is missing. Action validate is missing. Action batch_index is missing.}
+#!define expectedPermissionResult {Action update is missing. Action delete is missing. Action index is missing. Action create is missing. Action batch_index is missing.}
 !include -seamless .TheDiVATests.DivaTests.checkActionsForRecordType
 *!
 !***> Kontrollera de actions systemAdmin får med i recordType för personDomainPart
 !define currentAuthToken {$systemAdminAuthToken}
 !define currentRecordType {personDomainPart}
 !define expectedPermissionResult {Action update is missing. Action delete is missing. Action index is missing. Action create is missing. Action validate is missing. Action batch_index is missing.}
+#!define expectedPermissionResult {Action update is missing. Action delete is missing. Action index is missing. Action create is missing. Action batch_index is missing.}
 !include -seamless .TheDiVATests.DivaTests.checkActionsForRecordType
 *!
 !4 !-DomainAdmin-!
