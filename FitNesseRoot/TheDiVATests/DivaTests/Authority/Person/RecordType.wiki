@@ -20,30 +20,30 @@ Det som står listat här för uppdatering och läsning (ej ny) och namnen som s
    * authorisedName (textVar, 1-1, '''noRestrictions''')
      * firstName(textVar, 0-1,'''noRestrictions''')
    * lastName(textVar, 0-1,'''noRestrictions''')
- * academicTitle (textVar, 0-1, '''readWrite''')
- * yearOfBirth (textVar, 0-1, '''readWrite''')
- * yearOfDeath (textVar, 0-1, '''readWrite''')
- * emailAddress (textVar, 0-1, '''readWrite''')
- * alternativeName (group, 0-X, '''readWrite''')
-   * givenName (textVar, 0-1, '''noRestrictions ''')
-   * familyName (textVar, 0-1, '''noRestrictions ''')
- * externalURL (group, 0-X, '''readWrite''')
-   * linkTitle (textVar, 1-1, '''noRestrictions ''')
-   * URL (textVar, 1-1, '''noRestrictions ''')
- * otherAffiliation (group, 0-X, '''readWrite''')
-   * affiliation (textVar, 1-1, '''noRestrictions ''')
-   * affiliationFromYear (textVar, 0-1, '''noRestrictions ''')
-   * affiliationUntilYear (textVar, 0-1, '''noRestrictions ''')
- * ORCID_ID (textVar, 0-X, '''readWrite''')
- * VIAF_ID (textVar, 0-X, '''readWrite''')
- * Libris_ID(textVar, 0-X, '''readWrite''')
- * biographyEnglish (group, 0-1, '''readWrite''')
-   * language (colVar, 1-1, '''noRestrictions ''')
-   * biography (textVar, 1-1, '''noRestrictions ''')
- * biographySwedish (group, 0-1, '''readWrite''')
-   * language (colVar, 1-1, '''noRestrictions ''')
-   * biography (textVar, 1-1, '''noRestrictions ''')
- * personDomainPart (group , 0-X, '''readWrite''')
+   * academicTitle (textVar, 0-1, '''readWrite''')
+   * yearOfBirth (textVar, 0-1, '''readWrite''')
+   * yearOfDeath (textVar, 0-1, '''readWrite''')
+   * emailAddress (textVar, 0-1, '''readWrite''')
+   * alternativeName (group, 0-X, '''readWrite''')
+     * givenName (textVar, 0-1, '''noRestrictions ''')
+     * familyName (textVar, 0-1, '''noRestrictions ''')
+   * externalURL (group, 0-X, '''readWrite''')
+     * linkTitle (textVar, 1-1, '''noRestrictions ''')
+     * URL (textVar, 1-1, '''noRestrictions ''')
+   * otherAffiliation (group, 0-X, '''readWrite''')
+     * affiliation (textVar, 1-1, '''noRestrictions ''')
+     * affiliationFromYear (textVar, 0-1, '''noRestrictions ''')
+     * affiliationUntilYear (textVar, 0-1, '''noRestrictions ''')
+   * ORCID_ID (textVar, 0-X, '''readWrite''')
+   * VIAF_ID (textVar, 0-X, '''readWrite''')
+   * Libris_ID(textVar, 0-X, '''readWrite''')
+   * biographyEnglish (group, 0-1, '''readWrite''')
+     * language (colVar, 1-1, '''noRestrictions ''')
+     * biography (textVar, 1-1, '''noRestrictions ''')
+   * biographySwedish (group, 0-1, '''readWrite''')
+     * language (colVar, 1-1, '''noRestrictions ''')
+     * biography (textVar, 1-1, '''noRestrictions ''')
+   * personDomainPart (group , 0-X, '''readWrite''')
 
 !4 !-PersonDomainPart-!
 
@@ -471,12 +471,14 @@ Notera att rättigheterna som kontrolleras i det här avsnittet gäller, vilka r
 !define currentAuthToken {$systemAdminAuthToken}
 !define currentRecordType {person}
 !define expectedPermissionResult {Action update is missing. Action delete is missing. Action index is missing. Action create is missing. Action validate is missing. Action batch_index is missing.}
+#!define expectedPermissionResult {Action update is missing. Action delete is missing. Action index is missing. Action create is missing. Action batch_index is missing.}
 !include -seamless .TheDiVATests.DivaTests.checkActionsForRecordType
 *!
 !***> Kontrollera de actions systemAdmin får med i recordType för personDomainPart
 !define currentAuthToken {$systemAdminAuthToken}
 !define currentRecordType {personDomainPart}
 !define expectedPermissionResult {Action update is missing. Action delete is missing. Action index is missing. Action create is missing. Action validate is missing. Action batch_index is missing.}
+#!define expectedPermissionResult {Action update is missing. Action delete is missing. Action index is missing. Action create is missing. Action batch_index is missing.}
 !include -seamless .TheDiVATests.DivaTests.checkActionsForRecordType
 *!
 !4 !-DomainAdmin-!

@@ -16,7 +16,7 @@ Alla grundfunktionallitet (ej beroende på användare), testas med en användare
    * Det ska inte gå att ändra listan på domäner (i recordInfo) 
    * Det ska inte gå att ändra listan på kopplade personDomainParts
  * '''Fall 1B:''' Om ett befintligt "ORCID" tas bort, skall detta ORCID inte tas bort utan vara kvar oförändrat
- * '''Fall 1C:''' Om ett befintligt "ORCID" ändras, skall detta ORCID inte ändras utan vara kvar oförändrat, dessutom skall det man ändrar till läggas till som om det vore nytt (en ändring är i princip en kombination av en borttagning och en tilläggning) !style_red[(Ej implementerad)]
+ * '''Fall 1C:''' Om ett befintligt "ORCID" ändras, skall detta ORCID inte ändras utan vara kvar oförändrat, dessutom skall det man ändrar till läggas till som om det vore nytt (en ändring är i princip en kombination av en borttagning och en tilläggning)
 
 !***> Fall 1A Det ska gå att uppdatera en person
 
@@ -60,6 +60,33 @@ Alla grundfunktionallitet (ej beroende på användare), testas med en användare
 
 Vi behöver inte återställa datat eftersom inget ändrades
 *!
+
+
+!***> Fall 1C Ändring av ORCID_ID skall ej gå
+
+!| script | StringSupport |
+|$tempOrcid=|dateFormat;|YYYY-MMdd-HHmm-ssss|
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson125
+
+Vi definierar om updateData och exepected to use tempOrcid 
+!define updateData updateDataWithTempOrcid
+
+!define expectedUpdatedData expectedUpdatedDataWithTempOrcid
+
+!***> Definiera förväntat resultat när vi försöker uppdatera
+!define expectedUpdateResult {OK}
+!define expectedAnswer {}
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
+*!
+!include -seamless .HelperPages.updateCheckReadCheckReadCheck
+
+Vi behöver inte återställa datat eftersom inget ändrades
+*!
+
+
 
 !3 !-Person domän delen-!
 Uppdatering av den totala informationen om en person görs genom att personposten uppdateras, eller genom att relaterade personDomainParts läggs till, uppdateras eller tas bort. Därför finns här information om de olika fall som vi behövar ta hänsyn till när man förändrar personDomainParts, genom att lägga till, uppdatera eller ta bort dem. En personDomainPart kan genom hur metadata är uppsatt bara ha en relaterad person.
@@ -215,12 +242,67 @@ Uppdatering av den totala informationen om en person görs genom att personposte
  * '''Fall 1:''' !-SystemAdmin ska kunna uppdatera en person från alla domäner.-!
  * '''Fall 2:''' !-SystemAdmin ska kunna uppdatera en personDomainParts från alla domäner.-!
 
+#!***> Fall 1
+#!define currentAuthToken {$systemAdminAuthToken}
+
+#!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
+#!***> Define expected data
+#!define expectedUpdateResult {OK}
+#!define expectedAnswer {}
+#!define expectedCompareResult {OK}
+#!define expectedActionResult {Action read_incoming_links is missing.}
+#!define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
+#*!
+#!include -seamless .HelperPages.updateCheckReadCheckReadCheck
+
+#!***> Det uppdaterade fältet public ska uppdateras i alla relaterade person domän delar
+#!define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
+
+#!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Kth
+#!define expectedCreatedData expectedUpdatedDataTriggeredFromPerson
+#!include -seamless .HelperPages.readCheck
+#
+#!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Test
+#!define expectedCreatedData expectedUpdatedDataTriggeredFromPerson
+#!include -seamless .HelperPages.readCheck
+#*!
+#!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
+#!include -seamless .HelperPages.resetRecord
+#*!
+#
+#!***> Fall 2
+#!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
+#!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Uu
+#!define expectedCreateResult {CREATED}
+#!define expectedCompareResult {Child with nameInData personLink and type group is missing.}
+#!define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
+#!include -seamless .HelperPages.createCheckReadCheck
+#
+#!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
+#!define expectedCreatedData expectedUpdatedDataTriggeredFromPersonDomainPart
+#!define expectedCompareResult {OK}
+#!define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
+#!include -seamless .HelperPages.readCheck
+#*!
+#!***> Fall 3
+#!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Uu
+#!define expectedDeleteResult {OK}
+#!include -seamless .HelperPages.deleteRecord
+#
+#!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
+#!define expectedCreatedData expectedUpdatedDataTriggeredFromPersonDomainPart
+#!define expectedCompareResult {Did not find a match for child with nameInData domain and value uu and repeatId 2. Child with nameInData personDomainPart and type group and repeatId 2 is missing.}
+#!define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
+#!include -seamless .HelperPages.readCheck
+#*!
+#
 !4 !-DomainAdmin-! !style_orange[(Ej konfigurerade eller testade)]
 !-DomainAdmin får uppdatera alla personer men bara kunna uppdatera personDomainParts som tillhör sin egen domän.-!
 
  * '''Fall 1:''' !-DomainAdmin ska kunna uppdatera en person från alla domäner.-!
  * '''Fall 2:''' !-DomainAdmin ska kunna uppdatera en personDomainParts från sin egen domän.-!
  * '''Fall 3:''' !-DomainAdmin ska INTE kunna uppdatera en personDomainParts från en annan domän.-!
+ 
 
 !4 Guest
 !-Guest får INTE uppdatera personer och inte heller personDomainParts-!
