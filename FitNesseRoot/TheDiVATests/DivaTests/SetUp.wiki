@@ -17,7 +17,7 @@
 | setComparerFactoryUsingClassName | se.uu.ub.cora.fitnesseintegration.compare.ComparerFactoryImp |
 
 !| script | DivaFitnesseDependencyProvider |
-| setConverterFactoryClassName | se.uu.ub.cora.diva.mixedstorage.fedora.DivaFedoraConverterFactoryImp |
+| setConverterFactoryClassName | se.uu.ub.cora.classicfedorasynchronizer.internal.DivaFedoraConverterFactoryImp |
 
 !2 Login
 !***> Login for admin
