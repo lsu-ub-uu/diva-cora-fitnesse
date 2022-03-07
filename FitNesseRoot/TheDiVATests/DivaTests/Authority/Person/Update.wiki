@@ -153,7 +153,7 @@ Uppdatering av den totala informationen om en person görs genom att personposte
 !***> Fall 2E Det skall inte gå att skapa länka till en organisation från en annan domän !style_red[(Ej implementerad, när den är klart, ta bort !-#-! från testet )]
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Gih
 !define expectedCreateResult {BAD_REQUEST}
-#!include -seamless .HelperPages.createRecord
+!include -seamless .HelperPages.createRecord
 *!
 
 !***> Reset PersonDomainParts som inte behövs i de kommande fall.
@@ -207,7 +207,7 @@ Uppdatering av den totala informationen om en person görs genom att personposte
 !define expectedUpdateResult {BAD_REQUEST}
 !define expectedAnswer {}
 !define updateData updateDataOrganisationNotInSameDomain
-#!include -seamless .HelperPages.updateRecord
+!include -seamless .HelperPages.updateRecord
 *!
 
 !***> Fall 3D Det skall inte gå att ta bort ett lokaltId
