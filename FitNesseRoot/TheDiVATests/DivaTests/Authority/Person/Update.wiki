@@ -1,5 +1,5 @@
 ---
-Static
+Test
 ---
 !2 Uppdatera
 Det ska vara möjligt att uppdatera Person.
@@ -108,7 +108,7 @@ Uppdatering av den totala informationen om en person görs genom att personposte
  * '''Fall 2E:''' Det ska inte gå att skapa en ny personDomainPart som länkar till en organisation från en annan domän. !style_red[(Ej implementerad)]
    * Vid försök skall servern svara med BAD_REQUEST
    
-!***> Fall 2
+!***> Fall 2 Det ska gå att lägga till en personDomainPart till en publik person
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Uu
 !define expectedCreateResult {CREATED}
@@ -123,7 +123,7 @@ Uppdatering av den totala informationen om en person görs genom att personposte
 !include -seamless .HelperPages.readCheck
 *!
 
-!***> Fall 2A
+!***> Fall 2A Det ska gå att lägga till en personDomainPart till en ej publik person
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart111Kth
 !define expectedCreateResult {CREATED}
 !define expectedCompareResult {Did not find a match for child with nameInData public and value yes.}
@@ -131,26 +131,26 @@ Uppdatering av den totala informationen om en person görs genom att personposte
 !include -seamless .HelperPages.createCheckReadCheck
 *!
 
-!***> Fall 2B
+!***> Fall 2B Det skall inte gå att skapa en personDomainPart som inte matchar en beffintlig person
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart99999Uu
 !define expectedCreateResult {BAD_REQUEST}
 !include -seamless .HelperPages.createRecord
 *!
 
-!***> Fall 2C
+!***> Fall 2C Det skall inte gå att skapa en personDomainPart utan varken identifier eller affiliation
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Liu
 !define expectedCreateResult {BAD_REQUEST}
 !include -seamless .HelperPages.createRecord
 *!
 
-!***> Fall 2D
+!***> Fall 2D Det skall inte gå att skapa mer än en personDomainPart per domän och person
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart111Kth
 !define expectedCreateResult {CONFLICT}
 !define expectedCompareResult {}
 !include -seamless .HelperPages.createRecord
 *!
 
-!***> Fall 2E !style_red[(Ej implementerad, när den är klart, ta bort !-#-! från testet )]
+!***> Fall 2E Det skall inte gå att skapa länka till en organisation från en annan domän !style_red[(Ej implementerad, när den är klart, ta bort !-#-! från testet )]
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Gih
 !define expectedCreateResult {BAD_REQUEST}
 #!include -seamless .HelperPages.createRecord
@@ -158,6 +158,7 @@ Uppdatering av den totala informationen om en person görs genom att personposte
 
 !***> Reset PersonDomainParts som inte behövs i de kommande fall.
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart111Kth
+!define expectedDeleteResult {OK}
 !include -seamless .HelperPages.deleteRecord
 *!
 
@@ -168,10 +169,15 @@ Uppdatering av den totala informationen om en person görs genom att personposte
  * '''Fall 3B:''' Det ska inte gå att uppdatera id i recordInfo.
  * '''Fall 3C:''' Det ska inte gå att uppdatera en personDomainPart som länkar till en organisation från en annan domän. !style_red[(Ej implementerad)]
    * Vid försök skall servern svara med BAD_REQUEST
- * '''Fall 3D:''' Om fältet "lokalt id" uppdateras men det redan finns i en publikation (sök i classic), skall lokalt id inte uppdateras utan vara oförändrat. !style_red[(Ej implementerad)]
+ * '''Fall 3D:''' Om ett befintligt "lokalt id" tas bort, skall detta lokala id inte tas bort utan vara kvar oförändrat
+ * '''Fall 3E:''' Om fältet "lokalt id" uppdateras, skall lokalt id inte uppdateras utan vara oförändrat, dessutom skall det man ändrar till läggas till som om det vore nytt (en ändring är i princip en kombination av en borttagning och en tilläggning).
 
-!***> Fall 3
-!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Uu
+
+!***> Fall 3 Det skall gå att uppdatera personDomainPart
+!| script | StringSupport |
+|$tempLocalId=|dateFormat;|YYYYMMddHHmmssss|
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart125Uu
 !define expectedUpdateResult {OK}
 !define expectedAnswer {}
 !define expectedCompareResult {OK}
@@ -180,7 +186,7 @@ Uppdatering av den totala informationen om en person görs genom att personposte
 !include -seamless .HelperPages.updateCheckReadCheckReadCheck
 *!
 
-!***> Fall 3A
+!***> Fall 3A Det skall inte gå att uppdatera en personDomainPart utan varken identifier eller affiliation
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Uu
 !define expectedUpdateResult {BAD_REQUEST}
 !define expectedAnswer {}
@@ -188,7 +194,7 @@ Uppdatering av den totala informationen om en person görs genom att personposte
 !include -seamless .HelperPages.updateRecord
 *!
 
-!***> Fall 3B
+!***> Fall 3B Det skall inte gå att uppdatera id i recordInfo
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Uu
 !define expectedUpdateResult {BAD_REQUEST}
 !define expectedAnswer {}
@@ -196,7 +202,7 @@ Uppdatering av den totala informationen om en person görs genom att personposte
 !include -seamless .HelperPages.updateRecord
 *!
 
-!***> Fall 3C  !style_red[(Ej implementerad, när den är klart, ta bort !-#-! från testet )]
+!***> Fall 3C Det skall inte gå att länka till en organisation från en annan domän !style_red[(Ej implementerad, när den är klart, ta bort !-#-! från testet )]
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Uu
 !define expectedUpdateResult {BAD_REQUEST}
 !define expectedAnswer {}
@@ -204,16 +210,52 @@ Uppdatering av den totala informationen om en person görs genom att personposte
 #!include -seamless .HelperPages.updateRecord
 *!
 
+!***> Fall 3D Det skall inte gå att ta bort ett lokaltId
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart125Uu
+
+Vi definierar om updateData att använda updateDataRemoveLocalId 
+!define updateData updateDataRemoveLocalId
+
+Vi definierar om expectedUpdatedData så att den förväntar sig samma data som skapades från början 
+!define expectedUpdatedData expectedCreatedData
+
+!define expectedUpdateResult {OK}
+!define expectedAnswer {}
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
+!include -seamless .HelperPages.updateCheckReadCheckReadCheck
+
+*!
+
+!***> Fall 3E Det skall inte gå att uppdatera ett lokaltId
+
+!| script | StringSupport |
+|$tempLocalId=|dateFormat;|YYYYMMddHHmmssss|
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart125Uu
+
+Vi definierar om updateData och exepected to use updateDataAddLocalId 
+!define updateData updateChangeLocalIdData
+!define expectedUpdatedData expectedUpdatedChangeLocalIdData
+
+!define expectedUpdateResult {OK}
+!define expectedAnswer {}
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
+!include -seamless .HelperPages.updateCheckReadCheckReadCheck
+
+*!
+
 !4 Ta bort en person domän del
- * '''Fall 4:''' Det ska gå att ta bort en person domän del från en befintligt person. (Delete personDomainPart).
+ * '''Fall 4A:''' Det ska gå att ta bort en person domän del från en befintligt person. (Delete personDomainPart).
    * Personposthistoriken loggas med en ny update.
    * Person domän delen tas bort från listan med länkade person domän delar i personposten.
    * Domän som personDomainPart tillhör tas bort från domän listan i personposten
- * '''Fall 4A:''' Det skall inte gå att ta bort en personDomainPart där fältet "lokalt id" redan finns i en publikation (sök i classic).!style_orange['''Stämmer detta fall?''']!style_red[(Ej implementerad)]
+ * '''Fall 4B:''' Det skall inte gå att ta bort en personDomainPart som har en eller flera "lokalt id", om man försöker skall servern svara med BAD_REQUEST. !style_red[(Ej implementerad)]
 
-*Försöker man ta bort en personDomainPart där "lokalt id" finns i en publikation, skall servern svara med BAD_REQUEST.
-
-!***> Fall 4
+!***> Fall 4A Det skall gå att ta bort en personDomainPart
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Uu
 !define expectedDeleteResult {OK}
 !include -seamless .HelperPages.deleteRecord
@@ -224,6 +266,15 @@ Uppdatering av den totala informationen om en person görs genom att personposte
 !define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
 !include -seamless .HelperPages.readCheck
 *!
+
+!***> Fall 4B Det skall inte gå att ta bort en personDomainPart som har lokaltId
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart125Uu
+!define expectedDeleteResult {BAD_REQUEST}
+!include -seamless .HelperPages.deleteRecord
+*!
+
+
+
 #!3 Dubblethantering (oklart om dessa skall vara med, hur hanterar man att slå ihop inför en dublett borttagning?)
 # * '''Fall X:''' Det ska inte gå att lägga till en person med en ORCID som redan finns .!style_red[(Ej implementerad)]
 # * '''Fall Z:''' Det ska inte gå att lägga till en personDomainPart med en lokalId i samma domän som redan används av en annan personDomainPart.!style_red[(Ej implementerad)]
