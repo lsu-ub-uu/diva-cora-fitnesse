@@ -253,7 +253,7 @@ Vi definierar om updateData och exepected to use updateDataAddLocalId
    * Personposthistoriken loggas med en ny update.
    * Person domän delen tas bort från listan med länkade person domän delar i personposten.
    * Domän som personDomainPart tillhör tas bort från domän listan i personposten
- * '''Fall 4B:''' Det skall inte gå att ta bort en personDomainPart som har en eller flera "lokalt id", om man försöker skall servern svara med BAD_REQUEST. !style_red[(Ej implementerad)]
+ * '''Fall 4B:''' Det skall inte gå att ta bort en personDomainPart som har en eller flera "lokalt id", om man försöker skall servern svara med BAD_REQUEST.
 
 !***> Fall 4A Det skall gå att ta bort en personDomainPart
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Uu
