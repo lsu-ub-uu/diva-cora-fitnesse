@@ -293,33 +293,33 @@ Vi definierar om updateData och exepected to use updateChangeLocalIdData
  * '''Fall 1:''' !-SystemAdmin ska kunna uppdatera en person från alla domäner.-!
  * '''Fall 2:''' !-SystemAdmin ska kunna uppdatera en personDomainParts från alla domäner.-!
 
-#!***> Fall 1
-#!define currentAuthToken {$systemAdminAuthToken}
+!***> Fall 1
+!define currentAuthToken {$systemAdminAuthToken}
 
-#!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
-#!***> Define expected data
-#!define expectedUpdateResult {OK}
-#!define expectedAnswer {}
-#!define expectedCompareResult {OK}
-#!define expectedActionResult {Action read_incoming_links is missing.}
-#!define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
-#*!
-#!include -seamless .HelperPages.updateCheckReadCheckReadCheck
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
+!***> Define expected data
+!define expectedUpdateResult {OK}
+!define expectedAnswer {}
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action delete is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission domain is missing. Write permission personDomainPart is missing.}
+*!
+!include -seamless .HelperPages.updateCheckReadCheckReadCheck
 
-#!***> Det uppdaterade fältet public ska uppdateras i alla relaterade person domän delar
-#!define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
+!***> Det uppdaterade fältet public ska uppdateras i alla relaterade person domän delar
+!define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
 
-#!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Kth
-#!define expectedCreatedData expectedUpdatedDataTriggeredFromPerson
-#!include -seamless .HelperPages.readCheck
-#
-#!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Test
-#!define expectedCreatedData expectedUpdatedDataTriggeredFromPerson
-#!include -seamless .HelperPages.readCheck
-#*!
-#!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
-#!include -seamless .HelperPages.resetRecord
-#*!
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Kth
+!define expectedCreatedData expectedUpdatedDataTriggeredFromPerson
+!include -seamless .HelperPages.readCheck
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Test
+!define expectedCreatedData expectedUpdatedDataTriggeredFromPerson
+!include -seamless .HelperPages.readCheck
+*!
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
+!include -seamless .HelperPages.resetRecord
+*!
 #
 #!***> Fall 2
 #!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
