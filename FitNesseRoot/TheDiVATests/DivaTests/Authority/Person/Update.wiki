@@ -287,66 +287,63 @@ Vi definierar om updateData och exepected to use updateChangeLocalIdData
 
 
 !3 Roller 
-!4 !-SystemAdmin-! !style_orange[(Ej konfigurerade eller testade)]
+!4 !-SystemAdmin-! 
 !-SystemAdmin får ändra alla person och personDomainParts från alla domäner.-!
 
- * '''Fall 1:''' !-SystemAdmin ska kunna uppdatera en person från alla domäner.-!
- * '''Fall 2:''' !-SystemAdmin ska kunna uppdatera en personDomainParts från alla domäner.-!
+ * '''Fall 1:''' !-SystemAdmin ska kunna uppdatera en person i alla domäner.-!
+ * '''Fall 2:''' !-SystemAdmin ska kunna lägga till en personDomainPart till en befintligt person i alla domäner.-!
+ * '''Fall 3:''' !-SystemAdmin ska kunna uppdatera en personDomainPart i alla domäner.-!
+ * '''Fall 4:''' !-SystemAdmin ska kunna ta bort en personDomainPart i alla domäner.-!
 
-#!***> Fall 1
-#!define currentAuthToken {$systemAdminAuthToken}
+!***> Fall 1
+!define currentAuthToken {$systemAdminAuthToken}
 
-#!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
-#!***> Define expected data
-#!define expectedUpdateResult {OK}
-#!define expectedAnswer {}
-#!define expectedCompareResult {OK}
-#!define expectedActionResult {Action read_incoming_links is missing.}
-#!define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
-#*!
-#!include -seamless .HelperPages.updateCheckReadCheckReadCheck
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
+!***> Define expected data
+!define expectedUpdateResult {OK}
+!define expectedAnswer {}
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action delete is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission domain is missing. Write permission personDomainPart is missing.}
+!define expectedCompleteCompareResult {OK}
+*!
+!include -seamless .HelperPages.updateCheckReadCheckReadCheck
 
-#!***> Det uppdaterade fältet public ska uppdateras i alla relaterade person domän delar
-#!define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
+!include -seamless .HelperPages.resetRecord
+*!
 
-#!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Kth
-#!define expectedCreatedData expectedUpdatedDataTriggeredFromPerson
-#!include -seamless .HelperPages.readCheck
-#
-#!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Test
-#!define expectedCreatedData expectedUpdatedDataTriggeredFromPerson
-#!include -seamless .HelperPages.readCheck
-#*!
-#!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
-#!include -seamless .HelperPages.resetRecord
-#*!
-#
-#!***> Fall 2
-#!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
-#!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Uu
-#!define expectedCreateResult {CREATED}
-#!define expectedCompareResult {Child with nameInData personLink and type group is missing.}
-#!define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
-#!include -seamless .HelperPages.createCheckReadCheck
-#
-#!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
-#!define expectedCreatedData expectedUpdatedDataTriggeredFromPersonDomainPart
-#!define expectedCompareResult {OK}
-#!define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
-#!include -seamless .HelperPages.readCheck
-#*!
-#!***> Fall 3
-#!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Uu
-#!define expectedDeleteResult {OK}
-#!include -seamless .HelperPages.deleteRecord
-#
-#!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
-#!define expectedCreatedData expectedUpdatedDataTriggeredFromPersonDomainPart
-#!define expectedCompareResult {Did not find a match for child with nameInData domain and value uu and repeatId 2. Child with nameInData personDomainPart and type group and repeatId 2 is missing.}
-#!define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
-#!include -seamless .HelperPages.readCheck
-#*!
-#
+!***> Fall 2 Det ska gå att lägga till en personDomainPart till en  person
+!define currentAuthToken {$systemAdminAuthToken}
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Uu
+!define expectedCreateResult {CREATED}
+!define expectedActionResult {Action read_incoming_links is missing.}
+!define expectedCompareResult {Child with nameInData personLink and type group is missing.}
+!define expectedPermissionResult {Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission public is missing. Write permission domain is missing.}
+!define expectedCreatedData expectedCreatedDataSystemAdmin
+!include -seamless .HelperPages.createCheckReadCheck
+*!
+
+!***> Fall 3 Det skall gå att uppdatera personDomainPart
+!| script | StringSupport |
+|$tempLocalId=|dateFormat;|YYYYMMddHHmmssss|
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart125Uu
+!define expectedUpdateResult {OK}
+!define expectedAnswer {}
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission public is missing. Write permission domain is missing.}
+!include -seamless .HelperPages.updateCheckReadCheckReadCheck
+*!
+
+!***> Fall 4 Det skall gå att ta bort en personDomainPart
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Uu
+!define expectedDeleteResult {OK}
+!include -seamless .HelperPages.deleteRecord
+*!
+
+
 !4 !-DomainAdmin-! !style_orange[(Ej konfigurerade eller testade)]
 !-DomainAdmin får uppdatera alla personer men bara kunna uppdatera personDomainParts som tillhör sin egen domän.-!
 

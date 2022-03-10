@@ -70,8 +70,8 @@ Lista personer inloggad som systemAdmin användare.
 
 Säkerställ att den sparade datan överensstämmer med originaldatan.
 !define expectedCompareResult {OK}
-!define expectedActionResult {Action update is missing. Action delete is missing. Action read_incoming_links is missing.}
-!define expectedPermissionResult {Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission public is missing. Write permission domain is missing. Write permission academicTitle is missing. Write permission emailAddress is missing. Write permission yearOfBirth is missing. Write permission yearOfDeath is missing. Write permission alternativeName is missing. Write permission externalURL is missing. Write permission otherAffiliation is missing. Write permission ORCID_ID is missing. Write permission VIAF_ID is missing. Write permission Libris_ID is missing. Write permission biographyEnglish is missing. Write permission biographySwedish is missing. Write permission personDomainPart is missing.}
+!define expectedActionResult {Action delete is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission domain is missing. Write permission personDomainPart is missing.}
 !include -seamless .HelperPages.checkOriginal
 *!
 !***>  '''Fall2'''
@@ -82,8 +82,8 @@ Lista personerDomainPart inloggad som systemAdmin användare.
 
 Säkerställ att den sparade datan överensstämmer med originaldatan.
 !define expectedCompareResult {OK}
-!define expectedActionResult {Action update is missing. Action delete is missing. Action read_incoming_links is missing.}
-!define expectedPermissionResult {Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission public is missing. Write permission domain is missing. Write permission identifier is missing.}
+!define expectedActionResult {Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission public is missing. Write permission domain is missing.}
 !include -seamless .HelperPages.checkOriginal
 *!
 
