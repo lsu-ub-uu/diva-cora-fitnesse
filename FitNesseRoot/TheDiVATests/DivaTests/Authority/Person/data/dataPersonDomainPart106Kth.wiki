@@ -6,10 +6,6 @@ Help: Data for personDomainPart authority-person:106:kth
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPartRecordType
 !define recordId {authority-person:106:kth}
 
-
-
-
-
 !define originalData {!-{"children":[{"children":[{"name":"id","value":"authority-person:106:kth"},{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"personDomainPart"}],"name":"type"},{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"test123"}],"name":"createdBy"},{"name":"tsCreated","value":"2021-03-04T14:46:00.463000Z"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"repeatId":"0","children":[{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"test123"}],"name":"updatedBy"},{"name":"tsUpdated","value":"2021-03-04T14:47:44.670000Z"}],"name":"updated"},{"repeatId":"1","children":[{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"test123"}],"name":"updatedBy"},{"name":"tsUpdated","value":"2021-03-04T14:49:23.164000Z"}],"name":"updated"},{"name":"domain","value":"kth"},{"name":"public","value":"yes"}],"name":"recordInfo"},{"name":"identifier","value":"3292","repeatId":"0"}],"name":"personDomainPart"}-!}
 !define expectedOriginalData originalData
 
