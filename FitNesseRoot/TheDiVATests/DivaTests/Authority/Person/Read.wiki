@@ -375,7 +375,7 @@ Personposten har ingen domän, men vi borde ärndå kunna se alla fält.
 !***> Fall 1
 En domänAdmin användare för UU får läsa en personpost som är från UU domän.
 !***> Det ska gå att läsa person med domän (UU och Test)
-!***> Läs personDomainPart
+!***> Läs personpost
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson118
 !define expectedCompareResult {OK}
 #!define expectedActionResult {Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
