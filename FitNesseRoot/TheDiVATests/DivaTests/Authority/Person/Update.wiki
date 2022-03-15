@@ -2,20 +2,17 @@
 Test
 ---
 
-#!***> Indexera record ${recordType} med ID ${recordId}
-
-| Table:smartrics.rest.fitnesse.fixture.RestFixture | http://localhost:11111 |
-| GET | /empty_memory | 200 | Content-Type: text\/plain;charset=utf-8 | forgot all remembered calls |
-
-#*!
 !2 Uppdatera
 Det ska vara möjligt att uppdatera Person.
 
 En personpost innehåller en lista med länkar till personDomainParts. Ingen användare, oavsett roll, har rättighet att ändra i listan på domäner (i recordInfo) eller länkade personDomainParts. För att kunna lägga till eller ta bort domäner och länkade personDomainParts i personposten behöver man skapa eller radera personDomainParts. 
 Vid skapning av en ny personDomainPart kommer servern att lägga till domänen och en länk till den nya personDomainParten i den person post som man länkar till när man skapar en ny personDomainPart.
 Vid borttagning av en personDomainPart kommer servern att ta bort domänen och länken till personDomainPart från personPosten som den raderade personDomainParten hör till.
-
 Alla grundfunktionallitet (ej beroende på användare), testas med en användare med alla rättigheter.
+
+!3 Synkronizering i Classic
+I varje test ingår också en kontroll av att Cora anropar classic för uppdatering av dess Fedora och omindexering.
+
 !include -seamless .HelperPages.defineAdminAuthToken
 !3 Person
  * '''Fall 1A:''' Det ska gå att uppdatera en person
@@ -25,6 +22,11 @@ Alla grundfunktionallitet (ej beroende på användare), testas med en användare
  * '''Fall 1B:''' Om ett befintligt "ORCID" tas bort, skall detta ORCID inte tas bort utan vara kvar oförändrat
  * '''Fall 1C:''' Om ett befintligt "ORCID" ändras, skall detta ORCID inte ändras utan vara kvar oförändrat, dessutom skall det man ändrar till läggas till som om det vore nytt (en ändring är i princip en kombination av en borttagning och en tilläggning)
 
+!***> Rensa minet på HttpListener
+HttpListener används för att lyssna på anropen som normalt går till Classic, så att vi kan kontrollera att de görs korrekt.
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
+| GET | /empty_memory | 200 | Content-Type: text\/plain;charset=utf-8 | forgot all remembered calls |
+*!
 !***> Fall 1A Det ska gå att uppdatera en person
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
@@ -49,8 +51,8 @@ Alla grundfunktionallitet (ej beroende på användare), testas med en användare
 !include -seamless .HelperPages.readCheck
 *!
 !***> Synchronizering till classic
-| Table:smartrics.rest.fitnesse.fixture.RestFixture | http://localhost:11111 |
-| GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | PUT \/fedora\/objects\/authority-person:106\/datastreams\/METADATA\?format\=\?xml\&controlGroup\=M\&logMessage\=coraWritten\&checksumType\=SHA\-512 |
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
+| GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | PUT \/fedoraURL\/objects\/authority-person:106\/datastreams\/METADATA\?format\=\?xml\&controlGroup\=M\&logMessage\=coraWritten\&checksumType\=SHA\-512 |
 | GET | /getCallNo/1 | 200 | Content-Type: text\/plain;charset=utf-8 | GET \/authorityIndexUrl\/authority\/person\/index\/authority-person:106 |
 | GET | /getCallNo/2 | 200 | Content-Type: text\/plain;charset=utf-8 | No call made with no:2, the highest registered call number is:1  |
 | GET | /empty_memory | 200 | Content-Type: text\/plain;charset=utf-8 | forgot all remembered calls |
@@ -59,7 +61,7 @@ Alla grundfunktionallitet (ej beroende på användare), testas med en användare
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
 !include -seamless .HelperPages.resetRecord
 !***> Reset HTTP listener classic
-| Table:smartrics.rest.fitnesse.fixture.RestFixture | http://localhost:11111 |
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
 | GET | /empty_memory | 200 | Content-Type: text\/plain;charset=utf-8 | forgot all remembered calls |
 *!
 *!
@@ -78,8 +80,8 @@ Alla grundfunktionallitet (ej beroende på användare), testas med en användare
 !include -seamless .HelperPages.updateCheckReadCheckReadCheck
 
 !***> Synchronizering till classic
-| Table:smartrics.rest.fitnesse.fixture.RestFixture | http://localhost:11111 |
-| GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | PUT \/fedora\/objects\/authority-person:125\/datastreams\/METADATA\?format\=\?xml\&controlGroup\=M\&logMessage\=coraWritten\&checksumType\=SHA\-512 |
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
+| GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | PUT \/fedoraURL\/objects\/authority-person:125\/datastreams\/METADATA\?format\=\?xml\&controlGroup\=M\&logMessage\=coraWritten\&checksumType\=SHA\-512 |
 | GET | /getCallNo/1 | 200 | Content-Type: text\/plain;charset=utf-8 | GET \/authorityIndexUrl\/authority\/person\/index\/authority-person:125 |
 | GET | /getCallNo/2 | 200 | Content-Type: text\/plain;charset=utf-8 | No call made with no:2, the highest registered call number is:1  |
 | GET | /empty_memory | 200 | Content-Type: text\/plain;charset=utf-8 | forgot all remembered calls |
@@ -90,7 +92,7 @@ Vi behöver inte återställa datat eftersom inget ändrades
 #!include -seamless .HelperPages.resetRecord
 
 !***> Reset HTTP listener classic
-| Table:smartrics.rest.fitnesse.fixture.RestFixture | http://localhost:11111 |
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
 | GET | /empty_memory | 200 | Content-Type: text\/plain;charset=utf-8 | forgot all remembered calls |
 *!
 *!
@@ -119,8 +121,8 @@ Vi definierar om updateData och exepected to use tempOrcid
 Vi behöver inte återställa datat eftersom inget ändrades
 
 !***> Synchronizering till classic
-| Table:smartrics.rest.fitnesse.fixture.RestFixture | http://localhost:11111 |
-| GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | PUT \/fedora\/objects\/authority-person:125\/datastreams\/METADATA\?format\=\?xml\&controlGroup\=M\&logMessage\=coraWritten\&checksumType\=SHA\-512 |
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
+| GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | PUT \/fedoraURL\/objects\/authority-person:125\/datastreams\/METADATA\?format\=\?xml\&controlGroup\=M\&logMessage\=coraWritten\&checksumType\=SHA\-512 |
 | GET | /getCallNo/1 | 200 | Content-Type: text\/plain;charset=utf-8 | GET \/authorityIndexUrl\/authority\/person\/index\/authority-person:125 |
 | GET | /getCallNo/2 | 200 | Content-Type: text\/plain;charset=utf-8 | No call made with no:2, the highest registered call number is:1  |
 | GET | /empty_memory | 200 | Content-Type: text\/plain;charset=utf-8 | forgot all remembered calls |
@@ -164,8 +166,8 @@ Uppdatering av den totala informationen om en person görs genom att personposte
 !include -seamless .HelperPages.readCheck
 
 !***> Synchronizering till classic
-| Table:smartrics.rest.fitnesse.fixture.RestFixture | http://localhost:11111 |
-| GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | PUT \/fedora\/objects\/authority-person:106\/datastreams\/METADATA\?format\=\?xml\&controlGroup\=M\&logMessage\=coraWritten\&checksumType\=SHA\-512 |
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
+| GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | PUT \/fedoraURL\/objects\/authority-person:106\/datastreams\/METADATA\?format\=\?xml\&controlGroup\=M\&logMessage\=coraWritten\&checksumType\=SHA\-512 |
 | GET | /getCallNo/1 | 200 | Content-Type: text\/plain;charset=utf-8 | GET \/authorityIndexUrl\/authority\/person\/index\/authority-person:106 |
 | GET | /getCallNo/2 | 200 | Content-Type: text\/plain;charset=utf-8 | No call made with no:2, the highest registered call number is:1  |
 | GET | /empty_memory | 200 | Content-Type: text\/plain;charset=utf-8 | forgot all remembered calls |
@@ -180,8 +182,8 @@ Uppdatering av den totala informationen om en person görs genom att personposte
 !include -seamless .HelperPages.createCheckReadCheck
 
 !***> Synchronizering till classic
-| Table:smartrics.rest.fitnesse.fixture.RestFixture | http://localhost:11111 |
-| GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | PUT \/fedora\/objects\/authority-person:111\/datastreams\/METADATA\?format\=\?xml\&controlGroup\=M\&logMessage\=coraWritten\&checksumType\=SHA\-512 |
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
+| GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | PUT \/fedoraURL\/objects\/authority-person:111\/datastreams\/METADATA\?format\=\?xml\&controlGroup\=M\&logMessage\=coraWritten\&checksumType\=SHA\-512 |
 | GET | /getCallNo/1 | 200 | Content-Type: text\/plain;charset=utf-8 | GET \/authorityIndexUrl\/authority\/person\/index\/authority-person:111 |
 | GET | /getCallNo/2 | 200 | Content-Type: text\/plain;charset=utf-8 | No call made with no:2, the highest registered call number is:1  |
 | GET | /empty_memory | 200 | Content-Type: text\/plain;charset=utf-8 | forgot all remembered calls |
@@ -194,7 +196,7 @@ Uppdatering av den totala informationen om en person görs genom att personposte
 !include -seamless .HelperPages.createRecord
 
 !***> Synchronizering till classic
-| Table:smartrics.rest.fitnesse.fixture.RestFixture | http://localhost:11111 |
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
 | GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | No calls registered. |
 *!
 *!
@@ -205,7 +207,7 @@ Uppdatering av den totala informationen om en person görs genom att personposte
 !include -seamless .HelperPages.createRecord
 
 !***> Synchronizering till classic
-| Table:smartrics.rest.fitnesse.fixture.RestFixture | http://localhost:11111 |
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
 | GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | No calls registered. |
 *!
 *!
@@ -217,7 +219,7 @@ Uppdatering av den totala informationen om en person görs genom att personposte
 !include -seamless .HelperPages.createRecord
 
 !***> Synchronizering till classic
-| Table:smartrics.rest.fitnesse.fixture.RestFixture | http://localhost:11111 |
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
 | GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | No calls registered. |
 *!
 *!
@@ -228,7 +230,7 @@ Uppdatering av den totala informationen om en person görs genom att personposte
 !include -seamless .HelperPages.createRecord
 
 !***> Synchronizering till classic
-| Table:smartrics.rest.fitnesse.fixture.RestFixture | http://localhost:11111 |
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
 | GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | No calls registered. |
 *!
 *!
@@ -239,8 +241,8 @@ Uppdatering av den totala informationen om en person görs genom att personposte
 !include -seamless .HelperPages.deleteRecord
 
 !***> Synchronizering till classic
-| Table:smartrics.rest.fitnesse.fixture.RestFixture | http://localhost:11111 |
-| GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | PUT \/fedora\/objects\/authority-person:111\/datastreams\/METADATA\?format\=\?xml\&controlGroup\=M\&logMessage\=coraWritten\&checksumType\=SHA\-512 |
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
+| GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | PUT \/fedoraURL\/objects\/authority-person:111\/datastreams\/METADATA\?format\=\?xml\&controlGroup\=M\&logMessage\=coraWritten\&checksumType\=SHA\-512 |
 | GET | /getCallNo/1 | 200 | Content-Type: text\/plain;charset=utf-8 | GET \/authorityIndexUrl\/authority\/person\/index\/authority-person:111 |
 | GET | /getCallNo/2 | 200 | Content-Type: text\/plain;charset=utf-8 | No call made with no:2, the highest registered call number is:1  |
 | GET | /empty_memory | 200 | Content-Type: text\/plain;charset=utf-8 | forgot all remembered calls |
@@ -271,8 +273,8 @@ Uppdatering av den totala informationen om en person görs genom att personposte
 !include -seamless .HelperPages.updateCheckReadCheckReadCheck
 
 !***> Synchronizering till classic
-| Table:smartrics.rest.fitnesse.fixture.RestFixture | http://localhost:11111 |
-| GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | PUT \/fedora\/objects\/authority-person:125\/datastreams\/METADATA\?format\=\?xml\&controlGroup\=M\&logMessage\=coraWritten\&checksumType\=SHA\-512 |
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
+| GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | PUT \/fedoraURL\/objects\/authority-person:125\/datastreams\/METADATA\?format\=\?xml\&controlGroup\=M\&logMessage\=coraWritten\&checksumType\=SHA\-512 |
 | GET | /getCallNo/1 | 200 | Content-Type: text\/plain;charset=utf-8 | GET \/authorityIndexUrl\/authority\/person\/index\/authority-person:125 |
 | GET | /getCallNo/2 | 200 | Content-Type: text\/plain;charset=utf-8 | No call made with no:2, the highest registered call number is:1  |
 | GET | /empty_memory | 200 | Content-Type: text\/plain;charset=utf-8 | forgot all remembered calls |
@@ -287,7 +289,7 @@ Uppdatering av den totala informationen om en person görs genom att personposte
 !include -seamless .HelperPages.updateRecord
 
 !***> Synchronizering till classic
-| Table:smartrics.rest.fitnesse.fixture.RestFixture | http://localhost:11111 |
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
 | GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | No calls registered. |
 *!
 *!
@@ -300,7 +302,7 @@ Uppdatering av den totala informationen om en person görs genom att personposte
 !include -seamless .HelperPages.updateRecord
 
 !***> Synchronizering till classic
-| Table:smartrics.rest.fitnesse.fixture.RestFixture | http://localhost:11111 |
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
 | GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | No calls registered. |
 *!
 *!
@@ -313,7 +315,7 @@ Uppdatering av den totala informationen om en person görs genom att personposte
 !include -seamless .HelperPages.updateRecord
 
 !***> Synchronizering till classic
-| Table:smartrics.rest.fitnesse.fixture.RestFixture | http://localhost:11111 |
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
 | GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | No calls registered. |
 *!
 *!
@@ -335,8 +337,8 @@ Vi definierar om expectedUpdatedData så att den förväntar sig samma data som 
 !include -seamless .HelperPages.updateCheckReadCheckReadCheck
 
 !***> Synchronizering till classic
-| Table:smartrics.rest.fitnesse.fixture.RestFixture | http://localhost:11111 |
-| GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | PUT \/fedora\/objects\/authority-person:125\/datastreams\/METADATA\?format\=\?xml\&controlGroup\=M\&logMessage\=coraWritten\&checksumType\=SHA\-512 |
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
+| GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | PUT \/fedoraURL\/objects\/authority-person:125\/datastreams\/METADATA\?format\=\?xml\&controlGroup\=M\&logMessage\=coraWritten\&checksumType\=SHA\-512 |
 | GET | /getCallNo/1 | 200 | Content-Type: text\/plain;charset=utf-8 | GET \/authorityIndexUrl\/authority\/person\/index\/authority-person:125 |
 | GET | /getCallNo/2 | 200 | Content-Type: text\/plain;charset=utf-8 | No call made with no:2, the highest registered call number is:1  |
 | GET | /empty_memory | 200 | Content-Type: text\/plain;charset=utf-8 | forgot all remembered calls |
@@ -362,8 +364,8 @@ Vi definierar om updateData och exepected to use updateChangeLocalIdData
 !include -seamless .HelperPages.updateCheckReadCheckReadCheck
 
 !***> Synchronizering till classic
-| Table:smartrics.rest.fitnesse.fixture.RestFixture | http://localhost:11111 |
-| GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | PUT \/fedora\/objects\/authority-person:125\/datastreams\/METADATA\?format\=\?xml\&controlGroup\=M\&logMessage\=coraWritten\&checksumType\=SHA\-512 |
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
+| GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | PUT \/fedoraURL\/objects\/authority-person:125\/datastreams\/METADATA\?format\=\?xml\&controlGroup\=M\&logMessage\=coraWritten\&checksumType\=SHA\-512 |
 | GET | /getCallNo/1 | 200 | Content-Type: text\/plain;charset=utf-8 | GET \/authorityIndexUrl\/authority\/person\/index\/authority-person:125 |
 | GET | /getCallNo/2 | 200 | Content-Type: text\/plain;charset=utf-8 | No call made with no:2, the highest registered call number is:1  |
 | GET | /empty_memory | 200 | Content-Type: text\/plain;charset=utf-8 | forgot all remembered calls |
@@ -389,8 +391,8 @@ Vi definierar om updateData och exepected to use updateChangeLocalIdData
 !include -seamless .HelperPages.readCheck
 
 !***> Synchronizering till classic
-| Table:smartrics.rest.fitnesse.fixture.RestFixture | http://localhost:11111 |
-| GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | PUT \/fedora\/objects\/authority-person:106\/datastreams\/METADATA\?format\=\?xml\&controlGroup\=M\&logMessage\=coraWritten\&checksumType\=SHA\-512 |
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
+| GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | PUT \/fedoraURL\/objects\/authority-person:106\/datastreams\/METADATA\?format\=\?xml\&controlGroup\=M\&logMessage\=coraWritten\&checksumType\=SHA\-512 |
 | GET | /getCallNo/1 | 200 | Content-Type: text\/plain;charset=utf-8 | GET \/authorityIndexUrl\/authority\/person\/index\/authority-person:106 |
 | GET | /getCallNo/2 | 200 | Content-Type: text\/plain;charset=utf-8 | No call made with no:2, the highest registered call number is:1  |
 | GET | /empty_memory | 200 | Content-Type: text\/plain;charset=utf-8 | forgot all remembered calls |
@@ -403,7 +405,7 @@ Vi definierar om updateData och exepected to use updateChangeLocalIdData
 !include -seamless .HelperPages.deleteRecord
 
 !***> Synchronizering till classic
-| Table:smartrics.rest.fitnesse.fixture.RestFixture | http://localhost:11111 |
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
 | GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | No calls registered. |
 *!
 *!
