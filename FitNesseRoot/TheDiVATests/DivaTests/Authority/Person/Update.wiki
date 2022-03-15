@@ -1,14 +1,18 @@
 ---
 Test
 ---
+
 !2 Uppdatera
 Det ska vara möjligt att uppdatera Person.
 
 En personpost innehåller en lista med länkar till personDomainParts. Ingen användare, oavsett roll, har rättighet att ändra i listan på domäner (i recordInfo) eller länkade personDomainParts. För att kunna lägga till eller ta bort domäner och länkade personDomainParts i personposten behöver man skapa eller radera personDomainParts. 
 Vid skapning av en ny personDomainPart kommer servern att lägga till domänen och en länk till den nya personDomainParten i den person post som man länkar till när man skapar en ny personDomainPart.
 Vid borttagning av en personDomainPart kommer servern att ta bort domänen och länken till personDomainPart från personPosten som den raderade personDomainParten hör till.
-
 Alla grundfunktionallitet (ej beroende på användare), testas med en användare med alla rättigheter.
+
+!3 Synkronizering i Classic
+I varje test ingår också en kontroll av att Cora anropar classic för uppdatering av dess Fedora och omindexering.
+
 !include -seamless .HelperPages.defineAdminAuthToken
 !3 Person
  * '''Fall 1A:''' Det ska gå att uppdatera en person
@@ -18,6 +22,11 @@ Alla grundfunktionallitet (ej beroende på användare), testas med en användare
  * '''Fall 1B:''' Om ett befintligt "ORCID" tas bort, skall detta ORCID inte tas bort utan vara kvar oförändrat
  * '''Fall 1C:''' Om ett befintligt "ORCID" ändras, skall detta ORCID inte ändras utan vara kvar oförändrat, dessutom skall det man ändrar till läggas till som om det vore nytt (en ändring är i princip en kombination av en borttagning och en tilläggning)
 
+!***> Rensa minet på HttpListener
+HttpListener används för att lyssna på anropen som normalt går till Classic, så att vi kan kontrollera att de görs korrekt.
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
+| GET | /empty_memory | 200 | Content-Type: text\/plain;charset=utf-8 | forgot all remembered calls |
+*!
 !***> Fall 1A Det ska gå att uppdatera en person
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
@@ -41,8 +50,20 @@ Alla grundfunktionallitet (ej beroende på användare), testas med en användare
 !define expectedCreatedData expectedUpdatedDataTriggeredFromPerson
 !include -seamless .HelperPages.readCheck
 *!
+!***> Synchronizering till classic
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
+| GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | PUT \/fedoraURL\/objects\/authority-person:106\/datastreams\/METADATA\?format\=\?xml\&controlGroup\=M\&logMessage\=coraWritten\&checksumType\=SHA\-512 |
+| GET | /getCallNo/1 | 200 | Content-Type: text\/plain;charset=utf-8 | GET \/authorityIndexUrl\/authority\/person\/index\/authority-person:106 |
+| GET | /getCallNo/2 | 200 | Content-Type: text\/plain;charset=utf-8 | No call made with no:2, the highest registered call number is:1  |
+| GET | /empty_memory | 200 | Content-Type: text\/plain;charset=utf-8 | forgot all remembered calls |
+*!
+
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
 !include -seamless .HelperPages.resetRecord
+!***> Reset HTTP listener classic
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
+| GET | /empty_memory | 200 | Content-Type: text\/plain;charset=utf-8 | forgot all remembered calls |
+*!
 *!
 
 !***> Fall 1B Borttagning av ORCID_ID skall ej gå
@@ -58,9 +79,23 @@ Alla grundfunktionallitet (ej beroende på användare), testas med en användare
 *!
 !include -seamless .HelperPages.updateCheckReadCheckReadCheck
 
-Vi behöver inte återställa datat eftersom inget ändrades
+!***> Synchronizering till classic
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
+| GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | PUT \/fedoraURL\/objects\/authority-person:125\/datastreams\/METADATA\?format\=\?xml\&controlGroup\=M\&logMessage\=coraWritten\&checksumType\=SHA\-512 |
+| GET | /getCallNo/1 | 200 | Content-Type: text\/plain;charset=utf-8 | GET \/authorityIndexUrl\/authority\/person\/index\/authority-person:125 |
+| GET | /getCallNo/2 | 200 | Content-Type: text\/plain;charset=utf-8 | No call made with no:2, the highest registered call number is:1  |
+| GET | /empty_memory | 200 | Content-Type: text\/plain;charset=utf-8 | forgot all remembered calls |
 *!
 
+Vi behöver inte återställa datat eftersom inget ändrades
+
+#!include -seamless .HelperPages.resetRecord
+
+!***> Reset HTTP listener classic
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
+| GET | /empty_memory | 200 | Content-Type: text\/plain;charset=utf-8 | forgot all remembered calls |
+*!
+*!
 
 !***> Fall 1C Ändring av ORCID_ID skall ej gå
 
@@ -84,6 +119,14 @@ Vi definierar om updateData och exepected to use tempOrcid
 !include -seamless .HelperPages.updateCheckReadCheckReadCheck
 
 Vi behöver inte återställa datat eftersom inget ändrades
+
+!***> Synchronizering till classic
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
+| GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | PUT \/fedoraURL\/objects\/authority-person:125\/datastreams\/METADATA\?format\=\?xml\&controlGroup\=M\&logMessage\=coraWritten\&checksumType\=SHA\-512 |
+| GET | /getCallNo/1 | 200 | Content-Type: text\/plain;charset=utf-8 | GET \/authorityIndexUrl\/authority\/person\/index\/authority-person:125 |
+| GET | /getCallNo/2 | 200 | Content-Type: text\/plain;charset=utf-8 | No call made with no:2, the highest registered call number is:1  |
+| GET | /empty_memory | 200 | Content-Type: text\/plain;charset=utf-8 | forgot all remembered calls |
+*!
 *!
 
 
@@ -121,6 +164,14 @@ Uppdatering av den totala informationen om en person görs genom att personposte
 !define expectedCompareResult {OK}
 !define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
 !include -seamless .HelperPages.readCheck
+
+!***> Synchronizering till classic
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
+| GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | PUT \/fedoraURL\/objects\/authority-person:106\/datastreams\/METADATA\?format\=\?xml\&controlGroup\=M\&logMessage\=coraWritten\&checksumType\=SHA\-512 |
+| GET | /getCallNo/1 | 200 | Content-Type: text\/plain;charset=utf-8 | GET \/authorityIndexUrl\/authority\/person\/index\/authority-person:106 |
+| GET | /getCallNo/2 | 200 | Content-Type: text\/plain;charset=utf-8 | No call made with no:2, the highest registered call number is:1  |
+| GET | /empty_memory | 200 | Content-Type: text\/plain;charset=utf-8 | forgot all remembered calls |
+*!
 *!
 
 !***> Fall 2A Det ska gå att lägga till en personDomainPart till en ej publik person
@@ -129,18 +180,36 @@ Uppdatering av den totala informationen om en person görs genom att personposte
 !define expectedCompareResult {Did not find a match for child with nameInData public and value yes.}
 !define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
 !include -seamless .HelperPages.createCheckReadCheck
+
+!***> Synchronizering till classic
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
+| GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | PUT \/fedoraURL\/objects\/authority-person:111\/datastreams\/METADATA\?format\=\?xml\&controlGroup\=M\&logMessage\=coraWritten\&checksumType\=SHA\-512 |
+| GET | /getCallNo/1 | 200 | Content-Type: text\/plain;charset=utf-8 | GET \/authorityIndexUrl\/authority\/person\/index\/authority-person:111 |
+| GET | /getCallNo/2 | 200 | Content-Type: text\/plain;charset=utf-8 | No call made with no:2, the highest registered call number is:1  |
+| GET | /empty_memory | 200 | Content-Type: text\/plain;charset=utf-8 | forgot all remembered calls |
+*!
 *!
 
 !***> Fall 2B Det skall inte gå att skapa en personDomainPart som inte matchar en beffintlig person
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart99999Uu
 !define expectedCreateResult {BAD_REQUEST}
 !include -seamless .HelperPages.createRecord
+
+!***> Synchronizering till classic
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
+| GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | No calls registered. |
+*!
 *!
 
 !***> Fall 2C Det skall inte gå att skapa en personDomainPart utan varken identifier eller affiliation
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Liu
 !define expectedCreateResult {BAD_REQUEST}
 !include -seamless .HelperPages.createRecord
+
+!***> Synchronizering till classic
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
+| GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | No calls registered. |
+*!
 *!
 
 !***> Fall 2D Det skall inte gå att skapa mer än en personDomainPart per domän och person
@@ -148,18 +217,36 @@ Uppdatering av den totala informationen om en person görs genom att personposte
 !define expectedCreateResult {CONFLICT}
 !define expectedCompareResult {}
 !include -seamless .HelperPages.createRecord
+
+!***> Synchronizering till classic
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
+| GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | No calls registered. |
+*!
 *!
 
 !***> Fall 2E Det skall inte gå att skapa länka till en organisation från en annan domän
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Gih
 !define expectedCreateResult {BAD_REQUEST}
 !include -seamless .HelperPages.createRecord
+
+!***> Synchronizering till classic
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
+| GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | No calls registered. |
+*!
 *!
 
 !***> Reset PersonDomainParts som inte behövs i de kommande fall.
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart111Kth
 !define expectedDeleteResult {OK}
 !include -seamless .HelperPages.deleteRecord
+
+!***> Synchronizering till classic
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
+| GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | PUT \/fedoraURL\/objects\/authority-person:111\/datastreams\/METADATA\?format\=\?xml\&controlGroup\=M\&logMessage\=coraWritten\&checksumType\=SHA\-512 |
+| GET | /getCallNo/1 | 200 | Content-Type: text\/plain;charset=utf-8 | GET \/authorityIndexUrl\/authority\/person\/index\/authority-person:111 |
+| GET | /getCallNo/2 | 200 | Content-Type: text\/plain;charset=utf-8 | No call made with no:2, the highest registered call number is:1  |
+| GET | /empty_memory | 200 | Content-Type: text\/plain;charset=utf-8 | forgot all remembered calls |
+*!
 *!
 
 !4 Uppdatera en person domän del
@@ -184,6 +271,14 @@ Uppdatering av den totala informationen om en person görs genom att personposte
 !define expectedActionResult {Action read_incoming_links is missing.}
 !define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
 !include -seamless .HelperPages.updateCheckReadCheckReadCheck
+
+!***> Synchronizering till classic
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
+| GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | PUT \/fedoraURL\/objects\/authority-person:125\/datastreams\/METADATA\?format\=\?xml\&controlGroup\=M\&logMessage\=coraWritten\&checksumType\=SHA\-512 |
+| GET | /getCallNo/1 | 200 | Content-Type: text\/plain;charset=utf-8 | GET \/authorityIndexUrl\/authority\/person\/index\/authority-person:125 |
+| GET | /getCallNo/2 | 200 | Content-Type: text\/plain;charset=utf-8 | No call made with no:2, the highest registered call number is:1  |
+| GET | /empty_memory | 200 | Content-Type: text\/plain;charset=utf-8 | forgot all remembered calls |
+*!
 *!
 
 !***> Fall 3A Det skall inte gå att uppdatera en personDomainPart utan varken identifier eller affiliation
@@ -192,6 +287,11 @@ Uppdatering av den totala informationen om en person görs genom att personposte
 !define expectedAnswer {}
 !define updateData updateDataNoIdentifierNorAffiliation
 !include -seamless .HelperPages.updateRecord
+
+!***> Synchronizering till classic
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
+| GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | No calls registered. |
+*!
 *!
 
 !***> Fall 3B Det skall inte gå att uppdatera id i recordInfo
@@ -200,6 +300,11 @@ Uppdatering av den totala informationen om en person görs genom att personposte
 !define expectedAnswer {}
 !define updateData updateDataModifiedId
 !include -seamless .HelperPages.updateRecord
+
+!***> Synchronizering till classic
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
+| GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | No calls registered. |
+*!
 *!
 
 !***> Fall 3C Det skall inte gå att länka till en organisation från en annan domän
@@ -208,6 +313,11 @@ Uppdatering av den totala informationen om en person görs genom att personposte
 !define expectedAnswer {}
 !define updateData updateDataOrganisationNotInSameDomain
 !include -seamless .HelperPages.updateRecord
+
+!***> Synchronizering till classic
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
+| GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | No calls registered. |
+*!
 *!
 
 !***> Fall 3D Det skall inte gå att ta bort ett lokaltId
@@ -226,6 +336,13 @@ Vi definierar om expectedUpdatedData så att den förväntar sig samma data som 
 !define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
 !include -seamless .HelperPages.updateCheckReadCheckReadCheck
 
+!***> Synchronizering till classic
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
+| GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | PUT \/fedoraURL\/objects\/authority-person:125\/datastreams\/METADATA\?format\=\?xml\&controlGroup\=M\&logMessage\=coraWritten\&checksumType\=SHA\-512 |
+| GET | /getCallNo/1 | 200 | Content-Type: text\/plain;charset=utf-8 | GET \/authorityIndexUrl\/authority\/person\/index\/authority-person:125 |
+| GET | /getCallNo/2 | 200 | Content-Type: text\/plain;charset=utf-8 | No call made with no:2, the highest registered call number is:1  |
+| GET | /empty_memory | 200 | Content-Type: text\/plain;charset=utf-8 | forgot all remembered calls |
+*!
 *!
 
 !***> Fall 3E Det skall inte gå att uppdatera ett lokaltId
@@ -246,6 +363,13 @@ Vi definierar om updateData och exepected to use updateChangeLocalIdData
 !define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
 !include -seamless .HelperPages.updateCheckReadCheckReadCheck
 
+!***> Synchronizering till classic
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
+| GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | PUT \/fedoraURL\/objects\/authority-person:125\/datastreams\/METADATA\?format\=\?xml\&controlGroup\=M\&logMessage\=coraWritten\&checksumType\=SHA\-512 |
+| GET | /getCallNo/1 | 200 | Content-Type: text\/plain;charset=utf-8 | GET \/authorityIndexUrl\/authority\/person\/index\/authority-person:125 |
+| GET | /getCallNo/2 | 200 | Content-Type: text\/plain;charset=utf-8 | No call made with no:2, the highest registered call number is:1  |
+| GET | /empty_memory | 200 | Content-Type: text\/plain;charset=utf-8 | forgot all remembered calls |
+*!
 *!
 
 !4 Ta bort en person domän del
@@ -265,21 +389,33 @@ Vi definierar om updateData och exepected to use updateChangeLocalIdData
 !define expectedCompareResult {Did not find a match for child with nameInData domain and value uu and repeatId 2. Child with nameInData personDomainPart and type group and repeatId 2 is missing.}
 !define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
 !include -seamless .HelperPages.readCheck
+
+!***> Synchronizering till classic
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
+| GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | PUT \/fedoraURL\/objects\/authority-person:106\/datastreams\/METADATA\?format\=\?xml\&controlGroup\=M\&logMessage\=coraWritten\&checksumType\=SHA\-512 |
+| GET | /getCallNo/1 | 200 | Content-Type: text\/plain;charset=utf-8 | GET \/authorityIndexUrl\/authority\/person\/index\/authority-person:106 |
+| GET | /getCallNo/2 | 200 | Content-Type: text\/plain;charset=utf-8 | No call made with no:2, the highest registered call number is:1  |
+| GET | /empty_memory | 200 | Content-Type: text\/plain;charset=utf-8 | forgot all remembered calls |
+*!
 *!
 
 !***> Fall 4B Det skall inte gå att ta bort en personDomainPart som har lokaltId
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart125Uu
 !define expectedDeleteResult {BAD_REQUEST}
 !include -seamless .HelperPages.deleteRecord
+
+!***> Synchronizering till classic
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
+| GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | No calls registered. |
 *!
-
-
+*!
 
 #!3 Dubblethantering (oklart om dessa skall vara med, hur hanterar man att slå ihop inför en dublett borttagning?)
 # * '''Fall X:''' Det ska inte gå att lägga till en person med en ORCID som redan finns .!style_red[(Ej implementerad)]
 # * '''Fall Z:''' Det ska inte gå att lägga till en personDomainPart med en lokalId i samma domän som redan används av en annan personDomainPart.!style_red[(Ej implementerad)]
 
 !3 Synkronisering with classic
+
  * '''Fall 5:''' När en personpost uppdateras, ska personposten synchronizeras och indexeras i Classic !style_orange[(Ej testad)]
  * '''Fall 6:''' När en person domän del skapas, ska den relaterade personposten synchronizeras och indexeras i Classic !style_orange[(Ej testad)]
  * '''Fall 7:''' När en person domän del uppdateras, ska den relaterade personposten synchronizeras och indexeras i Classic !style_orange[(Ej testad)]
@@ -295,7 +431,7 @@ Vi definierar om updateData och exepected to use updateChangeLocalIdData
  * '''Fall 3:''' !-SystemAdmin ska kunna uppdatera en personDomainPart i alla domäner.-!
  * '''Fall 4:''' !-SystemAdmin ska kunna ta bort en personDomainPart i alla domäner.-!
 
-!***> Fall 1
+!***> Fall 1 Det skall gå att uppdatera en person i alla domäner
 !define currentAuthToken {$systemAdminAuthToken}
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
