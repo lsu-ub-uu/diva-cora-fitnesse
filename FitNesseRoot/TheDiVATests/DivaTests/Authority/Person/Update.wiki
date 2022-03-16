@@ -414,14 +414,6 @@ Vi definierar om updateData och exepected to use updateChangeLocalIdData
 # * '''Fall X:''' Det ska inte gå att lägga till en person med en ORCID som redan finns .!style_red[(Ej implementerad)]
 # * '''Fall Z:''' Det ska inte gå att lägga till en personDomainPart med en lokalId i samma domän som redan används av en annan personDomainPart.!style_red[(Ej implementerad)]
 
-!3 Synkronisering with classic
-
- * '''Fall 5:''' När en personpost uppdateras, ska personposten synchronizeras och indexeras i Classic !style_orange[(Ej testad)]
- * '''Fall 6:''' När en person domän del skapas, ska den relaterade personposten synchronizeras och indexeras i Classic !style_orange[(Ej testad)]
- * '''Fall 7:''' När en person domän del uppdateras, ska den relaterade personposten synchronizeras och indexeras i Classic !style_orange[(Ej testad)]
- * '''Fall 8:''' När en person domän del tas bort, ska den relaterade personposten synchronizeras och indexeras i Classic !style_orange[(Ej testad)]
-
-
 !3 Roller 
 !4 !-SystemAdmin-! 
 !-SystemAdmin får ändra alla person och personDomainParts från alla domäner.-!
@@ -450,8 +442,11 @@ Vi definierar om updateData och exepected to use updateChangeLocalIdData
 
 !***> Fall 2 Det ska gå att lägga till en personDomainPart till en  person
 !define currentAuthToken {$systemAdminAuthToken}
+!| script | StringSupport |
+|$creatingUserId=|dateFormat;|YYYYMMddHHmmssss|
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Uu
+#!define creatingUserId = {64}
 !define expectedCreateResult {CREATED}
 !define expectedActionResult {Action read_incoming_links is missing.}
 !define expectedCompareResult {Child with nameInData personLink and type group is missing.}
@@ -484,15 +479,90 @@ Vi definierar om updateData och exepected to use updateChangeLocalIdData
 !-DomainAdmin får uppdatera alla personer men bara kunna uppdatera personDomainParts som tillhör sin egen domän.-!
 
  * '''Fall 1:''' !-DomainAdmin ska kunna uppdatera en person från alla domäner.-!
- * '''Fall 2:''' !-DomainAdmin ska kunna uppdatera en personDomainParts från sin egen domän.-!
- * '''Fall 3:''' !-DomainAdmin ska INTE kunna uppdatera en personDomainParts från en annan domän.-!
+ * '''Fall 2:''' !-DomainAdmin ska kunna lägga till en personDomainPart till en befintligt person i sin egen domän.-!
+ * '''Fall 3:''' !-DomainAdmin ska kunna uppdatera en personDomainPart i sin egen domän.-!
+ * '''Fall 4:''' !-DomainAdmin ska kunna ta bort en personDomainPart i sin egen domän.-!
+ * '''Fall 5:''' !-DomainAdmin ska INTE kunna lägga till en personDomainPart till en befintligt person från en annan domän.-!
+ * '''Fall 6:''' !-DomainAdmin ska INTE kunna uppdatera en personDomainPart från en annan domän.-!
+ * '''Fall 7:''' !-DomainAdmin ska INTE kunna ta bort en personDomainPart från en annan domän.-!
  
+!***> Fall 1 Det skall gå att uppdatera en person i alla domäner
+!define currentAuthToken {$domainAdminUUAuthToken}
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
+!***> Define expected data
+!define expectedUpdateResult {OK}
+!define expectedAnswer {}
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission domain is missing. Write permission personDomainPart is missing.}
+!define expectedCompleteCompareResult {OK}
+*!
+!include -seamless .HelperPages.updateCheckReadCheckReadCheck
+
+!include -seamless .HelperPages.resetRecord
+*!
+
+!***> Fall 2 Det ska gå att lägga till en personDomainPart till en befintligt person i sin egen domän
+!define currentAuthToken {$domainAdminUUAuthToken}
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Uu
+
+!define expectedCreateResult {CREATED}
+!define expectedActionResult {Action index is missing. Action read_incoming_links is missing.}
+!define expectedCompareResult {Child with nameInData personLink and type group is missing.}
+!define expectedPermissionResult {Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission public is missing. Write permission domain is missing.}
+!define expectedCreatedData expectedCreatedDataDomainAdmin
+!include -seamless .HelperPages.createCheckReadCheck
+*!
+!***> Fall 3 Det skall gå att uppdatera personDomainPart till en befintligt person i sin egen domän
+!define currentAuthToken {$domainAdminUUAuthToken}
+!| script | StringSupport |
+|$tempLocalId=|dateFormat;|YYYYMMddHHmmssss|
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart125Uu
+!define expectedUpdateResult {OK}
+!define expectedAnswer {}
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action index is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission public is missing. Write permission domain is missing.}
+!include -seamless .HelperPages.updateCheckReadCheckReadCheck
+*!
+!***> Fall 4 Det skall gå att ta bort en personDomainPart från en befintlig person från sin egen domän.
+!define currentAuthToken {$domainAdminUUAuthToken}
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Uu
+!define expectedDeleteResult {OK}
+!include -seamless .HelperPages.deleteRecord
+*!
+!***> Fall 5 Det ska INTE kunna lägga till en personDomainPart till en befintligt person från en annan domän.
+!define currentAuthToken {$domainAdminKTHAuthToken}
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Uu
+!define expectedCreateResult {FORBIDDEN}
+!include -seamless .HelperPages.createRecord
+*!
+!***> Fall 6 Det ska INTE kunna uppdatera en personDomainPart till en befintligt person från en annan domän.
+!define currentAuthToken {$domainAdminKTHAuthToken}
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson125
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart125Uu
+!define expectedUpdateResult {FORBIDDEN}
+!include -seamless .HelperPages.updateRecord
+*!
+!***> Fall 7 Det ska INTE kunna ta bort en personDomainPart till en befintligt person från en annan domän.
+!define currentAuthToken {$domainAdminKTHAuthToken}
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson125
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart125Uu
+!define expectedDeleteResult {FORBIDDEN}
+!include -seamless .HelperPages.deleteRecord
+*!
 
 !4 Guest
 !-Guest får INTE uppdatera personer och inte heller personDomainParts-!
 
  * '''Fall 1:''' Guest får INTE uppdatera personer.
- * '''Fall 2:''' Guest får INTE uppdatera personeDomainPart.
+ * '''Fall 2:''' Guest får INTE lägga till en personDomainPart.
+ * '''Fall 3:''' Guest får INTE uppdatera en personDomainPart.
+ * '''Fall 4:''' Guest får INTE ta bort en personDomainPart.
 
 !***> Fall 1
 
@@ -500,14 +570,26 @@ Vi definierar om updateData och exepected to use updateChangeLocalIdData
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
 !define expectedUpdateResult {FORBIDDEN}
 !define expectedAnswer {}
-Update the record
 !include -seamless .HelperPages.updateRecord
 *!
 !***> Fall 2
 !define currentAuthToken {$userAuthToken}
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Test
+!define expectedCreateResult {FORBIDDEN}
+!define expectedAnswer {}
+!include -seamless .HelperPages.createRecord
+*!
+!***> Fall 3
+!define currentAuthToken {$userAuthToken}
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Test
 !define expectedUpdateResult {FORBIDDEN}
 !define expectedAnswer {}
-Update the record
 !include -seamless .HelperPages.updateRecord
+*!
+!***> Fall 4
+!define currentAuthToken {$userAuthToken}
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart106Test
+!define expectedDeleteResult {FORBIDDEN}
+!define expectedAnswer {}
+!include -seamless .HelperPages.deleteRecord
 *!
