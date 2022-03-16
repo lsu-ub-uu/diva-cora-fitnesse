@@ -1,5 +1,5 @@
 ---
-Test
+Static
 ---
 
 !2 Uppdatera
@@ -475,7 +475,7 @@ Vi definierar om updateData och exepected to use updateChangeLocalIdData
 *!
 
 
-!4 !-DomainAdmin-! !style_orange[(Ej konfigurerade eller testade)]
+!4 !-DomainAdmin-! 
 !-DomainAdmin får uppdatera alla personer men bara kunna uppdatera personDomainParts som tillhör sin egen domän.-!
 
  * '''Fall 1:''' !-DomainAdmin ska kunna uppdatera en person från alla domäner.-!
