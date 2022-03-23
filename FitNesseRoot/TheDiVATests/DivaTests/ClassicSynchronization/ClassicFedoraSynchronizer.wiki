@@ -28,9 +28,7 @@ När det sker händelser i Classics fedora (Ny, uppdaterad, raderad eller purged
  * '''Fall 4:''' När en personpost raderas, ska den raderas i Cora lagring och indexeringen tas bort i Cora.
  * '''Fall 5:''' När en raderat personpost återaktiveras, ska den skapas i Cora lagring och indexeras i Cora. 
  * '''Fall 6:''' När en personpost uppdateras, ska den uppdateras i Cora lagring och indexeras i Cora. 
- 
- * '''Fall X:''' Kolla på att uppdatera post med uppdaterade persondomains ta bort persondomains som inte längre används.
- 
+ * '''Fall 7:''' Kontrollera att alla fält är transformerade till Cora formaten när en post skapas i Classic.
   
 
 !style_red[TODO: Det ska komplementeras med andra fall när meddelandet innehåller felaktig data.]
@@ -296,7 +294,6 @@ Vi ta bort index för ${recordId} i solr
 
 *!
 !***> Fall 6
-!style_blue[OBS: Vi kollar bara att posten har blivit indexerat i solr. Vi har just nu ingen möjlighet att härifrån programmatiskt ändra en post i DiVA-Classic.]
 
 !***> Vi förbereder testet. 
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
@@ -336,12 +333,23 @@ Vi ta bort index för ${recordId} i solr
 !***> Vi kollar att vi får '''ett''' träff när vi läser ${recordId}
 !define statusType {OK}
 !include -seamless .HelperPages.testReadRecord
-
 *!
+!include -seamless .HelperPages.removeIndex
 *!
+!***> Fall 7
 
-!***> Återställ posten
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson116
+!***> Vi simulerar att det raderas en personpost (${recordId}) i DiVA Classic 
+
+!| MessageSenderFixture |
+| headers | message | sendMessage? |
+| {methodName:modifyObject, pid:"${recordId}"} | <?xml version="1.0" encoding="UTF-8"?><entry xmlns="http://www.w3.org/2005/Atom" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:fedora-types="http://www.fedora.info/definitions/1/0/types/">  <id>urn:uuid:a3a24e16-2747-4d78-bf7c-023ee669dfb3</id>  <updated>2021-04-19T08:52:21.593Z</updated>  <author>    <name>fedoraAdmin</name>    <uri>http://localhost:8088/fedora</uri>  </author>  <title type="text">modifyObject</title>  <category term="${recordId}" scheme="fedora-types:pid" label="xsd:string"></category>  <category term="D" scheme="fedora-types:state" label="xsd:string"></category>  <category term="null" scheme="fedora-types:label" label="xsd:string"></category>  <category term="Marked as deleted" scheme="fedora-types:logMessage" label="xsd:string"></category>  <summary type="text">${recordId}</summary>  <content type="text">2021-04-19T08:52:21.593Z</content>  <category term="32.1" scheme="info:fedora/fedora-system:def/view#version"></category>  <category term="info:fedora/fedora-system:ATOM-APIM-1.0" scheme="http://www.fedora.info/definitions/1/0/types/formatURI"></category></entry> | OK |
+*!
+!***> Vi väntar ${sleepTime} millisekunder så att Cora hinner läsa och indexera posten
+!| Sleep | ${sleepTime} |
+*!
 !***> Vi simulerar att det skapas en personpost (${recordId}) i DiVA Classic 
+
 
 !| MessageSenderFixture |
 | headers | message | sendMessage? |
@@ -353,12 +361,49 @@ Vi ta bort index för ${recordId} i solr
 !| Sleep | ${sleepTime} |
 *!
 
-!***> Vi tar bort indexeringen 
-!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
-Vi ta bort index för ${recordId} i solr
+!define expectedCreatedData expectedCreatedDataWithTsUpdated
+!***> Vi kollar att vi får '''ett''' träff när vi läser ${recordId}
+!define expectedCompareResult {OK}
+!define expectedActionResult {}
+!define expectedPermissionResult {}
 
+!include -seamless .HelperPages.readCheck
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart116Test
+*!
+!define expectedCreatedData expectedCreatedDataWithTsUpdated
+!***> Vi kollar att vi får '''ett''' träff när vi läser ${recordId}
+!define expectedCompareResult {OK}
+!define expectedActionResult {}
+!define expectedPermissionResult {}
+
+!include -seamless .HelperPages.readCheck
 !include -seamless .HelperPages.removeIndex
-*!
+
 
 *!
+*!
+
+#!***> Återställ posten
+#!define recordId {authority-person:106}
+#!***> Vi simulerar att det skapas en personpost (${recordId}) i DiVA Classic 
+
+#!| MessageSenderFixture |
+#| headers | message | sendMessage? |
+#| {methodName:ingest, pid:"${recordId}"} | <?xml version="1.0" encoding="UTF-8"?><entry xmlns="http://www.w3.org/2005/Atom" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:fedora-types="http://www.fedora.info/definitions/1/0/types/"><id>urn:uuid:20f99ff9-9a32-4df0-a937-e62ed562ca28</id><updated>2021-04-19T09:00:05.238Z</updated><author><name>fedoraAdmin</name><uri>http://localhost:8088/fedora</uri></author><title type="text">ingest</title><category term="Created object for Mars, Odin" scheme="fedora-types:logMessage" label="xsd:string"></category><category term="info:fedora/fedora-system:FOXML-1.1" scheme="fedora-types:format" label="xsd:string"></category><summary type="text">${recordId}</summary><content type="text">${recordId}</content><category term="32.1" scheme="info:fedora/fedora-system:def/view#version"></category><category term="info:fedora/fedora-system:ATOM-APIM-1.0" scheme="http://www.fedora.info/definitions/1/0/types/formatURI"></category></entry> | OK |
+#| {methodName:addDatastream, pid:"${recordId}"} | <?xml version="1.0" encoding="UTF-8"?><entry xmlns="http://www.w3.org/2005/Atom" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:fedora-types="http://www.fedora.info/definitions/1/0/types/">  <id>urn:uuid:dcf0f42d-1f02-4d2b-b21b-5656340a4607</id>  <updated>2021-04-19T09:00:05.515Z</updated>  <author>    <name>fedoraAdmin</name>    <uri>http://localhost:8088/fedora</uri>  </author>  <title type="text">addDatastream</title>  <category term="${recordId}" scheme="fedora-types:pid" label="xsd:string"></category>  <category term="METADATA" scheme="fedora-types:dsID" label="xsd:string"></category>  <category term="null" scheme="fedora-types:altIDs" label="fedora-types:ArrayOfString"></category>  <category term="XML metadata" scheme="fedora-types:dsLabel" label="xsd:string"></category>  <category term="true" scheme="fedora-types:versionable" label="xsd:boolean"></category>  <category term="null" scheme="fedora-types:formatURI" label="xsd:string"></category>  <category term="uploaded://214319" scheme="fedora-types:dsLocation" label="xsd:string"></category>  <category term="M" scheme="fedora-types:controlGroup" label="xsd:string"></category>  <category term="A" scheme="fedora-types:dsState" label="xsd:string"></category>  <category term="SHA-512" scheme="fedora-types:checksumType" label="xsd:string"></category>  <category term="null" scheme="fedora-types:checksum" label="xsd:string"></category>  <category term="Added datastream METADATA" scheme="fedora-types:logMessage" label="xsd:string"></category>  <summary type="text">${recordId}</summary>  <content type="text">METADATA</content>  <category term="32.1" scheme="info:fedora/fedora-system:def/view#version"></category>  <category term="info:fedora/fedora-system:ATOM-APIM-1.0" scheme="http://www.fedora.info/definitions/1/0/types/formatURI"></category></entry> | OK |
+#*!
+#
+#!***> Vi väntar ${sleepTime} millisekunder så att Cora hinner läsa och indexera posten
+#!| Sleep | ${sleepTime} |
+#*!
+#
+#!***> Vi tar bort indexeringen 
+#!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
+#Vi ta bort index för ${recordId} i solr
+#
+#!include -seamless .HelperPages.removeIndex
+#*!
+#
+#*!
 

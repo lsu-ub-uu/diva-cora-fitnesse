@@ -1,5 +1,5 @@
 ---
-Static
+Test
 ---
 
 !2 Uppdatera
