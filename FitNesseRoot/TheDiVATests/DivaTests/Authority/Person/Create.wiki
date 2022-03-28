@@ -1,0 +1,140 @@
+---
+Static
+---
+!2 Skapa
+Det ska vara möjligt att skapa en Person.
+
+!3 Synkronizering i Classic
+I varje test ingår också en kontroll av att Cora anropar classic för uppdatering av dess Fedora och omindexering.
+
+!include -seamless .HelperPages.defineAdminAuthToken
+!3 Person
+ * '''Fall 1A:''' Det ska gå att skapa en person
+
+!***> Rensa minnet på HttpListener
+
+HttpListener används för att lyssna på anropen som normalt går till Classic, så att vi kan kontrollera att de görs korrekt.
+
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
+| GET | /empty_memory | 200 | Content-Type: text\/plain;charset=utf-8 | forgot all remembered calls |
+
+*!
+!***> Fall 1A Det ska gå att skapa en person
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonNew
+!***> Define expected data
+
+!define expectedCreateResult {CREATED}
+!define expectedAnswer {}
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
+*!
+!include -seamless .HelperPages.createRecord
+!***> Synchronizering till classic
+
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
+| GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | PUT \/fedoraURL\/objects\/authority-person:106\/datastreams\/METADATA\?format\=\?xml\&controlGroup\=M\&logMessage\=coraWritten\&checksumType\=SHA\-512 |
+| GET | /getCallNo/1 | 200 | Content-Type: text\/plain;charset=utf-8 | GET \/authorityIndexUrl\/authority\/person\/index\/authority-person:106 |
+| GET | /getCallNo/2 | 200 | Content-Type: text\/plain;charset=utf-8 | No call made with no:2, the highest registered call number is:1 |
+| GET | /empty_memory | 200 | Content-Type: text\/plain;charset=utf-8 | forgot all remembered calls |
+
+*!
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
+!include -seamless .HelperPages.resetRecord
+!***> Reset HTTP listener classic
+
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
+| GET | /empty_memory | 200 | Content-Type: text\/plain;charset=utf-8 | forgot all remembered calls |
+
+*!
+*!
+!include -seamless .HelperPages.updateCheckReadCheckReadCheck
+!***> Synchronizering till classic
+
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
+| GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | PUT \/fedoraURL\/objects\/authority-person:125\/datastreams\/METADATA\?format\=\?xml\&controlGroup\=M\&logMessage\=coraWritten\&checksumType\=SHA\-512 |
+| GET | /getCallNo/1 | 200 | Content-Type: text\/plain;charset=utf-8 | GET \/authorityIndexUrl\/authority\/person\/index\/authority-person:125 |
+| GET | /getCallNo/2 | 200 | Content-Type: text\/plain;charset=utf-8 | No call made with no:2, the highest registered call number is:1 |
+| GET | /empty_memory | 200 | Content-Type: text\/plain;charset=utf-8 | forgot all remembered calls |
+
+*!
+Vi behöver inte återställa datat eftersom inget ändrades
+
+#!include -seamless .HelperPages.resetRecord
+
+!***> Reset HTTP listener classic
+
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
+| GET | /empty_memory | 200 | Content-Type: text\/plain;charset=utf-8 | forgot all remembered calls |
+
+*!
+#!3 Dubblethantering (oklart om dessa skall vara med, hur hanterar man att slå ihop inför en dublett borttagning?)
+
+# * '''Fall X:''' Det ska inte gå att lägga till en person med en ORCID som redan finns .!style_red[(Ej implementerad)]
+
+# * '''Fall Z:''' Det ska inte gå att lägga till en personDomainPart med en lokalId i samma domän som redan används av en annan personDomainPart.!style_red[(Ej implementerad)]
+
+!3 Roller
+!4 !-SystemAdmin-!
+!-SystemAdmin får skapa person på alla domäner.-!
+
+ * '''Fall 1:''' !-SystemAdmin ska kunna skapa en person, oavsett domän.-!
+
+!***< Fall 1 Det skall gå att skapa en person, oavsett domän
+
+!define currentAuthToken {$systemAdminAuthToken}
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.newPerson
+!*** Define expected data
+
+!define expectedUpdateResult {OK}
+!define expectedAnswer {}
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action delete is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission domain is missing. Write permission personDomainPart is missing.}
+!define expectedCompleteCompareResult {OK}
+*!
+!include -seamless .HelperPages.updateCheckReadCheckReadCheck
+!include -seamless .HelperPages.resetRecord
+*!
+!4 !-DomainAdmin-!
+!-DomainAdmin får skapa grundposter för person, men bara lägga till domainParts för sin domän.-!
+
+ * '''Fall 1:''' !-DomainAdmin ska kunna skapa en person.-!
+ * '''Fall 2:''' !-DomainAdmin ska kunna lägga till en personDomainPart till en befintligt person i sin egen domän.-!
+ * '''Fall 3:''' !-DomainAdmin ska kunna uppdatera en personDomainPart i sin egen domän.-!
+ * '''Fall 4:''' !-DomainAdmin ska kunna ta bort en personDomainPart i sin egen domän.-!
+ * '''Fall 5:''' !-DomainAdmin ska INTE kunna lägga till en personDomainPart till en befintligt person från en annan domän.-!
+ * '''Fall 6:''' !-DomainAdmin ska INTE kunna uppdatera en personDomainPart från en annan domän.-!
+ * '''Fall 7:''' !-DomainAdmin ska INTE kunna ta bort en personDomainPart från en annan domän.-!
+
+!***> Fall 1 Det skall gå att uppdatera en person i alla domäner
+
+!define currentAuthToken {$domainAdminUUAuthToken}
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
+!***> Define expected data
+
+!define expectedUpdateResult {OK}
+!define expectedAnswer {}
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action delete is missing. Action index is missing. Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission domain is missing. Write permission personDomainPart is missing.}
+!define expectedCompleteCompareResult {OK}
+*!
+!include -seamless .HelperPages.updateCheckReadCheckReadCheck
+!include -seamless .HelperPages.resetRecord
+*!
+!4 Guest
+!-Guest får INTE skapa personer och inte heller person domain parts-!
+
+ * '''Fall 1:''' Guest får INTE skapa personer.
+ * '''Fall 2:''' Guest får INTE lägga till en personDomainPart.
+
+!***> Fall 1
+
+!define currentAuthToken {$userAuthToken}
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
+!define expectedUpdateResult {FORBIDDEN}
+!define expectedAnswer {}
+!include -seamless .HelperPages.updateRecord
+*!

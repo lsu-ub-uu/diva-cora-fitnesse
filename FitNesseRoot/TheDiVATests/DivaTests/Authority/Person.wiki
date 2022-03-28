@@ -23,8 +23,7 @@ Person har i recordInfo en lista på ingående domäner, hämtade från kopplade
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.Index
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.BatchIndexing
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.Search
-#!include -seamless .TheDiVATests.DivaTests.Authority.Person.Create
-
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.Create
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.Update
 #!include -seamless .TheDiVATests.DivaTests.Authority.Person.Delete
 
