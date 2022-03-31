@@ -37,7 +37,7 @@
 		<httphandler.version>2.4.0</httphandler.version>
 		<fitnesseintegration.version>3.9.0</fitnesseintegration.version>
 		<javax.ws.rs.version>2.1.1</javax.ws.rs.version>
-		<coradata.version>5.4.0</coradata.version>
+		<coradata.version>6.0.0</coradata.version>
 		<basicdata.version>3.5.0</basicdata.version>
 		<classicfedorasynchronizer.version>1.8.0</classicfedorasynchronizer.version>
 		<xmlutils.version>1.3.0</xmlutils.version>
