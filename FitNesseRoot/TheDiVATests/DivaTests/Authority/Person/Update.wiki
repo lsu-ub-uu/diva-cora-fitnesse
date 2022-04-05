@@ -19,14 +19,16 @@ I varje test ingår också en kontroll av att Cora anropar classic för uppdater
    * Det uppdaterade fältet public ska uppdateras i alla relaterade person domän delar
    * Det ska inte gå att ändra listan på domäner (i recordInfo) 
    * Det ska inte gå att ändra listan på kopplade personDomainParts
- * '''Fall 1B:''' Om ett befintligt "ORCID" tas bort, skall uppdateringen resultera i ett BAD_REQUEST
- * '''Fall 1C:''' Om ett befintligt "ORCID" ändras, skall uppdateringen resultera i ett BAD_REQUEST (en ändring är i princip en kombination av en borttagning och en tilläggning)
+ * '''Fall 1B:''' Det ska gå att lägga till ett nytt "ORCID" 
+ * '''Fall 1C:''' Om ett befintligt "ORCID" tas bort, skall uppdateringen resultera i ett BAD_REQUEST
+ * '''Fall 1D:''' Om ett befintligt "ORCID" ändras, skall uppdateringen resultera i ett BAD_REQUEST (en ändring är i princip en kombination av en borttagning och en tilläggning)
 
 !***> Rensa minet på HttpListener
 HttpListener används för att lyssna på anropen som normalt går till Classic, så att vi kan kontrollera att de görs korrekt.
 | Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
 | GET | /empty_memory | 200 | Content-Type: text\/plain;charset=utf-8 | forgot all remembered calls |
 *!
+
 !***> Fall 1A Det ska gå att uppdatera en person
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
@@ -57,7 +59,6 @@ HttpListener används för att lyssna på anropen som normalt går till Classic,
 | GET | /getCallNo/2 | 200 | Content-Type: text\/plain;charset=utf-8 | No call made with no:2, the highest registered call number is:1  |
 | GET | /empty_memory | 200 | Content-Type: text\/plain;charset=utf-8 | forgot all remembered calls |
 *!
-
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
 !include -seamless .HelperPages.resetRecord
 !***> Reset HTTP listener classic
@@ -66,7 +67,50 @@ HttpListener används för att lyssna på anropen som normalt går till Classic,
 *!
 *!
 
-!***> Fall 1B Borttagning av ORCID_ID skall ej gå
+!***> Fall 1B Det ska gå att lägga till ett nytt "ORCID"
+
+!include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson112
+
+!***> Läs post ${recordType} ${recordId} och uppdatera data och addera ett nytt ORCID.
+!| ChildComparerFixture |
+| authToken | type | id | testReadAndStoreRecord? |
+| ${currentAuthToken} | ${recordType} | ${recordId} |$readPersonDomainPart= |
+
+!| script | StoredData |
+|$readPersonDomainPartGroup=|getStoredRecordDataGroupAsJsonWithoutLinks;|
+
+!| script | StringSupport |
+|note|skapa ett orcid|
+|$tempOrcid=|dateFormat;|YYYY-MMdd-HHmm-ssss|
+|note|skapa ett repeatid|
+|$tempRepeatId=|dateFormat;|YYYYMMddHHmmssss|
+|note|lägg till ett nytt orcid|
+|$generatedPerson=|replaceAll;|$readPersonDomainPartGroup|{"repeatId":"0","name":"ORCID_ID","value":"0000-0003-5342-2534"}|{"repeatId":"0","name":"ORCID_ID","value":"0000-0003-5342-2534"},{"name":"ORCID_ID","value":"$tempOrcid","repeatId":"$tempRepeatId"}|
+
+!define updateData {$generatedPerson}
+*!
+
+!***> Define expected data
+!define expectedUpdateResult {OK}
+!define expectedAnswer {}
+!define expectedCompareResult {OK}
+!define expectedActionResult {Action read_incoming_links is missing.}
+!define expectedPermissionResult {Write permission domain is missing. Write permission personDomainPart is missing.}
+*!
+
+!include -seamless .HelperPages.updateCheckReadCheckReadCheck
+
+!***> Synchronizering till classic
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
+| GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | PUT \/fedoraURL\/objects\/authority-person:112\/datastreams\/METADATA\?format\=\?xml\&controlGroup\=M\&logMessage\=coraWritten\&checksumType\=SHA\-512 |
+| GET | /getCallNo/1 | 200 | Content-Type: text\/plain;charset=utf-8 | GET \/authorityIndexUrl\/authority\/person\/index\/authority-person:112 |
+| GET | /getCallNo/2 | 200 | Content-Type: text\/plain;charset=utf-8 | No call made with no:2, the highest registered call number is:1  |
+| GET | /empty_memory | 200 | Content-Type: text\/plain;charset=utf-8 | forgot all remembered calls |
+*!
+
+*!
+
+!***> Fall 1C Borttagning av ORCID_ID skall ej gå
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson125
 
@@ -83,7 +127,7 @@ HttpListener används för att lyssna på anropen som normalt går till Classic,
 *!
 *!
 
-!***> Fall 1C Ändring av ORCID_ID skall ej gå
+!***> Fall 1D Ändring av ORCID_ID skall ej gå
 
 !| script | StringSupport |
 |$tempOrcid=|dateFormat;|YYYY-MMdd-HHmm-ssss|
@@ -228,7 +272,7 @@ Uppdatering av den totala informationen om en person görs genom att personposte
 *!
 
 !4 Uppdatera en person domän del
- * '''Fall 3:''' Det ska gå att uppdatera person domän delen (personDomainParts) 
+ * '''Fall 3:''' Det ska gå att uppdatera person domän delen (personDomainParts), inklusive att lägga till ett "lokal id".
  * '''Fall 3A:''' Det ska inte gå att uppdatera en  personDomainPart, där varken "identifier" eller "affiliation" finns med.
    * Saknas både "identifier" och "affiliation" skall servern svara med BAD_REQUEST
  * '''Fall 3B:''' Det ska inte gå att uppdatera id i recordInfo.
@@ -238,8 +282,6 @@ Uppdatering av den totala informationen om en person görs genom att personposte
  * '''Fall 3E:''' Om fältet "lokalt id" uppdateras, skall uppdateringen resultera i ett BAD_REQUEST (en ändring är i princip en kombination av en borttagning och en tilläggning).
 
 !***> Fall 3 Det skall gå att uppdatera personDomainPart
-!| script | StringSupport |
-|$tempLocalId=|dateFormat;|YYYYMMddHHmmssss|
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart125Uu
 !define expectedUpdateResult {OK}
@@ -248,20 +290,28 @@ Uppdatering av den totala informationen om en person görs genom att personposte
 !define expectedActionResult {Action read_incoming_links is missing.}
 !define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
 
-
-
-#!include -seamless .HelperPages.readRecord
-!***> Läs post ${recordType} ${recordId}
+!***> Läs post ${recordType} ${recordId} och uppdatera data och addera ett nytt lokal ID.
 !| ChildComparerFixture |
 | authToken | type | id | testReadAndStoreRecord? |
 | ${currentAuthToken} | ${recordType} | ${recordId} |$readPersonDomainPart= |
-*!
+
+!| script | StoredData |
+|$readPersonDomainPartGroup=|getStoredRecordDataGroupAsJsonWithoutLinks;|
+
 !| script | StringSupport |
-|$temp2LocalId=|dateFormat;|YYYYMMddHHmmssss|
-|$generatedPersonDomainPart=|replaceAll;|$readPersonDomainPart|{"repeatId":"0","name":"identifier","value":"local0"}|{"repeatId":"0","name":"identifier","value":"local0"},{"repeatId":"$temp2LocalId","name":"identifier","value":"$temp2LocalId"}|
-|$generatedPersonDomainPart=|replaceAll;|$readPersonDomainPart|{"repeatId":"0","name":"identifier","value":"local0"}|{"repeatId":"0","name":"identifier","value":"local0"},{"repeatId":"$temp2LocalId","name":"identifier","value":"$temp2LocalId"}|
+|note|skapa ett nummer som kan användas som identifier och repeatId|
+|$tempLocalId=|dateFormat;|YYYYMMddHHmmssss|
+|note|lägg till en ny identifier|
+|$generatedPersonDomainPart=|replaceAll;|$readPersonDomainPartGroup|{"repeatId":"0","name":"identifier","value":"local0"}|{"repeatId":"0","name":"identifier","value":"local0"},{"repeatId":"$tempLocalId","name":"identifier","value":"$tempLocalId"}|
+|note|byt affiliering |
+|$generatedPersonDomainPart=|replaceAll;|$generatedPersonDomainPart|{"name":"linkedRecordId","value":"1750"}|{"name":"linkedRecordId","value":"1455"}|
+|note|byt affiliationFromYear |
+|$generatedPersonDomainPart=|replaceAll;|$generatedPersonDomainPart|{"name":"affiliationFromYear","value":"1730"}|{"name":"affiliationFromYear","value":"1731"}|
+|note|byt affiliationUntilYear |
+|$generatedPersonDomainPart=|replaceAll;|$generatedPersonDomainPart|{"name":"affiliationUntilYear","value":"1744"}|{"name":"affiliationUntilYear","value":"1741"}|
 
 !define updateData {$generatedPersonDomainPart}
+*!
 
 !include -seamless .HelperPages.updateCheckReadCheckReadCheck
 
@@ -319,15 +369,9 @@ Uppdatering av den totala informationen om en person görs genom att personposte
 Vi definierar om updateData att använda updateDataRemoveLocalId 
 !define updateData updateDataRemoveLocalId
 
-Vi definierar om expectedUpdatedData så att den förväntar sig samma data som skapades från början 
-!define expectedUpdatedData expectedCreatedData
-
 !define expectedUpdateResult {BAD_REQUEST}
 !define expectedAnswer {}
 !define expectedCompareResult {OK}
-#!define expectedActionResult {Action read_incoming_links is missing.}
-#!define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
-#!include -seamless .HelperPages.updateCheckReadCheckReadCheck
 
 !include -seamless .HelperPages.updateRecord
 
@@ -338,32 +382,15 @@ Vi definierar om expectedUpdatedData så att den förväntar sig samma data som 
 *!
 *!
 
-#!***> Synchronizering till classic
-#| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
-#| GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | PUT \/fedoraURL\/objects\/authority-person:125\/datastreams\/METADATA\?format\=\?xml\&controlGroup\=M\&logMessage\=coraWritten\&checksumType\=SHA\-512 |
-#| GET | /getCallNo/1 | 200 | Content-Type: text\/plain;charset=utf-8 | GET \/authorityIndexUrl\/authority\/person\/index\/authority-person:125 |
-#| GET | /getCallNo/2 | 200 | Content-Type: text\/plain;charset=utf-8 | No call made with no:2, the highest registered call number is:1  |
-#| GET | /empty_memory | 200 | Content-Type: text\/plain;charset=utf-8 | forgot all remembered calls |
-#*!
-#*!
-
 !***> Fall 3E Det skall inte gå att uppdatera ett lokaltId
-
-!| script | StringSupport |
-|$tempLocalId=|dateFormat;|YYYYMMddHHmmssss|
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart125Uu
 
 Vi definierar om updateData och exepected to use updateChangeLocalIdData 
 !define updateData updateChangeLocalIdData
-!define expectedUpdatedData expectedUpdatedChangeLocalIdData
 
 !define expectedUpdateResult {BAD_REQUEST}
 !define expectedAnswer {}
-#!define expectedCompareResult {OK}
-#!define expectedActionResult {Action read_incoming_links is missing.}
-#!define expectedPermissionResult {Write permission public is missing. Write permission domain is missing.}
-#!include -seamless .HelperPages.updateCheckReadCheckReadCheck
 
 !include -seamless .HelperPages.updateRecord
 
@@ -373,14 +400,6 @@ Vi definierar om updateData och exepected to use updateChangeLocalIdData
 | GET | /empty_memory | 200 | Content-Type: text\/plain;charset=utf-8 | forgot all remembered calls |
 *!
 *!
-#!***> Synchronizering till classic
-#| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${httpListenerUrl} |
-#| GET | /getCallNo/0 | 200 | Content-Type: text\/plain;charset=utf-8 | PUT \/fedoraURL\/objects\/authority-person:125\/datastreams\/METADATA\?format\=\?xml\&controlGroup\=M\&logMessage\=coraWritten\&checksumType\=SHA\-512 |
-#| GET | /getCallNo/1 | 200 | Content-Type: text\/plain;charset=utf-8 | GET \/authorityIndexUrl\/authority\/person\/index\/authority-person:125 |
-#| GET | /getCallNo/2 | 200 | Content-Type: text\/plain;charset=utf-8 | No call made with no:2, the highest registered call number is:1  |
-#| GET | /empty_memory | 200 | Content-Type: text\/plain;charset=utf-8 | forgot all remembered calls |
-#*!
-#*!
 
 !4 Ta bort en person domän del
  * '''Fall 4A:''' Det ska gå att ta bort en person domän del från en befintligt person. (Delete personDomainPart).
@@ -466,10 +485,32 @@ Vi definierar om updateData och exepected to use updateChangeLocalIdData
 *!
 
 !***> Fall 3 Det skall gå att uppdatera personDomainPart
-!| script | StringSupport |
-|$tempLocalId=|dateFormat;|YYYYMMddHHmmssss|
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart125Uu
+
+!***> Läs post ${recordType} ${recordId} och uppdatera data och addera ett nytt lokal ID.
+!| ChildComparerFixture |
+| authToken | type | id | testReadAndStoreRecord? |
+| ${currentAuthToken} | ${recordType} | ${recordId} |$readPersonDomainPart= |
+
+!| script | StoredData |
+|$readPersonDomainPartGroup=|getStoredRecordDataGroupAsJsonWithoutLinks;|
+
+!| script | StringSupport |
+|note|skapa ett nummer som kan användas som identifier och repeatId|
+|$tempLocalId=|dateFormat;|YYYYMMddHHmmssss|
+|note|lägg till en ny identifier|
+|$generatedPersonDomainPart=|replaceAll;|$readPersonDomainPartGroup|{"repeatId":"0","name":"identifier","value":"local0"}|{"repeatId":"0","name":"identifier","value":"local0"},{"repeatId":"$tempLocalId","name":"identifier","value":"$tempLocalId"}|
+|note|byt affiliering |
+|$generatedPersonDomainPart=|replaceAll;|$generatedPersonDomainPart|{"name":"linkedRecordId","value":"1750"}|{"name":"linkedRecordId","value":"1455"}|
+|note|byt affiliationFromYear |
+|$generatedPersonDomainPart=|replaceAll;|$generatedPersonDomainPart|{"name":"affiliationFromYear","value":"1730"}|{"name":"affiliationFromYear","value":"1731"}|
+|note|byt affiliationUntilYear |
+|$generatedPersonDomainPart=|replaceAll;|$generatedPersonDomainPart|{"name":"affiliationUntilYear","value":"1744"}|{"name":"affiliationUntilYear","value":"1741"}|
+
+!define updateData {$generatedPersonDomainPart}
+*!
+
 !define expectedUpdateResult {OK}
 !define expectedAnswer {}
 !define expectedCompareResult {OK}
@@ -527,10 +568,32 @@ Vi definierar om updateData och exepected to use updateChangeLocalIdData
 *!
 !***> Fall 3 Det skall gå att uppdatera personDomainPart till en befintligt person i sin egen domän
 !define currentAuthToken {$domainAdminUUAuthToken}
-!| script | StringSupport |
-|$tempLocalId=|dateFormat;|YYYYMMddHHmmssss|
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart125Uu
+
+!***> Läs post ${recordType} ${recordId} och uppdatera data och addera ett nytt lokal ID.
+!| ChildComparerFixture |
+| authToken | type | id | testReadAndStoreRecord? |
+| ${currentAuthToken} | ${recordType} | ${recordId} |$readPersonDomainPart= |
+
+!| script | StoredData |
+|$readPersonDomainPartGroup=|getStoredRecordDataGroupAsJsonWithoutLinks;|
+
+!| script | StringSupport |
+|note|skapa ett nummer som kan användas som identifier och repeatId|
+|$tempLocalId=|dateFormat;|YYYYMMddHHmmssss|
+|note|lägg till en ny identifier|
+|$generatedPersonDomainPart=|replaceAll;|$readPersonDomainPartGroup|{"repeatId":"0","name":"identifier","value":"local0"}|{"repeatId":"0","name":"identifier","value":"local0"},{"repeatId":"$tempLocalId","name":"identifier","value":"$tempLocalId"}|
+|note|byt affiliering |
+|$generatedPersonDomainPart=|replaceAll;|$generatedPersonDomainPart|{"name":"linkedRecordId","value":"1750"}|{"name":"linkedRecordId","value":"1455"}|
+|note|byt affiliationFromYear |
+|$generatedPersonDomainPart=|replaceAll;|$generatedPersonDomainPart|{"name":"affiliationFromYear","value":"1730"}|{"name":"affiliationFromYear","value":"1731"}|
+|note|byt affiliationUntilYear |
+|$generatedPersonDomainPart=|replaceAll;|$generatedPersonDomainPart|{"name":"affiliationUntilYear","value":"1744"}|{"name":"affiliationUntilYear","value":"1741"}|
+
+!define updateData {$generatedPersonDomainPart}
+*!
+
 !define expectedUpdateResult {OK}
 !define expectedAnswer {}
 !define expectedCompareResult {OK}
