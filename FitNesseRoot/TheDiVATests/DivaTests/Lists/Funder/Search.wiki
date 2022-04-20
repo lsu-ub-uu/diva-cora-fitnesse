@@ -5,43 +5,43 @@ Test
 !1 Sök efter forskningsfinansiär
 !4 
 !4 Forskningsfinansiär går att söka på med hjälp av ** (tom söksträng)
-!***> Indexerar forskningsfinansiär
+!***> Skapa en post
 
 !| RecordEndpointFixture |
-| authToken | type | json | testCreateRecord? | getStatusType? | getCreatedId? |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"funder"}]},{"name":"recordId","value":"funder:92296595100751"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"funder"}]},{"name":"recordId","value":"funder:276372897251601"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"funder"}]},{"name":"recordId","value":"funder:109750244987997"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"funder"}]},{"name":"recordId","value":"funder:4898181164174"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"funder"}]},{"name":"recordId","value":"funder:276372897251601"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| authToken | type | json | testCreateRecordCreatedType? | getStatusType? | getCreatedId? |
+| $adminAuthToken | funder | {"name":"funder","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"funderName","attributes":{"language":"sv"},"value":"Umbrella corporation"},{"name":"funderName","attributes":{"language":"en"},"value":"Fitnesse  funder to be  deleted"},{"name":"funderAcronym","value":"FFD"},{"name":"funderRegistrationNumber","value":"12365-98753521"},{"name":"funderDOI","value":"01"},{"name":"funderClosed","value":"2010-01-01"}]} | funder | CREATED | $createdId= |
 
 *!
 !***> Test sök forskningsfinansiär med bara namn
 
-!| RecordEndpointFixture |
+!| comment |
+| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
 | $adminAuthToken | funderSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"funderSearchTerm","value":"**"}]}]}]} | | OK |
-| $adminAuthToken | funderSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"funderSearchTerm","value":"Umbrella corporation"}]}]}]} | =~/"name":"id","value":"funder:109750244987997"/ | OK |
+| $adminAuthToken | funderSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"funderSearchTerm","value":"Umbrella corporation"}]}]}]} | =~/"totalNo":"1"/ | OK |
 | $adminAuthToken | funderSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"funderSearchTerm","value":"ingenForskningsfinansiärSomHarDetHärNamnet"}]}]}]} | =~/"totalNo":"0"/ | OK |
 
 *!
 !***> Test sök forskningsfinansiär med bara akronym
 
-!| RecordEndpointFixture |
+!| comment |
+| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
 | $adminAuthToken | funderSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"funderSearchTerm","value":"VR"}]}]}]} | =~/"name":"id","value":"funder:92296595100751"/ | OK |
 
 *!
 !***> Test sök forskningsfinansiär med bara organisationsnummer
 
-!| RecordEndpointFixture |
+!| comment |
+| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
 | $adminAuthToken | funderSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"funderSearchTerm","value":"202100-5208"}]}]}]} | =~/"name":"funderRegistrationNumber","value":"202100-5208"/ | OK |
 
 *!
 !***> Test sök forskningsfinansiär med bara DOI
 
-!| RecordEndpointFixture |
+!| comment |
+| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
 | $adminAuthToken | funderSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"funderSearchTerm","value":"10.13039/501100004359"}]}]}]} | =~/"name":"funderDOI","value":"10.13039/501100004359"/ | OK |
 
@@ -60,7 +60,8 @@ Test
 !4 Forskningsfinansiär kan sökas även när tecken å, ä eller ö finns i ämnesnamnet
 !***> Test sök med å, ä eller ö i söksträng
 
-!| RecordEndpointFixture |
+!| comment |
+| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
 | $adminAuthToken | funderSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"funderSearchTerm","value":"*å*"}]}]}]} | | OK |
 
@@ -68,15 +69,25 @@ Test
 !4 Forskningsfinansiär kan ha alternativt namn
 !***> Indexerar organisation som inte har något alternativt namn
 
-!| RecordEndpointFixture |
+!| comment |
+| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? | getCreatedId? |
 | $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"funder"}]},{"name":"recordId","value":"funder:18507699573680362"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
 
 *!
 !***> Test sök efter nationell ämneskategori utan alternativt namn, för att se att sökningen fungerar
 
-!| RecordEndpointFixture |
+!| comment |
+| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
 | $adminAuthToken | funderSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"funderSearchTerm","value":"Testfinansiär"}]}]}]} | =~/"name":"id","value":"funder:18507699573680362"/ | OK |
+
+*!
+!***> Radera den nyskapade forskningsfinansiären
+
+!| comment |
+| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $adminAuthToken | funder | $createdId | | OK |
 
 *!

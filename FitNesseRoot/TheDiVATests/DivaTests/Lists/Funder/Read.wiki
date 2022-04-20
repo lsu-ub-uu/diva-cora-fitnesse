@@ -6,11 +6,18 @@ Test
 !1 Listning och läsning av forskningsfinansiär
 Det skall gå att lista och läsa forskningsfinansiär via REST API:et. 
 
-!***> Läs funder:98564134953724 i  JSON format
+Först skapar vi en forskningsfinansiär, för att sedan kunna läsa den
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecordCreatedType? | getStatusType? | getCreatedId? |
+| $adminAuthToken | funder | {"name":"funder","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"funderName","attributes":{"language":"sv"},"value":"Fitnesse  funder to be  deleted"},{"name":"funderName","attributes":{"language":"en"},"value":"Fitnesse  funder to be  deleted"},{"name":"funderAcronym","value":"FFD"},{"name":"funderRegistrationNumber","value":"12365-98753521"},{"name":"funderDOI","value":"01"},{"name":"funderClosed","value":"2010-01-01"}]} | funder | CREATED | $createdId= |
+*!
+
+!***> Läs den nyligen skapade forskningsfinansiären i  JSON-format
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | funder | funder:98564134953724 | | OK |
+| $adminAuthToken | funder | $createdId | | OK |
 
 *!
 "Admin" användare skall kunna lista forskningsfinansiärer.
@@ -30,5 +37,12 @@ Ej inloggade användare skall inte få lista forskningsfinansiär, därför för
 | RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
 | | funder | | FORBIDDEN |
+
+*!
+!***> Radera den nyskapade forskningsfinansiären
+
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $adminAuthToken | funder | $createdId | | OK |
 
 *!
