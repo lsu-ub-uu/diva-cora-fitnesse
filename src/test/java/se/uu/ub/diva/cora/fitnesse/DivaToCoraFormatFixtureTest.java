@@ -23,6 +23,8 @@ import static org.testng.Assert.assertEquals;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import se.uu.ub.diva.cora.fitnesse.spy.DivaToCoraConverterFactorySpy;
+
 public class DivaToCoraFormatFixtureTest {
 	private DivaToCoraFormatFixture fixture;
 	private DivaToCoraConverterFactorySpy converterFactorySpy;
@@ -30,7 +32,7 @@ public class DivaToCoraFormatFixtureTest {
 	@BeforeMethod
 	public void beforeMethod() {
 		DivaFitnesseDependencyProvider.setConverterFactoryClassName(
-				"se.uu.ub.diva.cora.fitnesse.DivaToCoraConverterFactorySpy");
+				"se.uu.ub.diva.cora.fitnesse.spy.DivaToCoraConverterFactorySpy");
 		converterFactorySpy = (DivaToCoraConverterFactorySpy) DivaFitnesseDependencyProvider
 				.getConverterFactory();
 		fixture = new DivaToCoraFormatFixture();
@@ -39,7 +41,7 @@ public class DivaToCoraFormatFixtureTest {
 	@Test
 	public void testNoConverterErrorClassname() throws Exception {
 		DivaFitnesseDependencyProvider.setConverterFactoryClassName(
-				"se.uu.ub.diva.cora.fitnesse.DivaToCoraConverterThrowsExceptionFactorySpy");
+				"se.uu.ub.diva.cora.fitnesse.spy.DivaToCoraConverterThrowsExceptionFactorySpy");
 		assertEquals(fixture.getJson(), "can not convert xml:java.lang.RuntimeException");
 	}
 

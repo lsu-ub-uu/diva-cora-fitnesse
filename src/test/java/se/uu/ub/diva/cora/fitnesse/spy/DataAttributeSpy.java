@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Uppsala University Library
+ * Copyright 2020 Uppsala University Library
  *
  * This file is part of Cora.
  *
@@ -16,27 +16,28 @@
  *     You should have received a copy of the GNU General Public License
  *     along with Cora.  If not, see <http://www.gnu.org/licenses/>.
  */
-package se.uu.ub.diva.cora.fitnesse;
+package se.uu.ub.diva.cora.fitnesse.spy;
 
-import java.util.Map;
+import se.uu.ub.cora.data.DataAttribute;
 
-import se.uu.ub.cora.classicfedorasynchronizer.FedoraToCoraConverter;
-import se.uu.ub.cora.data.DataGroup;
+public class DataAttributeSpy implements DataAttribute {
 
-public class DivaToCoraFitnesseConverterSpy implements FedoraToCoraConverter {
+	private String id;
+	private String value;
 
-	public String xml;
-
-	@Override
-	public DataGroup fromXML(String xml) {
-		this.xml = xml;
-		return new DataGroupSpy("DataGroupReturnedFromSpy");
+	public DataAttributeSpy(String id, String value) {
+		this.id = id;
+		this.value = value;
 	}
 
 	@Override
-	public DataGroup fromXMLWithParameters(String xml, Map<String, Object> parameters) {
-		// TODO Auto-generated method stub
-		return null;
+	public String getNameInData() {
+		return id;
+	}
+
+	@Override
+	public String getValue() {
+		return value;
 	}
 
 }
