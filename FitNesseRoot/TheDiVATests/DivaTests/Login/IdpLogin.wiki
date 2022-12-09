@@ -8,8 +8,8 @@ IdpLogin skyddas i test och produktion av apache och är inte åtkomligt utan en
 
 !2 Hämta authTokens via idpLogin
 !***> Hämta authTokens från idpLogin server
-
-!| IdpLoginServletFixture |
+!|Comment|
+| IdpLoginServletFixture |
 | EPPN | getAuthTokenForEPPN? | getIdFromLogin? | getResponseCode? | getAuthToken? | getValidForNoSeconds? | getDeleteUrl? |
 | fitnesseAdminDb@user.test.se | | fitnesseAdminDb@user.test.se | OK | $adminAuthToken= | | ${tokenLogoutURL}62 |
 | fitnesseUserDb@user.test.se | | fitnesseUserDb@user.test.se | OK | $userAuthToken= | | ${tokenLogoutURL}63 |
@@ -43,7 +43,8 @@ IdpLogin skyddas i test och produktion av apache och är inte åtkomligt utan en
 *!
 !***> Logout
 
-!| AppTokenEndpointFixture |
+!| comment |
+| AppTokenEndpointFixture |
 | userId | authTokenToLogOut | removeAuthTokenForUser? | getStatusType? |
 | 62 | $adminAuthToken | | OK |
 
