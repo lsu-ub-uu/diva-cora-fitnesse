@@ -1,6 +1,6 @@
 ---
 Help: Tester för serie
-Suite
+Static
 ---
 !1 Tester för serie-listan
 
