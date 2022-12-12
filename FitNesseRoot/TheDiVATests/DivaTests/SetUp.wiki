@@ -24,7 +24,7 @@
 
 !| AppTokenEndpointFixture |
 | userId | appToken | getAuthTokenForAppToken? | getAuthToken? | getStatusType? |
-| coraUser:1299694997493014 |f48a2fb3-814e-404a-a2dd-9860aff4e328 | | $adminAuthToken= | CREATED |
+| coraUser:1299694997493014 |f48a2fb3-814e-404a-a2dd-9860aff4e328 | | $adminAuthToken= |  |
 
 *!
 !| script | AuthTokenHolder |
@@ -34,7 +34,7 @@
 
 !| AppTokenEndpointFixture |
 | userId | appToken | getAuthTokenForAppToken? | getAuthToken? | getStatusType? |
-| 121212 | | | $userAuthToken= | CREATED |
+| 121212 | | | $userAuthToken= |  |
 
 *!
 !| script | AuthTokenHolder |
@@ -45,9 +45,9 @@
 
 !| IdpLoginServletFixture |
 | EPPN | getAuthTokenForEPPN? | getIdFromLogin? | getResponseCode? | getAuthToken? | getValidForNoSeconds? | getDeleteUrl? |
-| fitnesseSystemAdmin@user.uu.se | | fitnesseSystemAdmin@user.uu.se | OK | $systemAdminAuthToken= | | ${tokenLogoutURL}coraUser:542161975513761 |
-| fitnesseDomainAdminUU@user.uu.se | | fitnesseDomainAdminUU@user.uu.se | OK | $domainAdminUUAuthToken= | | ${tokenLogoutURL}coraUser:542165753711000 |
-| fitnesseDomainAdminKTH@user.kth.se | | fitnesseDomainAdminKTH@user.kth.se | OK | $domainAdminKTHAuthToken= | | ${tokenLogoutURL}coraUser:542168680454562 |
-| userNotInDb@user.uu.se | | null | OK | $guestToken= | | ${tokenLogoutURL}coraUser:5368656924943436 |
+| fitnesseSystemAdmin@user.uu.se | | |  | $systemAdminAuthToken= | |  |
+| fitnesseDomainAdminUU@user.uu.se | |  |  | $domainAdminUUAuthToken= | |  |
+| fitnesseDomainAdminKTH@user.kth.se | | |  | $domainAdminKTHAuthToken= | | |
+| userNotInDb@user.uu.se | |  |  | $guestToken= | |  |
 
 *!
