@@ -29,6 +29,7 @@ import java.util.Set;
 import se.uu.ub.cora.data.DataAtomic;
 import se.uu.ub.cora.data.DataAttribute;
 import se.uu.ub.cora.data.DataChild;
+import se.uu.ub.cora.data.DataChildFilter;
 import se.uu.ub.cora.data.DataGroup;
 
 public class DataGroupSpy implements DataGroup {
@@ -199,6 +200,18 @@ public class DataGroupSpy implements DataGroup {
 			DataAttribute... arg1) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<DataChild> getAllChildrenMatchingFilter(DataChildFilter childFilter) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean removeAllChildrenMatchingFilter(DataChildFilter childFilter) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
