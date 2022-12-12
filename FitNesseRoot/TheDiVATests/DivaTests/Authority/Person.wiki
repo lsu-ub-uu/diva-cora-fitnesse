@@ -1,6 +1,6 @@
 ---
 Help: Person
-Test
+Static
 ---
 !1 Person
 Personsposten är en så kallad auktoritetspost i syfte att identifiera personer i relation till publikationer och projekt.

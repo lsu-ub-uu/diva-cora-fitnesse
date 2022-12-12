@@ -1,6 +1,6 @@
 ---
 Help: Skapa en ny serie
-Test
+Static
 ---
 !contents -R2 -g -p -f -h
 !1 Skapa en ny serie

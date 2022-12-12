@@ -4,12 +4,24 @@ Test
 ---
 !contents -R2 -g -p -f -h
 !1 !-IdpLoginTest-!
-IdpLogin skyddas i test och produktion av apache och är inte åtkomligt utan en godkänd inloggning mot en lokal idp. Vi förväntar oss att parametern eppn är med när användaren släpps förbi apache och får tillgång till idpLogin servern. Parametern eppn skickas vidare till gatekeeperServer som letar i databasen efter en användare med matchande eppn. Gatekeeper returnerar en authtoken för användaren och sparar användaren som inloggad. Om ingen matchande användare hittas så skapas och returneras en authToken för systemets gästanvändare.
+!-IdpLogin-! skyddas i test och produktion av inställningar i webservern Apache och är inte åtkomligt utan en godkänd inloggning mot en lokal idp. Vi förväntar oss att parametern eppn är med när användaren släpps förbi Apache och får tillgång till idpLogin servern. Parametern eppn skickas vidare till gatekeeperServer som letar i databasen efter en användare som matchar denna eppn. I användaren finns inte fältet eppn, utan det är fältet "userId" från användaren som är sparad genom en storageTerm som är det värde som används för att matcha eppn:en. Gatekeeper returnerar en authtoken för användaren och sparar användaren som inloggad. Om ingen matchande användare hittas så skapas och returneras en authToken för systemets gästanvändare.
+
+
+!2 Login for DiVA example users
+!***> Hämta authTokens från idpLogin server
+!| IdpLoginServletFixture |
+| EPPN | getAuthTokenForEPPN? | getIdFromLogin? | getResponseCode? | getAuthToken? | getValidForNoSeconds? | getDeleteUrl? |
+| fitnesseSystemAdmin@user.uu.se | | fitnesseSystemAdmin@user.uu.se | OK | $systemAdminAuthToken= | | ${tokenLogoutURL}coraUser:542161975513761 |
+| fitnesseDomainAdminUU@user.uu.se | | fitnesseDomainAdminUU@user.uu.se | OK | $domainAdminUUAuthToken= | | ${tokenLogoutURL}coraUser:542165753711000 |
+| fitnesseDomainAdminKTH@user.kth.se | | fitnesseDomainAdminKTH@user.kth.se | OK | $domainAdminKTHAuthToken= | | ${tokenLogoutURL}coraUser:542168680454562 |
+| userNotInDb@user.uu.se | | null | OK | $guestToken= | | ${tokenLogoutURL}coraUser:5368656924943436 |
+
+*!
 
 !2 Hämta authTokens via idpLogin
 !***> Hämta authTokens från idpLogin server
-
-!| IdpLoginServletFixture |
+!|Comment|
+| IdpLoginServletFixture |
 | EPPN | getAuthTokenForEPPN? | getIdFromLogin? | getResponseCode? | getAuthToken? | getValidForNoSeconds? | getDeleteUrl? |
 | fitnesseAdminDb@user.test.se | | fitnesseAdminDb@user.test.se | OK | $adminAuthToken= | | ${tokenLogoutURL}62 |
 | fitnesseUserDb@user.test.se | | fitnesseUserDb@user.test.se | OK | $userAuthToken= | | ${tokenLogoutURL}63 |
@@ -43,7 +55,8 @@ IdpLogin skyddas i test och produktion av apache och är inte åtkomligt utan en
 *!
 !***> Logout
 
-!| AppTokenEndpointFixture |
+!| comment |
+| AppTokenEndpointFixture |
 | userId | authTokenToLogOut | removeAuthTokenForUser? | getStatusType? |
 | 62 | $adminAuthToken | | OK |
 
@@ -51,7 +64,8 @@ IdpLogin skyddas i test och produktion av apache och är inte åtkomligt utan en
 !2 Prova att uppdatera en organisation för att visa att authToken inte är giltig efter utloggning
 !***> Uppdatera organisation 1450 med nytt namn
 
-!| RecordEndpointFixture |
+!|Comment|
+| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
 | $adminAuthToken | divaOrganisation | 1450 | {"name":"organisation","children":[{"name":"recordInfo","children":[{"name":"id","value":"1450"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"name":"updated","children":[{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"coraUser"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}]},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"repeatId":"0"}]},{"name":"name","children":[{"name":"organisationName","value":"Norska ministerrådet"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"organisationName","value":"Nordiska ministerrådet"},{"name":"language","value":"en"}]},{"name":"domain","value":"norden"},{"name":"country","value":"SE"},{"name":"URL","value":"http://www.norden.org"},{"name":"organisationType","value":"unit"},{"name":"organisationNumber","value":"3333333333"},{"name":"eligible","value":"yes"},{"name":"showInDefence","value":"no"},{"name":"topLevel","value":"no"},{"name":"showInPortal","value":"no"}]} | | UNAUTHORIZED |
 

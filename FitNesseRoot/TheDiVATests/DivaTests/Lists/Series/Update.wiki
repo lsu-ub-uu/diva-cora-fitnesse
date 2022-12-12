@@ -1,6 +1,6 @@
 ---
 Help: Uppdatera en serie
-Test
+Static
 ---
 !contents -R2 -g -p -f -h
 !1 Testar uppdatering av serie
