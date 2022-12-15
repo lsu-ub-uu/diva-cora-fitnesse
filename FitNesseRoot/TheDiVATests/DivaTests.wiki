@@ -4,4 +4,3 @@ Suite
 ---
 !1 Test suite for all tests executed through java
 !contents -R2 -g -p -f -h
-!pomFile ./pom.xml
