@@ -12,6 +12,6 @@ Testet visar att adminanvändare har möjlighet att skapa en hållbar utveckling
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
-| $adminAuthToken | sustainableDevelopment | {"name":"sustainableDevelopment","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"name","children":[{"name":"sustainableDevelopmentName","value":"Fitnesse series to be deleted"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"sustainableDevelopmentName","value":"Fitnesse series to be deleted"},{"name":"language","value":"en"}]},{"name":"domain","value":"test"}]} | | CREATED |
+| $adminAuthToken | sustainableDevelopment | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"sustainableDevelopment"}],"name":"validationType"}],"name":"recordInfo"},{"children":[{"name":"sustainableDevelopmentName","value":"Fitnesse series to be deleted"},{"name":"language","value":"sv"}],"name":"name"},{"children":[{"name":"sustainableDevelopmentName","value":"Fitnesse series to be deleted"},{"name":"language","value":"en"}],"name":"alternativeName"},{"name":"domain","value":"test"}],"name":"sustainableDevelopment"} | | CREATED |
 
 *!

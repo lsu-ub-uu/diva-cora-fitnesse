@@ -16,9 +16,9 @@ Static
 !| comment |
 | RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
-| $adminAuthToken | rootOrganisation | {"name":"divaOrganisation","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"organisationName","value":"Provorganisation"},{"name":"alternativeName","children":[{"name":"organisationName","value":"Test organisation"}]},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}]} | | FORBIDDEN |
-| $adminAuthToken | topOrganisation | {"name":"divaOrganisation","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"organisationName","value":"Provorganisation"},{"name":"alternativeName","children":[{"name":"organisationName","value":"Test organisation"}]},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}]} | | FORBIDDEN |
-| $adminAuthToken | subOrganisation | {"name":"divaOrganisation","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"organisationName","value":"Provorganisation"},{"name":"alternativeName","children":[{"name":"organisationName","value":"Test organisation"}]},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}]} | | FORBIDDEN |
+| $adminAuthToken | rootOrganisation | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"rootOrganisation"}],"name":"validationType"}],"name":"recordInfo"},{"name":"organisationName","value":"Provorganisation"},{"children":[{"name":"organisationName","value":"Test organisation"}],"name":"alternativeName"},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}],"name":"divaOrganisation"} | | FORBIDDEN |
+| $adminAuthToken | topOrganisation | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"topOrganisation"}],"name":"validationType"}],"name":"recordInfo"},{"name":"organisationName","value":"Provorganisation"},{"children":[{"name":"organisationName","value":"Test organisation"}],"name":"alternativeName"},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}],"name":"divaOrganisation"} | | FORBIDDEN |
+| $adminAuthToken | subOrganisation | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"subOrganisation"}],"name":"validationType"}],"name":"recordInfo"},{"name":"organisationName","value":"Provorganisation"},{"children":[{"name":"organisationName","value":"Test organisation"}],"name":"alternativeName"},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}],"name":"divaOrganisation"} | | FORBIDDEN |
 
 *!
 !3 Roller
@@ -33,7 +33,7 @@ Vi provar att skapa en rootOrganisation
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
-| $systemAdminAuthToken | rootOrganisation | {"name":"divaOrganisation","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"organisationName","value":"Provorganisation"},{"name":"alternativeName","children":[{"name":"organisationName","value":"Test organisation"}]},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}]} | | FORBIDDEN |
+| $systemAdminAuthToken | rootOrganisation | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"rootOrganisation"}],"name":"validationType"}],"name":"recordInfo"},{"name":"organisationName","value":"Provorganisation"},{"children":[{"name":"organisationName","value":"Test organisation"}],"name":"alternativeName"},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}],"name":"divaOrganisation"} | | FORBIDDEN |
 
 *!
 !***> '''Fall2'''
@@ -42,7 +42,7 @@ Vi provar att skapa en topOrganisation
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
-| $systemAdminAuthToken | topOrganisation | {"name":"divaOrganisation","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"organisationName","value":"Provorganisation"},{"name":"alternativeName","children":[{"name":"organisationName","value":"Test organisation"}]},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}]} | | FORBIDDEN |
+| $systemAdminAuthToken | topOrganisation | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"topOrganisation"}],"name":"validationType"}],"name":"recordInfo"},{"name":"organisationName","value":"Provorganisation"},{"children":[{"name":"organisationName","value":"Test organisation"}],"name":"alternativeName"},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}],"name":"divaOrganisation"} | | FORBIDDEN |
 
 *!
 !***> '''Fall3'''
@@ -51,7 +51,7 @@ Vi provar att skapa en subOrganisation
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
-| $systemAdminAuthToken | subOrganisation | {"name":"divaOrganisation","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"organisationName","value":"Provorganisation"},{"name":"alternativeName","children":[{"name":"organisationName","value":"Test organisation"}]},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}]} | | FORBIDDEN |
+| $systemAdminAuthToken | subOrganisation | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"subOrganisation"}],"name":"validationType"}],"name":"recordInfo"},{"name":"organisationName","value":"Provorganisation"},{"children":[{"name":"organisationName","value":"Test organisation"}],"name":"alternativeName"},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}],"name":"divaOrganisation"} | | FORBIDDEN |
 
 *!
 
@@ -66,7 +66,7 @@ Vi provar att skapa en rootOrganisation
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
-| $domainAdminUUAuthToken | rootOrganisation | {"name":"divaOrganisation","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"organisationName","value":"Provorganisation"},{"name":"alternativeName","children":[{"name":"organisationName","value":"Test organisation"}]},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}]} | | FORBIDDEN |
+| $domainAdminUUAuthToken | rootOrganisation | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"rootOrganisation"}],"name":"validationType"}],"name":"recordInfo"},{"name":"organisationName","value":"Provorganisation"},{"children":[{"name":"organisationName","value":"Test organisation"}],"name":"alternativeName"},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}],"name":"divaOrganisation"} | | FORBIDDEN |
 
 *!
 !***> '''Fall2'''
@@ -75,7 +75,7 @@ Vi provar att skapa en topOrganisation
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
-| $domainAdminUUAuthToken | topOrganisation | {"name":"divaOrganisation","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"organisationName","value":"Provorganisation"},{"name":"alternativeName","children":[{"name":"organisationName","value":"Test organisation"}]},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}]} | | FORBIDDEN |
+| $domainAdminUUAuthToken | topOrganisation | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"topOrganisation"}],"name":"validationType"}],"name":"recordInfo"},{"name":"organisationName","value":"Provorganisation"},{"children":[{"name":"organisationName","value":"Test organisation"}],"name":"alternativeName"},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}],"name":"divaOrganisation"} | | FORBIDDEN |
 
 *!
 
@@ -84,7 +84,7 @@ Vi provar att skapa en subOrganisation
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
-| $domainAdminUUAuthToken | subOrganisation | {"name":"divaOrganisation","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"organisationName","value":"Provorganisation"},{"name":"alternativeName","children":[{"name":"organisationName","value":"Test organisation"}]},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}]} | | FORBIDDEN |
+| $domainAdminUUAuthToken | subOrganisation | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"subOrganisation"}],"name":"validationType"}],"name":"recordInfo"},{"name":"organisationName","value":"Provorganisation"},{"children":[{"name":"organisationName","value":"Test organisation"}],"name":"alternativeName"},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}],"name":"divaOrganisation"} | | FORBIDDEN |
 
 *!
 !4 Guest
@@ -96,8 +96,8 @@ Vi provar att skapa en organisation
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
-| $guestToken | rootOrganisation | {"name":"divaOrganisation","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"organisationName","value":"Provorganisation"},{"name":"alternativeName","children":[{"name":"organisationName","value":"Test organisation"}]},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}]} | | FORBIDDEN |
-| $guestToken | topOrganisation | {"name":"divaOrganisation","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"organisationName","value":"Provorganisation"},{"name":"alternativeName","children":[{"name":"organisationName","value":"Test organisation"}]},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}]} | | FORBIDDEN |
-| $guestToken | subOrganisation | {"name":"divaOrganisation","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"organisationName","value":"Provorganisation"},{"name":"alternativeName","children":[{"name":"organisationName","value":"Test organisation"}]},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}]} | | FORBIDDEN |
+| $guestToken | rootOrganisation | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"rootOrganisation"}],"name":"validationType"}],"name":"recordInfo"},{"name":"organisationName","value":"Provorganisation"},{"children":[{"name":"organisationName","value":"Test organisation"}],"name":"alternativeName"},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}],"name":"divaOrganisation"} | | FORBIDDEN |
+| $guestToken | topOrganisation | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"topOrganisation"}],"name":"validationType"}],"name":"recordInfo"},{"name":"organisationName","value":"Provorganisation"},{"children":[{"name":"organisationName","value":"Test organisation"}],"name":"alternativeName"},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}],"name":"divaOrganisation"} | | FORBIDDEN |
+| $guestToken | subOrganisation | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"subOrganisation"}],"name":"validationType"}],"name":"recordInfo"},{"name":"organisationName","value":"Provorganisation"},{"children":[{"name":"organisationName","value":"Test organisation"}],"name":"alternativeName"},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}],"name":"divaOrganisation"} | | FORBIDDEN |
 
 *!

@@ -12,7 +12,7 @@ Först skapar vi en tidskrift, för att sedan kunna radera den
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecordCreatedType? | getStatusType? | getCreatedId? |
-| $adminAuthToken | journal | {"name":"journal","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"mainTitle","value":"Fitnesse journal to be deleted"},{"name":"subTitle","value":"Fitnesse journal to be deleted (eng)"},{"name":"ISSN","value":"1234-5678"},{"name":"EISSN","value":"9876-5432"},{"name":"URL","value":"www.journal.com"},{"name":"journalOA","value":"trueOA"},{"name":"closedDate","value":"2012-01-01"}]} | journal | CREATED | $createdId= |
+| $adminAuthToken | journal | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"journal"}],"name":"validationType"}],"name":"recordInfo"},{"name":"mainTitle","value":"Fitnesse journal to be deleted"},{"name":"subTitle","value":"Fitnesse journal to be deleted (eng)"},{"name":"ISSN","value":"1234-5678"},{"name":"EISSN","value":"9876-5432"},{"name":"URL","value":"www.journal.com"},{"name":"journalOA","value":"trueOA"},{"name":"closedDate","value":"2012-01-01"}],"name":"journal"} | journal | CREATED | $createdId= |
 
 *!
 !***> Läs den nyskapade tidskriften i Json

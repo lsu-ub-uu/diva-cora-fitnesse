@@ -12,7 +12,7 @@ Först skapar vi en hållbar utvecklingspost, för att sedan kunna radera den
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecordCreatedType? | getStatusType? | getCreatedId? |
-| $adminAuthToken | sustainableDevelopment | {"name":"sustainableDevelopment","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"name","children":[{"name":"sustainableDevelopmentName","value":"Fitnesse sustainalbeDevelopment to be deleted"},{"name":"language","value":"sv"}]},{"name":"alternativeName","children":[{"name":"sustainableDevelopmentName","value":"Fitnesse sustainalbeDevelopment to be deleted (eng)"},{"name":"language","value":"en"}]},{"name":"domain","value":"du"}]} | sustainableDevelopment | CREATED | $createdId= |
+| $adminAuthToken | sustainableDevelopment | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"sustainableDevelopment"}],"name":"validationType"}],"name":"recordInfo"},{"children":[{"name":"sustainableDevelopmentName","value":"Fitnesse sustainalbeDevelopment to be deleted"},{"name":"language","value":"sv"}],"name":"name"},{"children":[{"name":"sustainableDevelopmentName","value":"Fitnesse sustainalbeDevelopment to be deleted (eng)"},{"name":"language","value":"en"}],"name":"alternativeName"},{"name":"domain","value":"du"}],"name":"sustainableDevelopment"} | sustainableDevelopment | CREATED | $createdId= |
 
 *!
 !***> Läs den nyskapade hållbar utvecklingsposten i Json

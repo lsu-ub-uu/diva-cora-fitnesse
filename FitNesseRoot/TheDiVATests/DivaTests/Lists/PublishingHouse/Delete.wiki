@@ -12,7 +12,7 @@ Först skapar vi en utgivare, för att sedan kunna radera den
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecordCreatedType? | getStatusType? | getCreatedId? |
-| $adminAuthToken | publishingHouse | {"name":"publishingHouse","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"name","value":"Fitnesse funder to be deleted"},{"name":"externalId","value":"1234"}]} | publishingHouse | CREATED | $createdId= |
+| $adminAuthToken | publishingHouse | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"publishingHouse"}],"name":"validationType"}],"name":"recordInfo"},{"name":"name","value":"Fitnesse funder to be deleted"},{"name":"externalId","value":"1234"}],"name":"publishingHouse"} | publishingHouse | CREATED | $createdId= |
 
 *!
 !***> Läs den nyskapade utgivaren i Json

@@ -12,6 +12,6 @@ Testet visar att adminanvändare har möjlighet att skapa en tidskriftspost
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
-| $adminAuthToken | journal | {"name":"journal","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]}]},{"name":"mainTitle","value":"FitnesseTest för tidskrift"},{"name":"journalOA","value":"trueOA"},{"name":"subTitle","value":"FitnesseTest for journal"},{"name":"ISSN","value":"1234-5678"},{"name":"EISSN","value":"9876-5432"},{"name":"URL","value":"www.journal.com"},{"name":"closedDate","value":"2012-01-01"}]} | | CREATED |
+| $adminAuthToken | journal | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"journal"}],"name":"validationType"}],"name":"recordInfo"},{"name":"mainTitle","value":"FitnesseTest för tidskrift"},{"name":"journalOA","value":"trueOA"},{"name":"subTitle","value":"FitnesseTest for journal"},{"name":"ISSN","value":"1234-5678"},{"name":"EISSN","value":"9876-5432"},{"name":"URL","value":"www.journal.com"},{"name":"closedDate","value":"2012-01-01"}],"name":"journal"} | | CREATED |
 
 *!
