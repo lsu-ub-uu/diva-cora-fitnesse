@@ -19,7 +19,7 @@ Det ska gå att läsa toppnivån av metadatagruppen för en ny nationell ämnesk
 
 !| RecordEndpointFixture |
 | type | id | testReadRecordAndStoreJson? |
-| metadataGroup | nationalSubjectCategoryNewGroup | |
+| metadata | nationalSubjectCategoryNewGroup | |
 
 *!
 Test av metadata för att skapa en ny nationell ämneskategori
@@ -28,18 +28,18 @@ Test av metadata för att skapa en ny nationell ämneskategori
 
 !| MetadataLinkFixture |
 | linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
-| metadataGroup | recordInfoDivaNewGroup | 1 | 1 |
-| metadataGroup | nationalSubjectCategoryNameGroup | 1 | 1 |
-| metadataGroup | nationalSubjectCategoryAlternativeNameGroup | 1 | 1 |
-| metadataTextVariable | subjectCodeTextVar | 1 | 1 |
-| metadataGroup | nationalSubjectCategoryParentGroup | 0 | X |
+| metadata | recordInfoDivaNewGroup | 1 | 1 |
+| metadata | nationalSubjectCategoryNameGroup | 1 | 1 |
+| metadata | nationalSubjectCategoryAlternativeNameGroup | 1 | 1 |
+| metadata | subjectCodeTextVar | 1 | 1 |
+| metadata | nationalSubjectCategoryParentGroup | 0 | X |
 
 *!
 !***> Ladda journalGroup för nationell ämneskategori för att använda i tester
 
 !| RecordEndpointFixture |
 | type | id | testReadRecordAndStoreJson? |
-| metadataGroup | nationalSubjectCategoryGroup | |
+| metadata | nationalSubjectCategoryGroup | |
 
 *!
 Test av metadata för skapandet av en ny nationell ämneskategori
@@ -48,10 +48,10 @@ Test av metadata för skapandet av en ny nationell ämneskategori
 
 !| MetadataLinkFixture |
 | linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
-| metadataGroup | recordInfoDivaGroup | 1 | 1 |
-| metadataGroup | nationalSubjectCategoryNameGroup | 1 | 1 |
-| metadataGroup | nationalSubjectCategoryAlternativeNameGroup | 1 | 1 |
-| metadataTextVariable | subjectCodeTextVar | 1 | 1 |
-| metadataGroup | nationalSubjectCategoryParentGroup | 0 | X |
+| metadata | recordInfoDivaGroup | 1 | 1 |
+| metadata | nationalSubjectCategoryNameGroup | 1 | 1 |
+| metadata | nationalSubjectCategoryAlternativeNameGroup | 1 | 1 |
+| metadata | subjectCodeTextVar | 1 | 1 |
+| metadata | nationalSubjectCategoryParentGroup | 0 | X |
 
 *!

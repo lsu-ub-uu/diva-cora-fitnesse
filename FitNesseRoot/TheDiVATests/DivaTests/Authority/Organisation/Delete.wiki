@@ -9,9 +9,9 @@ Static
 | RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
 | $adminAuthToken | organisation | 1750 | | FORBIDDEN |
-| $adminAuthToken | rootOrganisation | 1750 | | FORBIDDEN |
-| $adminAuthToken | topOrganisation | 1750 | | FORBIDDEN |
-| $adminAuthToken | subOrganisation | 1750 | | FORBIDDEN |
+| $adminAuthToken | organisation | 1750 | | FORBIDDEN |
+| $adminAuthToken | organisation | 1750 | | FORBIDDEN |
+| $adminAuthToken | organisation | 1750 | | FORBIDDEN |
 
 *!
 
@@ -27,7 +27,7 @@ Vi provar att radera rootOrganisation
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| $systemAdminAuthToken | rootOrganisation | 1748 | | FORBIDDEN |
+| $systemAdminAuthToken | organisation | 1748 | | FORBIDDEN |
 
 *!
 !***> '''Fall2''' Radera topOrganisation
@@ -36,7 +36,7 @@ Vi provar att radera topOrganisation
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| $systemAdminAuthToken | topOrganisation | 1750 | | FORBIDDEN |
+| $systemAdminAuthToken | organisation | 1750 | | FORBIDDEN |
 
 *!
 !***> '''Fall3''' Radera subOrganisation
@@ -45,7 +45,7 @@ Vi provar att radera subOrganisation
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| $systemAdminAuthToken | subOrganisation | 1455 | | FORBIDDEN |
+| $systemAdminAuthToken | organisation | 1455 | | FORBIDDEN |
 
 *!
 
@@ -60,7 +60,7 @@ Vi provar att radera en rootOrganisation
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| $domainAdminUUAuthToken | rootOrganisation | 1748 | | FORBIDDEN |
+| $domainAdminUUAuthToken | organisation | 1748 | | FORBIDDEN |
 
 *!
 !***> '''Fall2''' Radera topOrganisation
@@ -69,7 +69,7 @@ Vi provar att radera en topOrganisation
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| $domainAdminUUAuthToken | topOrganisation | 1750 | | FORBIDDEN |
+| $domainAdminUUAuthToken | organisation | 1750 | | FORBIDDEN |
 
 *!
 !***> '''Fall3''' Radera subOrganisation
@@ -78,7 +78,7 @@ Vi provar att radera en subOrganisation
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| $domainAdminUUAuthToken | subOrganisation | 1455 | | FORBIDDEN |
+| $domainAdminUUAuthToken | organisation | 1455 | | FORBIDDEN |
 
 *!
 !4 Guest
@@ -92,7 +92,7 @@ Vi provar att radera en rootOrganisation
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| $guestToken | rootOrganisation | 1748 | | FORBIDDEN |
+| $guestToken | organisation | 1748 | | FORBIDDEN |
 
 *!
 !***> '''Fall2''' Radera topOrganisation
@@ -101,7 +101,7 @@ Vi provar att radera en topOrganisation
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| $guestToken | topOrganisation | 1750 | | FORBIDDEN |
+| $guestToken | organisation | 1750 | | FORBIDDEN |
 
 *!
 !***> '''Fall3''' Radera subOrganisation
@@ -110,6 +110,6 @@ Vi provar att radera en subOrganisation
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| $guestToken | subOrganisation | 1455 | | FORBIDDEN |
+| $guestToken | organisation | 1455 | | FORBIDDEN |
 
 *!

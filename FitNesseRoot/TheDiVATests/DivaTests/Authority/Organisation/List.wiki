@@ -149,9 +149,9 @@ Säkerställ att den sparade datan överensstämmer med originaldatan.
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
 | $domainAdminUUAuthToken | organisation | | FORBIDDEN |
-| $domainAdminUUAuthToken | rootOrganisation | | FORBIDDEN |
-| $domainAdminUUAuthToken | topOrganisation | | FORBIDDEN |
-| $domainAdminUUAuthToken | subOrganisation | | FORBIDDEN |
+| $domainAdminUUAuthToken | organisation | | FORBIDDEN |
+| $domainAdminUUAuthToken | organisation | | FORBIDDEN |
+| $domainAdminUUAuthToken | organisation | | FORBIDDEN |
 
 *!
 !4 Guest
@@ -162,8 +162,8 @@ Säkerställ att den sparade datan överensstämmer med originaldatan.
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
 | $guestToken | organisation | | FORBIDDEN |
-| $guestToken | rootOrganisation | | FORBIDDEN |
-| $guestToken | topOrganisation | | FORBIDDEN |
-| $guestToken | subOrganisation | | FORBIDDEN |
+| $guestToken | organisation | | FORBIDDEN |
+| $guestToken | organisation | | FORBIDDEN |
+| $guestToken | organisation | | FORBIDDEN |
 
 *!
