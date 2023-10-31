@@ -1,6 +1,6 @@
 ---
 Help: Radera en forskningsfinansiär
-Test
+
 ---
 !contents -R2 -g -p -f -h
 !1 Testar radera en forskningsfinansiär
