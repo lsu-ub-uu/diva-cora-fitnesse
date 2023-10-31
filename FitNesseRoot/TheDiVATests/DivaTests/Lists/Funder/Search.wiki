@@ -9,7 +9,7 @@ Test
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecordCreatedType? | getStatusType? | getCreatedId? |
-| $adminAuthToken | funder | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"funder"}],"name":"validationType"}],"name":"recordInfo"},{"name":"funderName","attributes":{"language":"sv"},"value":"Umbrella cårporation"},{"name":"funderName","attributes":{"language":"en"},"value":"Fitnesse  funder to be  deleted"},{"name":"funderAcronym","value":"FFD"},{"name":"funderRegistrationNumber","value":"12365-98753521"},{"name":"funderDOI","value":"10.13039/501100004359"},{"name":"funderClosed","value":"2010-01-01"}],"name":"funder"} | funder | CREATED | $createdId= |
+| $adminAuthToken | funder | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"funder"}],"name":"validationType"}],"name":"recordInfo"},{"name":"funderName","attributes":{"language":"swe"},"value":"Umbrella cårporation"},{"name":"funderName","attributes":{"language":"eng"},"value":"Fitnesse  funder to be  deleted"},{"name":"funderAcronym","value":"FFD"},{"name":"funderRegistrationNumber","value":"12365-98753521"},{"name":"funderDOI","value":"10.13039/501100004359"},{"name":"funderClosed","value":"2010-01-01"}],"name":"funder"} | funder | CREATED | $createdId= |
 
 *!
 !***> Test sök forskningsfinansiär med bara namn
