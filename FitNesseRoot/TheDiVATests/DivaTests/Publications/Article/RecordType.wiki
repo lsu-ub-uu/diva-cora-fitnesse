@@ -1,6 +1,6 @@
 ---
 Help: Testar posttyp artikel
-Test
+
 ---
 !contents -R2 -g -p -f -h
 !1 Testar posttyp artikel

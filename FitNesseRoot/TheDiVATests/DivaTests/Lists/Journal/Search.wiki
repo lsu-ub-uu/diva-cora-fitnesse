@@ -1,6 +1,5 @@
 ---
 Help: Sök efter tidskrift
-Test
 ---
 !1 Sök efter tidskrift
 !4 

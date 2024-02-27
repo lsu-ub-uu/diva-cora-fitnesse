@@ -1,6 +1,5 @@
 ---
 Help: Sök efter utgivare
-Test
 ---
 !1 Sök efter utgivare
 !4 

@@ -1,6 +1,5 @@
 ---
 Help: Radera ett forskningsämne
-Test
 ---
 !contents -R2 -g -p -f -h
 !1 Testar radera ett forskningsämne

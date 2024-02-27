@@ -1,6 +1,5 @@
 ---
 Help: Uppdatera en hållbar utvecklingspost
-Test
 ---
 !contents -R2 -g -p -f -h
 !1 Testar uppdatering av hållbar utveckling

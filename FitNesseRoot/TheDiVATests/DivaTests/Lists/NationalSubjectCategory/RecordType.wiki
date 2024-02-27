@@ -1,6 +1,5 @@
 ---
 Help: Testar listtyp nationell ämneskategori
-Test
 ---
 !contents -R2 -g -p -f -h
 !1 Testar posttyp nationell ämneskategori

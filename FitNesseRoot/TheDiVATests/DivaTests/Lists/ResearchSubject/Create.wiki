@@ -1,6 +1,5 @@
 ---
 Help: Skapa ett nytt forskningsämne
-Test
 ---
 !contents -R2 -g -p -f -h
 !1 Skapa ett nytt forskningsämne

@@ -1,6 +1,5 @@
 ---
 Help: Sök efter ämne/kurs
-Test
 ---
 !1 Sök efter ämne/kurs
 !4 

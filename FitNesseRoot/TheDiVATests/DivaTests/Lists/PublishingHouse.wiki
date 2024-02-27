@@ -1,5 +1,5 @@
 ---
 Help: Tester för utgivare
-Suite
+Static
 ---
 !contents -R2 -g -p -f -h

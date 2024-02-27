@@ -1,6 +1,5 @@
 ---
 Help: Sök efter utbildningsprogram
-Test
 ---
 !1 Sök efter utbildningsprogram
 !4 

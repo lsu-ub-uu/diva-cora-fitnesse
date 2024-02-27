@@ -1,5 +1,5 @@
 ---
 Help: Tester för hållbar utveckling
-Suite
+Static
 ---
 !contents -R2 -g -p -f -h

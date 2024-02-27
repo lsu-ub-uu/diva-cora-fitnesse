@@ -1,6 +1,5 @@
 ---
 Help: Testar listtyp serie
-Test
 ---
 !contents -R2 -g -p -f -h
 !1 Testar posttyp serie

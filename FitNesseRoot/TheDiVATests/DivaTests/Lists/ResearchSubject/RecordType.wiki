@@ -1,6 +1,5 @@
 ---
 Help: Testar listtyp forskningsämne
-Test
 ---
 !contents -R2 -g -p -f -h
 !1 Testar posttyp forskningsämne

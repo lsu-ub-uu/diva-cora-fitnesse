@@ -1,6 +1,5 @@
 ---
 Help: Lista och läs ett forskningsämne
-Test
 ---
 !contents -R2 -g -p -f -h
 !1 Listning och läsning av forskningsämne

@@ -1,6 +1,5 @@
 ---
 Help: Uppdatera ett forskningsämne
-Test
 ---
 !contents -R2 -g -p -f -h
 !1 Testar uppdatering av forskningsämne
