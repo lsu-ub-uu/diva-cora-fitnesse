@@ -1,0 +1,23 @@
+---
+Test
+---
+!1 AppToken
+Se detaljerad beskriving i systemOnes Fitnesse
+
+
+!2 Testfall
+!3 Användare
+ * '''Fall 1: ''' Alla användare bör kunna skapa en appToken för sin egen användare. (Användaren har redan en appToken)
+ * '''Bekräftelse 1a: ''' ApptokenClearText får aldrig lagras.
+ * '''Fall 2: ''' Alla användare bör kunna läsa appToken-anteckningarna för sin egen användare.
+ * '''Fall 3: ''' Alla användare bör kunna logga in med sin egen appToken.
+ * '''Fall 4: ''' En användare ska inte kunna logga in med en annan användares appToken.
+ * '''Fall 5: ''' Alla användare bör kunna uppdatera anteckningen i vilken som helst av sina egna appTokens.
+ * '''Fall 5: ''' En användare ska inte kunna uppdatera anteckningen till en egen appToken.
+ * '''Fall 6: ''' Alla användare bör kunna ta bort sin egen appToken.
+ * '''Fall 7: ''' En användare ska inte kunna ta bort en annan användares appToken.
+
+!3 SystemAdmin
+ * '''Fall 1: ''' SystemAdmin bör kunna skapa en appToken för vilken användare som helst.
+ * '''Fall 2: ''' SystemAdmin ska inte kunna logga in med en annan användares appToken.
+ * '''Fall 3: ''' SystemAdmin bör kunna ta bort alla andra användares appToken.

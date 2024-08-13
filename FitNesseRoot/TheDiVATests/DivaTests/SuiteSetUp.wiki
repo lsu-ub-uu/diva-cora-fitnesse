@@ -8,8 +8,8 @@ Suite
 
 !| AppTokenEndpointFixture |
 | userId | appToken | getAuthTokenForAppToken? | getAuthToken? | getStatusType? |
-| coraUser:1299694997493014 |f48a2fb3-814e-404a-a2dd-9860aff4e328 | | $adminAuthToken= |  |
-#| 131313 | | | $adminAuthToken= | CREATED |
+| divaFitnesseEverything@system.cora.uu.se |2714f1e8-77f7-4811-9b6f-683bbb0f2a76 | | $adminAuthToken= |  |
+#| fitnesseAdmin@system.cora.uu.se | | | $adminAuthToken= | CREATED |
 
 *!
 !| script | AuthTokenHolder |
@@ -19,7 +19,7 @@ Suite
 
 !| AppTokenEndpointFixture |
 | userId | appToken | getAuthTokenForAppToken? | getAuthToken? | getStatusType? |
-| 121212 | | | $userAuthToken= | CREATED |
+| fitnesseUser@system.cora.uu.se | | | $userAuthToken= | CREATED |
 
 *!
 !| script | AuthTokenHolder |
