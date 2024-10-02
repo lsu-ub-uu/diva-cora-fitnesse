@@ -29,7 +29,7 @@ Suite
 !***> Hämta authTokens från idpLogin server
 
 !| IdpLoginServletFixture |
-| EPPN | getAuthTokenForEPPN? | getIdFromLogin? | getResponseCode? | getAuthToken? | getValidForNoSeconds? | getDeleteUrl? |
+| EPPN | getAuthTokenForEPPN? | getLoginId? | getResponseCode? | getAuthToken? | getValidForNoSeconds? | getDeleteUrl? |
 | fitnesseSystemAdmin@user.uu.se | | |  | $systemAdminAuthToken= | |  |
 | fitnesseDomainAdminUU@user.uu.se | |  |  | $domainAdminUUAuthToken= | |  |
 | fitnesseDomainAdminKTH@user.kth.se | | |  | $domainAdminKTHAuthToken= | | |

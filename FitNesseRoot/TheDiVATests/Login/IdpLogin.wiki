@@ -10,7 +10,7 @@ Test
 !2 Login for DiVA example users
 !***> Hämta authTokens från idpLogin server
 !| IdpLoginServletFixture |
-| EPPN | getAuthTokenForEPPN? | getIdFromLogin? | getResponseCode? | getAuthToken? | getValidForNoSeconds? | getDeleteUrl? |
+| EPPN | getAuthTokenForEPPN? | getloginId? | getResponseCode? | getAuthToken? | getValidForNoSeconds? | getDeleteUrl? |
 | fitnesseSystemAdmin@user.uu.se | | fitnesseSystemAdmin@user.uu.se | OK | $systemAdminAuthToken= | | ${tokenLogoutURL}coraUser:542161975513761 |
 | fitnesseDomainAdminUU@user.uu.se | | fitnesseDomainAdminUU@user.uu.se | OK | $domainAdminUUAuthToken= | | ${tokenLogoutURL}coraUser:542165753711000 |
 | fitnesseDomainAdminKTH@user.kth.se | | fitnesseDomainAdminKTH@user.kth.se | OK | $domainAdminKTHAuthToken= | | ${tokenLogoutURL}coraUser:542168680454562 |
@@ -22,7 +22,7 @@ Test
 !***> Hämta authTokens från idpLogin server
 !|Comment|
 | IdpLoginServletFixture |
-| EPPN | getAuthTokenForEPPN? | getIdFromLogin? | getResponseCode? | getAuthToken? | getValidForNoSeconds? | getDeleteUrl? |
+| EPPN | getAuthTokenForEPPN? | getLoginId? | getResponseCode? | getAuthToken? | getValidForNoSeconds? | getDeleteUrl? |
 | fitnesseAdminDb@user.test.se | | fitnesseAdminDb@user.test.se | OK | $adminAuthToken= | | ${tokenLogoutURL}62 |
 | fitnesseUserDb@user.test.se | | fitnesseUserDb@user.test.se | OK | $userAuthToken= | | ${tokenLogoutURL}63 |
 | userNotInDb@user.uu.se | | | OK | | | ${tokenLogoutURL}coraUser:5368656924943436 |
