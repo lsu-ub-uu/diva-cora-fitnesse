@@ -7,7 +7,7 @@ Suite
 !***> Login for admin
 
 !| AppTokenEndpointFixture |
-| userId | appToken | getAuthTokenForAppToken? | getAuthToken? | getStatusType? |
+| loginId | appToken | getAuthTokenForAppToken? | getAuthToken? | getStatusType? |
 | divaFitnesseEverything@system.cora.uu.se |2714f1e8-77f7-4811-9b6f-683bbb0f2a76 | | $adminAuthToken= |  |
 #| fitnesseAdmin@system.cora.uu.se | | | $adminAuthToken= | CREATED |
 
@@ -18,7 +18,7 @@ Suite
 !***> Login for user
 
 !| AppTokenEndpointFixture |
-| userId | appToken | getAuthTokenForAppToken? | getAuthToken? | getStatusType? |
+| loginId | appToken | getAuthTokenForAppToken? | getAuthToken? | getStatusType? |
 | fitnesseUser@system.cora.uu.se | | | $userAuthToken= | CREATED |
 
 *!
