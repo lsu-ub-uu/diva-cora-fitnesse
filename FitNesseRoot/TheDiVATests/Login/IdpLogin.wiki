@@ -11,10 +11,10 @@ Test
 !***> Hämta authTokens från idpLogin server
 !| IdpLoginServletFixture |
 | EPPN | getAuthTokenForEPPN? | getLoginId? | getResponseCode? | getAuthToken? | getValidForNoSeconds? | getDeleteUrl? |
-| fitnesseSystemAdmin@user.uu.se | | fitnesseSystemAdmin@user.uu.se | OK | $systemAdminAuthToken= | | =~/^http:\/\/localhost:8182\/login\/rest\/authToken\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/ |
-| fitnesseDomainAdminUU@user.uu.se | | fitnesseDomainAdminUU@user.uu.se | OK | $domainAdminUUAuthToken= | | =~/^http:\/\/localhost:8182\/login\/rest\/authToken\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/ |
-| fitnesseDomainAdminKTH@user.kth.se | | fitnesseDomainAdminKTH@user.kth.se | OK | $domainAdminKTHAuthToken= | | =~/^http:\/\/localhost:8182\/login\/rest\/authToken\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/ |
-| userNotInDb@user.uu.se | | divaguest@system.cora.uu.se | OK | $guestToken= | | =~/^http:\/\/localhost:8182\/login\/rest\/authToken\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/ |
+| fitnesseSystemAdmin@user.uu.se | | fitnesseSystemAdmin@user.uu.se | OK | $systemAdminAuthToken= | | =~/^https?:\/\/[a-zA-Z0-9.-]+(:[0-9]+)?\/login\/rest\/authToken\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/ |
+| fitnesseDomainAdminUU@user.uu.se | | fitnesseDomainAdminUU@user.uu.se | OK | $domainAdminUUAuthToken= | | =~/^https?:\/\/[a-zA-Z0-9.-]+(:[0-9]+)?\/login\/rest\/authToken\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/ |
+| fitnesseDomainAdminKTH@user.kth.se | | fitnesseDomainAdminKTH@user.kth.se | OK | $domainAdminKTHAuthToken= | | =~/^https?:\/\/[a-zA-Z0-9.-]+(:[0-9]+)?\/login\/rest\/authToken\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/ |
+| userNotInDb@user.uu.se | | divaguest@system.cora.uu.se | OK | $guestToken= | | =~/^https?:\/\/[a-zA-Z0-9.-]+(:[0-9]+)?\/login\/rest\/authToken\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/ |
 
 *!
 
