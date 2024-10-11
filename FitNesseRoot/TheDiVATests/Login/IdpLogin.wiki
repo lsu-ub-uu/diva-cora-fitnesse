@@ -10,11 +10,11 @@ Test
 !2 Login for DiVA example users
 !***> Hämta authTokens från idpLogin server
 !| IdpLoginServletFixture |
-| EPPN | getAuthTokenForEPPN? | getloginId? | getResponseCode? | getAuthToken? | getValidForNoSeconds? | getDeleteUrl? |
-| fitnesseSystemAdmin@user.uu.se | | fitnesseSystemAdmin@user.uu.se | OK | $systemAdminAuthToken= | | ${tokenLogoutURL}coraUser:542161975513761 |
-| fitnesseDomainAdminUU@user.uu.se | | fitnesseDomainAdminUU@user.uu.se | OK | $domainAdminUUAuthToken= | | ${tokenLogoutURL}coraUser:542165753711000 |
-| fitnesseDomainAdminKTH@user.kth.se | | fitnesseDomainAdminKTH@user.kth.se | OK | $domainAdminKTHAuthToken= | | ${tokenLogoutURL}coraUser:542168680454562 |
-| userNotInDb@user.uu.se | | null | OK | $guestToken= | | ${tokenLogoutURL}coraUser:5368656924943436 |
+| EPPN | getAuthTokenForEPPN? | getLoginId? | getResponseCode? | getAuthToken? | getValidForNoSeconds? | getDeleteUrl? |
+| fitnesseSystemAdmin@user.uu.se | | fitnesseSystemAdmin@user.uu.se | OK | $systemAdminAuthToken= | | =~/^http:\/\/localhost:8182\/login\/rest\/authToken\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/ |
+| fitnesseDomainAdminUU@user.uu.se | | fitnesseDomainAdminUU@user.uu.se | OK | $domainAdminUUAuthToken= | | =~/^http:\/\/localhost:8182\/login\/rest\/authToken\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/ |
+| fitnesseDomainAdminKTH@user.kth.se | | fitnesseDomainAdminKTH@user.kth.se | OK | $domainAdminKTHAuthToken= | | =~/^http:\/\/localhost:8182\/login\/rest\/authToken\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/ |
+| userNotInDb@user.uu.se | | divaguest@system.cora.uu.se | OK | $guestToken= | | =~/^http:\/\/localhost:8182\/login\/rest\/authToken\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/ |
 
 *!
 
