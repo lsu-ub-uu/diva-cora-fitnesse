@@ -4,69 +4,24 @@ Test
 ---
 !contents -R2 -g -p -f -h
 !1 !-IdpLoginTest-!
-!-IdpLogin-! skyddas i test och produktion av inställningar i webservern Apache och är inte åtkomligt utan en godkänd inloggning mot en lokal idp. Vi förväntar oss att parametern eppn är med när användaren släpps förbi Apache och får tillgång till idpLogin servern. Parametern eppn skickas vidare till gatekeeperServer som letar i databasen efter en användare som matchar denna eppn. I användaren finns inte fältet eppn, utan det är fältet "userId" från användaren som är sparad genom en storageTerm som är det värde som används för att matcha eppn:en. Gatekeeper returnerar en authtoken för användaren och sparar användaren som inloggad. Om ingen matchande användare hittas så skapas och returneras en authToken för systemets gästanvändare.
+!-IdpLogin-! skyddas i test och produktion av inställningar i webservern Apache och är inte åtkomligt utan en godkänd inloggning mot en lokal idp. Vi förväntar oss att parametern eppn är med när användaren släpps förbi Apache och får tillgång till idpLogin servern. Parametern eppn skickas vidare till gatekeeperServer som letar i databasen efter en användare som matchar denna eppn. I användaren finns inte fältet eppn, utan det är fältet "loginId" från användaren som är sparad genom en storageTerm som är det värde som används för att matcha eppn:en. Gatekeeper returnerar en authtoken för användaren och sparar användaren som inloggad. Om ingen matchande användare hittas så skapas och returneras en authToken för systemets gästanvändare.
 
 
 !2 Login for DiVA example users
 !***> Hämta authTokens från idpLogin server
 !| IdpLoginServletFixture |
 | EPPN | getAuthTokenForEPPN? | getLoginId? | getResponseCode? | getAuthToken? | getValidForNoSeconds? | getDeleteUrl? |
-| fitnesseSystemAdmin@user.uu.se | | fitnesseSystemAdmin@user.uu.se | OK | $systemAdminAuthToken= | | =~/\/login\/rest\/authToken\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/ |
-| fitnesseDomainAdminUU@user.uu.se | | fitnesseDomainAdminUU@user.uu.se | OK | $domainAdminUUAuthToken= | | =~/\/login\/rest\/authToken\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/ |
-| fitnesseDomainAdminKTH@user.kth.se | | fitnesseDomainAdminKTH@user.kth.se | OK | $domainAdminKTHAuthToken= | | =~/\/login\/rest\/authToken\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/ |
-| userNotInDb@user.uu.se | | divaguest@system.cora.uu.se | OK | $guestToken= | | =~/\/login\/rest\/authToken\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/ |
-
-*!
-
-!2 Hämta authTokens via idpLogin
-!***> Hämta authTokens från idpLogin server
-!|Comment|
-| IdpLoginServletFixture |
-| EPPN | getAuthTokenForEPPN? | getLoginId? | getResponseCode? | getAuthToken? | getValidForNoSeconds? | getDeleteUrl? |
-| fitnesseAdminDb@user.test.se | | fitnesseAdminDb@user.test.se | OK | $adminAuthToken= | | ${tokenLogoutURL}62 |
-| fitnesseUserDb@user.test.se | | fitnesseUserDb@user.test.se | OK | $userAuthToken= | | ${tokenLogoutURL}63 |
-| userNotInDb@user.uu.se | | | OK | | | ${tokenLogoutURL}coraUser:5368656924943436 |
-
-*!
-!2 Uppdatera en organisation
-!***> Uppdatera organisation 1450 med nytt namn
-
-!| comment |
-| RecordEndpointFixture |
-| authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | divaOrganisation | 1450 | {"children":[{"children":[{"name":"id","value":"1450"},{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}],"name":"type"},{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}],"name":"createdBy"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"repeatId":"0","children":[{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}],"name":"updatedBy"},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"name":"updated"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"divaOrganisation"}],"name":"validationType"}],"name":"recordInfo"},{"children":[{"name":"organisationName","value":"Norska ministerrådet"},{"name":"language","value":"sv"}],"name":"name"},{"children":[{"name":"organisationName","value":"Nordiska ministerrådet"},{"name":"language","value":"en"}],"name":"alternativeName"},{"name":"domain","value":"norden"},{"name":"country","value":"SE"},{"name":"URL","value":"http://www.norden.org"},{"name":"organisationType","value":"unit"},{"name":"organisationNumber","value":"3333333333"},{"name":"eligible","value":"yes"},{"name":"showInDefence","value":"no"},{"name":"topLevel","value":"no"},{"name":"showInPortal","value":"no"}],"name":"organisation"} | | OK |
-
-*!
-!***> Läs organisation 1450 igen för att se att den är uppdaterad
-
-!| comment |
-| RecordEndpointFixture |
-| authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | divaOrganisation | 1450 | =~/"value":"Norska ministerrådet"/ | OK |
-
-*!
-!***> Återställ ursprunglig organisation 1450
-
-!| comment |
-| RecordEndpointFixture |
-| authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | divaOrganisation | 1450 | {"children":[{"children":[{"name":"id","value":"1450"},{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}],"name":"type"},{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}],"name":"createdBy"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"repeatId":"0","children":[{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}],"name":"updatedBy"},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"name":"updated"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"divaOrganisation"}],"name":"validationType"}],"name":"recordInfo"},{"children":[{"name":"organisationName","value":"Nordiska ministerrådet"},{"name":"language","value":"sv"}],"name":"name"},{"children":[{"name":"organisationName","value":"Nordiska ministerrådet"},{"name":"language","value":"en"}],"name":"alternativeName"},{"name":"domain","value":"norden"},{"name":"country","value":"SE"},{"name":"URL","value":"http://www.norden.org"},{"name":"organisationType","value":"unit"},{"name":"organisationNumber","value":"3333333333"},{"name":"eligible","value":"yes"},{"name":"showInDefence","value":"no"},{"name":"topLevel","value":"no"},{"name":"showInPortal","value":"no"}],"name":"organisation"} | | OK |
+| fitnesseSystemAdmin@user.uu.se | | fitnesseSystemAdmin@user.uu.se | OK | $fitnesseAdminAuthToken= | | $fitnesseAdminAuthTokenDeleteUrl= |
+| fitnesseDomainAdminUU@user.uu.se | | fitnesseDomainAdminUU@user.uu.se | OK | $domainAdminUUAuthToken= | | $domainAdminUUAuthTokenDeleteUrl= |
+| fitnesseDomainAdminKTH@user.kth.se | | fitnesseDomainAdminKTH@user.kth.se | OK | $domainAdminKTHAuthToken= | | $domainAdminKTHAuthTokenDeleteUrl= |
+| userNotInDb@user.uu.se | | divaguest@system.cora.uu.se | OK | $fitnesseGuestAuthToken= | | $fitnesseGuestAuthTokenDeleteUrl= |
 
 *!
 !***> Logout
-
-!| comment |
-| AppTokenEndpointFixture |
-| userId | authTokenToLogOut | removeAuthTokenForUser? | getStatusType? |
-| 62 | $adminAuthToken | | OK |
-
-*!
-!2 Prova att uppdatera en organisation för att visa att authToken inte är giltig efter utloggning
-!***> Uppdatera organisation 1450 med nytt namn
-
-!|Comment|
-| RecordEndpointFixture |
-| authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | divaOrganisation | 1450 | {"children":[{"children":[{"name":"id","value":"1450"},{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"divaOrganisation"}],"name":"type"},{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}],"name":"createdBy"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"name":"tsCreated","value":"2017-01-01T00:00:00.000000Z"},{"repeatId":"0","children":[{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}],"name":"updatedBy"},{"name":"tsUpdated","value":"2017-01-01T00:00:00.000000Z"}],"name":"updated"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"divaOrganisation"}],"name":"validationType"}],"name":"recordInfo"},{"children":[{"name":"organisationName","value":"Norska ministerrådet"},{"name":"language","value":"sv"}],"name":"name"},{"children":[{"name":"organisationName","value":"Nordiska ministerrådet"},{"name":"language","value":"en"}],"name":"alternativeName"},{"name":"domain","value":"norden"},{"name":"country","value":"SE"},{"name":"URL","value":"http://www.norden.org"},{"name":"organisationType","value":"unit"},{"name":"organisationNumber","value":"3333333333"},{"name":"eligible","value":"yes"},{"name":"showInDefence","value":"no"},{"name":"topLevel","value":"no"},{"name":"showInPortal","value":"no"}],"name":"organisation"} | | UNAUTHORIZED |
-
+!| AppTokenEndpointFixture |
+| authTokenToLogOut | deleteUrl | removeAuthTokenForUser? | getStatusType? |
+| $fitnesseAdminAuthToken | $fitnesseAdminAuthTokenDeleteUrl| | OK |
+| $domainAdminUUAuthToken | $domainAdminUUAuthTokenDeleteUrl| | OK |
+| $domainAdminKTHAuthToken | $domainAdminKTHAuthTokenDeleteUrl| | OK |
+| $fitnesseGuestAuthToken | $fitnesseGuestAuthTokenDeleteUrl| | OK |
 *!
