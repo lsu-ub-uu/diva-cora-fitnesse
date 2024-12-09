@@ -1,6 +1,8 @@
 ---
 Static
 ---
+
+-----
 !3 Read tests
  * '''Admin'''
   * '''Case 1''': An admin should be able to list binaries with any visibility

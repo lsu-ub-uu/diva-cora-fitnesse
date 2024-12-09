@@ -1,0 +1,6 @@
+!3 Definition test 
+!***> binaryGroup definition test
+!| DefinitionCompareFixture |
+| authToken | recordId | getDefinitionView? |
+| $adminAuthToken | binaryGroup | ${binaryDefinition} |
+*!

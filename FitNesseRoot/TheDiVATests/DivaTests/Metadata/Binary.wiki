@@ -75,6 +75,7 @@ ${binaryDefinition}
 !include -seamless .TheDiVATests.DivaTests.Metadata.Binary.GenericBinary.ValidationType
 ----
 !2 Binary tests
+!include -seamless .TheDiVATests.DivaTests.Metadata.Binary.DefinitionTest
 !include -seamless .TheDiVATests.DivaTests.Metadata.Binary.TestEnv.Setup
 !include -seamless .TheDiVATests.DivaTests.Metadata.Binary.GenericBinary.Read
 !include -seamless .TheDiVATests.DivaTests.Metadata.Binary.Data.BinaryData
