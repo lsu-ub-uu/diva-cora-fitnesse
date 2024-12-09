@@ -1,0 +1,100 @@
+---
+Static
+---
+
+----
+!3 Read binary data tests
+ * '''Admin'''
+  * '''Case 1''': An admin should be able to read binary data of any visibility
+ * '''Guest'''
+  * '''Case 1''': A guest should be only able to read published binary data
+
+!***> Admin tests
+!***< Setup admin test case
+!define currentAuthToken {$divaSystemAdminAuthToken}
+*!
+!*** '''Case 1''': An admin should be able to read binary data of any visibility
+!5 '''Read published'''
+!***< Setup defines
+!define recordId {$publishedRecordId}
+!define expectedDownloadAnswer {}
+!define expectedDownloadStatus {OK}
+*!
+!| DownloadFixture |
+| authToken | recordType | recordId | representation | testDownload? | getStatusType?|
+| ${currentAuthToken} | binary | ${recordId} | master | ${expectedDownloadAnswer} | ${expectedDownloadStatus} |
+| ${currentAuthToken} | binary | ${recordId} | thumbnail | ${expectedDownloadAnswer} | ${expectedDownloadStatus} |
+| ${currentAuthToken} | binary | ${recordId} | medium | ${expectedDownloadAnswer} | ${expectedDownloadStatus} |
+| ${currentAuthToken} | binary | ${recordId} | large | ${expectedDownloadAnswer} | ${expectedDownloadStatus} |
+| ${currentAuthToken} | binary | ${recordId} | jp2 | ${expectedDownloadAnswer} | ${expectedDownloadStatus} |
+
+!5 '''Read unpublished'''
+!***< Setup unpublished
+!define recordId {$unpublishedRecordId}
+*!
+!| DownloadFixture |
+| authToken | recordType | recordId | representation | testDownload? | getStatusType?|
+| ${currentAuthToken} | binary | ${recordId} | master | ${expectedDownloadAnswer} | ${expectedDownloadStatus} |
+| ${currentAuthToken} | binary | ${recordId} | thumbnail | ${expectedDownloadAnswer} | ${expectedDownloadStatus} |
+| ${currentAuthToken} | binary | ${recordId} | medium | ${expectedDownloadAnswer} | ${expectedDownloadStatus} |
+| ${currentAuthToken} | binary | ${recordId} | large | ${expectedDownloadAnswer} | ${expectedDownloadStatus} |
+| ${currentAuthToken} | binary | ${recordId} | jp2 | ${expectedDownloadAnswer} | ${expectedDownloadStatus} |
+
+!5 '''Read hidden'''
+!***< Setup hidden
+!define recordId {$hiddenRecordId}
+*!
+!| DownloadFixture |
+| authToken | recordType | recordId | representation | testDownload? | getStatusType?|
+| ${currentAuthToken} | binary | ${recordId} | master | ${expectedDownloadAnswer} | ${expectedDownloadStatus} |
+| ${currentAuthToken} | binary | ${recordId} | thumbnail | ${expectedDownloadAnswer} | ${expectedDownloadStatus} |
+| ${currentAuthToken} | binary | ${recordId} | medium | ${expectedDownloadAnswer} | ${expectedDownloadStatus} |
+| ${currentAuthToken} | binary | ${recordId} | large | ${expectedDownloadAnswer} | ${expectedDownloadStatus} |
+| ${currentAuthToken} | binary | ${recordId} | jp2 | ${expectedDownloadAnswer} | ${expectedDownloadStatus} |
+*!
+*!
+!***> Guest tests
+!***< Setup guest test case
+!define currentAuthToken {$guestToken}
+*!
+!*** '''Case 1''': A guest should be only able to read published binary data
+!5 '''Read published'''
+!***< Setup published
+!define recordId {$publishedRecordId}
+!define expectedDownloadStatus {OK}
+*!
+!| DownloadFixture |
+| authToken | recordType | recordId | representation | testDownload? | getStatusType?|
+| ${currentAuthToken} | binary | ${recordId} | master | ${expectedDownloadAnswer} | ${expectedDownloadStatus} |
+| ${currentAuthToken} | binary | ${recordId} | thumbnail | ${expectedDownloadAnswer} | ${expectedDownloadStatus} |
+| ${currentAuthToken} | binary | ${recordId} | medium | ${expectedDownloadAnswer} | ${expectedDownloadStatus} |
+| ${currentAuthToken} | binary | ${recordId} | large | ${expectedDownloadAnswer} | ${expectedDownloadStatus} |
+| ${currentAuthToken} | binary | ${recordId} | jp2 | ${expectedDownloadAnswer} | ${expectedDownloadStatus} |
+
+!5 '''Read unpublished'''
+!***< Setup unpublished
+!define recordId {$unpublishedRecordId}
+!define expectedDownloadStatus {FORBIDDEN}
+*!
+!| DownloadFixture |
+| authToken | recordType | recordId | representation | testDownload? | getStatusType?|
+| ${currentAuthToken} | binary | ${recordId} | master | ${expectedDownloadAnswer} | ${expectedDownloadStatus} |
+| ${currentAuthToken} | binary | ${recordId} | thumbnail | ${expectedDownloadAnswer} | ${expectedDownloadStatus} |
+| ${currentAuthToken} | binary | ${recordId} | medium | ${expectedDownloadAnswer} | ${expectedDownloadStatus} |
+| ${currentAuthToken} | binary | ${recordId} | large | ${expectedDownloadAnswer} | ${expectedDownloadStatus} |
+| ${currentAuthToken} | binary | ${recordId} | jp2 | ${expectedDownloadAnswer} | ${expectedDownloadStatus} |
+
+!5 '''Read hidden'''
+!***< Setup hidden
+!define recordId {$hiddenRecordId}
+!define expectedDownloadStatus {FORBIDDEN}
+*!
+!| DownloadFixture |
+| authToken | recordType | recordId | representation | testDownload? | getStatusType?|
+| ${currentAuthToken} | binary | ${recordId} | master | ${expectedDownloadAnswer} | ${expectedDownloadStatus} |
+| ${currentAuthToken} | binary | ${recordId} | thumbnail | ${expectedDownloadAnswer} | ${expectedDownloadStatus} |
+| ${currentAuthToken} | binary | ${recordId} | medium | ${expectedDownloadAnswer} | ${expectedDownloadStatus} |
+| ${currentAuthToken} | binary | ${recordId} | large | ${expectedDownloadAnswer} | ${expectedDownloadStatus} |
+| ${currentAuthToken} | binary | ${recordId} | jp2 | ${expectedDownloadAnswer} | ${expectedDownloadStatus} |
+*!
+*!
