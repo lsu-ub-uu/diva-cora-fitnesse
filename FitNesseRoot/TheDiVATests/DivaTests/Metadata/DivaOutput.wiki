@@ -301,4 +301,7 @@ Test
 ${definitionToCompare}
 }}}
 
+!include -seamless .TheDiVATests.DivaTests.Metadata.DivaOutput.TestEnv.Setup
 #!include -seamless .TheDiVATests.DivaTests.Metadata.DivaOutput.DefinitionComparison
+!include -seamless .TheDiVATests.DivaTests.Metadata.DivaOutput.Read
+!include -seamless .TheDiVATests.DivaTests.Metadata.DivaOutput.TestEnv.Teardown

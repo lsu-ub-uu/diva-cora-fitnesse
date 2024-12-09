@@ -1,5 +1,5 @@
-#!***> Test divaOutputGroup definition
-#!| DefinitionCompareFixture |
-#| authToken | recordId | getDefinitionView? |
-#| $adminAuthToken | divaOutputGroup | ${definitionToCompare} |
-#*!
+!***> Test divaOutputGroup definition
+!| DefinitionCompareFixture |
+| authToken | recordId | getDefinitionView? |
+| $adminAuthToken | divaOutputGroup | ${definitionToCompare} |
+*!
