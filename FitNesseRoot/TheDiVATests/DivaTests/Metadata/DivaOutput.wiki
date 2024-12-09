@@ -3,7 +3,7 @@ Test
 ---
 !1 DivaOutput
 
-!***> definition setup
+!***< definition setup
 !define definitionToCompare {!-divaOutput (group)
 	recordInfo (group, 1-1, noConstraint)
 		id (textVariable, 0-1, noConstraint, I)
@@ -302,6 +302,6 @@ ${definitionToCompare}
 }}}
 
 !include -seamless .TheDiVATests.DivaTests.Metadata.DivaOutput.TestEnv.Setup
-#!include -seamless .TheDiVATests.DivaTests.Metadata.DivaOutput.DefinitionComparison
+!include -seamless .TheDiVATests.DivaTests.Metadata.DivaOutput.DefinitionComparison
 !include -seamless .TheDiVATests.DivaTests.Metadata.DivaOutput.Read
 !include -seamless .TheDiVATests.DivaTests.Metadata.DivaOutput.TestEnv.Teardown
