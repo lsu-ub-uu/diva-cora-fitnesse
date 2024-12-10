@@ -162,6 +162,14 @@
 					<exclude>**/*.zip</exclude>
 				</excludes>
 			</resource>
+			<resource>
+				<targetPath>FitNesseRoot</targetPath>
+				<directory>FitNesseRoot</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>files/testResources/</include>
+				</includes>
+			</resource>
 		</resources>
 		<plugins>
 			<plugin>
