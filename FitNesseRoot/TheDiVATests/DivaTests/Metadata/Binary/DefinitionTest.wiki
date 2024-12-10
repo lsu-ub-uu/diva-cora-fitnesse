@@ -3,4 +3,6 @@
 !| DefinitionCompareFixture |
 | authToken | recordId | getDefinitionView? |
 | $adminAuthToken | binaryGroup | ${binaryDefinition} |
+| $adminAuthToken | genericBinaryNewGroup | ${genericBinaryNewGroupDefinition} |
+| $adminAuthToken | genericBinaryUpdateGroup | ${genericBinaryUpdateGroupDefinition} |
 *!
