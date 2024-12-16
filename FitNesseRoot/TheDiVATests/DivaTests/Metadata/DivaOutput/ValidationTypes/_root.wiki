@@ -6,4 +6,5 @@ Static
 !1 Validation types for diva-output
  * [[publication_report][#publication_report]]
  
+ !anchor publication_report
 !include -seamless .TheDiVATests.DivaTests.Metadata.DivaOutput.ValidationTypes.Publication_Report

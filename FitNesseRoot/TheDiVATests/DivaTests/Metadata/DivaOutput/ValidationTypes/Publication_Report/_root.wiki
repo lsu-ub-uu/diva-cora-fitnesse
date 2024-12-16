@@ -1,7 +1,6 @@
 ---
 Static
 ---
-!anchor publication_report
 !2 publication_report
 Specifies that the publication is of the type report, either published independently or as part of a report series.
 
