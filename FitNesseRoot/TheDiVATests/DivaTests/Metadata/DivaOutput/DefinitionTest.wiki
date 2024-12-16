@@ -1,7 +1,10 @@
+---
+Static
+---
 !3 Definition test 
 !5 !style_red[''Disabled until stable definition is reached'']
 !***> DivaOutputGroup definition test
 #!| DefinitionCompareFixture |
 #| authToken | recordId | getDefinitionView? |
-#| $adminAuthToken | divaOutputGroup | ${definitionToCompare} |
+#| $adminAuthToken | divaOutputGroup | ${divaOutputDefinition} |
 *!

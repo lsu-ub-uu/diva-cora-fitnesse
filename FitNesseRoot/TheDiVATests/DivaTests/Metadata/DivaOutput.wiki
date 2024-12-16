@@ -1,10 +1,11 @@
 ---
+Help: Tests for diva-output and it's validation types
 Test
 ---
-!1 DivaOutput
+!1 Diva-Output
 
 !***< definition setup
-!define definitionToCompare {!-output (group)
+!define divaOutputDefinition {!-output (group)
 	recordInfo (group, 1-1, noConstraint)
 		validationType {diva-output} (recordLink, 1-1, noConstraint)
 		dataDivider {divaData} (recordLink, 1-1, noConstraint)
@@ -258,12 +259,21 @@ Test
 		visibility (collectionVariable, 1-1, noConstraint, P)
 		tsVisibility (textVariable, 0-1, write)-!}
 *!
-!4 Definition of divaOutput
+!4 Definition of diva-output
 {{{
-${definitionToCompare}
+${divaOutputDefinition}
 }}}
 
+!2 Diva-output tests
+#### Setup
 !include -seamless .TheDiVATests.DivaTests.Metadata.DivaOutput.TestEnv.Setup
+
+#### diva-output
 !include -seamless .TheDiVATests.DivaTests.Metadata.DivaOutput.DefinitionTest
 !include -seamless .TheDiVATests.DivaTests.Metadata.DivaOutput.Read
+
+#### validation types
+!include -seamless .TheDiVATests.DivaTests.Metadata.DivaOutput.ValidationTypes
+
+#### Tear down
 !include -seamless .TheDiVATests.DivaTests.Metadata.DivaOutput.TestEnv.Teardown

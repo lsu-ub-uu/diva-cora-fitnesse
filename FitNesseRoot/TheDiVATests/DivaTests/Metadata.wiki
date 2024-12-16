@@ -1,0 +1,5 @@
+---
+Help: Metadata tests for Diva
+Suite
+---
+!contents -R3 -g -p -f -h
