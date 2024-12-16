@@ -1,7 +1,8 @@
 ---
 Static
 ---
-!***> Create test data for READ tests
+!***> Diva-output test setup
+!***> diva-output data
 !define recordType {diva-output}
 !define expectedCreateResult {CREATED}
 
@@ -14,4 +15,22 @@ Static
 | $divaSystemAdminAuthToken | ${recordType} | ${divaOutputPublished} |  | ${expectedCreateResult} | $publishedRecord= |
 | $divaSystemAdminAuthToken | ${recordType} | ${divaOutputUnpublished} |  | ${expectedCreateResult} | $unpublishedRecord= |
 | $divaSystemAdminAuthToken | ${recordType} | ${divaOutputHidden} |  | ${expectedCreateResult} | $hiddenRecord= |
+*!
+##
+###### Validation type setup(s)
+##
+!***> publication_report data
+!define recordType {diva-output}
+!define expectedCreateResult {CREATED}
+
+!define publicationReportPublished {!-{"name":"report","children":[{"name":"recordInfo","children":[{"name":"validationType","children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"publication_report"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"divaData"}]},{"name":"recordContentSource","value":"uu"},{"name":"genre","value":"publication_report","attributes":{"type":"outputType"}}]},{"name":"language","repeatId":"0","children":[{"name":"languageTerm","value":"swe","attributes":{"type":"code","authority":"iso639-2b"}}]},{"name":"genre","value":"ref","attributes":{"type":"contentType"}},{"name":"artisticWork","value":"artistic-work","attributes":{"type":"outputType"}},{"name":"titleInfo","children":[{"name":"title","value":"fitnessePublicationReport1"}],"attributes":{"lang":"swe"}},{"name":"admin","children":[{"name":"reviewed","value":"true"}]},{"name":"adminInfo","children":[{"name":"visibility","value":"published"}]}]}-!}
+!define publicationReportUnpublished {!-{"name":"report","children":[{"name":"recordInfo","children":[{"name":"validationType","children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"publication_report"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"divaData"}]},{"name":"recordContentSource","value":"uu"},{"name":"genre","value":"publication_report","attributes":{"type":"outputType"}}]},{"name":"language","repeatId":"0","children":[{"name":"languageTerm","value":"swe","attributes":{"type":"code","authority":"iso639-2b"}}]},{"name":"genre","value":"ref","attributes":{"type":"contentType"}},{"name":"artisticWork","value":"artistic-work","attributes":{"type":"outputType"}},{"name":"titleInfo","children":[{"name":"title","value":"fitnessePublicationReport2"}],"attributes":{"lang":"swe"}},{"name":"admin","children":[{"name":"reviewed","value":"true"}]},{"name":"adminInfo","children":[{"name":"visibility","value":"unpublished"}]}]}-!}
+!define publicationReportHidden {!-{"name":"report","children":[{"name":"recordInfo","children":[{"name":"validationType","children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"publication_report"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"divaData"}]},{"name":"recordContentSource","value":"uu"},{"name":"genre","value":"publication_report","attributes":{"type":"outputType"}}]},{"name":"language","repeatId":"0","children":[{"name":"languageTerm","value":"swe","attributes":{"type":"code","authority":"iso639-2b"}}]},{"name":"genre","value":"ref","attributes":{"type":"contentType"}},{"name":"artisticWork","value":"artistic-work","attributes":{"type":"outputType"}},{"name":"titleInfo","children":[{"name":"title","value":"fitnessePublicationReport3"}],"attributes":{"lang":"swe"}},{"name":"admin","children":[{"name":"reviewed","value":"true"}]},{"name":"adminInfo","children":[{"name":"visibility","value":"hidden"}]}]}-!}
+
+!| ChildComparerFixture |
+| authToken | type | json | testCreateAndStoreRecord? | getStatusType? | getCreatedId? |
+| $divaSystemAdminAuthToken | ${recordType} | ${publicationReportPublished} |  | ${expectedCreateResult} | $publishedPublicationReportRecord= |
+| $divaSystemAdminAuthToken | ${recordType} | ${publicationReportUnpublished} |  | ${expectedCreateResult} | $unpublishedPublicationReportRecord= |
+| $divaSystemAdminAuthToken | ${recordType} | ${publicationReportHidden} |  | ${expectedCreateResult} | $hiddenPublicationReportRecord= |
+*!
 *!

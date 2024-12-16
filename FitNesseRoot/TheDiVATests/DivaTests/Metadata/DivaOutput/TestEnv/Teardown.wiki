@@ -1,7 +1,8 @@
 ---
 Static
 ---
-!***> Clean up READ test data
+----
+!***< Clean up diva-output test data
 !| Table:smartrics.rest.fitnesse.fixture.RestFixture|${systemUnderTestUrl}rest/    |
 | setHeader | Accept:application/vnd.uub.record+json!-
 -!Content-Type:application/vnd.uub.record+json!-
@@ -9,4 +10,7 @@ Static
 | DELETE | /record/diva-output/$publishedRecord | 200 | | |
 | DELETE | /record/diva-output/$unpublishedRecord | 200 | | |
 | DELETE | /record/diva-output/$hiddenRecord | 200 | | |
+| DELETE | /record/diva-output/$publishedPublicationReportRecord | 200 | | |
+| DELETE | /record/diva-output/$unpublishedPublicationReportRecord | 200 | | |
+| DELETE | /record/diva-output/$hiddenPublicationReportRecord | 200 | | |
 *!
