@@ -2,8 +2,7 @@
 Static
 ---
 
-----
-!3 Read tests
+!3 Read diva-output tests
  * '''Admin'''
   * '''Case 1''': An admin should be able to list diva-output of any visibility
   * '''Case 2''': An admin should be able to read diva-output of any visibility

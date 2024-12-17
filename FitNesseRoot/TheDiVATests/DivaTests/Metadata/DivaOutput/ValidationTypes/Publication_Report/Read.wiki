@@ -2,7 +2,7 @@
 Static
 ---
 
-!3 publication_report read tests
+!3 Read publication_report tests
  * '''Admin'''
   * '''Case 1''': An admin should be able to list publication_report of any visibility
   * '''Case 2''': An admin should be able to read publication_report of any visibility
