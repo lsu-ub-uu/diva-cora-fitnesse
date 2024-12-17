@@ -1,0 +1,5 @@
+---
+Static
+---
+----
+!include -seamless .TheDiVATests.DivaTests.Metadata.Binary.Iiif.IiifProtocol

@@ -10,6 +10,6 @@ Metadata group for binary data
 !include -seamless .TheDiVATests.DivaTests.Metadata.Binary.TestEnv.Setup
 !include -seamless .TheDiVATests.DivaTests.Metadata.Binary.Definition
 !include -seamless .TheDiVATests.DivaTests.Metadata.Binary.ValidationTypes
-!include -seamless .TheDiVATests.DivaTests.Metadata.Binary.Data.BinaryData
-!include -seamless .TheDiVATests.DivaTests.Metadata.Binary.Iiif.Iiif
+!include -seamless .TheDiVATests.DivaTests.Metadata.Binary.Data
+!include -seamless .TheDiVATests.DivaTests.Metadata.Binary.Iiif
 !include -seamless .TheDiVATests.DivaTests.Metadata.Binary.TestEnv.Teardown
