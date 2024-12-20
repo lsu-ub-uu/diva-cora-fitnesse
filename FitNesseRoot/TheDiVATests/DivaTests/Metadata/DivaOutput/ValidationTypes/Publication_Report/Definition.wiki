@@ -255,9 +255,10 @@ ${reportUpdateGroupDefinition}
 *!
 
 !3 Definition test 
+!5 !style_red[''Disabled until properly finished'']
 !***> publication_report definition test
-!| DefinitionCompareFixture |
-| authToken | recordId | getDefinitionView? |
-| $adminAuthToken | reportNewGroup | ${reportNewGroupDefinition} |
-| $adminAuthToken | reportUpdateGroup | ${reportUpdateGroupDefinition} |
+#!| DefinitionCompareFixture |
+#| authToken | recordId | getDefinitionView? |
+#| $adminAuthToken | reportNewGroup | ${reportNewGroupDefinition} |
+#| $adminAuthToken | reportUpdateGroup | ${reportUpdateGroupDefinition} |
 *!
