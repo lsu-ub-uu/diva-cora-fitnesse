@@ -6,7 +6,7 @@ Test
 Diva-output description text
 
 #### Setup
-!include -seamless .TheDiVATests.DivaTests.Metadata.DivaOutput.TestEnv.Setup
+#!include -seamless .TheDiVATests.DivaTests.Metadata.DivaOutput.TestEnv.Setup
 
 Tests temporally paused until diva-output is more stable.
 #### diva-output
@@ -17,4 +17,4 @@ Tests temporally paused until diva-output is more stable.
 #!include -seamless .TheDiVATests.DivaTests.Metadata.DivaOutput.ValidationTypes
 
 #### Tear down
-!include -seamless .TheDiVATests.DivaTests.Metadata.DivaOutput.TestEnv.Teardown
+#!include -seamless .TheDiVATests.DivaTests.Metadata.DivaOutput.TestEnv.Teardown
