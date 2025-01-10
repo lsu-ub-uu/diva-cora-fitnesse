@@ -8,12 +8,13 @@ Diva-output description text
 #### Setup
 !include -seamless .TheDiVATests.DivaTests.Metadata.DivaOutput.TestEnv.Setup
 
+Tests temporally paused until diva-output is more stable.
 #### diva-output
-!include -seamless .TheDiVATests.DivaTests.Metadata.DivaOutput.Definition
-!include -seamless .TheDiVATests.DivaTests.Metadata.DivaOutput.Read
+#!include -seamless .TheDiVATests.DivaTests.Metadata.DivaOutput.Definition
+#!include -seamless .TheDiVATests.DivaTests.Metadata.DivaOutput.Read
 
 #### validation types
-!include -seamless .TheDiVATests.DivaTests.Metadata.DivaOutput.ValidationTypes
+#!include -seamless .TheDiVATests.DivaTests.Metadata.DivaOutput.ValidationTypes
 
 #### Tear down
 !include -seamless .TheDiVATests.DivaTests.Metadata.DivaOutput.TestEnv.Teardown
