@@ -10,18 +10,18 @@ Test
 !2 Login for DiVA example users
 !***> Hämta authTokens från idpLogin server
 !| IdpLoginServletFixture |
-| EPPN | getAuthTokenForEPPN? | getLoginId? | getResponseCode? | getAuthToken? | getValidForNoSeconds? | getDeleteUrl? |
-| fitnesseSystemAdmin@user.uu.se | | fitnesseSystemAdmin@user.uu.se | OK | $fitnesseAdminAuthToken= | | $fitnesseAdminAuthTokenDeleteUrl= |
-| fitnesseDomainAdminUU@user.uu.se | | fitnesseDomainAdminUU@user.uu.se | OK | $domainAdminUUAuthToken= | | $domainAdminUUAuthTokenDeleteUrl= |
-| fitnesseDomainAdminKTH@user.kth.se | | fitnesseDomainAdminKTH@user.kth.se | OK | $domainAdminKTHAuthToken= | | $domainAdminKTHAuthTokenDeleteUrl= |
-| userNotInDb@user.uu.se | | divaguest@system.cora.uu.se | OK | $fitnesseGuestAuthToken= | | $fitnesseGuestAuthTokenDeleteUrl= |
+| EPPN | getAuthTokenForEPPN? | getLoginId? | getResponseCode? | getAuthToken? | getFirstName? | getLastName? | getValidUntil? | getRenewUntil? | getTokenIdUrl? |
+| fitnesseSystemAdmin@user.uu.se | | fitnesseSystemAdmin@user.uu.se | OK | $fitnesseAdminAuthToken= | | | =~/\d{13}/ | =~/\d{13}/ | $fitnesseAdminAuthTokenIdUrl= |
+| fitnesseDomainAdminUU@user.uu.se | | fitnesseDomainAdminUU@user.uu.se | OK | $domainAdminUUAuthToken= | | | =~/\d{13}/ | =~/\d{13}/ | $domainAdminUUAuthTokenIdUrl= |
+| fitnesseDomainAdminKTH@user.kth.se | | fitnesseDomainAdminKTH@user.kth.se | OK | $domainAdminKTHAuthToken= | | | =~/\d{13}/ | =~/\d{13}/ | $domainAdminKTHAuthTokenIdUrl= |
+| userNotInDb@user.uu.se | | divaguest@system.cora.uu.se | OK | $fitnesseGuestAuthToken= | | | =~/\d{13}/ | =~/\d{13}/ | $fitnesseGuestAuthTokenIdUrl= |
 
 *!
 !***> Logout
 !| AppTokenEndpointFixture |
 | authTokenToLogOut | deleteUrl | removeAuthTokenForUser? | getStatusType? |
-| $fitnesseAdminAuthToken | $fitnesseAdminAuthTokenDeleteUrl| | OK |
-| $domainAdminUUAuthToken | $domainAdminUUAuthTokenDeleteUrl| | OK |
-| $domainAdminKTHAuthToken | $domainAdminKTHAuthTokenDeleteUrl| | OK |
-| $fitnesseGuestAuthToken | $fitnesseGuestAuthTokenDeleteUrl| | OK |
+| $fitnesseAdminAuthToken | $fitnesseAdminAuthTokenIdUrl| | OK |
+| $domainAdminUUAuthToken | $domainAdminUUAuthTokenIdUrl| | OK |
+| $domainAdminKTHAuthToken | $domainAdminKTHAuthTokenIdUrl| | OK |
+| $fitnesseGuestAuthToken | $fitnesseGuestAuthTokenIdUrl| | OK |
 *!
