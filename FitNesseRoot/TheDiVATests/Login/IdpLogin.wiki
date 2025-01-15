@@ -11,10 +11,10 @@ Test
 !***> Hämta authTokens från idpLogin server
 !| IdpLoginServletFixture |
 | EPPN | getAuthTokenForEPPN? | getLoginId? | getResponseCode? | getAuthToken? | getFirstName? | getLastName? | getValidUntil? | getRenewUntil? | getTokenIdUrl? |
-| fitnesseSystemAdmin@user.uu.se | | fitnesseSystemAdmin@user.uu.se | OK | $fitnesseAdminAuthToken= | | | =~/\d{13}/ | =~/\d{13}/ | $fitnesseAdminAuthTokenIdUrl= |
-| fitnesseDomainAdminUU@user.uu.se | | fitnesseDomainAdminUU@user.uu.se | OK | $domainAdminUUAuthToken= | | | =~/\d{13}/ | =~/\d{13}/ | $domainAdminUUAuthTokenIdUrl= |
-| fitnesseDomainAdminKTH@user.kth.se | | fitnesseDomainAdminKTH@user.kth.se | OK | $domainAdminKTHAuthToken= | | | =~/\d{13}/ | =~/\d{13}/ | $domainAdminKTHAuthTokenIdUrl= |
-| userNotInDb@user.uu.se | | divaguest@system.cora.uu.se | OK | $fitnesseGuestAuthToken= | | | =~/\d{13}/ | =~/\d{13}/ | $fitnesseGuestAuthTokenIdUrl= |
+| fitnesseSystemAdmin@user.uu.se | | fitnesseSystemAdmin@user.uu.se | OK | $fitnesseAdminAuthToken= | someFirstName | someLastName | =~/\d{13}/ | =~/\d{13}/ | $fitnesseAdminAuthTokenIdUrl= |
+| fitnesseDomainAdminUU@user.uu.se | | fitnesseDomainAdminUU@user.uu.se | OK | $domainAdminUUAuthToken= | someFirstName | someLastName | =~/\d{13}/ | =~/\d{13}/ | $domainAdminUUAuthTokenIdUrl= |
+| fitnesseDomainAdminKTH@user.kth.se | | fitnesseDomainAdminKTH@user.kth.se | OK | $domainAdminKTHAuthToken= | someFirstName | someLastName | =~/\d{13}/ | =~/\d{13}/ | $domainAdminKTHAuthTokenIdUrl= |
+| userNotInDb@user.uu.se | | divaguest@system.cora.uu.se | OK | $fitnesseGuestAuthToken= | someFirstName | someLastName | =~/\d{13}/ | =~/\d{13}/ | $fitnesseGuestAuthTokenIdUrl= |
 
 *!
 !***> Logout
