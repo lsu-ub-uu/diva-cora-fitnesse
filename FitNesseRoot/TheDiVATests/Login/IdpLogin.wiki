@@ -10,18 +10,18 @@ Test
 !2 Login for DiVA example users
 !***> Hämta authTokens från idpLogin server
 !| IdpLoginServletFixture |
-| EPPN | getAuthTokenForEPPN? | getLoginId? | getResponseCode? | getAuthToken? | getFirstName? | getLastName? | getValidUntil? | getRenewUntil? | getTokenIdUrl? |
-| fitnesseSystemAdmin@user.uu.se | | fitnesseSystemAdmin@user.uu.se | OK | $fitnesseAdminAuthToken= | someFirstName | someLastName | =~/\d{13}/ | =~/\d{13}/ | $fitnesseAdminAuthTokenIdUrl= |
+| EPPN | getAuthTokenForEPPN? | getLoginId? | getResponseCode? | getAuthToken? | getFirstName? | getLastName? | getValidUntil? | getRenewUntil? | getDeleteUrl? |
+| fitnesseSystemAdmin@user.uu.se | | fitnesseSystemAdmin@user.uu.se | OK | $fitnesseAdminAuthToken= | someFirstName | someLastName | =~/\d{13}/ | =~/\d{13}/ | $fitnesseAdminAuthTokenDeleteUrl= |
 | fitnesseDomainAdminUU@user.uu.se | | fitnesseDomainAdminUU@user.uu.se | OK | $domainAdminUUAuthToken= | someFirstName | someLastName | =~/\d{13}/ | =~/\d{13}/ | $domainAdminUUAuthTokenIdUrl= |
 | fitnesseDomainAdminKTH@user.kth.se | | fitnesseDomainAdminKTH@user.kth.se | OK | $domainAdminKTHAuthToken= | someFirstName | someLastName | =~/\d{13}/ | =~/\d{13}/ | $domainAdminKTHAuthTokenIdUrl= |
-| userNotInDb@user.uu.se | | divaguest@system.cora.uu.se | OK | $fitnesseGuestAuthToken= | someFirstName | someLastName | =~/\d{13}/ | =~/\d{13}/ | $fitnesseGuestAuthTokenIdUrl= |
+| userNotInDb@user.uu.se | | divaguest@system.cora.uu.se | OK | $fitnesseGuestAuthToken= | someFirstName | someLastName | =~/\d{13}/ | =~/\d{13}/ | $fitnesseGuestAuthTokenDeleteUrl= |
 
 *!
 !***> Logout
 !| AppTokenEndpointFixture |
 | authTokenToLogOut | deleteUrl | removeAuthTokenForUser? | getStatusType? |
-| $fitnesseAdminAuthToken | $fitnesseAdminAuthTokenIdUrl| | OK |
+| $fitnesseAdminAuthToken | $fitnesseAdminAuthTokenDeleteUrl| | OK |
 | $domainAdminUUAuthToken | $domainAdminUUAuthTokenIdUrl| | OK |
 | $domainAdminKTHAuthToken | $domainAdminKTHAuthTokenIdUrl| | OK |
-| $fitnesseGuestAuthToken | $fitnesseGuestAuthTokenIdUrl| | OK |
+| $fitnesseGuestAuthToken | $fitnesseGuestAuthTokenDeleteUrl| | OK |
 *!
