@@ -1,6 +1,0 @@
----
-Static
----
-
-!2 Validation types for binary
-!include -seamless .TheDiVATests.DivaTests.Metadata.Binary.ValidationTypes.GenericBinary

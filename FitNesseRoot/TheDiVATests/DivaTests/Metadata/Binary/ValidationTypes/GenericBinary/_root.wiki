@@ -1,8 +1,0 @@
----
-Static
----
-!3 genericBinary
-GenericBinary is the only validation type that is available for Binaries, therefor genericBinary can hold information for all kind of resources. 
-
-!include -seamless .TheDiVATests.DivaTests.Metadata.Binary.ValidationTypes.GenericBinary.Definition
-!include -seamless .TheDiVATests.DivaTests.Metadata.Binary.ValidationTypes.GenericBinary.Read
