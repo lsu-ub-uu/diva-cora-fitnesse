@@ -46,7 +46,7 @@ Static
 !define divaRecordSearchData {!-%7B%22name%22%3A%22search%22%2C%22children%22%3A%5B%7B%22name%22%3A%22include%22%2C%22children%22%3A%5B%7B%22name%22%3A%22includePart%22%2C%22children%22%3A%5B%7B%22name%22%3A%22recordIdSearchTerm%22%2C%22value%22%3A%22%2A%2A%22%7D%5D%7D%5D%7D%5D%7D-!}
 *!
 #!| Table:smartrics.rest.fitnesse.fixture.RestFixture|${systemUnderTestUrl}rest/    |
-#| setHeader | Accept:application/vnd.uub.recordList+json|
+#| setHeader | Accept:application/vnd.cora.recordList+json|
 #| GET | /record/searchResult/diva-outputSearch?searchData=${divaRecordSearchData} | 200 | | |
 #| let | searchResult | js | response.body |  |
 #!| script | ExtractSubstringUsingRegex |

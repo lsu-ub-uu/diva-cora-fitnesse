@@ -4,8 +4,8 @@ Static
 ----
 !***< Clean up diva-output test data
 !| Table:smartrics.rest.fitnesse.fixture.RestFixture|${systemUnderTestUrl}rest/    |
-| setHeader | Accept:application/vnd.uub.record+json!-
--!Content-Type:application/vnd.uub.record+json!-
+| setHeader | Accept:application/vnd.cora.record+json!-
+-!Content-Type:application/vnd.cora.record+json!-
 -!authToken:$divaAdminAuthToken |
 | DELETE | /record/diva-output/$publishedRecord | 200 | | |
 | DELETE | /record/diva-output/$unpublishedRecord | 200 | | |
