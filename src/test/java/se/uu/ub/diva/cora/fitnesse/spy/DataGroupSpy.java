@@ -258,4 +258,10 @@ public class DataGroupSpy implements DataGroup {
 		return Optional.empty();
 	}
 
+	@Override
+	public <T extends DataChild> List<T> getChildrenOfType(Class<T> type) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
