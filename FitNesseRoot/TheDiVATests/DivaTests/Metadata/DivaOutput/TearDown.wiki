@@ -2,7 +2,7 @@
 Static
 ---
 ----
-!***< Clean up diva-output test data
+!***> Clean up diva-output test data
 !| Table:smartrics.rest.fitnesse.fixture.RestFixture|${systemUnderTestUrl}rest/    |
 | setHeader | authToken:$divaAdminAuthToken |
 | DELETE | /record/diva-output/$publishedRecord | 200 | | |

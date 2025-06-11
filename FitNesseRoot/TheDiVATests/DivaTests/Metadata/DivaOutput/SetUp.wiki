@@ -1,7 +1,7 @@
 ---
 Static
 ---
-!***< Diva-output test setup
+!***> Diva-output test setup
 !***> diva-output data
 !define recordType {diva-output}
 !define expectedCreateResult {CREATED}

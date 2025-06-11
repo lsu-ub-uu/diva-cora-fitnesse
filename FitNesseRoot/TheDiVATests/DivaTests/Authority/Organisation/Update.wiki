@@ -429,7 +429,7 @@ Systemadmin får uppdatera organisationer från alla domäner förutom fältet '
  * '''Fall 3:''' !-SystemAdmin ska kunna uppdatera en subOrganisation från alla domäner.-!
 
 !define currentAuthToken {$systemAdminAuthToken}
-!***< '''Fall 1'''
+!***>> '''Fall 1'''
 
 !-Uppdatera en rootOrganisation från domän UU, som en systemAdmin och se att alla fält är uppdaterade utom domain som inte får ändras.-!
 

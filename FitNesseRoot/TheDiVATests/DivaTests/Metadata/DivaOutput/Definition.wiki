@@ -1,7 +1,7 @@
 ---
 Static
 ---
-!***< definition setup
+!***> definition setup
 !define divaOutputDefinition {!-output (group)
 	recordInfo (group, 1-1, noConstraint)
 		id (textVariable, 1-1, noConstraint, I)

@@ -11,7 +11,7 @@ Static
   * '''Case 2''': A guest should be only able to read published records
 
 !***> Admin tests
-!***< Setup admin test case
+!***> Setup admin test case
 !define currentAuthToken {$divaSystemAdminAuthToken}
 !define recordId {$hiddenRecord}
 
@@ -32,7 +32,7 @@ Static
 *!
 *!
 !***> Guest tests
-!***< Setup guest test case
+!***> Setup guest test case
 !define currentAuthToken {$guestToken}
 !define recordId {$publishedRecord}
 
@@ -42,7 +42,7 @@ Static
 *!
 !*** '''Case 1''': A guest should only be able to search published records
 !5 !style_red[''Disabled until search is properly implemented'']
-!***< Setup searchData
+!***> Setup searchData
 !define divaRecordSearchData {!-%7B%22name%22%3A%22search%22%2C%22children%22%3A%5B%7B%22name%22%3A%22include%22%2C%22children%22%3A%5B%7B%22name%22%3A%22includePart%22%2C%22children%22%3A%5B%7B%22name%22%3A%22recordIdSearchTerm%22%2C%22value%22%3A%22%2A%2A%22%7D%5D%7D%5D%7D%5D%7D-!}
 *!
 *!
