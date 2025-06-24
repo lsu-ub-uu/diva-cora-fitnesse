@@ -35,10 +35,10 @@
 		<coralog4j.version>2.16.0</coralog4j.version>
 		<json.version>3.10.0</json.version>
 		<httphandler.version>2.17.0</httphandler.version>
-		<fitnesseintegration.version>5.10.0</fitnesseintegration.version>
+		<fitnesseintegration.version>5.11.0</fitnesseintegration.version>
 		<javax.ws.rs.version>2.1.1</javax.ws.rs.version>
-		<coradata.version>10.4.0</coradata.version>
-		<basicdata.version>6.9.0</basicdata.version>
+		<coradata.version>11.0.0</coradata.version>
+		<basicdata.version>7.0.0</basicdata.version>
 		<classicfedorasynchronizer.version>1.15.0</classicfedorasynchronizer.version>
 		<xmlutils.version>1.15.0</xmlutils.version>
 		<commons-text.version>1.13.1</commons-text.version>
