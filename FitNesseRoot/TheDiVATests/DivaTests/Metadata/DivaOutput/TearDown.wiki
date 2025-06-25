@@ -3,12 +3,12 @@ Static
 ---
 ----
 !***> Clean up diva-output test data
-!| Table:smartrics.rest.fitnesse.fixture.RestFixture|${systemUnderTestUrl}rest/    |
-| setHeader | authToken:$divaAdminAuthToken |
-| DELETE | /record/diva-output/$publishedRecord | 200 | | |
-| DELETE | /record/diva-output/$unpublishedRecord | 200 | | |
-| DELETE | /record/diva-output/$hiddenRecord | 200 | | |
-| DELETE | /record/diva-output/$publishedPublicationReportRecord | 200 | | |
-| DELETE | /record/diva-output/$unpublishedPublicationReportRecord | 200 | | |
-| DELETE | /record/diva-output/$hiddenPublicationReportRecord | 200 | | |
+!| RecordEndpointFixture |
+|authToken|type|id|testDeleteRecord?|getStatusType?|
+|$divaAdminAuthToken|diva-output|$publishedRecord||OK|
+|$divaAdminAuthToken|diva-output|$unpublishedRecord||OK|
+|$divaAdminAuthToken|diva-output|$hiddenRecord||OK|
+|$divaAdminAuthToken|diva-output|$publishedPublicationReportRecord||OK|
+|$divaAdminAuthToken|diva-output|$unpublishedPublicationReportRecord||OK|
+|$divaAdminAuthToken|diva-output|$hiddenPublicationReportRecord||OK|
 *!
