@@ -1,0 +1,46 @@
+---
+Static
+---
+!2 Metadata för ${template_recordType} posttyp
+
+!***< Varibaler
+!define definition_description {definition}
+!define definition_groupId {${template_groupUpdate}}
+!define definition_definition {${template_definitionUpdate}}
+*!
+!4 ${template_recordType}, ${definition_description}
+!include -seamless .HelperPages.definitionCheck
+
+!3 Roller
+Notera att rättigheterna som kontrolleras i det här avsnittet gäller, vilka rättigheter man har på postTypen inte enstaka poster. Rättigheterna för enstaka poster kontrolleras under de olika testerna för rättigheter så som read, update, etc.
+!***< Varibaler
+!define currentRecordType {${template_recordType}}
+*!
+
+!4 !-SystemAdmin-!
+!-SystemAdmin har tillgång till validate, list och search för person postTypen-!
+
+!***> Kontrollera de actions systemAdmin får med i recordType för person
+!define currentAuthToken {${template_systemAdmin_userAuthToken}}
+!define expectedPermissionResult {${template_systemAdmin_expectedPermissionResult}}
+!include -seamless .TheDiVATests.DivaTests.checkActionsForRecordType
+*!
+
+!4 !-DomainAdmin-!
+!-DomainAdmin har tillgång till validate och search för person  postTypen-!
+
+!***> Kontrollera de actions domainAdmin får med i recordType för person
+!define currentAuthToken {${template_domainAdmin_userAuthToken}}
+!define expectedPermissionResult {${template_domainAdmin_expectedPermissionResult}}
+!include -seamless .TheDiVATests.DivaTests.checkActionsForRecordType
+*!
+
+!4 !-Guest-!
+!-Guest har tillgång till search för person postTypen-!
+
+!***> Kontrollera de actions guest får med i recordType för person
+!define currentAuthToken {${template_guest_userAuthToken}}
+!define expectedPermissionResult {${template_guest_expectedPermissionResult}}
+!define expectedPermissionResult {Action update is missing. Action delete is missing. Action index is missing. Action create is missing. Action validate is missing. Action list is missing. Action batch_index is missing.}
+!include -seamless .TheDiVATests.DivaTests.checkActionsForRecordType
+*!

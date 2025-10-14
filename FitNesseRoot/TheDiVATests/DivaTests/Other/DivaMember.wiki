@@ -1,0 +1,9 @@
+---
+Test
+---
+
+!include -c <Other.DivaMemberData.common
+!include -c <Other.DivaMemberData.recordType
+!include -c <Other.DivaMemberData.validationType
+
+!include -seamless .HelperPages.Templates.RecordTypeTemplate

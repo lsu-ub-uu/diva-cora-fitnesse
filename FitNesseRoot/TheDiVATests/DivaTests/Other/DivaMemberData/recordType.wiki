@@ -1,0 +1,55 @@
+---
+Static
+---
+!define template_recordType {diva-member}
+!define template_description { Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus feugiat nulla in dui fermentum, vitae porttitor leo efficitur. Etiam sagittis bibendum mi, vel tempor velit mattis tincidunt. Fusce commodo vitae risus id finibus. Curabitur non pulvinar lacus. Curabitur finibus, est id lacinia volutpat, massa tellus feugiat est, sed tempus est nibh vel elit. Proin suscipit convallis sem vitae maximus. Fusce volutpat enim quis efficitur auctor. Aliquam id massa ac eros finibus egestas in eu ex. Suspendisse molestie varius posuere. Praesent nulla metus, suscipit a lectus sit amet, efficitur fringilla nisl. In accumsan risus quis lorem hendrerit, at laoreet arcu euismod.
+
+Maecenas ut egestas sapien. Praesent rutrum feugiat felis non lacinia. Cras sodales magna sit amet consectetur commodo. Donec varius ipsum in quam condimentum faucibus. Nam velit dui, porta vel commodo nec, lobortis finibus est. Vivamus vehicula id ipsum a condimentum. Pellentesque aliquam mattis rutrum. }
+
+
+!define template_groupUpdate {diva-memberGroup}
+!define template_definitionUpdate {!-diva-member (group)
+	recordInfo (group, 1-1, noConstraint)
+		id (textVariable, 1-1, noConstraint, I)
+		type {diva-member} (recordLink, 1-1, noConstraint)
+		validationType {diva-member} (recordLink, 1-1, noConstraint)
+		dataDivider {diva} (recordLink, 1-1, noConstraint, P, I)
+		createdBy (recordLink, 1-1, noConstraint)
+		permissionUnit (recordLink, 1-1, noConstraint)
+		tsCreated (textVariable, 1-1, noConstraint)
+		updated (group, 1-X, noConstraint)
+			updatedBy (recordLink, 1-1, noConstraint)
+			tsUpdated (textVariable, 1-1, noConstraint)
+	memberPermissionUnit (recordLink, 0-1, noConstraint)
+	backgroundColor (textVariable, 1-1, noConstraint)
+	textColor (textVariable, 1-1, noConstraint)
+	logo (recordLink, 0-1, noConstraint)
+	logoSvg (textVariable, 0-1, noConstraint)
+	linkAdmin (group, 0-3, noConstraint)
+		linkSv (group, 1-1, noConstraint)
+			url (textVariable, 1-1, noConstraint)
+			displayLabel (textVariable, 1-1, noConstraint)
+		linkEn (group, 1-1, noConstraint)
+			url (textVariable, 1-1, noConstraint)
+			displayLabel (textVariable, 1-1, noConstraint)
+	linkPublic (group, 0-3, noConstraint)
+		linkSv (group, 1-1, noConstraint)
+			url (textVariable, 1-1, noConstraint)
+			displayLabel (textVariable, 1-1, noConstraint)
+		linkEn (group, 1-1, noConstraint)
+			url (textVariable, 1-1, noConstraint)
+			displayLabel (textVariable, 1-1, noConstraint)
+	pageTitleSv (textVariable, 1-1, noConstraint)
+	pageTitleEn (textVariable, 1-1, noConstraint)
+	hostname (textVariable, 1-X, noConstraint, P)
+	loginUnit (recordLink, 1-X, noConstraint)-!}
+
+ROLLER
+!define template_systemAdmin_userAuthToken {$systemAdminAuthToken}
+!define template_systemAdmin_expectedPermissionResult {Action update is missing. Action delete is missing. Action index is missing. Action create is missing. Action validate is missing. Action batch_index is missing.}
+
+!define template_domainAdmin_userAuthToken {$domainAdminUUAuthToken}
+!define template_domainAdmin_expectedPermissionResult {Action update is missing. Action delete is missing. Action index is missing. Action create is missing. Action validate is missing. Action batch_index is missing.}
+
+!define template_guest_userAuthToken {$guestToken}
+!define template_guest_expectedPermissionResult {Action update is missing. Action delete is missing. Action index is missing. Action create is missing. Action validate is missing. Action list is missing. Action batch_index is missing.}
