@@ -1,0 +1,12 @@
+---
+Static
+---
+!2 Metadata för ${template_validationType} valideringstyp
+
+!***< Varibaler
+!define definition_description {definition för ny}
+!define definition_groupId {${template_groupNew}}
+!define definition_definition {${template_definitionNew}}
+*!
+!4 ${template_validationType}, ${definition_description}
+!include -seamless .HelperPages.definitionCheck

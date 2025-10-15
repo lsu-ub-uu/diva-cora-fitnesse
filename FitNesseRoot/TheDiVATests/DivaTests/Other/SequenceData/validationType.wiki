@@ -1,0 +1,8 @@
+!define template_validationType {sequence}
+!define template_groupNew {sequenceNewGroup}
+!define template_definitionNew {!-sequence (group)
+	recordInfo (group, 1-1, noConstraint)
+		id (textVariable, 1-1, noConstraint, I)
+		validationType {sequence} (recordLink, 1-1, noConstraint)
+		dataDivider (recordLink, 1-1, noConstraint)
+	currentNumber (numberVariable, 1-1, noConstraint)-!}

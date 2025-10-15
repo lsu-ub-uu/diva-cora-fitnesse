@@ -1,0 +1,27 @@
+---
+Static
+---
+!1 ${template_recordType}
+${template_description}
+
+!include -seamless <Templates.RecordTypeTemplate.RecordType
+!include -seamless <Templates.RecordTypeTemplate.ValidationType
+#!include -seamless <Templates.RecordTypeTemplate.Read
+
+----
+#!include -seamless .TheDiVATests.DivaTests.Authority.Person.RecordType
+#!include -seamless .TheDiVATests.DivaTests.Authority.Person.Read
+#!include -seamless .TheDiVATests.DivaTests.Authority.Person.List
+#!include -seamless .TheDiVATests.DivaTests.Authority.Person.Index
+#!include -seamless .TheDiVATests.DivaTests.Authority.Person.BatchIndexing
+#!include -seamless .TheDiVATests.DivaTests.Authority.Person.Search
+#!include -seamless .TheDiVATests.DivaTests.Authority.Person.Create
+
+#!include -seamless .TheDiVATests.DivaTests.Authority.Person.Update
+#!include -seamless .TheDiVATests.DivaTests.Authority.Person.Delete
+
+#!include -seamless .TheDiVATests.DivaTests.Authority.Person.Validate
+
+#!include -seamless .TheDiVATests.DivaTests.Authority.Person.IncomingLinks
+
+#!include -seamless .TheDiVATests.DivaTests.Authority.Person.Conversion

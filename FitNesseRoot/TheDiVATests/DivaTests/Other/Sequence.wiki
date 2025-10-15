@@ -1,0 +1,8 @@
+---
+Test
+---
+!include -c <Other.SequenceData.common
+!include -c <Other.SequenceData.recordType
+!include -c <Other.SequenceData.validationType
+
+!include -seamless .HelperPages.Templates.RecordTypeTemplate
