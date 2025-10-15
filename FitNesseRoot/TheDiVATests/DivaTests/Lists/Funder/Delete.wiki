@@ -12,41 +12,41 @@ Först skapar vi en forskningsfinansiär, för att sedan kunna radera den
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecordCreatedType? | getStatusType? | getCreatedId? |
-| $adminAuthToken | funder | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"funder"}],"name":"validationType"}],"name":"recordInfo"},{"name":"funderName","attributes":{"language":"swe"},"value":"Fitnesse  funder to be  deleted"},{"name":"funderName","attributes":{"language":"eng"},"value":"Fitnesse  funder to be  deleted"},{"name":"funderAcronym","value":"FFD"},{"name":"funderRegistrationNumber","value":"12365-98753521"},{"name":"funderDOI","value":"01"},{"name":"funderClosed","value":"2010-01-01"}],"name":"funder"} | funder | CREATED | $createdId= |
+| $everythingAuthToken | funder | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"funder"}],"name":"validationType"}],"name":"recordInfo"},{"name":"funderName","attributes":{"language":"swe"},"value":"Fitnesse  funder to be  deleted"},{"name":"funderName","attributes":{"language":"eng"},"value":"Fitnesse  funder to be  deleted"},{"name":"funderAcronym","value":"FFD"},{"name":"funderRegistrationNumber","value":"12365-98753521"},{"name":"funderDOI","value":"01"},{"name":"funderClosed","value":"2010-01-01"}],"name":"funder"} | funder | CREATED | $createdId= |
 
 *!
 !***> Läs den nyskapade forskningsfinansiär i Json
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | funder | $createdId | | OK |
+| $everythingAuthToken | funder | $createdId | | OK |
 
 *!
 !***> Lista forskningsfinansiärer
 
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | funder | | OK |
+| $everythingAuthToken | funder | | OK |
 
 *!
 !***> Radera den nyskapade forskningsfinansiären
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| $adminAuthToken | funder | $createdId | | OK |
+| $everythingAuthToken | funder | $createdId | | OK |
 
 *!
 !***> Försök läsa den raderade forskningsfinansiären
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | funder | $createdId | | NOT_FOUND |
+| $everythingAuthToken | funder | $createdId | | NOT_FOUND |
 
 *!
 !***> Lista forskningsfinansiär - forskningsfinansiärer med status DELETED exkluderas
 
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | funder | | OK |
+| $everythingAuthToken | funder | | OK |
 
 *!

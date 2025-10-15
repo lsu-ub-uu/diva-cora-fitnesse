@@ -8,34 +8,34 @@ Help: Sök efter forskningsämne
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? | getCreatedId? |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"children":[{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"workOrder"}],"name":"validationType"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"}],"name":"recordInfo"},{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"researchSubject"}]},{"name":"recordId","value":"researchSubject:7622433053610710"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"children":[{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"workOrder"}],"name":"validationType"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"}],"name":"recordInfo"},{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"researchSubject"}]},{"name":"recordId","value":"researchSubject:18586625229721690"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"children":[{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"workOrder"}],"name":"validationType"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"}],"name":"recordInfo"},{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"researchSubject"}]},{"name":"recordId","value":"researchSubject:18587811678865777"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"children":[{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"workOrder"}],"name":"validationType"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"}],"name":"recordInfo"},{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"researchSubject"}]},{"name":"recordId","value":"researchSubject:18586746830211717"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $everythingAuthToken | workOrder | {"name":"workOrder","children":[{"children":[{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"workOrder"}],"name":"validationType"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"}],"name":"recordInfo"},{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"researchSubject"}]},{"name":"recordId","value":"researchSubject:7622433053610710"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $everythingAuthToken | workOrder | {"name":"workOrder","children":[{"children":[{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"workOrder"}],"name":"validationType"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"}],"name":"recordInfo"},{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"researchSubject"}]},{"name":"recordId","value":"researchSubject:18586625229721690"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $everythingAuthToken | workOrder | {"name":"workOrder","children":[{"children":[{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"workOrder"}],"name":"validationType"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"}],"name":"recordInfo"},{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"researchSubject"}]},{"name":"recordId","value":"researchSubject:18587811678865777"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $everythingAuthToken | workOrder | {"name":"workOrder","children":[{"children":[{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"workOrder"}],"name":"validationType"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"}],"name":"recordInfo"},{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"researchSubject"}]},{"name":"recordId","value":"researchSubject:18586746830211717"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
 
 *!
 !***> Test sök forskningsämne med bara namn
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | researchSubjectSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"researchSubjectSearchTerm","value":"**"}]}]}]} | | OK |
-| $adminAuthToken | researchSubjectSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"researchSubjectSearchTerm","value":"Ditt och datt"}]}]}]} | =~/"name":"id","value":"researchSubject:7622433053610710"/ | OK |
-| $adminAuthToken | researchSubjectSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"researchSubjectSearchTerm","value":"ingetForskningsämneSomHarDetHärNamnet"}]}]}]} | =~/"totalNo":"0"/ | OK |
+| $everythingAuthToken | researchSubjectSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"researchSubjectSearchTerm","value":"**"}]}]}]} | | OK |
+| $everythingAuthToken | researchSubjectSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"researchSubjectSearchTerm","value":"Ditt och datt"}]}]}]} | =~/"name":"id","value":"researchSubject:7622433053610710"/ | OK |
+| $everythingAuthToken | researchSubjectSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"researchSubjectSearchTerm","value":"ingetForskningsämneSomHarDetHärNamnet"}]}]}]} | =~/"totalNo":"0"/ | OK |
 
 *!
 !***> Test sök forskningsämne med bara alternativt namn
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | researchSubjectSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"researchSubjectSearchTerm","value":"This and that"}]}]}]} | =~/"name":"id","value":"researchSubject:7622433053610710"/ | OK |
-| $adminAuthToken | researchSubjectSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"researchSubjectSearchTerm","value":"noResearchSubjectWithThisName"}]}]}]} | =~/"totalNo":"0"/ | OK |
+| $everythingAuthToken | researchSubjectSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"researchSubjectSearchTerm","value":"This and that"}]}]}]} | =~/"name":"id","value":"researchSubject:7622433053610710"/ | OK |
+| $everythingAuthToken | researchSubjectSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"researchSubjectSearchTerm","value":"noResearchSubjectWithThisName"}]}]}]} | =~/"totalNo":"0"/ | OK |
 
 *!
 !***> Test sök forskningsämne med bara kod
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | researchSubjectSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"researchSubjectSearchTerm","value":"12"}]}]}]} | =~/"name":"researchSubjectCode","value":"12"/ | OK |
+| $everythingAuthToken | researchSubjectSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"researchSubjectSearchTerm","value":"12"}]}]}]} | =~/"name":"researchSubjectCode","value":"12"/ | OK |
 
 *!
 !4 Forskningsämne söks med autocomplete i registreringsformuläret
@@ -45,7 +45,7 @@ Help: Sök efter forskningsämne
 | Sökstöd autocomplete vid registrering av fält som är baserade på listval [[CORA-1013][https://jira.epc.ub.uu.se/browse/CORA-1013]] Listvalen |
 | RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | researchSubjectSearch | !-
+| $everythingAuthToken | researchSubjectSearch | !-
 -! | | OK |
 
 *!
@@ -54,7 +54,7 @@ Help: Sök efter forskningsämne
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | researchSubjectSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"researchSubjectSearchTerm","value":"*ä*"}]}]}]} | | OK |
+| $everythingAuthToken | researchSubjectSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"researchSubjectSearchTerm","value":"*ä*"}]}]}]} | | OK |
 
 *!
 !4 Forskningsämne måste ha alternativt namn
@@ -63,7 +63,7 @@ Help: Sök efter forskningsämne
 !| comment |
 | RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? | getCreatedId? |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"children":[{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"workOrder"}],"name":"validationType"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"}],"name":"recordInfo"},{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"researchSubject"}]},{"name":"recordId","value":"XXXX"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $everythingAuthToken | workOrder | {"name":"workOrder","children":[{"children":[{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"workOrder"}],"name":"validationType"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"}],"name":"recordInfo"},{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"researchSubject"}]},{"name":"recordId","value":"XXXX"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
 
 *!
 !***> Test sök efter forskningsämne utan alternativt namn, för att se att sökningen fungerar AVSTÄNGT
@@ -71,7 +71,7 @@ Help: Sök efter forskningsämne
 !| Comment |
 | RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | researchSubjectSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"researchSubjectSearchTerm","value":"Forskningsämne som saknar alternativt namn"}]}]}]} | =~/"name":"id","value":"XXXX"/ | OK |
+| $everythingAuthToken | researchSubjectSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"researchSubjectSearchTerm","value":"Forskningsämne som saknar alternativt namn"}]}]}]} | =~/"name":"id","value":"XXXX"/ | OK |
 
 *!
 !***> Återställ uppdaterat data AVSTÄNGT
@@ -79,6 +79,6 @@ Help: Sök efter forskningsämne
 !| Comment |
 | RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | researchSubjectSearch | XXXX | FYLL I JSON | | OK |
+| $everythingAuthToken | researchSubjectSearch | XXXX | FYLL I JSON | | OK |
 
 *!

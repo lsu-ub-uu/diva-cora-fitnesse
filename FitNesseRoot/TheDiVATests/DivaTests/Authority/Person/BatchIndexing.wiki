@@ -15,7 +15,7 @@ Det ska gå att batchindexera personer  via ett !-IndexBatchJob-!. !-IndexBatchJ
 
 *!
 !***> Indexera utan indexSettings
-!define currentAuthToken {$adminAuthToken}
+!define currentAuthToken {$everythingAuthToken}
 !define expectedResult {CREATED}
 !define expectedDeleteResult {OK}
 
@@ -31,7 +31,7 @@ Det ska gå att batchindexera personer  via ett !-IndexBatchJob-!. !-IndexBatchJ
 
 
 !***> Indexera utan filter
-!define currentAuthToken {$adminAuthToken}
+!define currentAuthToken {$everythingAuthToken}
 !define expectedResult {CREATED}
 !define expectedDeleteResult {OK}
 
@@ -46,7 +46,7 @@ Det ska gå att batchindexera personer  via ett !-IndexBatchJob-!. !-IndexBatchJ
 *!
 
 !***> Indexera med start (fromNo) !style_red[AVSTÄNGT]
-!define currentAuthToken {$adminAuthToken}
+!define currentAuthToken {$everythingAuthToken}
 !define expectedResult {CREATED}
 !define expectedDeleteResult {OK}
 

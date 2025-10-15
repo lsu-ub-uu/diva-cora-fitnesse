@@ -9,7 +9,7 @@ Det ska gå att läsa posttyp ämne/kurs via REST API:et.
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | recordType | subjectCourse | | OK |
+| $everythingAuthToken | recordType | subjectCourse | | OK |
 
 *!
 Det ska gå att läsa toppnivån av metadatagruppen för ett nytt ämne/kurs från REST API:et

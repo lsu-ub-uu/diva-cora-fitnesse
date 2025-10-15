@@ -4,5 +4,5 @@ Help: Update a record according to variables
 !***> Upload image
 !| RecordEndpointFixture |
 | authToken | type | id | fileName | testUpload? | getStatusType? |
-| $adminAuthToken | binary | ${uploadRecordId} | ${originalFileName} | ${expectedUploadAnswer}  | OK |
+| $everythingAuthToken | binary | ${uploadRecordId} | ${originalFileName} | ${expectedUploadAnswer}  | OK |
 *!

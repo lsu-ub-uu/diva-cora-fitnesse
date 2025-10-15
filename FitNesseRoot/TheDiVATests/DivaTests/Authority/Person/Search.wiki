@@ -7,7 +7,7 @@ Det skall gå att söka personer via REST API:et.
 
 !***> !-SetUp (Indexerar personer)-!
 
-!define currentAuthToken {$adminAuthToken}
+!define currentAuthToken {$everythingAuthToken}
 !define recordType {person}
 !define expectedResult {CREATED}
 !define recordId {authority-person:106}
@@ -49,7 +49,7 @@ Det skall gå att söka personer via REST API:et.
 *!
 !***> Sök person som divaEverything. Kontrollerar att vi kan söka person.
 
-!define currentAuthToken {$adminAuthToken}
+!define currentAuthToken {$everythingAuthToken}
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
 !include -seamless .HelperPages.searchRecord
@@ -106,14 +106,14 @@ OBS: Just nu sökfunktionen bara hittar ord inte delar av ett ord. Om man vill s
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicPersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"personGeneralSearchTerm","value":"*"}]}]}]} | =~/"fromNo":"1".+"totalNo":"16".+"toNo":"16"/ | OK |
+| $everythingAuthToken | publicPersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"personGeneralSearchTerm","value":"*"}]}]}]} | =~/"fromNo":"1".+"totalNo":"16".+"toNo":"16"/ | OK |
 *!
 !***> '''Fall 0b'''
 !-Vi söker id med *. Vi begränsar sökning med 6 rader från start rad 2-!
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicPersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"personGeneralSearchTerm","value":"*"}]}]},{"name":"rows","value":"6"},{"name":"start","value":"2"}]} |=~/"fromNo":"2".+"totalNo":"16".+"toNo":"7"/ | OK |
+| $everythingAuthToken | publicPersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"personGeneralSearchTerm","value":"*"}]}]},{"name":"rows","value":"6"},{"name":"start","value":"2"}]} |=~/"fromNo":"2".+"totalNo":"16".+"toNo":"7"/ | OK |
 *!
 
 
@@ -122,7 +122,7 @@ OBS: Just nu sökfunktionen bara hittar ord inte delar av ett ord. Om man vill s
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicPersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"personGeneralSearchTerm","value":"*"}]}]}]} |  | OK |
+| $everythingAuthToken | publicPersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"personGeneralSearchTerm","value":"*"}]}]}]} |  | OK |
 *!
 !***> '''Fall 1b'''
 !-Vi söker id med *-!
@@ -130,7 +130,7 @@ OBS: Just nu sökfunktionen bara hittar ord inte delar av ett ord. Om man vill s
 !|comment|
 | RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicpersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"personGeneralSearchTerm","value":"Anders"}]}]}]} | | OK |
+| $everythingAuthToken | publicpersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"personGeneralSearchTerm","value":"Anders"}]}]}]} | | OK |
 *!
 !***> '''Fall 1c'''
 !-Vi söker id med *-!
@@ -138,7 +138,7 @@ OBS: Just nu sökfunktionen bara hittar ord inte delar av ett ord. Om man vill s
 !|comment|
 | RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicpersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"personGeneralSearchTerm","value":"Celsius"}]}]}]} | | OK |
+| $everythingAuthToken | publicpersonSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"personGeneralSearchTerm","value":"Celsius"}]}]}]} | | OK |
 *!
 
 !3 Roller

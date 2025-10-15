@@ -10,7 +10,7 @@ Det ska gå att läsa posttyp forskningsfinansiär via REST API:et.
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | recordType | funder | | OK |
+| $everythingAuthToken | recordType | funder | | OK |
 
 *!
 Det ska gå att läsa toppnivån av metadatagruppen för en ny forskningsfinansiär från REST API:et

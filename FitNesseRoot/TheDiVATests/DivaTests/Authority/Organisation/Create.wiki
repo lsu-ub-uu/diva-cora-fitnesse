@@ -6,7 +6,7 @@ Static
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
-| $adminAuthToken | organisation | {"name":"not", "children":[{"name":"dummy", "value":"dummyValue"}]} | | METHOD_NOT_ALLOWED |
+| $everythingAuthToken | organisation | {"name":"not", "children":[{"name":"dummy", "value":"dummyValue"}]} | | METHOD_NOT_ALLOWED |
 
 *!
 
@@ -16,9 +16,9 @@ Static
 !| comment |
 | RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
-| $adminAuthToken | organisation | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"rootOrganisation"}],"name":"validationType"}],"name":"recordInfo"},{"name":"organisationName","value":"Provorganisation"},{"children":[{"name":"organisationName","value":"Test organisation"}],"name":"alternativeName"},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}],"name":"divaOrganisation"} | | FORBIDDEN |
-| $adminAuthToken | organisation | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"topOrganisation"}],"name":"validationType"}],"name":"recordInfo"},{"name":"organisationName","value":"Provorganisation"},{"children":[{"name":"organisationName","value":"Test organisation"}],"name":"alternativeName"},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}],"name":"divaOrganisation"} | | FORBIDDEN |
-| $adminAuthToken | organisation | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"subOrganisation"}],"name":"validationType"}],"name":"recordInfo"},{"name":"organisationName","value":"Provorganisation"},{"children":[{"name":"organisationName","value":"Test organisation"}],"name":"alternativeName"},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}],"name":"divaOrganisation"} | | FORBIDDEN |
+| $everythingAuthToken | organisation | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"rootOrganisation"}],"name":"validationType"}],"name":"recordInfo"},{"name":"organisationName","value":"Provorganisation"},{"children":[{"name":"organisationName","value":"Test organisation"}],"name":"alternativeName"},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}],"name":"divaOrganisation"} | | FORBIDDEN |
+| $everythingAuthToken | organisation | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"topOrganisation"}],"name":"validationType"}],"name":"recordInfo"},{"name":"organisationName","value":"Provorganisation"},{"children":[{"name":"organisationName","value":"Test organisation"}],"name":"alternativeName"},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}],"name":"divaOrganisation"} | | FORBIDDEN |
+| $everythingAuthToken | organisation | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"subOrganisation"}],"name":"validationType"}],"name":"recordInfo"},{"name":"organisationName","value":"Provorganisation"},{"children":[{"name":"organisationName","value":"Test organisation"}],"name":"alternativeName"},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}],"name":"divaOrganisation"} | | FORBIDDEN |
 
 *!
 !3 Roller

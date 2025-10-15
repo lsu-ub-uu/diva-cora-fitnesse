@@ -7,14 +7,14 @@ Static
  * '''Fall2:''' !-Det ska inte gå att indexera personer som är '''raderade'''.-!
 
 !***>  '''Fall1'''
-!define currentAuthToken {$adminAuthToken}
+!define currentAuthToken {$everythingAuthToken}
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson112
 !define expectedResult {CREATED}
 !include -seamless .HelperPages.indexRecordTypeWithId
 *!
 !***>  '''Fall2'''
-!define currentAuthToken {$adminAuthToken}
+!define currentAuthToken {$everythingAuthToken}
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson113
 !define expectedResult {NOT_FOUND}

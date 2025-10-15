@@ -9,7 +9,7 @@ Det ska gå att läsa posttyp forskningsämne via REST API:et.
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | recordType | researchSubject | | OK |
+| $everythingAuthToken | recordType | researchSubject | | OK |
 
 *!
 Det ska gå att läsa toppnivån av metadatagruppen för ett nytt forskningsämne från REST API:et

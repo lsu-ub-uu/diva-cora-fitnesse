@@ -8,25 +8,25 @@ Help: Sök efter utbildningsprogram
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? | getCreatedId? |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"children":[{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"workOrder"}],"name":"validationType"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"}],"name":"recordInfo"},{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"educationalProgram"}]},{"name":"recordId","value":"educationalProgram:18504370001369767"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"children":[{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"workOrder"}],"name":"validationType"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"}],"name":"recordInfo"},{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"educationalProgram"}]},{"name":"recordId","value":"educationalProgram:7545704972570711"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"children":[{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"workOrder"}],"name":"validationType"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"}],"name":"recordInfo"},{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"educationalProgram"}]},{"name":"recordId","value":"educationalProgram:370171749332503"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $everythingAuthToken | workOrder | {"name":"workOrder","children":[{"children":[{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"workOrder"}],"name":"validationType"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"}],"name":"recordInfo"},{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"educationalProgram"}]},{"name":"recordId","value":"educationalProgram:18504370001369767"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $everythingAuthToken | workOrder | {"name":"workOrder","children":[{"children":[{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"workOrder"}],"name":"validationType"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"}],"name":"recordInfo"},{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"educationalProgram"}]},{"name":"recordId","value":"educationalProgram:7545704972570711"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $everythingAuthToken | workOrder | {"name":"workOrder","children":[{"children":[{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"workOrder"}],"name":"validationType"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"}],"name":"recordInfo"},{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"educationalProgram"}]},{"name":"recordId","value":"educationalProgram:370171749332503"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
 
 *!
 !***> Test sök utbildningsprogram med bara namn
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | educationalProgramSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"educationalProgramSearchTerm","value":"**"}]}]}]} | | OK |
-| $adminAuthToken | educationalProgramSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"educationalProgramSearchTerm","value":"Nytt utbildningsprogram"}]}]}]} | =~/"name":"id","value":"educationalProgram:18504370001369767"/ | OK |
-| $adminAuthToken | educationalProgramSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"educationalProgramSearchTerm","value":"ingetUtbildningsprogramSomHarDetHärNamnet"}]}]}]} | =~/"totalNo":"0"/ | OK |
+| $everythingAuthToken | educationalProgramSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"educationalProgramSearchTerm","value":"**"}]}]}]} | | OK |
+| $everythingAuthToken | educationalProgramSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"educationalProgramSearchTerm","value":"Nytt utbildningsprogram"}]}]}]} | =~/"name":"id","value":"educationalProgram:18504370001369767"/ | OK |
+| $everythingAuthToken | educationalProgramSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"educationalProgramSearchTerm","value":"ingetUtbildningsprogramSomHarDetHärNamnet"}]}]}]} | =~/"totalNo":"0"/ | OK |
 
 *!
 !***> Test sök utbildningsprogram med bara kod
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | educationalProgramSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"educationalProgramSearchTerm","value":"009"}]}]}]} | =~/"name":"educationalProgramCode","value":"009"/ | OK |
+| $everythingAuthToken | educationalProgramSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"educationalProgramSearchTerm","value":"009"}]}]}]} | =~/"name":"educationalProgramCode","value":"009"/ | OK |
 
 *!
 !4 Utbildningsprogram söks med autocomplete i registreringsformuläret
@@ -36,7 +36,7 @@ Help: Sök efter utbildningsprogram
 | Sökstöd autocomplete vid registrering av fält som är baserade på listval [[CORA-1013][https://jira.epc.ub.uu.se/browse/CORA-1013]] Listvalen |
 | RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | educationalProgramSearch | !-
+| $everythingAuthToken | educationalProgramSearch | !-
 -! | | OK |
 
 *!
@@ -45,7 +45,7 @@ Help: Sök efter utbildningsprogram
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | educationalProgramSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"educationalProgramSearchTerm","value":"*å*"}]}]}]} | | OK |
+| $everythingAuthToken | educationalProgramSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"educationalProgramSearchTerm","value":"*å*"}]}]}]} | | OK |
 
 *!
 !4 Utbildningsprogram måste ha alternativt namn
@@ -54,7 +54,7 @@ Help: Sök efter utbildningsprogram
 !| Comment |
 | RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? | getCreatedId? |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"children":[{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"workOrder"}],"name":"validationType"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"}],"name":"recordInfo"},{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"educationalProgram"}]},{"name":"recordId","value":"XXXX"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+| $everythingAuthToken | workOrder | {"name":"workOrder","children":[{"children":[{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"workOrder"}],"name":"validationType"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"}],"name":"recordInfo"},{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"educationalProgram"}]},{"name":"recordId","value":"XXXX"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
 
 *!
 !***> Test sök efter utbildningsprogram utan alternativt namn, för att se att sökningen fungerar AVSTÄNGT
@@ -62,7 +62,7 @@ Help: Sök efter utbildningsprogram
 !| Comment |
 | RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | educationalProgramSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"educationalProgramSearchTerm","value":"Utbildningsprogram som saknar alternativt namn"}]}]}]} | =~/"name":"id","value":"XXXX"/ | OK |
+| $everythingAuthToken | educationalProgramSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"educationalProgramSearchTerm","value":"Utbildningsprogram som saknar alternativt namn"}]}]}]} | =~/"name":"id","value":"XXXX"/ | OK |
 
 *!
 !***> Återställ uppdaterat data AVSTÄNGT
@@ -70,6 +70,6 @@ Help: Sök efter utbildningsprogram
 !| Comment |
 | RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | educationalProgram | XXXX | FYLL I JSON | | OK |
+| $everythingAuthToken | educationalProgram | XXXX | FYLL I JSON | | OK |
 
 *!

@@ -9,7 +9,7 @@ Det skall gå att lista och läsa utgivare via REST API:et.
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | publishingHouse | publishingHouse:1895616841381427 | | OK |
+| $everythingAuthToken | publishingHouse | publishingHouse:1895616841381427 | | OK |
 
 *!
 "Admin" användare skall kunna lista utgivare.
@@ -18,7 +18,7 @@ Det skall gå att lista och läsa utgivare via REST API:et.
 
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | publishingHouse | | OK |
+| $everythingAuthToken | publishingHouse | | OK |
 
 *!
 Ej inloggade användare skall inte få lista utgivare, därför förväntar sig testet FORBIDDEN om en ej inloggad användare försöker lista utgivare.

@@ -32,7 +32,7 @@ Read pVars to make sure they do not exist
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
-| $adminAuthToken | metadata | {"children":[{"children":[{"name":"id","value":"fitnesseTestTextVar"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"metadataTextVariable"}],"name":"validationType"}],"name":"recordInfo"},{"name":"nameInData","value":"fintnesseTest"},{"name":"regEx","value":"(^[0-9A-Za-z:-_]{2,50}$)"}],"name":"metadata","attributes":{"type":"textVariable"}} | | CREATED |
+| $everythingAuthToken | metadata | {"children":[{"children":[{"name":"id","value":"fitnesseTestTextVar"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"metadataTextVariable"}],"name":"validationType"}],"name":"recordInfo"},{"name":"nameInData","value":"fintnesseTest"},{"name":"regEx","value":"(^[0-9A-Za-z:-_]{2,50}$)"}],"name":"metadata","attributes":{"type":"textVariable"}} | | CREATED |
 
 *!
 Read fitnesseTestTextVar to see that links to texts have been added to the metadata
@@ -52,13 +52,13 @@ Read fitnesseTestTextVar to see that links to texts have been added to the metad
 !define expectedCompareResult {OK}
 !| ChildComparerFixture |
 | authToken | type | id | testReadAndStoreRecord? | children | testCheckContainWithValues? |
-| $adminAuthToken | text | fitnesseTestTextVarText | | ${expectedReadData} | ${expectedCompareResult} |
+| $everythingAuthToken | text | fitnesseTestTextVarText | | ${expectedReadData} | ${expectedCompareResult} |
 
 !define expectedReadData {!- {"name":"text","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}]},{"name":"validationType","children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"divaText"}]}]},{"name":"textPart","children":[{"name":"text","value":"Text för:fitnesseTestTextVarDefText"}],"attributes":{"type":"default","lang":"sv"}},{"name":"textPart","children":[{"name":"text","value":"Text for:fitnesseTestTextVarDefText"}],"attributes":{"type":"alternative","lang":"en"}}]} -!}
 !define expectedCompareResult {OK}
 !| ChildComparerFixture |
 | authToken | type | id | testReadAndStoreRecord? | children | testCheckContainWithValues? |
-| $adminAuthToken | text | fitnesseTestTextVarDefText | | ${expectedReadData} | ${expectedCompareResult} |
+| $everythingAuthToken | text | fitnesseTestTextVarDefText | | ${expectedReadData} | ${expectedCompareResult} |
 
 
 
@@ -80,10 +80,10 @@ Remove data created for this test
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| $adminAuthToken | presentation | fitnesseTestPVar | | OK |
-| $adminAuthToken | presentation | fitnesseTestOutputPVar | | OK |
-| $adminAuthToken | metadata | fitnesseTestTextVar | | OK |
-| $adminAuthToken | text | fitnesseTestTextVarText | | OK |
-| $adminAuthToken | text | fitnesseTestTextVarDefText | | OK |
+| $everythingAuthToken | presentation | fitnesseTestPVar | | OK |
+| $everythingAuthToken | presentation | fitnesseTestOutputPVar | | OK |
+| $everythingAuthToken | metadata | fitnesseTestTextVar | | OK |
+| $everythingAuthToken | text | fitnesseTestTextVarText | | OK |
+| $everythingAuthToken | text | fitnesseTestTextVarDefText | | OK |
 
 *!

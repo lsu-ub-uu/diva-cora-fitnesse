@@ -9,7 +9,7 @@ Det skall gå att lista och läsa ämne/kurs via REST API:et.
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | subjectCourse | subjectCourse:18750298210458143 | | OK |
+| $everythingAuthToken | subjectCourse | subjectCourse:18750298210458143 | | OK |
 
 *!
 "Admin" användare skall kunna lista ämne/kurs.
@@ -18,7 +18,7 @@ Det skall gå att lista och läsa ämne/kurs via REST API:et.
 
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | subjectCourse | | OK |
+| $everythingAuthToken | subjectCourse | | OK |
 
 *!
 Ej inloggade användare skall inte få lista ämne/kurs, därför förväntar sig testet FORBIDDEN om en ej inloggad användare försöker lista ämne/kurs.

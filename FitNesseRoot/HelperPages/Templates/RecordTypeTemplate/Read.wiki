@@ -10,7 +10,7 @@ Det skall gå att läsa personer via REST API:et och i svaret få med vilka rät
 
 Personpost är byggt med en superpost (personpost) och en subpost (personDomainPart)
 
-!define currentAuthToken {$adminAuthToken}
+!define currentAuthToken {$everythingAuthToken}
 
 !***> Läs personpost
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
@@ -203,12 +203,12 @@ Det ska gå att läsa en personpost som:
 !***> Läs personpost
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | person | authority-person:113 | | NOT_FOUND |
+| $everythingAuthToken | person | authority-person:113 | | NOT_FOUND |
 *!
 !***> Läs personDomainPart
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | personDomainPart | authority-person:113:test | | NOT_FOUND |
+| $everythingAuthToken | personDomainPart | authority-person:113:test | | NOT_FOUND |
 *!
 *!
 !***> '''Fall 8:'''

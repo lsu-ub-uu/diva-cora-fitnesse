@@ -5,5 +5,5 @@ ${definition_definition}
 !***> Definition check for ${definition_description} (${definition_groupId})
 !| DefinitionCompareFixture |
 | authToken | recordId | getDefinitionView? |
-| $adminAuthToken | ${definition_groupId} | ${definition_definition} |
+| $everythingAuthToken | ${definition_groupId} | ${definition_definition} |
 *!

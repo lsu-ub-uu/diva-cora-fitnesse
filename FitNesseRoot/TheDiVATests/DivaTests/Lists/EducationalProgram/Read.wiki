@@ -9,7 +9,7 @@ Det skall gå att lista och läsa utbildningsprogram via REST API:et.
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | educationalProgram | educationalProgram:18504370001369767 | | OK |
+| $everythingAuthToken | educationalProgram | educationalProgram:18504370001369767 | | OK |
 
 *!
 "Admin" användare skall kunna lista utbildningsprogram.
@@ -18,7 +18,7 @@ Det skall gå att lista och läsa utbildningsprogram via REST API:et.
 
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | educationalProgram | | OK |
+| $everythingAuthToken | educationalProgram | | OK |
 
 *!
 Ej inloggade användare skall inte få lista utbildningsprogram, därför förväntar sig testet FORBIDDEN om en ej inloggad användare försöker lista utbildningsprogram.

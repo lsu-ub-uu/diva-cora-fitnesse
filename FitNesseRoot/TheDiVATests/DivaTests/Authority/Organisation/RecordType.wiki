@@ -98,7 +98,7 @@ Läs recordType för den abstracta '''organisation''' via  REST API.
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | recordType | organisation | | OK |
+| $everythingAuthToken | recordType | organisation | | OK |
 
 *!
 Läs topnivå metadatagruppen för en '''ny''' organisation, och kontrollera att den har rätt barn
@@ -185,7 +185,7 @@ Läs recordType för '''rootOrganisation''' via  REST API.
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | recordType | organisation | | OK |
+| $everythingAuthToken | recordType | organisation | | OK |
 
 *!
 Läs topnivå metadatagruppen för en '''ny''' rotorganisation, och kontrollera att den har rätt barn
@@ -236,7 +236,7 @@ Läs recordType för '''topOrganisation''' via  REST API.
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | recordType | organisation | | OK |
+| $everythingAuthToken | recordType | organisation | | OK |
 
 *!
 Läs topnivå metadatagruppen för en '''ny''' topnivåorganisation, och kontrollera att den har rätt barn
@@ -319,7 +319,7 @@ Läs recordType för '''subOrganisation''' via  REST API.
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | recordType | organisation | | OK |
+| $everythingAuthToken | recordType | organisation | | OK |
 
 *!
 Läs topnivå metadatagruppen för en '''ny''' organisation, och kontrollera att den har rätt barn

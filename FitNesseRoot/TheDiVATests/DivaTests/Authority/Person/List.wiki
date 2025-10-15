@@ -10,7 +10,7 @@ Det skall gå att lista personer via REST API:et.
  * '''Fall4:''' !-Det ska inte gå att lista raderade personDomainPart-!
  * '''Fall5:''' !-Lista personer och kontrollera att olika exempelposter är med i listan-!
  
-!define currentAuthToken {$adminAuthToken}
+!define currentAuthToken {$everythingAuthToken}
 
 !***>  '''Fall1'''
 Lista personer inloggad som divaEverything användare.

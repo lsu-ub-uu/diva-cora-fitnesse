@@ -12,49 +12,49 @@ Testet visar att adminanvändare har möjlighet att skapa en uppsatsspost
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecordCreatedType? | getStatusType? |
-| $adminAuthToken | nationalSubjectCategory | {"children":[{"children":[{"name":"id","value":"12345"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"nationalSubjectCategory"}],"name":"validationType"}],"name":"recordInfo"},{"children":[{"name":"nationalSubjectCategoryName","value":"Social och ekonomisk geografi"},{"name":"language","value":"sv"}],"name":"name"},{"children":[{"name":"nationalSubjectCategoryName","value":"A subject Category"},{"name":"language","value":"en"}],"name":"alternativeName"},{"name":"subjectCode","value":"21"}],"name":"nationalSubjectCategory"} | nationalSubjectCategory | CREATED |
+| $everythingAuthToken | nationalSubjectCategory | {"children":[{"children":[{"name":"id","value":"12345"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"nationalSubjectCategory"}],"name":"validationType"}],"name":"recordInfo"},{"children":[{"name":"nationalSubjectCategoryName","value":"Social och ekonomisk geografi"},{"name":"language","value":"sv"}],"name":"name"},{"children":[{"name":"nationalSubjectCategoryName","value":"A subject Category"},{"name":"language","value":"en"}],"name":"alternativeName"},{"name":"subjectCode","value":"21"}],"name":"nationalSubjectCategory"} | nationalSubjectCategory | CREATED |
 
 *!
 !***> Skapa en ny studentuppsats (examensarbete)
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? | getCreatedId? |
-| $adminAuthToken | studentThesis | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"studentThesis"}],"name":"validationType"}],"name":"recordInfo"},{"repeatId":"0","children":[{"name":"familyName","value":"Andersson"},{"name":"givenName","value":"Anna"}],"name":"author"},{"children":[{"name":"mainTitle","value":"Detta är en titel"},{"name":"language","value":"swe"}],"name":"title"},{"children":[{"name":"dateIssued","value":"2019"}],"name":"otherInformation"},{"repeatId":"0","children":[{"name":"linkedRecordType","value":"nationalSubjectCategory"},{"name":"linkedRecordId","value":"12345"}],"name":"nationalSubjectCategory"}],"name":"studentThesis"} | | CREATED | $createdId= |
+| $everythingAuthToken | studentThesis | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"studentThesis"}],"name":"validationType"}],"name":"recordInfo"},{"repeatId":"0","children":[{"name":"familyName","value":"Andersson"},{"name":"givenName","value":"Anna"}],"name":"author"},{"children":[{"name":"mainTitle","value":"Detta är en titel"},{"name":"language","value":"swe"}],"name":"title"},{"children":[{"name":"dateIssued","value":"2019"}],"name":"otherInformation"},{"repeatId":"0","children":[{"name":"linkedRecordType","value":"nationalSubjectCategory"},{"name":"linkedRecordId","value":"12345"}],"name":"nationalSubjectCategory"}],"name":"studentThesis"} | | CREATED | $createdId= |
 
 *!
 !***> Läs den skapade studentuppsatsen
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | studentThesis | $createdId | =~/"value":"Detta är en titel"/ | OK |
+| $everythingAuthToken | studentThesis | $createdId | =~/"value":"Detta är en titel"/ | OK |
 
 *!
 !***> Lista studentuppsatser
 
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | studentThesis | | OK |
+| $everythingAuthToken | studentThesis | | OK |
 
 *!
 !***> Uppdatera studentuppsatsen med ny huvudtitel
 
 !| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | studentThesis | $createdId | {"children":[{"children":[{"name":"ignoreOverwriteProtection","value":"true"},{"name":"id","value":"$createdId"},{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"studentThesis"}],"name":"type"},{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}],"name":"createdBy"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"name":"tsCreated","value":"2019-05-14 09:30:42.900"},{"repeatId":"0","children":[{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}],"name":"updatedBy"},{"name":"tsUpdated","value":"2019-05-14 09:30:42.900"}],"name":"updated"},{"repeatId":"1","children":[{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}],"name":"updatedBy"},{"name":"tsUpdated","value":"2019-05-14 11:49:16.326"}],"name":"updated"},{"repeatId":"2","children":[{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}],"name":"updatedBy"},{"name":"tsUpdated","value":"2019-10-17 14:45:08.466"}],"name":"updated"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"studentThesis"}],"name":"validationType"}],"name":"recordInfo"},{"repeatId":"0","children":[{"name":"familyName","value":"Larsson"},{"name":"givenName","value":"Johan"}],"name":"author"},{"children":[{"name":"studentThesisExternalCooperation","value":"noExternalCooperation"}],"name":"studentThesisCooperation"},{"children":[{"name":"mainTitle","value":"En helt ny titel"},{"name":"language","value":"swe"}],"name":"title"},{"children":[{"name":"dateIssued","value":"2018"},{"name":"extent","value":"34"}],"name":"otherInformation"},{"repeatId":"0","children":[{"name":"linkedRecordType","value":"nationalSubjectCategory"},{"name":"linkedRecordId","value":"12345"}],"name":"nationalSubjectCategory"}],"name":"studentThesis"} | | OK |
+| $everythingAuthToken | studentThesis | $createdId | {"children":[{"children":[{"name":"ignoreOverwriteProtection","value":"true"},{"name":"id","value":"$createdId"},{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"studentThesis"}],"name":"type"},{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}],"name":"createdBy"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"name":"tsCreated","value":"2019-05-14 09:30:42.900"},{"repeatId":"0","children":[{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}],"name":"updatedBy"},{"name":"tsUpdated","value":"2019-05-14 09:30:42.900"}],"name":"updated"},{"repeatId":"1","children":[{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}],"name":"updatedBy"},{"name":"tsUpdated","value":"2019-05-14 11:49:16.326"}],"name":"updated"},{"repeatId":"2","children":[{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}],"name":"updatedBy"},{"name":"tsUpdated","value":"2019-10-17 14:45:08.466"}],"name":"updated"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"studentThesis"}],"name":"validationType"}],"name":"recordInfo"},{"repeatId":"0","children":[{"name":"familyName","value":"Larsson"},{"name":"givenName","value":"Johan"}],"name":"author"},{"children":[{"name":"studentThesisExternalCooperation","value":"noExternalCooperation"}],"name":"studentThesisCooperation"},{"children":[{"name":"mainTitle","value":"En helt ny titel"},{"name":"language","value":"swe"}],"name":"title"},{"children":[{"name":"dateIssued","value":"2018"},{"name":"extent","value":"34"}],"name":"otherInformation"},{"repeatId":"0","children":[{"name":"linkedRecordType","value":"nationalSubjectCategory"},{"name":"linkedRecordId","value":"12345"}],"name":"nationalSubjectCategory"}],"name":"studentThesis"} | | OK |
 
 *!
 !***> Läs den uppdaterade studentuppsatsen och se att den har en ny titel
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | studentThesis | $createdId | =~/"value":"En helt ny titel"/ | OK |
+| $everythingAuthToken | studentThesis | $createdId | =~/"value":"En helt ny titel"/ | OK |
 
 *!
 !***> Radera de nyskapade posterna
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| $adminAuthToken | studentThesis | $createdId | | OK |
-| $adminAuthToken | nationalSubjectCategory | 12345 | | OK |
+| $everythingAuthToken | studentThesis | $createdId | | OK |
+| $everythingAuthToken | nationalSubjectCategory | 12345 | | OK |
 
 *!

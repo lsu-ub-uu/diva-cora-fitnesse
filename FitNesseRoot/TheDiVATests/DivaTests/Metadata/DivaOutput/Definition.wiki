@@ -278,5 +278,5 @@ ${divaOutputDefinition}
 !***> DivaOutputGroup definition test
 #!| DefinitionCompareFixture |
 #| authToken | recordId | getDefinitionView? |
-#| $adminAuthToken | divaOutputGroup | ${divaOutputDefinition} |
+#| $everythingAuthToken | divaOutputGroup | ${divaOutputDefinition} |
 *!

@@ -9,7 +9,7 @@ Det ska vara möjligt att uppdatera Organisation.
  * '''Fall 2:''' Det ska gå att uppdatera topOrganisation
  * '''Fall 3:''' Det ska gå att uppdatera subOrganisation
 
-!define currentAuthToken {$adminAuthToken}
+!define currentAuthToken {$everythingAuthToken}
 !***> '''Fall 1'''
 
 !-Uppdatera en rootOrganisation från domän UU, som en divaFitnesseEverything och se att alla fält är uppdaterade, utom domain som inte går att ändra.-!

@@ -11,41 +11,41 @@ Först skapar vi ett forskningsämne, för att sedan kunna radera den
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecordCreatedType? | getStatusType? | getCreatedId? |
-| $adminAuthToken | researchSubject | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"researchSubject"}],"name":"validationType"}],"name":"recordInfo"},{"children":[{"name":"researchSubjectName","value":"Fitnesse researchSubject to be deleted"},{"name":"language","value":"sv"}],"name":"name"},{"children":[{"name":"researchSubjectName","value":"Fitnesse researchSubject to be deleted (eng)"},{"name":"language","value":"en"}],"name":"alternativeName"},{"name":"domain","value":"du"},{"name":"eligible","value":"yes"},{"name":"researchSubjectCode","value":"1235"},{"repeatId":"0","children":[{"children":[{"name":"linkedRecordType","value":"researchSubject"},{"name":"linkedRecordId","value":"researchSubject:7622433053610710"}],"name":"researchSubject"}],"name":"researchSubjectParent"},{"name":"closedDate","value":"2012-01-01"}],"name":"researchSubject"} | researchSubject | CREATED | $createdId= |
+| $everythingAuthToken | researchSubject | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"researchSubject"}],"name":"validationType"}],"name":"recordInfo"},{"children":[{"name":"researchSubjectName","value":"Fitnesse researchSubject to be deleted"},{"name":"language","value":"sv"}],"name":"name"},{"children":[{"name":"researchSubjectName","value":"Fitnesse researchSubject to be deleted (eng)"},{"name":"language","value":"en"}],"name":"alternativeName"},{"name":"domain","value":"du"},{"name":"eligible","value":"yes"},{"name":"researchSubjectCode","value":"1235"},{"repeatId":"0","children":[{"children":[{"name":"linkedRecordType","value":"researchSubject"},{"name":"linkedRecordId","value":"researchSubject:7622433053610710"}],"name":"researchSubject"}],"name":"researchSubjectParent"},{"name":"closedDate","value":"2012-01-01"}],"name":"researchSubject"} | researchSubject | CREATED | $createdId= |
 
 *!
 !***> Läs det nyskapade forskningsämnet i Json
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | researchSubject | $createdId | =~/"value":"Fitnesse researchSubject to be deleted"/ | OK |
+| $everythingAuthToken | researchSubject | $createdId | =~/"value":"Fitnesse researchSubject to be deleted"/ | OK |
 
 *!
 !***> Lista forskningsämne
 
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | researchSubject | | OK |
+| $everythingAuthToken | researchSubject | | OK |
 
 *!
 !***> Radera det nyskapade forskningsämnet
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| $adminAuthToken | researchSubject | $createdId | | OK |
+| $everythingAuthToken | researchSubject | $createdId | | OK |
 
 *!
 !***> Försök läsa det raderade forskningsämnet
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | researchSubject | $createdId | | NOT_FOUND |
+| $everythingAuthToken | researchSubject | $createdId | | NOT_FOUND |
 
 *!
 !***> Lista forskningsämne - forskningsämne med status DELETED exkluderas
 
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | researchSubject | | OK |
+| $everythingAuthToken | researchSubject | | OK |
 
 *!

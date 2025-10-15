@@ -9,7 +9,7 @@ Det ska gå att läsa posttyp utbildningsprogram via REST API:et.
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | recordType | educationalProgram | | OK |
+| $everythingAuthToken | recordType | educationalProgram | | OK |
 
 *!
 Det ska gå att läsa toppnivån av metadatagruppen för ett nytt utbildningsprogram från REST API:et

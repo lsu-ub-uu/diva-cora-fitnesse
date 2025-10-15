@@ -11,7 +11,7 @@ I nuläget har vi inget sök definerat för posttypen !-IndexBatchJob-!, vilket 
 !define updateData {!-{"children":[{"children":[{"name":"ignoreOverwriteProtection","value":"true"},{"name":"id","value":"-!${recordId}!-"},{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"indexBatchJob"}],"name":"type"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"indexBatchJob"}],"name":"validationType"}],"name":"recordInfo"},{"children":[{"name":"fromNo","value":"1"},{"name":"toNo","value":"4"}],"name":"filter"},{"name":"recordTypeToIndex","value":"metadataTextVariable"},{"name":"totalNumberToIndex","value":"4"},{"name":"numberOfProcessedRecords","value":"0"},{"name":"status","value":"started"}],"name":"indexBatchJob"}-!}
 !define expectedCompareResult {OK}
 
-!define currentAuthToken {$adminAuthToken}
+!define currentAuthToken {$everythingAuthToken}
 !***> Det ska gå att '''skapa''' ett !-IndexBatchJob-! genom create-endpointen
 
 !| RecordEndpointFixture |
@@ -93,7 +93,7 @@ Validera att '''svaret''' på '''läs'''anropet innehåller det förväntade dat
 !***> Skapa ett !-IndexBatchJob-! för read-, update- och delete-testerna för !-DomainAdmin-! och Guest 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getCreatedId? | getStatusType? |
-| $adminAuthToken | indexBatchJob | ${createData} | | $createdId = | CREATED |
+| $everythingAuthToken | indexBatchJob | ${createData} | | $createdId = | CREATED |
 !define recordId {$createdId}
 *!
 
@@ -164,7 +164,7 @@ Validera att '''svaret''' på '''läs'''anropet innehåller det förväntade dat
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| $adminAuthToken | indexBatchJob | ${recordId} | | OK |
+| $everythingAuthToken | indexBatchJob | ${recordId} | | OK |
 
 *!
 

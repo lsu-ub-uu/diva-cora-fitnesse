@@ -8,10 +8,10 @@ Static
 !| comment |
 | RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| $adminAuthToken | organisation | 1750 | | FORBIDDEN |
-| $adminAuthToken | organisation | 1750 | | FORBIDDEN |
-| $adminAuthToken | organisation | 1750 | | FORBIDDEN |
-| $adminAuthToken | organisation | 1750 | | FORBIDDEN |
+| $everythingAuthToken | organisation | 1750 | | FORBIDDEN |
+| $everythingAuthToken | organisation | 1750 | | FORBIDDEN |
+| $everythingAuthToken | organisation | 1750 | | FORBIDDEN |
+| $everythingAuthToken | organisation | 1750 | | FORBIDDEN |
 
 *!
 

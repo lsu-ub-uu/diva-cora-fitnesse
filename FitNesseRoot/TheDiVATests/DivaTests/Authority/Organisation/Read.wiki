@@ -7,7 +7,7 @@ Det skall gå att läsa organisationer via REST API:et och i svaret få med vilk
 
 
 !***> Läs organisation som divaEverything via den abstrakta organisation, rootOrgansiation och subOrganisation och se att fälten ÄR med i svaret
-!define currentAuthToken {$adminAuthToken}
+!define currentAuthToken {$everythingAuthToken}
 
 Läs via abstract organisation
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750

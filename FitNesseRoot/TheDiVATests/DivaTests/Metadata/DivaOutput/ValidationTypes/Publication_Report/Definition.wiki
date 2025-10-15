@@ -259,6 +259,6 @@ ${reportUpdateGroupDefinition}
 !***> publication_report definition test
 #!| DefinitionCompareFixture |
 #| authToken | recordId | getDefinitionView? |
-#| $adminAuthToken | reportNewGroup | ${reportNewGroupDefinition} |
-#| $adminAuthToken | reportUpdateGroup | ${reportUpdateGroupDefinition} |
+#| $everythingAuthToken | reportNewGroup | ${reportNewGroupDefinition} |
+#| $everythingAuthToken | reportUpdateGroup | ${reportUpdateGroupDefinition} |
 *!

@@ -12,41 +12,41 @@ Först skapar vi en serie, för att sedan kunna radera den
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecordCreatedType? | getStatusType? | getCreatedId? |
-| $adminAuthToken | series | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"series"}],"name":"validationType"}],"name":"recordInfo"},{"children":[{"name":"seriesMainTitle","value":"Fitnesse series to be deleted"},{"name":"seriesSubTitle","value":"undertitel på serie"},{"name":"language","value":"sv"}],"name":"title"},{"children":[{"name":"seriesMainTitle","value":"Huvudtitel på serie (eng)"},{"name":"seriesSubTitle","value":"undertitel på serie (eng)"},{"name":"language","value":"en"}],"name":"alternativeTitle"},{"name":"seriesKeyTitle","value":"Nyckeltitel"},{"repeatId":"0","children":[{"children":[{"name":"linkedRecordType","value":"series"},{"name":"linkedRecordId","value":"series:3114219423283783"}],"name":"seriesLink"}],"name":"seriesParent"},{"repeatId":"1","children":[{"children":[{"name":"linkedRecordType","value":"series"},{"name":"linkedRecordId","value":"series:14789631190130096"}],"name":"seriesLink"}],"name":"seriesFormerName"},{"name":"seriesISSN","value":"1234-5678"},{"name":"seriesEISSN","value":"9876-5432"},{"name":"seriesFormat","value":"seriesElectronic"},{"name":"seriesPublicationType","value":"seriesReport"},{"name":"seriesContentType","value":"seriesOtherAcademic"},{"children":[{"name":"linkedRecordType","value":"organisation"},{"name":"linkedRecordId","value":"1105"}],"name":"organisationLink"},{"name":"seriesURL","value":"www.url.se"},{"name":"seriesNotes","value":"anm."},{"name":"seriesClosedDate","value":"2012-01-01"},{"name":"seriesNextNumber","value":"2"}],"name":"seriesNew"} | series | CREATED | $createdId= |
+| $everythingAuthToken | series | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"series"}],"name":"validationType"}],"name":"recordInfo"},{"children":[{"name":"seriesMainTitle","value":"Fitnesse series to be deleted"},{"name":"seriesSubTitle","value":"undertitel på serie"},{"name":"language","value":"sv"}],"name":"title"},{"children":[{"name":"seriesMainTitle","value":"Huvudtitel på serie (eng)"},{"name":"seriesSubTitle","value":"undertitel på serie (eng)"},{"name":"language","value":"en"}],"name":"alternativeTitle"},{"name":"seriesKeyTitle","value":"Nyckeltitel"},{"repeatId":"0","children":[{"children":[{"name":"linkedRecordType","value":"series"},{"name":"linkedRecordId","value":"series:3114219423283783"}],"name":"seriesLink"}],"name":"seriesParent"},{"repeatId":"1","children":[{"children":[{"name":"linkedRecordType","value":"series"},{"name":"linkedRecordId","value":"series:14789631190130096"}],"name":"seriesLink"}],"name":"seriesFormerName"},{"name":"seriesISSN","value":"1234-5678"},{"name":"seriesEISSN","value":"9876-5432"},{"name":"seriesFormat","value":"seriesElectronic"},{"name":"seriesPublicationType","value":"seriesReport"},{"name":"seriesContentType","value":"seriesOtherAcademic"},{"children":[{"name":"linkedRecordType","value":"organisation"},{"name":"linkedRecordId","value":"1105"}],"name":"organisationLink"},{"name":"seriesURL","value":"www.url.se"},{"name":"seriesNotes","value":"anm."},{"name":"seriesClosedDate","value":"2012-01-01"},{"name":"seriesNextNumber","value":"2"}],"name":"seriesNew"} | series | CREATED | $createdId= |
 
 *!
 !***> Läs den nyskapade serien i Json
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | series | $createdId | =~/"value":"Fitnesse series to be deleted"/ | OK |
+| $everythingAuthToken | series | $createdId | =~/"value":"Fitnesse series to be deleted"/ | OK |
 
 *!
 !***> Lista serier
 
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | series | | OK |
+| $everythingAuthToken | series | | OK |
 
 *!
 !***> Radera den nyskapade serien
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| $adminAuthToken | series | $createdId | | OK |
+| $everythingAuthToken | series | $createdId | | OK |
 
 *!
 !***> Försök läsa den raderade serien
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | series | $createdId | | NOT_FOUND |
+| $everythingAuthToken | series | $createdId | | NOT_FOUND |
 
 *!
 !***> Lista serie - serier med status DELETED exkluderas
 
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | series | | OK |
+| $everythingAuthToken | series | | OK |
 
 *!

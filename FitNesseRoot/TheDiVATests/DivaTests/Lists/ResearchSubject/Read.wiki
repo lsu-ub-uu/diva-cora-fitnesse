@@ -9,7 +9,7 @@ Det skall gå att lista och läsa forskningsämne via REST API:et.
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | researchSubject | researchSubject:18586564551132161 | | OK |
+| $everythingAuthToken | researchSubject | researchSubject:18586564551132161 | | OK |
 
 *!
 "Admin" användare skall kunna lista forskningsämne.
@@ -18,7 +18,7 @@ Det skall gå att lista och läsa forskningsämne via REST API:et.
 
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | researchSubject | | OK |
+| $everythingAuthToken | researchSubject | | OK |
 
 *!
 Ej inloggade användare skall inte få lista forskningsämne, därför förväntar sig testet FORBIDDEN om en ej inloggad användare försöker lista forskningsämne.

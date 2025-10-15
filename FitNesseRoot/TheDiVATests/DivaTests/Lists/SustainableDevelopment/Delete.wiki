@@ -11,41 +11,41 @@ Först skapar vi en hållbar utvecklingspost, för att sedan kunna radera den
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecordCreatedType? | getStatusType? | getCreatedId? |
-| $adminAuthToken | sustainableDevelopment | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"sustainableDevelopment"}],"name":"validationType"}],"name":"recordInfo"},{"children":[{"name":"sustainableDevelopmentName","value":"Fitnesse sustainalbeDevelopment to be deleted"},{"name":"language","value":"sv"}],"name":"name"},{"children":[{"name":"sustainableDevelopmentName","value":"Fitnesse sustainalbeDevelopment to be deleted (eng)"},{"name":"language","value":"en"}],"name":"alternativeName"},{"name":"domain","value":"du"}],"name":"sustainableDevelopment"} | sustainableDevelopment | CREATED | $createdId= |
+| $everythingAuthToken | sustainableDevelopment | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"sustainableDevelopment"}],"name":"validationType"}],"name":"recordInfo"},{"children":[{"name":"sustainableDevelopmentName","value":"Fitnesse sustainalbeDevelopment to be deleted"},{"name":"language","value":"sv"}],"name":"name"},{"children":[{"name":"sustainableDevelopmentName","value":"Fitnesse sustainalbeDevelopment to be deleted (eng)"},{"name":"language","value":"en"}],"name":"alternativeName"},{"name":"domain","value":"du"}],"name":"sustainableDevelopment"} | sustainableDevelopment | CREATED | $createdId= |
 
 *!
 !***> Läs den nyskapade hållbar utvecklingsposten i Json
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | sustainableDevelopment | $createdId | =~/"value":"Fitnesse sustainalbeDevelopment to be deleted"/ | OK |
+| $everythingAuthToken | sustainableDevelopment | $createdId | =~/"value":"Fitnesse sustainalbeDevelopment to be deleted"/ | OK |
 
 *!
 !***> Lista hållbar utveckling
 
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | sustainableDevelopment | | OK |
+| $everythingAuthToken | sustainableDevelopment | | OK |
 
 *!
 !***> Radera den nyskapade hållbar utvecklingsposten
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| $adminAuthToken | sustainableDevelopment | $createdId | | OK |
+| $everythingAuthToken | sustainableDevelopment | $createdId | | OK |
 
 *!
 !***> Försök läsa den raderade hållbar utvecklingsposten
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | sustainableDevelopment | $createdId | | NOT_FOUND |
+| $everythingAuthToken | sustainableDevelopment | $createdId | | NOT_FOUND |
 
 *!
 !***> Lista hållbar utveckling - hållbar utvecklingsposter med status DELETED exkluderas
 
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | sustainableDevelopment | | OK |
+| $everythingAuthToken | sustainableDevelopment | | OK |
 
 *!
