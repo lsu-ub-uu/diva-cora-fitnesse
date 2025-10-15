@@ -4,10 +4,9 @@ Static
 !1 ${template_recordType}
 ${template_description}
 
-!include -seamless .HelperPages.Templates.RecordTypeTemplate.RecordType
-
-----
-!include -seamless .HelperPages.Templates.RecordTypeTemplate.ValidationType
+!include -seamless <Templates.RecordTypeTemplate.RecordType
+!include -seamless <Templates.RecordTypeTemplate.ValidationType
+#!include -seamless <Templates.RecordTypeTemplate.Read
 
 ----
 #!include -seamless .TheDiVATests.DivaTests.Authority.Person.RecordType

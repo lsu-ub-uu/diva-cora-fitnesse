@@ -8,8 +8,8 @@ Suite
 !| AuthenticationFixture |
 | appTokenLogin? | loginId | appToken | getAuthToken? | getStatusType? |
 | | divaFitnesseEverything@system.cora.uu.se | 2714f1e8-77f7-4811-9b6f-683bbb0f2a76 | $adminAuthToken= | CREATED |
-| | systemAdmin@diva.cora.uu.se | b5ec82bb-9492-4d9f-9069-c2fac3b49493 | $divaSystemAdminAuthToken= | CREATED |
 | | divaAdmin@cora.epc.ub.uu.se | 49ce00fb-68b5-4089-a5f7-1c225d3cf156 | $divaAdminAuthToken= | CREATED |
+#| | systemAdmin@diva.cora.uu.se | b5ec82bb-9492-4d9f-9069-c2fac3b49493 | $divaSystemAdminAuthToken= | CREATED |
 
 *!
 !| script | AuthTokenHolder |
@@ -30,6 +30,7 @@ Suite
 !| AuthenticationFixture |
 | idpLogin? | EPPN | getAuthToken? | getStatusType? |
 | | fitnesseSystemAdmin@user.uu.se | $systemAdminAuthToken= | OK |
+| | fitnesseSystemAdmin@user.uu.se | $divaSystemAdminAuthToken= | OK |
 | | fitnesseDomainAdminUU@user.uu.se | $domainAdminUUAuthToken= | OK |
 | | fitnesseDomainAdminKTH@user.uu.se | $domainAdminKTHAuthToken= | OK |
 | | userNotInDb@user.uu.se | $guestToken= | OK |
