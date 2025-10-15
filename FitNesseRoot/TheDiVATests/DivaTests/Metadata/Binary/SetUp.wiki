@@ -12,9 +12,9 @@ Static
 Create binary records
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? | getCreatedId? |
-| $divaSystemAdminAuthToken | binary | ${publishedBinary} | | CREATED | $publishedRecordId= |
-| $divaSystemAdminAuthToken | binary | ${unpublishedBinary} | | CREATED | $unpublishedRecordId= |
-| $divaSystemAdminAuthToken | binary | ${hiddenBinary} | | CREATED | $hiddenRecordId= |
+| $systemAdminAuthToken | binary | ${publishedBinary} | | CREATED | $publishedRecordId= |
+| $systemAdminAuthToken | binary | ${unpublishedBinary} | | CREATED | $unpublishedRecordId= |
+| $systemAdminAuthToken | binary | ${hiddenBinary} | | CREATED | $hiddenRecordId= |
 
 ----
 
@@ -25,14 +25,14 @@ Create binary records
 !***> Upload files
 !| RecordEndpointFixture |
 | authToken | type | id | fileName | testUpload? | getStatusType? |
-| $divaSystemAdminAuthToken | binary | $publishedRecordId | aTiff.tiff | ${expectedUploadAnswer} | ${expectedUploadResult} |
-| $divaSystemAdminAuthToken | binary | $unpublishedRecordId | aTiff.tiff | ${expectedUploadAnswer} | ${expectedUploadResult} |
-| $divaSystemAdminAuthToken | binary | $hiddenRecordId | aTiff.tiff | ${expectedUploadAnswer} | ${expectedUploadResult} |
+| $systemAdminAuthToken | binary | $publishedRecordId | aTiff.tiff | ${expectedUploadAnswer} | ${expectedUploadResult} |
+| $systemAdminAuthToken | binary | $unpublishedRecordId | aTiff.tiff | ${expectedUploadAnswer} | ${expectedUploadResult} |
+| $systemAdminAuthToken | binary | $hiddenRecordId | aTiff.tiff | ${expectedUploadAnswer} | ${expectedUploadResult} |
 
 !| WaitForRegExReadResultFixture |
 | authToken | recordType | recordId | sleepTime | maxNumberOfCalls | regEx | waitUntilUntilRegExpFoundInReadRecord? |
-| $divaSystemAdminAuthToken | binary | $publishedRecordId | 250 | 50 | \"name\":\"jp2\" | Found |
-| $divaSystemAdminAuthToken | binary | $unpublishedRecordId | 250 | 50 | \"name\":\"jp2\" | Found |
-| $divaSystemAdminAuthToken | binary | $hiddenRecordId | 250 | 50 | \"name\":\"jp2\" | Found |
+| $systemAdminAuthToken | binary | $publishedRecordId | 250 | 50 | \"name\":\"jp2\" | Found |
+| $systemAdminAuthToken | binary | $unpublishedRecordId | 250 | 50 | \"name\":\"jp2\" | Found |
+| $systemAdminAuthToken | binary | $hiddenRecordId | 250 | 50 | \"name\":\"jp2\" | Found |
 *!
 *!

@@ -9,7 +9,7 @@ Static
 
 !***> Admin tests
 !***> Setup admin test case
-!define currentAuthToken {$divaSystemAdminAuthToken}
+!define currentAuthToken {$systemAdminAuthToken}
 *!
 
 !*** '''Case 1''': IIF protocol information must be present for all visibilities as an admin. Information must contain a server and identifier properties. 
