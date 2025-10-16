@@ -9,7 +9,7 @@ Det ska gå att läsa posttyp nationell ämneskategori via REST API:et.
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | recordType | nationalSubjectCategory | | OK |
+| $everythingAuthToken | recordType | nationalSubjectCategory | | OK |
 
 *!
 Det ska gå att läsa toppnivån av metadatagruppen för en ny nationell ämneskategori från REST API:et

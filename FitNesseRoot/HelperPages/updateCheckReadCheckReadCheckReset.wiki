@@ -18,7 +18,7 @@ Validate the read '''response''' returned on the '''read''' call contains the ex
 !include -seamless .HelperPages.checkActionsForRecord
 
 Read and check data with full permissions to see the record as it is stored.
-!define currentAuthToken {$adminAuthToken}
+!define currentAuthToken {$everythingAuthToken}
 !define expectedCompareResult expectedCompleteCompareResult
 !include -seamless .HelperPages.readRecord
 !include -seamless .HelperPages.compareRecord

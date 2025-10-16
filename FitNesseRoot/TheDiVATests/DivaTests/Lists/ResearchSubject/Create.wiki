@@ -11,13 +11,13 @@ Testet visar att adminanvändare har möjlighet att skapa en forskningsämnespos
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecordCreatedType? | getStatusType? | getCreatedId? |
-| $adminAuthToken | researchSubject | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"researchSubject"}],"name":"validationType"}],"name":"recordInfo"},{"children":[{"name":"researchSubjectName","value":"FitnesseTest för forskningsämne"},{"name":"language","value":"sv"}],"name":"name"},{"children":[{"name":"researchSubjectName","value":"FitnesseTest for research subject"},{"name":"language","value":"en"}],"name":"alternativeName"},{"name":"domain","value":"du"},{"name":"eligible","value":"yes"},{"name":"researchSubjectCode","value":"1234"},{"repeatId":"0","children":[{"children":[{"name":"linkedRecordType","value":"researchSubject"},{"name":"linkedRecordId","value":"researchSubject:7622433053610710"}],"name":"researchSubject"}],"name":"researchSubjectParent"},{"name":"closedDate","value":"2012-01-01"}],"name":"researchSubject"} | researchSubject | CREATED | $createdId= |
+| $everythingAuthToken | researchSubject | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"researchSubject"}],"name":"validationType"}],"name":"recordInfo"},{"children":[{"name":"researchSubjectName","value":"FitnesseTest för forskningsämne"},{"name":"language","value":"sv"}],"name":"name"},{"children":[{"name":"researchSubjectName","value":"FitnesseTest for research subject"},{"name":"language","value":"en"}],"name":"alternativeName"},{"name":"domain","value":"du"},{"name":"eligible","value":"yes"},{"name":"researchSubjectCode","value":"1234"},{"repeatId":"0","children":[{"children":[{"name":"linkedRecordType","value":"researchSubject"},{"name":"linkedRecordId","value":"researchSubject:7622433053610710"}],"name":"researchSubject"}],"name":"researchSubjectParent"},{"name":"closedDate","value":"2012-01-01"}],"name":"researchSubject"} | researchSubject | CREATED | $createdId= |
 
 *!
 !***> Radera det nyskapade forskningsämnet
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| $adminAuthToken | researchSubject | $createdId | | OK |
+| $everythingAuthToken | researchSubject | $createdId | | OK |
 
 *!

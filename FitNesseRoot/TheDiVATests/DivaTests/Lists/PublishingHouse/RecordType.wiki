@@ -9,7 +9,7 @@ Det ska gå att läsa posttyp utgivare via REST API:et.
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | recordType | publishingHouse | | OK |
+| $everythingAuthToken | recordType | publishingHouse | | OK |
 
 *!
 Det ska gå att läsa toppnivån av metadatagruppen för en ny utgivare från REST API:et

@@ -9,7 +9,7 @@ Det skall gå att lista och läsa tidskrifter via REST API:et.
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | journal | journal:18591009334092690 | | OK |
+| $everythingAuthToken | journal | journal:18591009334092690 | | OK |
 
 *!
 "Admin" användare skall kunna lista tidskrift.
@@ -18,7 +18,7 @@ Det skall gå att lista och läsa tidskrifter via REST API:et.
 
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | journal | | OK |
+| $everythingAuthToken | journal | | OK |
 
 *!
 Ej inloggade användare skall inte få lista tidskrifter, därför förväntar sig testet FORBIDDEN om en ej inloggad användare försöker lista tidskrifter.

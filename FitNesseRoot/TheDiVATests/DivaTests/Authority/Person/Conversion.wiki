@@ -1660,6 +1660,6 @@ Static
 !| comment |
 | MetadataValidationFixture |
 | authToken | type | json | testValidateRecord? | getValid? | getStatusType? |
-| $adminAuthToken | workOrder | $validationOrderJson | | true | OK |
+| $everythingAuthToken | workOrder | $validationOrderJson | | true | OK |
 
 *!

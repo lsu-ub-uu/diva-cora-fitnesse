@@ -11,41 +11,41 @@ Först skapar vi ett ämne/kurs, för att sedan kunna radera den
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecordCreatedType? | getStatusType? | getCreatedId? |
-| $adminAuthToken | subjectCourse | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"subjectCourse"}],"name":"validationType"}],"name":"recordInfo"},{"children":[{"name":"subjectCourseName","value":"Fitnesse subjectCourse to be deleted"},{"name":"language","value":"sv"}],"name":"name"},{"children":[{"name":"subjectCourseName","value":"Fitnesse subjectCourse to be deleted (eng)"},{"name":"language","value":"en"}],"name":"alternativeName"},{"name":"domain","value":"du"},{"name":"subjectCourseCode","value":"789"},{"name":"subjectCourseEligible","value":"yes"},{"repeatId":"0","children":[{"children":[{"name":"linkedRecordType","value":"subjectCourse"},{"name":"linkedRecordId","value":"subjectCourse:7614115377473535"}],"name":"subjectCourseLink"}],"name":"subjectCourseParent"},{"repeatId":"1","children":[{"children":[{"name":"linkedRecordType","value":"subjectCourse"},{"name":"linkedRecordId","value":"subjectCourse:7614039478225834"}],"name":"subjectCourseLink"}],"name":"subjectCourseFormerName"},{"name":"subjectCourseClosed","value":"2012-01-01"}],"name":"subjectCourse"} | subjectCourse | CREATED | $createdId= |
+| $everythingAuthToken | subjectCourse | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"subjectCourse"}],"name":"validationType"}],"name":"recordInfo"},{"children":[{"name":"subjectCourseName","value":"Fitnesse subjectCourse to be deleted"},{"name":"language","value":"sv"}],"name":"name"},{"children":[{"name":"subjectCourseName","value":"Fitnesse subjectCourse to be deleted (eng)"},{"name":"language","value":"en"}],"name":"alternativeName"},{"name":"domain","value":"du"},{"name":"subjectCourseCode","value":"789"},{"name":"subjectCourseEligible","value":"yes"},{"repeatId":"0","children":[{"children":[{"name":"linkedRecordType","value":"subjectCourse"},{"name":"linkedRecordId","value":"subjectCourse:7614115377473535"}],"name":"subjectCourseLink"}],"name":"subjectCourseParent"},{"repeatId":"1","children":[{"children":[{"name":"linkedRecordType","value":"subjectCourse"},{"name":"linkedRecordId","value":"subjectCourse:7614039478225834"}],"name":"subjectCourseLink"}],"name":"subjectCourseFormerName"},{"name":"subjectCourseClosed","value":"2012-01-01"}],"name":"subjectCourse"} | subjectCourse | CREATED | $createdId= |
 
 *!
 !***> Läs det nyskapade ämne/kursen i Json
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | subjectCourse | $createdId | =~/"value":"Fitnesse subjectCourse to be deleted"/ | OK |
+| $everythingAuthToken | subjectCourse | $createdId | =~/"value":"Fitnesse subjectCourse to be deleted"/ | OK |
 
 *!
 !***> Lista ämne/kurs
 
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | subjectCourse | | OK |
+| $everythingAuthToken | subjectCourse | | OK |
 
 *!
 !***> Radera det nyskapade ämne/kursen
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| $adminAuthToken | subjectCourse | $createdId | | OK |
+| $everythingAuthToken | subjectCourse | $createdId | | OK |
 
 *!
 !***> Försök läsa det raderade ämne/kursen
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | subjectCourse | $createdId | | NOT_FOUND |
+| $everythingAuthToken | subjectCourse | $createdId | | NOT_FOUND |
 
 *!
 !***> Lista ämne/kurs - ämne/kurs med status DELETED exkluderas
 
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | subjectCourse | | OK |
+| $everythingAuthToken | subjectCourse | | OK |
 
 *!

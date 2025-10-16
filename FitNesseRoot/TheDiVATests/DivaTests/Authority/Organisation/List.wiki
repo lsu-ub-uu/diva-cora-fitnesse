@@ -10,7 +10,7 @@ Det skall gå att lista organisationer via REST API:et.
  * '''Fall4:''' !-Det ska gå att lista organisationer, som är subOrganisationer -!
  
 
-!define currentAuthToken {$adminAuthToken}
+!define currentAuthToken {$everythingAuthToken}
 
 
 !***>  '''Fall1'''

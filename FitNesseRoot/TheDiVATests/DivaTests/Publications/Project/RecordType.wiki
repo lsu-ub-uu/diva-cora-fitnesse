@@ -10,7 +10,7 @@ Det ska gå att läsa posttyp projekt via REST API:et.
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | recordType | project | | OK |
+| $everythingAuthToken | recordType | project | | OK |
 
 *!
 Det ska gå att läsa toppnivån av metadatagruppen för ett nytt projekt från REST API:et

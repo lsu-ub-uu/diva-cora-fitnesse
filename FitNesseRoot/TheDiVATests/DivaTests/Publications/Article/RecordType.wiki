@@ -10,7 +10,7 @@ Det ska gå att läsa posttyp artikel via REST API:et.
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | recordType | article | | OK |
+| $everythingAuthToken | recordType | article | | OK |
 
 *!
 Det ska gå att läsa toppnivån av metadatagruppen för en ny artikel från REST API:et

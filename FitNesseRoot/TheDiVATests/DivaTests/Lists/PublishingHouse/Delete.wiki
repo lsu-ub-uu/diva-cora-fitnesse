@@ -11,41 +11,41 @@ Först skapar vi en utgivare, för att sedan kunna radera den
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecordCreatedType? | getStatusType? | getCreatedId? |
-| $adminAuthToken | publishingHouse | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"publishingHouse"}],"name":"validationType"}],"name":"recordInfo"},{"name":"name","value":"Fitnesse funder to be deleted"},{"name":"externalId","value":"1234"}],"name":"publishingHouse"} | publishingHouse | CREATED | $createdId= |
+| $everythingAuthToken | publishingHouse | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"publishingHouse"}],"name":"validationType"}],"name":"recordInfo"},{"name":"name","value":"Fitnesse funder to be deleted"},{"name":"externalId","value":"1234"}],"name":"publishingHouse"} | publishingHouse | CREATED | $createdId= |
 
 *!
 !***> Läs den nyskapade utgivaren i Json
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | publishingHouse | $createdId | =~/"value":"Fitnesse funder to be deleted"/ | OK |
+| $everythingAuthToken | publishingHouse | $createdId | =~/"value":"Fitnesse funder to be deleted"/ | OK |
 
 *!
 !***> Lista utgivare
 
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | publishingHouse | | OK |
+| $everythingAuthToken | publishingHouse | | OK |
 
 *!
 !***> Radera den nyskapade utgivaren
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| $adminAuthToken | publishingHouse | $createdId | | OK |
+| $everythingAuthToken | publishingHouse | $createdId | | OK |
 
 *!
 !***> Försök läsa den raderade utgivaren
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | publishingHouse | $createdId | | NOT_FOUND |
+| $everythingAuthToken | publishingHouse | $createdId | | NOT_FOUND |
 
 *!
 !***> Lista utgivare - utgivare med status DELETED exkluderas
 
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | publishingHouse | | OK |
+| $everythingAuthToken | publishingHouse | | OK |
 
 *!

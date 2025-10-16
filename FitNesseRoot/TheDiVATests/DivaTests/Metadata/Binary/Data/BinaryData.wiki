@@ -9,7 +9,7 @@ Static
 
 !***> Admin tests
 !***> Setup admin test case
-!define currentAuthToken {$divaSystemAdminAuthToken}
+!define currentAuthToken {$systemAdminAuthToken}
 *!
 !*** '''Case 1''': An admin should be able to read binary data of any visibility
 !5 '''Read published'''

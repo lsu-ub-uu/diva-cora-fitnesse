@@ -6,7 +6,7 @@ Det skall gå att söka organisationer via REST API:et.
 
 !***> !-SetUp (Indexerar organisationer)-!
 
-!define currentAuthToken {$adminAuthToken}
+!define currentAuthToken {$everythingAuthToken}
 !define recordType {organisation}
 !define expectedResult {CREATED}
 !define recordId {1750}
@@ -26,7 +26,7 @@ Det skall gå att söka organisationer via REST API:et.
 *!
 !***> Sök organisation som divaEverything. Kontrollerar att vi kan söka rootOrgansiation, topOrganisation och subOrganisation och se att fälten ÄR med i svaret.
 
-!define currentAuthToken {$adminAuthToken}
+!define currentAuthToken {$everythingAuthToken}
 !-Vi söker en rootOrganisation från UU domän med divaEverything rol.-!
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataRootOrganisation1748
@@ -70,14 +70,14 @@ OBS: Just nu sökfunktionen bara hittar ord inte delar av ett ord. Om man vill s
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"*"}]}]}]} | =~/"fromNo":"1".+"totalNo":"8".+"toNo":"8"/ | OK |
+| $everythingAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"*"}]}]}]} | =~/"fromNo":"1".+"totalNo":"8".+"toNo":"8"/ | OK |
 *!
 !***> '''Fall 0b'''
 !-Vi söker id med *. Vi begränsar sökning med 4 rader från start rad 2-!
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"*"}]}]},{"name":"rows","value":"4"},{"name":"start","value":"2"}]} |=~/"fromNo":"2".+"totalNo":"8".+"toNo":"5"/ | OK |
+| $everythingAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"*"}]}]},{"name":"rows","value":"4"},{"name":"start","value":"2"}]} |=~/"fromNo":"2".+"totalNo":"8".+"toNo":"5"/ | OK |
 *!
 
 
@@ -87,13 +87,13 @@ OBS: Just nu sökfunktionen bara hittar ord inte delar av ett ord. Om man vill s
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"**"}]}]}]} | | OK |
+| $everythingAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"**"}]}]}]} | | OK |
 
 !-Vi söker organisationsnamn med **-!
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"**"}]}]}]} | | OK |
+| $everythingAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"**"}]}]}]} | | OK |
 
 *!
 !***> '''Fall 2'''
@@ -102,14 +102,14 @@ Vi söker organisation med domän VTI och sen söker UU domän
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationDomainSearchTerm","value":"kth"}]}]}]} | =~/"name":"id","value":"1456"/ | OK |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationDomainSearchTerm","value":"uu"}]}]}]} | =~/"name":"id","value":"1750".*"name":"id","value":"1748"/ | OK |
+| $everythingAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationDomainSearchTerm","value":"kth"}]}]}]} | =~/"name":"id","value":"1456"/ | OK |
+| $everythingAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationDomainSearchTerm","value":"uu"}]}]}]} | =~/"name":"id","value":"1750".*"name":"id","value":"1748"/ | OK |
 
 Det går inte flera domän samtidigt
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationDomainSearchTerm","value":"kth uu"}]}]}]} | Error searching record with searchId: publicOrganisationSearch. Data is not valid: [Data value:kth uu NOT found in collection:domain] | BAD_REQUEST |
+| $everythingAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationDomainSearchTerm","value":"kth uu"}]}]}]} | Error searching record with searchId: publicOrganisationSearch. Data is not valid: [Data value:kth uu NOT found in collection:domain] | BAD_REQUEST |
 
 *!
 !***> '''Fall 3'''
@@ -118,8 +118,8 @@ Det går inte flera domän samtidigt
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"1750"}]}]}]} | =~/"name":"id","value":"1750"/ | OK |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"1750 1751"}]}]}]} | =~/"totalNo":"2"/ | OK |
+| $everythingAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"1750"}]}]}]} | =~/"name":"id","value":"1750"/ | OK |
+| $everythingAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"1750 1751"}]}]}]} | =~/"totalNo":"2"/ | OK |
 
 *!
 !***> '''Fall 4'''
@@ -128,9 +128,9 @@ Det går inte flera domän samtidigt
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"Kungliga Tekniska Högskolan"}]}]}]} | =~/"name":"id","value":"1751"/ | OK |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"ingenOrganisationSomHarDetHärNamnet"}]}]}]} | =~/"totalNo":"0"/ | OK |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"Kungliga ingenOrganisationSomHarDetHärNamnet"}]}]}]} | =~/"name":"id","value":"1751"/ | OK |
+| $everythingAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"Kungliga Tekniska Högskolan"}]}]}]} | =~/"name":"id","value":"1751"/ | OK |
+| $everythingAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"ingenOrganisationSomHarDetHärNamnet"}]}]}]} | =~/"totalNo":"0"/ | OK |
+| $everythingAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"Kungliga ingenOrganisationSomHarDetHärNamnet"}]}]}]} | =~/"name":"id","value":"1751"/ | OK |
 
 *!
 !***> '''Fall 5'''
@@ -139,13 +139,13 @@ Det går inte flera domän samtidigt
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrgTypeSearchTerm","value":"university"}]}]}]} | =~/"name":"id","value":"1750"/ | OK |
+| $everythingAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrgTypeSearchTerm","value":"university"}]}]}]} | =~/"name":"id","value":"1750"/ | OK |
 
 !-Det skall inte gå att söka flera typ samtidigt-!
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrgTypeSearchTerm","value":"university museum"}]}]}]} | Error searching record with searchId: publicOrganisationSearch. Data is not valid: [Data value:university museum NOT found in collection:divaOrganisationOrgType] | BAD_REQUEST |
+| $everythingAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrgTypeSearchTerm","value":"university museum"}]}]}]} | Error searching record with searchId: publicOrganisationSearch. Data is not valid: [Data value:university museum NOT found in collection:divaOrganisationOrgType] | BAD_REQUEST |
 
 *!
 !***> '''Fall 6'''
@@ -154,9 +154,9 @@ Det går inte flera domän samtidigt
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"*å*"}]}]}]} | | OK |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"*ä*"}]}]}]} | | OK |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"*ö*"}]}]}]} | | OK |
+| $everythingAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"*å*"}]}]}]} | | OK |
+| $everythingAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"*ä*"}]}]}]} | | OK |
+| $everythingAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"*ö*"}]}]}]} | | OK |
 
 *!
 !***> '''Fall 7'''
@@ -165,9 +165,9 @@ Det går inte flera domän samtidigt
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"Uppsala*"},{"name":"divaOrganisationDomainSearchTerm","value":"uu"}]}]}]} | =~/"name":"id","value":"1750"/ | OK |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"1750"},{"name":"divaOrgTypeSearchTerm","value":"university"}]}]}]} | =~/"name":"id","value":"1750"/ | OK |
-| $adminAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"Uppsala*"},{"name":"divaOrganisationDomainSearchTerm","value":"uu"},{"name":"recordIdSearchTerm","value":"1750"},{"name":"divaOrgTypeSearchTerm","value":"university"}]}]}]} | =~/"name":"id","value":"1750"/ | OK |
+| $everythingAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"Uppsala*"},{"name":"divaOrganisationDomainSearchTerm","value":"uu"}]}]}]} | =~/"name":"id","value":"1750"/ | OK |
+| $everythingAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"recordIdSearchTerm","value":"1750"},{"name":"divaOrgTypeSearchTerm","value":"university"}]}]}]} | =~/"name":"id","value":"1750"/ | OK |
+| $everythingAuthToken | publicOrganisationSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"divaOrganisationNameSearchTerm","value":"Uppsala*"},{"name":"divaOrganisationDomainSearchTerm","value":"uu"},{"name":"recordIdSearchTerm","value":"1750"},{"name":"divaOrgTypeSearchTerm","value":"university"}]}]}]} | =~/"name":"id","value":"1750"/ | OK |
 
 *!
 !3 Roller

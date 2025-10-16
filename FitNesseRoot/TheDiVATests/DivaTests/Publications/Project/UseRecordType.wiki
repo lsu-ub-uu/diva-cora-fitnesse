@@ -11,7 +11,7 @@ It should be possible to create, update, read and delete the projects from the R
 !| comment |
 | RecordEndpointFixture |
 | authToken | type | json | testCreateRecordCreatedType? | getStatusType? | getCreatedId? |
-| $adminAuthToken | project | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"project"}],"name":"validationType"}],"name":"recordInfo"},{"name":"formOfGrant","value":"projectGrantEU"},{"children":[{"repeatId":"0","children":[{"name":"language","value":"sv"},{"name":"projectTitle","value":"En titel"}],"name":"projectTitleLanguage"}],"name":"projectTitles"},{"children":[{"repeatId":"0","children":[{"name":"amountPerYear","value":"20000"},{"name":"year","value":"2018"}],"name":"amount"}],"name":"amounts"}],"name":"project"} | project | CREATED | $createdId= |
+| $everythingAuthToken | project | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"project"}],"name":"validationType"}],"name":"recordInfo"},{"name":"formOfGrant","value":"projectGrantEU"},{"children":[{"repeatId":"0","children":[{"name":"language","value":"sv"},{"name":"projectTitle","value":"En titel"}],"name":"projectTitleLanguage"}],"name":"projectTitles"},{"children":[{"repeatId":"0","children":[{"name":"amountPerYear","value":"20000"},{"name":"year","value":"2018"}],"name":"amount"}],"name":"amounts"}],"name":"project"} | project | CREATED | $createdId= |
 
 *!
 !***> Update data of recordType project
@@ -19,7 +19,7 @@ It should be possible to create, update, read and delete the projects from the R
 !| comment |
 | RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | project | $createdId | {"children":[{"children":[{"name":"id","value":"$createdId"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"project"}],"name":"type"},{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}],"name":"createdBy"},{"name":"tsCreated","value":"2017-10-01 00:00:00.0"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"project"}],"name":"validationType"}],"name":"recordInfo"},{"name":"formOfGrant","value":"projectGrantEU"},{"children":[{"repeatId":"0","children":[{"name":"language","value":"sv"},{"name":"projectTitle","value":"En titel"}],"name":"projectTitleLanguage"},{"repeatId":"1","children":[{"name":"language","value":"en"},{"name":"projectTitle","value":"An english title"}],"name":"projectTitleLanguage"}],"name":"projectTitles"},{"children":[{"repeatId":"0","children":[{"name":"amountPerYear","value":"20000"},{"name":"year","value":"2018"}],"name":"amount"}],"name":"amounts"}],"name":"project"} | | OK |
+| $everythingAuthToken | project | $createdId | {"children":[{"children":[{"name":"id","value":"$createdId"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"project"}],"name":"type"},{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}],"name":"createdBy"},{"name":"tsCreated","value":"2017-10-01 00:00:00.0"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"project"}],"name":"validationType"}],"name":"recordInfo"},{"name":"formOfGrant","value":"projectGrantEU"},{"children":[{"repeatId":"0","children":[{"name":"language","value":"sv"},{"name":"projectTitle","value":"En titel"}],"name":"projectTitleLanguage"},{"repeatId":"1","children":[{"name":"language","value":"en"},{"name":"projectTitle","value":"An english title"}],"name":"projectTitleLanguage"}],"name":"projectTitles"},{"children":[{"repeatId":"0","children":[{"name":"amountPerYear","value":"20000"},{"name":"year","value":"2018"}],"name":"amount"}],"name":"amounts"}],"name":"project"} | | OK |
 
 *!
 !***> Read project aProject
@@ -27,7 +27,7 @@ It should be possible to create, update, read and delete the projects from the R
 !| comment |
 | RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | project | $createdId | | OK |
+| $everythingAuthToken | project | $createdId | | OK |
 
 *!
 !***> List recordType project
@@ -35,7 +35,7 @@ It should be possible to create, update, read and delete the projects from the R
 !| comment |
 | RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | project | =~/"toNo":"1"/ | OK |
+| $everythingAuthToken | project | =~/"toNo":"1"/ | OK |
 
 *!
 !2 Clean up created data
@@ -44,6 +44,6 @@ It should be possible to create, update, read and delete the projects from the R
 !| comment |
 | RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| $adminAuthToken | project | $createdId | | OK |
+| $everythingAuthToken | project | $createdId | | OK |
 
 *!

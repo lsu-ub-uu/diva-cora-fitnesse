@@ -10,7 +10,7 @@ Det ska gå att läsa posttyp studentuppsats (examensarbete) via REST API:et.
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | recordType | studentThesis | | OK |
+| $everythingAuthToken | recordType | studentThesis | | OK |
 
 *!
 Det ska gå att läsa toppnivån av metadatagruppen för en ny studentuppsats från REST API:et

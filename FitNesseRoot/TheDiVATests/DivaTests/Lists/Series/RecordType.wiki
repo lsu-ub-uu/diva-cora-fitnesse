@@ -9,7 +9,7 @@ Det ska gå att läsa posttyp serie via REST API:et.
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | recordType | series | | OK |
+| $everythingAuthToken | recordType | series | | OK |
 
 *!
 Det ska gå att läsa toppnivån av metadatagruppen för en ny serie från REST API:et

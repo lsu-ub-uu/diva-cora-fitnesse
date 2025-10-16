@@ -23,7 +23,7 @@
 !***> Vi inväntar det skapade !-IndexBatchJobbet-!
 !|RecordEndpointFixture |
 | authToken | type | id | sleepTime | maxNumberOfReads | waitUntilIndexBatchJobIsFinished? | getStatusType? | 
-| $adminAuthToken | indexBatchJob | $createdId | ${sleepTime} | ${maxNumberOfReads} | finished | OK |
+| $everythingAuthToken | indexBatchJob | $createdId | ${sleepTime} | ${maxNumberOfReads} | finished | OK |
 *!
 
 !***> Vi kollar att !-IndexBatchJobbet-! har indexerat exakt ${numberOfProcessedRecords} poster
@@ -42,5 +42,5 @@
 !***> Radera det skapade !-IndexBatchJobbet-!
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| $adminAuthToken | indexBatchJob | $createdId | | OK |
+| $everythingAuthToken | indexBatchJob | $createdId | | OK |
 *!

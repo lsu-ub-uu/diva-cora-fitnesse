@@ -9,59 +9,59 @@ Det ska gå att radera en nationell ämneskategori via REST API:et.
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecordCreatedType? | getStatusType? |
-| $adminAuthToken | nationalSubjectCategory | {"children":[{"children":[{"name":"id","value":"123"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"nationalSubjectCategory"}],"name":"validationType"}],"name":"recordInfo"},{"children":[{"name":"nationalSubjectCategoryName","value":"Social och ekonomisk geografi"},{"name":"language","value":"sv"}],"name":"name"},{"children":[{"name":"nationalSubjectCategoryName","value":"A subject Category"},{"name":"language","value":"en"}],"name":"alternativeName"},{"name":"subjectCode","value":"21"}],"name":"nationalSubjectCategory"} | nationalSubjectCategory | CREATED |
+| $everythingAuthToken | nationalSubjectCategory | {"children":[{"children":[{"name":"id","value":"123"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"nationalSubjectCategory"}],"name":"validationType"}],"name":"recordInfo"},{"children":[{"name":"nationalSubjectCategoryName","value":"Social och ekonomisk geografi"},{"name":"language","value":"sv"}],"name":"name"},{"children":[{"name":"nationalSubjectCategoryName","value":"A subject Category"},{"name":"language","value":"en"}],"name":"alternativeName"},{"name":"subjectCode","value":"21"}],"name":"nationalSubjectCategory"} | nationalSubjectCategory | CREATED |
 
 *!
 !***> Läs den nyskapade nationella ämneskategorin i Json
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | nationalSubjectCategory | 123 | =~/"name":"subjectCode","value":"21"/ | OK |
+| $everythingAuthToken | nationalSubjectCategory | 123 | =~/"name":"subjectCode","value":"21"/ | OK |
 
 *!
 !***> Lista nationell ämneskategori
 
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | nationalSubjectCategory | | OK |
+| $everythingAuthToken | nationalSubjectCategory | | OK |
 
 *!
 !***> Uppdatera den nya nationella ämneskategorin
 
 !| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | nationalSubjectCategory | 123 | {"children":[{"children":[{"name":"ignoreOverwriteProtection","value":"true"},{"name":"id","value":"123"},{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"nationalSubjectCategory"}],"name":"type"},{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}],"name":"createdBy"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"name":"tsCreated","value":"2022-04-27T13:27:01.515976Z"},{"repeatId":"0","children":[{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}],"name":"updatedBy"},{"name":"tsUpdated","value":"2022-04-27T13:27:01.515976Z"}],"name":"updated"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"nationalSubjectCategory"}],"name":"validationType"}],"name":"recordInfo"},{"children":[{"name":"nationalSubjectCategoryName","value":"Social och ekonomisk geografi"},{"name":"language","value":"sv"}],"name":"name"},{"children":[{"name":"nationalSubjectCategoryName","value":"A subject Category"},{"name":"language","value":"en"}],"name":"alternativeName"},{"name":"subjectCode","value":"2100"}],"name":"nationalSubjectCategory"} | | OK |
+| $everythingAuthToken | nationalSubjectCategory | 123 | {"children":[{"children":[{"name":"ignoreOverwriteProtection","value":"true"},{"name":"id","value":"123"},{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"nationalSubjectCategory"}],"name":"type"},{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}],"name":"createdBy"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"name":"tsCreated","value":"2022-04-27T13:27:01.515976Z"},{"repeatId":"0","children":[{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"coraUser:4412982402853626"}],"name":"updatedBy"},{"name":"tsUpdated","value":"2022-04-27T13:27:01.515976Z"}],"name":"updated"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"nationalSubjectCategory"}],"name":"validationType"}],"name":"recordInfo"},{"children":[{"name":"nationalSubjectCategoryName","value":"Social och ekonomisk geografi"},{"name":"language","value":"sv"}],"name":"name"},{"children":[{"name":"nationalSubjectCategoryName","value":"A subject Category"},{"name":"language","value":"en"}],"name":"alternativeName"},{"name":"subjectCode","value":"2100"}],"name":"nationalSubjectCategory"} | | OK |
 
 *!
 !***> Läs den uppdaterade nationella ämneskategorin i json
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | nationalSubjectCategory | 123 | =~/"name":"subjectCode","value":"2100"/ | OK |
+| $everythingAuthToken | nationalSubjectCategory | 123 | =~/"name":"subjectCode","value":"2100"/ | OK |
 
 *!
 !***> Skapa flera nationella ämneskategorier som vi kan söka på
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecordCreatedType? | getStatusType? |
-| $adminAuthToken | nationalSubjectCategory | {"children":[{"children":[{"name":"id","value":"456"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"nationalSubjectCategory"}],"name":"validationType"}],"name":"recordInfo"},{"children":[{"name":"nationalSubjectCategoryName","value":"Något namn med åäö"},{"name":"language","value":"sv"}],"name":"name"},{"children":[{"name":"nationalSubjectCategoryName","value":"A name with weird letters"},{"name":"language","value":"en"}],"name":"alternativeName"},{"name":"subjectCode","value":"56"}],"name":"nationalSubjectCategory"} | nationalSubjectCategory | CREATED |
-| $adminAuthToken | nationalSubjectCategory | {"children":[{"children":[{"name":"id","value":"789"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"nationalSubjectCategory"}],"name":"validationType"}],"name":"recordInfo"},{"children":[{"name":"nationalSubjectCategoryName","value":"Ett helt annat ämne"},{"name":"language","value":"sv"}],"name":"name"},{"children":[{"name":"nationalSubjectCategoryName","value":"A subject Category"},{"name":"language","value":"en"}],"name":"alternativeName"},{"name":"subjectCode","value":"89"}],"name":"nationalSubjectCategory"} | nationalSubjectCategory | CREATED |
+| $everythingAuthToken | nationalSubjectCategory | {"children":[{"children":[{"name":"id","value":"456"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"nationalSubjectCategory"}],"name":"validationType"}],"name":"recordInfo"},{"children":[{"name":"nationalSubjectCategoryName","value":"Något namn med åäö"},{"name":"language","value":"sv"}],"name":"name"},{"children":[{"name":"nationalSubjectCategoryName","value":"A name with weird letters"},{"name":"language","value":"en"}],"name":"alternativeName"},{"name":"subjectCode","value":"56"}],"name":"nationalSubjectCategory"} | nationalSubjectCategory | CREATED |
+| $everythingAuthToken | nationalSubjectCategory | {"children":[{"children":[{"name":"id","value":"789"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"nationalSubjectCategory"}],"name":"validationType"}],"name":"recordInfo"},{"children":[{"name":"nationalSubjectCategoryName","value":"Ett helt annat ämne"},{"name":"language","value":"sv"}],"name":"name"},{"children":[{"name":"nationalSubjectCategoryName","value":"A subject Category"},{"name":"language","value":"en"}],"name":"alternativeName"},{"name":"subjectCode","value":"89"}],"name":"nationalSubjectCategory"} | nationalSubjectCategory | CREATED |
 
 *!
 !***> Test sök nationell ämneskategori med bara namn
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | nationalSubjectCategorySearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"nationalSubjectCategorySearchTerm","value":"**"}]}]}]} | | OK |
-| $adminAuthToken | nationalSubjectCategorySearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"nationalSubjectCategorySearchTerm","value":"Social och ekonomisk geografi"}]}]}]} | =~/"name":"id","value":"123"/ | OK |
-| $adminAuthToken | nationalSubjectCategorySearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"nationalSubjectCategorySearchTerm","value":"ingenNationellÄmneskategoriSomHarDetHärNamnet"}]}]}]} | =~/"totalNo":"0"/ | OK |
+| $everythingAuthToken | nationalSubjectCategorySearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"nationalSubjectCategorySearchTerm","value":"**"}]}]}]} | | OK |
+| $everythingAuthToken | nationalSubjectCategorySearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"nationalSubjectCategorySearchTerm","value":"Social och ekonomisk geografi"}]}]}]} | =~/"name":"id","value":"123"/ | OK |
+| $everythingAuthToken | nationalSubjectCategorySearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"nationalSubjectCategorySearchTerm","value":"ingenNationellÄmneskategoriSomHarDetHärNamnet"}]}]}]} | =~/"totalNo":"0"/ | OK |
 
 *!
 !***> Test sök nationell ämneskategori med bara kod
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | nationalSubjectCategorySearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"nationalSubjectCategorySearchTerm","value":"2100"}]}]}]} | =~/"name":"subjectCode","value":"2100"/ | OK |
+| $everythingAuthToken | nationalSubjectCategorySearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"nationalSubjectCategorySearchTerm","value":"2100"}]}]}]} | =~/"name":"subjectCode","value":"2100"/ | OK |
 
 *!
 !4 Nationell ämneskategori kan sökas även när tecken å, ä eller ö finns i ämnesnamnet
@@ -69,28 +69,28 @@ Det ska gå att radera en nationell ämneskategori via REST API:et.
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | nationalSubjectCategorySearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"nationalSubjectCategorySearchTerm","value":"*å*"}]}]}]} | | OK |
+| $everythingAuthToken | nationalSubjectCategorySearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"nationalSubjectCategorySearchTerm","value":"*å*"}]}]}]} | | OK |
 
 *!
 !***> Radera en nationell ämneskategori
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| $adminAuthToken | nationalSubjectCategory | 123 | | OK |
+| $everythingAuthToken | nationalSubjectCategory | 123 | | OK |
 
 *!
 !***> Försök läsa den raderade nationella ämneskategorin
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | nationalSubjectCategory | 123 | | NOT_FOUND |
+| $everythingAuthToken | nationalSubjectCategory | 123 | | NOT_FOUND |
 
 *!
 !***> Radera alla skapade ämneskategorier
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| $adminAuthToken | nationalSubjectCategory | 456 | | OK |
-| $adminAuthToken | nationalSubjectCategory | 789 | | OK |
+| $everythingAuthToken | nationalSubjectCategory | 456 | | OK |
+| $everythingAuthToken | nationalSubjectCategory | 789 | | OK |
 
 *!

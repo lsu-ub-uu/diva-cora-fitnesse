@@ -11,6 +11,6 @@ Testet visar att adminanvändare har möjlighet att skapa en utgivarespost
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
-| $adminAuthToken | publishingHouse | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"publishingHouse"}],"name":"validationType"}],"name":"recordInfo"},{"name":"name","value":"Testar skapa utgivare"},{"name":"externalId","value":"54a6sd898"}],"name":"publishingHouse"} | | CREATED |
+| $everythingAuthToken | publishingHouse | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"publishingHouse"}],"name":"validationType"}],"name":"recordInfo"},{"name":"name","value":"Testar skapa utgivare"},{"name":"externalId","value":"54a6sd898"}],"name":"publishingHouse"} | | CREATED |
 
 *!

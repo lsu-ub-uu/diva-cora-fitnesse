@@ -5,9 +5,9 @@ Static
 !***> Clean up binary records
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| $divaSystemAdminAuthToken | binary | $publishedRecordId | | OK |
-| $divaSystemAdminAuthToken | binary | $unpublishedRecordId | | OK |
-| $divaSystemAdminAuthToken | binary | $hiddenRecordId | | OK |
+| $systemAdminAuthToken | binary | $publishedRecordId | | OK |
+| $systemAdminAuthToken | binary | $unpublishedRecordId | | OK |
+| $systemAdminAuthToken | binary | $hiddenRecordId | | OK |
 
 Reset headers for smartrics fixture
 | Table:smartrics.rest.fitnesse.fixture.RestFixtureConfig | |

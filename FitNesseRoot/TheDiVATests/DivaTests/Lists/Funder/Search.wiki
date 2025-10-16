@@ -9,37 +9,37 @@ Help: Sök efter forskningsfinansiär
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecordCreatedType? | getStatusType? | getCreatedId? |
-| $adminAuthToken | funder | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"funder"}],"name":"validationType"}],"name":"recordInfo"},{"name":"funderName","attributes":{"language":"swe"},"value":"Umbrella cårporation"},{"name":"funderName","attributes":{"language":"eng"},"value":"Fitnesse  funder to be  deleted"},{"name":"funderAcronym","value":"FFD"},{"name":"funderRegistrationNumber","value":"12365-98753521"},{"name":"funderDOI","value":"10.13039/501100004359"},{"name":"funderClosed","value":"2010-01-01"}],"name":"funder"} | funder | CREATED | $createdId= |
+| $everythingAuthToken | funder | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"funder"}],"name":"validationType"}],"name":"recordInfo"},{"name":"funderName","attributes":{"language":"swe"},"value":"Umbrella cårporation"},{"name":"funderName","attributes":{"language":"eng"},"value":"Fitnesse  funder to be  deleted"},{"name":"funderAcronym","value":"FFD"},{"name":"funderRegistrationNumber","value":"12365-98753521"},{"name":"funderDOI","value":"10.13039/501100004359"},{"name":"funderClosed","value":"2010-01-01"}],"name":"funder"} | funder | CREATED | $createdId= |
 
 *!
 !***> Test sök forskningsfinansiär med bara namn
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | funderSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"funderSearchTerm","value":"**"}]}]}]} | =~/"$createdId"/ | OK |
-| $adminAuthToken | funderSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"funderSearchTerm","value":"Umbrella corporation"}]}]}]} | =~/"$createdId"/ | OK |
-| $adminAuthToken | funderSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"funderSearchTerm","value":"ingenForskningsfinansiärSomHarDetHärNamnet"}]}]}]} | =~/"totalNo":"0"/ | OK |
+| $everythingAuthToken | funderSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"funderSearchTerm","value":"**"}]}]}]} | =~/"$createdId"/ | OK |
+| $everythingAuthToken | funderSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"funderSearchTerm","value":"Umbrella corporation"}]}]}]} | =~/"$createdId"/ | OK |
+| $everythingAuthToken | funderSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"funderSearchTerm","value":"ingenForskningsfinansiärSomHarDetHärNamnet"}]}]}]} | =~/"totalNo":"0"/ | OK |
 
 *!
 !***> Test sök forskningsfinansiär med bara akronym
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | funderSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"funderSearchTerm","value":"FFD"}]}]}]} | =~/"name":"id","value":"$createdId"/ | OK |
+| $everythingAuthToken | funderSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"funderSearchTerm","value":"FFD"}]}]}]} | =~/"name":"id","value":"$createdId"/ | OK |
 
 *!
 !***> Test sök forskningsfinansiär med bara organisationsnummer
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | funderSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"funderSearchTerm","value":"12365-98753521"}]}]}]} | =~/"$createdId"/ | OK |
+| $everythingAuthToken | funderSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"funderSearchTerm","value":"12365-98753521"}]}]}]} | =~/"$createdId"/ | OK |
 
 *!
 !***> Test sök forskningsfinansiär med bara DOI
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | funderSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"funderSearchTerm","value":"10.13039/501100004359"}]}]}]} | =~/"name":"funderDOI","value":"10.13039/501100004359"/ | OK |
+| $everythingAuthToken | funderSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"funderSearchTerm","value":"10.13039/501100004359"}]}]}]} | =~/"name":"funderDOI","value":"10.13039/501100004359"/ | OK |
 
 *!
 !4 Forskningsfinansiär söks med autocomplete i registreringsformuläret
@@ -49,7 +49,7 @@ Help: Sök efter forskningsfinansiär
 | Sökstöd autocomplete vid registrering av fält som är baserade på listval [[CORA-1013][https://jira.epc.ub.uu.se/browse/CORA-1013]] Listvalen |
 | RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | funderSearch | !-
+| $everythingAuthToken | funderSearch | !-
 -! | | OK |
 
 *!
@@ -58,13 +58,13 @@ Help: Sök efter forskningsfinansiär
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | funderSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"funderSearchTerm","value":"*å*"}]}]}]} | | OK |
+| $everythingAuthToken | funderSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"funderSearchTerm","value":"*å*"}]}]}]} | | OK |
 
 *!
 !***> Radera den nyskapade forskningsfinansiären
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| $adminAuthToken | funder | $createdId | | OK |
+| $everythingAuthToken | funder | $createdId | | OK |
 
 *!

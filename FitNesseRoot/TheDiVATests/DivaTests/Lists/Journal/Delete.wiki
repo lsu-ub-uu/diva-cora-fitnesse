@@ -11,41 +11,41 @@ Först skapar vi en tidskrift, för att sedan kunna radera den
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecordCreatedType? | getStatusType? | getCreatedId? |
-| $adminAuthToken | journal | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"journal"}],"name":"validationType"}],"name":"recordInfo"},{"name":"mainTitle","value":"Fitnesse journal to be deleted"},{"name":"subTitle","value":"Fitnesse journal to be deleted (eng)"},{"name":"ISSN","value":"1234-5678"},{"name":"EISSN","value":"9876-5432"},{"name":"URL","value":"www.journal.com"},{"name":"journalOA","value":"trueOA"},{"name":"closedDate","value":"2012-01-01"}],"name":"journal"} | journal | CREATED | $createdId= |
+| $everythingAuthToken | journal | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"journal"}],"name":"validationType"}],"name":"recordInfo"},{"name":"mainTitle","value":"Fitnesse journal to be deleted"},{"name":"subTitle","value":"Fitnesse journal to be deleted (eng)"},{"name":"ISSN","value":"1234-5678"},{"name":"EISSN","value":"9876-5432"},{"name":"URL","value":"www.journal.com"},{"name":"journalOA","value":"trueOA"},{"name":"closedDate","value":"2012-01-01"}],"name":"journal"} | journal | CREATED | $createdId= |
 
 *!
 !***> Läs den nyskapade tidskriften i Json
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | journal | $createdId | =~/"value":"Fitnesse journal to be deleted"/ | OK |
+| $everythingAuthToken | journal | $createdId | =~/"value":"Fitnesse journal to be deleted"/ | OK |
 
 *!
 !***> Lista tidskrifter
 
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | journal | | OK |
+| $everythingAuthToken | journal | | OK |
 
 *!
 !***> Radera den nyskapade tidskriften
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| $adminAuthToken | journal | $createdId | | OK |
+| $everythingAuthToken | journal | $createdId | | OK |
 
 *!
 !***> Försök läsa den raderade tidskriften
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | journal | $createdId | | NOT_FOUND |
+| $everythingAuthToken | journal | $createdId | | NOT_FOUND |
 
 *!
 !***> Lista tidskrifter - tidskrifter med status DELETED exkluderas
 
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | journal | | OK |
+| $everythingAuthToken | journal | | OK |
 
 *!

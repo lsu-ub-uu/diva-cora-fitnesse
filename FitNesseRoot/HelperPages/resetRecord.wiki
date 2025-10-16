@@ -6,6 +6,6 @@ Static
 
 !| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | ${recordType} | ${recordId} | ${originalData} | | OK |
+| $everythingAuthToken | ${recordType} | ${recordId} | ${originalData} | | OK |
 
 *!

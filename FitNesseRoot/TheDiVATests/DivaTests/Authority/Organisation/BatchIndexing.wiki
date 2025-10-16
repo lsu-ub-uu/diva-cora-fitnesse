@@ -13,7 +13,7 @@ Det ska gå att batchindexera alla organisationsposttyper via ett !-IndexBatchJo
 !define numberOfProcessedRecords {2}
 *!
 
-!define currentAuthToken {$adminAuthToken}
+!define currentAuthToken {$everythingAuthToken}
 !define expectedResult {CREATED}
 !define expectedDeleteResult {OK}
 
@@ -143,7 +143,7 @@ Guest ska inte kunna batchindexera någon organisationsposttyp.
 !include -seamless .TheDiVATests.DivaTests.batchIndexRecordType
 
 !***> Vi tar bort indexeringen för poster som sök testet ej förväntar sig skall vara indexerade
-!define currentAuthToken {$adminAuthToken}
+!define currentAuthToken {$everythingAuthToken}
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? | 
 | ${currentAuthToken} | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"organisation"}]},{"name":"recordId","value":"1"},{"name":"type","value":"removeFromIndex"}]} | | CREATED |

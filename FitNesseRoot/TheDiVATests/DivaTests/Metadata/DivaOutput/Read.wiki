@@ -12,7 +12,7 @@ Static
 
 !***> Admin tests
 !***> Setup admin test case
-!define currentAuthToken {$divaSystemAdminAuthToken}
+!define currentAuthToken {$systemAdminAuthToken}
 !define recordId {$hiddenRecord}
 
 ### Expect all 3 records are listed (published, unpunlished and hidden (fitnesse1, fitnesse2 and fitnesse3))

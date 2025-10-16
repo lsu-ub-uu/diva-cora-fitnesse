@@ -9,7 +9,7 @@ Det ska gå att läsa listtyp hållbar utveckling via REST API:et.
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | recordType | sustainableDevelopment | | OK |
+| $everythingAuthToken | recordType | sustainableDevelopment | | OK |
 
 *!
 Det ska gå att läsa toppnivån av metadatagruppen för en ny hållbar utvecklingspost från REST API:et

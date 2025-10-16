@@ -9,7 +9,7 @@ Det skall gå att lista och läsa hållbar utvecklingspos via REST API:et.
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | sustainableDevelopment | sustainableDevelopment:15052034295944219 | | OK |
+| $everythingAuthToken | sustainableDevelopment | sustainableDevelopment:15052034295944219 | | OK |
 
 *!
 "Admin" användare skall kunna lista hållbar utvecklingsposter.
@@ -18,7 +18,7 @@ Det skall gå att lista och läsa hållbar utvecklingspos via REST API:et.
 
 !| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | sustainableDevelopment | | OK |
+| $everythingAuthToken | sustainableDevelopment | | OK |
 
 *!
 Ej inloggade användare skall inte få lista hållbar utvecklingsposter, därför förväntar sig testet FORBIDDEN om en ej inloggad användare försöker lista hållbar utveckling.
