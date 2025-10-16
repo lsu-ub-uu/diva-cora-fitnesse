@@ -25,9 +25,9 @@ Det ska gå att indexera alla typer av organisationer.
 !include -seamless .TheDiVATests.DivaTests.indexRecordTypeWithId
 
 !3 Roller
-!4 !-SystemAdmin-!
+!4 !-Systemadministratör-!
 
-SystemAdmin ska kunna indexera alla typer av organisation.
+Systemadministratörska kunna indexera alla typer av organisation.
 
 !define currentAuthToken {$systemAdminAuthToken}
 
@@ -50,7 +50,7 @@ SystemAdmin ska kunna indexera alla typer av organisation.
 !include -seamless .TheDiVATests.DivaTests.indexRecordTypeWithId
 
 
-!4 !-DomainAdmin-!
+!4 !-Medlemsadministratör-!
 
 DomainAdmin får inte indexera organisationer.
 
@@ -75,9 +75,9 @@ DomainAdmin får inte indexera organisationer.
 !include -seamless .TheDiVATests.DivaTests.indexRecordTypeWithId
 
 
-!4 !-Guest-!
+!4 !-Gäst-!
 
-Guest får inte indexera organisationer.
+Gäst får inte indexera organisationer.
 
 !define currentAuthToken {$guestAuthToken}
 

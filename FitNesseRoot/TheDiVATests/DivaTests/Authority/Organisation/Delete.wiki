@@ -16,10 +16,10 @@ Static
 *!
 
 !3 DiVA Roller
-!4 !-SystemAdmin-!
- * '''Fall1:''' !-Eftersom det just nu inte går att radera organistationer i systemet får SystemAdmin INTE för närvarande radera rootOrganisationer.-!
- * '''Fall2:''' !-Eftersom det just nu inte går att radera organistationer i systemet får SystemAdmin INTE för närvarande radera topOrganisationer.-!
- * '''Fall3:''' !-Eftersom det just nu inte går att radera organistationer i systemet får SystemAdmin INTE för närvarande radera subOrganisationer.-!
+!4 !-Systemadministratör-!
+ * '''Fall1:''' !-Eftersom det just nu inte går att radera organistationer i systemet får Systemadministratör INTE för närvarande radera rootOrganisationer.-!
+ * '''Fall2:''' !-Eftersom det just nu inte går att radera organistationer i systemet får Systemadministratör INTE för närvarande radera topOrganisationer.-!
+ * '''Fall3:''' !-Eftersom det just nu inte går att radera organistationer i systemet får Systemadministratör INTE för närvarande radera subOrganisationer.-!
 
 !***> '''Fall1''' Radera rootOrganisation
 
@@ -49,10 +49,10 @@ Vi provar att radera subOrganisation
 
 *!
 
-!4 !-DomainAdmin-!
+!4 !-Medlemsadministratör-!
  * '''Fall1:''' !-DomainAdmin får INTE radera någon rootOrganisation.-!
  * '''Fall2:''' !-DomainAdmin får INTE radera någon topOrganisation.-!
- * '''Fall3:''' !-Eftersom det just nu inte går att radera organistationer i systemet får DomainAdmin INTE för närvarande radera någon subOrganisation.-!
+ * '''Fall3:''' !-Eftersom det just nu inte går att radera organistationer i systemet får  medlemadministratör  INTE för närvarande radera någon subOrganisation.-!
 
 !***> '''Fall1''' Radera rootOrganisation
 
@@ -81,10 +81,10 @@ Vi provar att radera en subOrganisation
 | $domainAdminUUAuthToken | organisation | 1455 | | FORBIDDEN |
 
 *!
-!4 Guest
- * '''Fall1:''' Guest får INTE radera någon rootOrganisation
- * '''Fall2:''' Guest får INTE radera någon topOrganisation
- * '''Fall3:''' Guest får INTE radera någon subOrganisation
+!4 Gäst
+ * '''Fall1:''' Gäst får INTE radera någon rootOrganisation
+ * '''Fall2:''' Gäst får INTE radera någon topOrganisation
+ * '''Fall3:''' Gäst får INTE radera någon subOrganisation
 
 !***> '''Fall1''' Radera rootOrganisation
 

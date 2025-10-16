@@ -17,7 +17,7 @@ Se detaljerad beskriving i systemOnes Fitnesse
  * '''Fall 6: ''' Alla användare bör kunna ta bort sin egen appToken.
  * '''Fall 7: ''' En användare ska inte kunna ta bort en annan användares appToken.
 
-!3 SystemAdmin
- * '''Fall 1: ''' SystemAdmin bör kunna skapa en appToken för vilken användare som helst.
- * '''Fall 2: ''' SystemAdmin ska inte kunna logga in med en annan användares appToken.
- * '''Fall 3: ''' SystemAdmin bör kunna ta bort alla andra användares appToken.
+!3 !-Systemadministratör-!
+ * '''Fall 1: ''' Systemadministratör bör kunna skapa en appToken för vilken användare som helst.
+ * '''Fall 2: ''' Systemadministratör ska inte kunna logga in med en annan användares appToken.
+ * '''Fall 3: ''' Systemadministratör bör kunna ta bort alla andra användares appToken.

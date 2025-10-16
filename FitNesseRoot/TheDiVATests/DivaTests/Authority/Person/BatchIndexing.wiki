@@ -61,8 +61,8 @@ Det ska gå att batchindexera personer  via ett !-IndexBatchJob-!. !-IndexBatchJ
 *!
 
 !3 Roller
-!4 !-SystemAdmin-!
-!-SystemAdmin-! ska kunna batchindexera alla organisationsposttyper.
+!4 !-Systemadministratör-!
+!-Systemadministratör-! ska kunna batchindexera alla organisationsposttyper.
 
 !define currentAuthToken {$systemAdminAuthToken}
 !define expectedResult {CREATED}
@@ -79,16 +79,16 @@ Det ska gå att batchindexera personer  via ett !-IndexBatchJob-!. !-IndexBatchJ
 !include -seamless .HelperPages.testBatchIndexing
 
 
-!4 !-DomainAdmin-!
-!-DomainAdmin-! ska inte kunna batchindexera någon organisationsposttyp.
+!4 !-Medlemsadministratör-!
+!-Medlemsadministratör-! ska inte kunna batchindexera någon organisationsposttyp.
 
 !define currentAuthToken {$domainAdminAuthToken}
 !define expectedResult {UNAUTHORIZED}
 !include -seamless .TheDiVATests.DivaTests.batchIndexRecordType
 
 
-!4 Guest
-Guest ska inte kunna batchindexera någon organisationsposttyp.
+!4 Gäst
+Gäst ska inte kunna batchindexera någon organisationsposttyp.
 
 !define currentAuthToken {$guestAuthToken}
 !define expectedResult {UNAUTHORIZED}

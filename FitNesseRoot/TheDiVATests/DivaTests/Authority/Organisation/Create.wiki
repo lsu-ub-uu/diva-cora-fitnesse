@@ -22,10 +22,10 @@ Static
 
 *!
 !3 Roller
-!4 !-SystemAdmin-!
- * '''Fall1:''' !-Eftersom det just nu inte går att skapa organistationer i systemet får SystemAdmin INTE för närvarande skapa någon rootOrganisationer.-!
- * '''Fall2:''' !-Eftersom det just nu inte går att skapa organistationer i systemet får SystemAdmin INTE för närvarande skapa någon topOrganisation.-!
- * '''Fall3:''' !-Eftersom det just nu inte går att skapa organistationer i systemet får SystemAdmin INTE för närvarande skapa någon subOrganisation.-!
+!4 !-Systemadministratör-!
+ * '''Fall1:''' !-Eftersom det just nu inte går att skapa organistationer i systemet får Systemadministratör INTE för närvarande skapa någon rootOrganisationer.-!
+ * '''Fall2:''' !-Eftersom det just nu inte går att skapa organistationer i systemet får Systemadministratör INTE för närvarande skapa någon topOrganisation.-!
+ * '''Fall3:''' !-Eftersom det just nu inte går att skapa organistationer i systemet får Systemadministratör INTE för närvarande skapa någon subOrganisation.-!
 
 !***> '''Fall1'''
 
@@ -55,10 +55,10 @@ Vi provar att skapa en subOrganisation
 
 *!
 
-!4 !-DomainAdmin-!
+!4 !-Medlemsadministratör-!
  * '''Fall1:''' !-DomainAdmin får INTE skapa rootOrganisationer.-!
  * '''Fall2:''' !-DomainAdmin får INTE skapa topOrganisationer.-!
- * '''Fall3:''' !-Eftersom det just nu inte går att skapa organistationer i systemet får DomainAdmin INTE för närvarande skapa någon subOrganisation.-!
+ * '''Fall3:''' !-Eftersom det just nu inte går att skapa organistationer i systemet får  medlemadministratör  INTE för närvarande skapa någon subOrganisation.-!
 
 !***> '''Fall1'''
 
@@ -87,8 +87,8 @@ Vi provar att skapa en subOrganisation
 | $domainAdminUUAuthToken | organisation | {"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"subOrganisation"}],"name":"validationType"}],"name":"recordInfo"},{"name":"organisationName","value":"Provorganisation"},{"children":[{"name":"organisationName","value":"Test organisation"}],"name":"alternativeName"},{"name":"country","value":"SE"},{"name":"eligible","value":"yes"}],"name":"divaOrganisation"} | | FORBIDDEN |
 
 *!
-!4 Guest
- * '''Fall1:''' Guest ska inte kunna skapa en organisation, rootOrganisation, topOrganisation och subOrganisation
+!4 Gäst
+ * '''Fall1:''' Gäst ska inte kunna skapa en organisation, rootOrganisation, topOrganisation och subOrganisation
 
 !***> '''Fall1'''
 

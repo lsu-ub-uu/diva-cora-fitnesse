@@ -23,9 +23,9 @@ Static
 
 
 !3 Roller
-!4 !-SystemAdmin-!
+!4 !-Systemadministratör-!
 
- * '''Fall1:''' !-SystemAdmin ska kunna indexera personer.-!
+ * '''Fall1:''' !-Systemadministratörska kunna indexera personer.-!
 
 !***>  '''Fall1'''
 !define currentAuthToken {$systemAdminAuthToken}
@@ -35,7 +35,7 @@ Static
 !include -seamless .HelperPages.indexRecordTypeWithId
 *!
 
-!4 !-DomainAdmin-!
+!4 !-Medlemsadministratör-!
  * '''Fall1:''' !-DomainAdmin får inte indexera organisationer.-!
 
 !***>  '''Fall1'''
@@ -46,8 +46,8 @@ Static
 !include -seamless .HelperPages.indexRecordTypeWithId
 *!
 
-!4 !-Guest-!
- * '''Fall1:''' !-Guest får inte indexera organisationer.-!
+!4 !-Gäst-!
+ * '''Fall1:''' !-Gäst får inte indexera organisationer.-!
 
 !***>  '''Fall1'''
 !define currentAuthToken {$guestAuthToken}

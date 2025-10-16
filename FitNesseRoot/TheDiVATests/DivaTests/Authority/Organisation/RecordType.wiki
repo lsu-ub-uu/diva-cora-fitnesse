@@ -467,10 +467,10 @@ Kontrollera barnen
 !3 Roller
 Notera att rättigheterna som kontrolleras i det här avsnittet gäller, vilka rättigheter man har på postTyperna inte enstaka poster. Rättigheterna för enstaka poster kontrolleras under de olika testerna för rättigheter så som read, update, etc.
 
-!4 !-SystemAdmin-!
-!-SystemAdmin har tillgång till validate, list och search för organisations postTyperna-!
+!4 !-Systemadministratör-!
+!-Systemadministratörhar tillgång till validate, list och search för organisations postTyperna-!
 
-!***> Kontrollera de actions systemAdmin får med i recordType för organisation
+!***> Kontrollera de actions systemadministratör får med i recordType för organisation
 
 !define currentAuthToken {$systemAdminAuthToken}
 !define currentRecordType {organisation}
@@ -486,10 +486,10 @@ Notera att rättigheterna som kontrolleras i det här avsnittet gäller, vilka r
 !define expectedPermissionResult {Action update is missing. Action delete is missing. Action index is missing. Action create is missing.}
 !include -seamless .TheDiVATests.DivaTests.checkActionsForRecordType
 *!
-!4 !-DomainAdmin-!
+!4 !-Medlemsadministratör-!
 !-DomainAdmin har tillgång till validate och search för subOrganisations och search för root- och topOrganisationsposttyperna-!
 
-!***> Kontrollera de actions domainAdmin får med i recordType för organisation
+!***> Kontrollera de actions medlemsadministratör får med i recordType för organisation
 
 !define currentAuthToken {$domainAdminUUAuthToken}
 !define currentRecordType {organisation}
@@ -505,10 +505,10 @@ Notera att rättigheterna som kontrolleras i det här avsnittet gäller, vilka r
 !define expectedPermissionResult {Action update is missing. Action delete is missing. Action index is missing. Action create is missing. Action list is missing. Action batch_index is missing.}
 !include -seamless .TheDiVATests.DivaTests.checkActionsForRecordType
 *!
-!4 !-Guest-!
-!-Guest har tillgång till search för organisations postTyperna-!
+!4 !-Gäst-!
+!-Gäst har tillgång till search för organisations postTyperna-!
 
-!***> Kontrollera de actions domainAdmin får med i recordType för organisation
+!***> Kontrollera de actions medlemsadministratör får med i recordType för organisation
 
 !define currentAuthToken {$guestToken}
 !define currentRecordType {organisation}

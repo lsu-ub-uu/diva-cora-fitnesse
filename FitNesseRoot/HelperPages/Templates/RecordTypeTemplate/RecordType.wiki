@@ -17,22 +17,22 @@ Notera att rättigheterna som kontrolleras i det här avsnittet gäller, vilka r
 !define currentRecordType {${template_recordType}}
 *!
 
-!4 !-SystemAdmin-!
-!***> Kontrollera de actions systemAdmin får med i recordType för person
+!4 !-Systemadministratör-!
+!***> Kontrollera de actions systemadministratör får med i recordType för person
 !define currentAuthToken {${template_systemAdmin_userAuthToken}}
 !define expectedPermissionResult {${template_systemAdmin_expectedPermissionResult}}
 !include -seamless .TheDiVATests.DivaTests.checkActionsForRecordType
 *!
 
-!4 !-DomainAdmin-!
-!***> Kontrollera de actions domainAdmin får med i recordType för person
+!4 !-Medlemsadministratör-!
+!***> Kontrollera de actions medlemsadministratör får med i recordType för person
 !define currentAuthToken {${template_domainAdmin_userAuthToken}}
 !define expectedPermissionResult {${template_domainAdmin_expectedPermissionResult}}
 !include -seamless .TheDiVATests.DivaTests.checkActionsForRecordType
 *!
 
-!4 !-Guest-!
-!***> Kontrollera de actions guest får med i recordType för person
+!4 !-Gäst-!
+!***> Kontrollera de actions gäst får med i recordType för person
 !define currentAuthToken {${template_guest_userAuthToken}}
 !define expectedPermissionResult {${template_guest_expectedPermissionResult}}
 !include -seamless .TheDiVATests.DivaTests.checkActionsForRecordType

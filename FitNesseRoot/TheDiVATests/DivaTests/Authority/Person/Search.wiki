@@ -142,11 +142,11 @@ OBS: Just nu sökfunktionen bara hittar ord inte delar av ett ord. Om man vill s
 *!
 
 !3 Roller
-!4 !-SystemAdmin-!
+!4 !-Systemadministratör-!
 !define currentAuthToken {$systemAdminAuthToken}
 !-Systemadmin får söka och läsa alla begränsade fält.-!
 
- * '''Fall 1:''' !-SystemAdmin ska kunna söka en person.-!
+ * '''Fall 1:''' !-Systemadministratörska kunna söka en person.-!
  
 !***> '''Fall 1:'''
 
@@ -158,7 +158,7 @@ OBS: Just nu sökfunktionen bara hittar ord inte delar av ett ord. Om man vill s
 !include -seamless .HelperPages.checkOriginal
 *!
 
-!4 !-DomainAdmin-!
+!4 !-Medlemsadministratör-!
 !define currentAuthToken {$domainAdminUUAuthToken}
 !-DomainAdmin får söka och läsa alla begränsade fält från sin egna och andras domäner.-!
 
@@ -173,11 +173,11 @@ OBS: Just nu sökfunktionen bara hittar ord inte delar av ett ord. Om man vill s
 !define expectedPermissionResult {Write permission id is missing. Write permission type is missing. Write permission createdBy is missing. Write permission dataDivider is missing. Write permission tsCreated is missing. Write permission updated is missing. Write permission domain is missing. Write permission personDomainPart is missing.}
 !include -seamless .HelperPages.checkOriginal
 *!
-!4 Guest
+!4 Gäst
 !define currentAuthToken {$guestToken}
-!-Guest får söka men inte läsa begränsade fälten i person oavsett domän.-!
+!-Gäst får söka men inte läsa begränsade fälten i person oavsett domän.-!
 
- * '''Fall 1:''' Guest ska kunna söka och läsa en person, oavsett vilken domän den är knuten till.
+ * '''Fall 1:''' Gäst ska kunna söka och läsa en person, oavsett vilken domän den är knuten till.
 
 !***> '''Fall 1:'''
 

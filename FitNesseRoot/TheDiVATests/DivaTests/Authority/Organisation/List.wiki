@@ -73,11 +73,11 @@ Säkerställ att den sparade datan överensstämmer med originaldatan.
 *!
 
 !3 Roller
-!4 !-SystemAdmin-!
- * '''Fall1:''' !-SystemAdmin ska kunna lista organisationer, via den abstrakta organisation-!
- * '''Fall2:''' !-SystemAdmin ska kunna lista organisationer, som är rootOrganisationer-!
- * '''Fall3:''' !-SystemAdmin ska kunna lista organisationer, som är topOrganisationer -!
- * '''Fall4:''' !-SystemAdmin ska kunna lista organisationer, som är subOrganisationer -!
+!4 !-Systemadministratör-!
+ * '''Fall1:''' !-Systemadministratörska kunna lista organisationer, via den abstrakta organisation-!
+ * '''Fall2:''' !-Systemadministratörska kunna lista organisationer, som är rootOrganisationer-!
+ * '''Fall3:''' !-Systemadministratörska kunna lista organisationer, som är topOrganisationer -!
+ * '''Fall4:''' !-Systemadministratörska kunna lista organisationer, som är subOrganisationer -!
 
 !define currentAuthToken {$systemAdminAuthToken}
  
@@ -141,7 +141,7 @@ Säkerställ att den sparade datan överensstämmer med originaldatan.
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 
 *!
-!4 !-DomainAdmin-!
+!4 !-Medlemsadministratör-!
  * '''Fall1:''' !-DomainAdmin ska inte kunna lista organisationer, varken abstrakta, root, top eller sub-!
 
 !***> '''Fall1'''
@@ -154,8 +154,8 @@ Säkerställ att den sparade datan överensstämmer med originaldatan.
 | $domainAdminUUAuthToken | organisation | | FORBIDDEN |
 
 *!
-!4 Guest
- * '''Fall1:''' Guest ska inte kunna lista organisationer, varken abstrakta, root, top eller sub
+!4 Gäst
+ * '''Fall1:''' Gäst ska inte kunna lista organisationer, varken abstrakta, root, top eller sub
 
 !***> '''Fall1'''
 

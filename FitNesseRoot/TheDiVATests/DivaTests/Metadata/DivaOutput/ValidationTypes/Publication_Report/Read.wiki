@@ -6,9 +6,9 @@ Static
  * '''Admin'''
   * '''Case 1''': An admin should be able to list publication_report of any visibility
   * '''Case 2''': An admin should be able to read publication_report of any visibility
- * '''Guest'''
-  * '''Case 1''': A guest should only be able to search for published records
-  * '''Case 2''': A guest should be only able to read published records
+ * '''Gäst'''
+  * '''Case 1''': A gäst should only be able to search for published records
+  * '''Case 2''': A gäst should be only able to read published records
 
 !***> Admin tests
 !***> Setup admin test case
@@ -31,8 +31,8 @@ Static
 | ${currentAuthToken} | diva-output | $hiddenPublicationReportRecord | | OK |
 *!
 *!
-!***> Guest tests
-!***> Setup guest test case
+!***> Gäst tests
+!***> Setup gäst test case
 !define currentAuthToken {$guestToken}
 !define recordId {$publishedRecord}
 
@@ -40,13 +40,13 @@ Static
 !define expectedSearchResult {(?=.*"name":"title","value":"fitnessePublicationReport1")(?!.*"name":"title","value":"fitnessePublicationReport2")(?!.*"name":"title","value":"fitnessePublicationReport3")}
 !define recordId {$publishedRecord}
 *!
-!*** '''Case 1''': A guest should only be able to search published records
+!*** '''Case 1''': A gäst should only be able to search published records
 !5 !style_red[''Disabled until search is properly implemented'']
 !***> Setup searchData
 !define divaRecordSearchData {!-%7B%22name%22%3A%22search%22%2C%22children%22%3A%5B%7B%22name%22%3A%22include%22%2C%22children%22%3A%5B%7B%22name%22%3A%22includePart%22%2C%22children%22%3A%5B%7B%22name%22%3A%22recordIdSearchTerm%22%2C%22value%22%3A%22%2A%2A%22%7D%5D%7D%5D%7D%5D%7D-!}
 *!
 *!
-!*** '''Case 2''': A guest should be only able to read published records
+!*** '''Case 2''': A gäst should be only able to read published records
 !| ChildComparerFixture |
 | authToken | type   | id | testReadAndStoreRecord? | getStatusType? |
 | ${currentAuthToken} | diva-output | $publishedPublicationReportRecord | | OK |

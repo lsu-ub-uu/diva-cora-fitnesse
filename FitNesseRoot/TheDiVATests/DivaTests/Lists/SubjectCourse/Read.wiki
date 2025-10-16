@@ -23,7 +23,7 @@ Det skall gå att lista och läsa ämne/kurs via REST API:et.
 *!
 Ej inloggade användare skall inte få lista ämne/kurs, därför förväntar sig testet FORBIDDEN om en ej inloggad användare försöker lista ämne/kurs.
 
-!***> Lista ämne/kurs utan att vara inloggad (guestUser) HAR STÄNGT AV TESTET DÅ DET EJ GÅR IGENOM PÅ BYGGSERVERN(?)
+!***> Lista ämne/kurs utan att vara inloggad (gästUser) HAR STÄNGT AV TESTET DÅ DET EJ GÅR IGENOM PÅ BYGGSERVERN(?)
 
 !| Comment |
 | RecordEndpointFixture |

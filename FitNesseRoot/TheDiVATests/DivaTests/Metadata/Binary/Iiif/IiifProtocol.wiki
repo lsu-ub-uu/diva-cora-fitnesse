@@ -4,8 +4,8 @@ Static
 !2 Iiif tests
  * '''Admin'''
   * '''Case 1''': IIF protocol information must be present for all visibilities as an admin. Information must contain a server and identifier properties. 
- * '''Guest'''
-  * '''Case 1''': IIF protocol information must ''only'' be present for published binaries as a guest
+ * '''Gäst'''
+  * '''Case 1''': IIF protocol information must ''only'' be present for published binaries as a gäst
 
 !***> Admin tests
 !***> Setup admin test case
@@ -20,12 +20,12 @@ Static
 | ${currentAuthToken} | binary | $hiddenRecordId | =~/"otherProtocols":\{"iiif":\{"server":"${systemUnderTestUrl}iiif\/","identifier":"binary:\d*"/ |
 *!
 *!
-!***> Guest tests
-!***> Setup guest test case
+!***> Gäst tests
+!***> Setup gäst test case
 !define currentAuthToken {$guestToken}
 *!
 
-!*** '''Case 1''': IIF protocol information must only be present for published binaries as a guest
+!*** '''Case 1''': IIF protocol information must only be present for published binaries as a gäst
 !| ChildComparerFixture |
 | authToken | type | id | testReadAndStoreRecord? |
 | ${currentAuthToken} | binary | $publishedRecordId | =~/"otherProtocols":\{"iiif":\{"server":"${systemUnderTestUrl}iiif\/","identifier":"binary:\d*"/ |

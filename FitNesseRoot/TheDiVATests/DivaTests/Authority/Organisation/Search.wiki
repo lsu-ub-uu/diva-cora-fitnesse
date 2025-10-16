@@ -171,12 +171,12 @@ Det går inte flera domän samtidigt
 
 *!
 !3 Roller
-!4 !-SystemAdmin-!
+!4 !-Systemadministratör-!
 !-Systemadmin får söka och läsa alla begränsade fält.-!
 
- * '''Fall 1:''' !-SystemAdmin ska kunna söka en rotOrganisation oavsett domän.-!
- * '''Fall 2:''' !-SystemAdmin ska kunna söka en topOrganisation oavsett domän.-!
- * '''Fall 3:''' !-SystemAdmin ska kunna söka en subOrganisation oavsett domän.-!
+ * '''Fall 1:''' !-Systemadministratörska kunna söka en rotOrganisation oavsett domän.-!
+ * '''Fall 2:''' !-Systemadministratörska kunna söka en topOrganisation oavsett domän.-!
+ * '''Fall 3:''' !-Systemadministratörska kunna söka en subOrganisation oavsett domän.-!
 
 !define currentAuthToken {$systemAdminAuthToken}
 !***> '''Fall 1'''
@@ -240,7 +240,7 @@ Domain KTH
 !define expectedPermissionResult {Write permission domain is missing.}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 *!
-!4 !-DomainAdmin-!
+!4 !-Medlemsadministratör-!
 !-DomainAdmin får söka och läsa alla begränsade fält från sin egna och andras domäner.-!
 
  * '''Fall 1:''' !-DomainAdmin ska kunna söka en rootOrganisation från sin egna domän.-!
@@ -318,12 +318,12 @@ Domain KTH
 !define expectedPermissionResult {Write permission domain is missing.}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 *!
-!4 Guest
-!-Guest får söka men inte läsa begränsade fälten i organisation oavsett domän.-!
+!4 Gäst
+!-Gäst får söka men inte läsa begränsade fälten i organisation oavsett domän.-!
 
- * '''Fall 1:''' Guest ska kunna söka och läsa en rootOrganisation, oavsett vilken domän den är knuten till.
- * '''Fall 2:''' Guest ska kunna söka och läsa en topOrganisation, oavsett vilken domän den är knuten till.
- * '''Fall 3:''' Guest ska kunna söka och läsa en subOrganisation, oavsett vilken domän den är knuten till.
+ * '''Fall 1:''' Gäst ska kunna söka och läsa en rootOrganisation, oavsett vilken domän den är knuten till.
+ * '''Fall 2:''' Gäst ska kunna söka och läsa en topOrganisation, oavsett vilken domän den är knuten till.
+ * '''Fall 3:''' Gäst ska kunna söka och läsa en subOrganisation, oavsett vilken domän den är knuten till.
 
 !define currentAuthToken {$guestToken}
 !***> '''Fall 1'''

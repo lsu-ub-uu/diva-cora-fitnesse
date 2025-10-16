@@ -31,7 +31,7 @@ Först skapar vi en forskningsfinansiär, för att sedan kunna läsa den
 *!
 Ej inloggade användare skall inte få lista forskningsfinansiär, därför förväntar sig testet FORBIDDEN om en ej inloggad användare försöker lista forskningsfinansiär.
 
-!***> Lista forskningsfinansiär utan att vara inloggad (guestUser) HAR STÄNGT AV TESTET DÅ DET EJ GÅR IGENOM PÅ BYGGSERVERN(?)
+!***> Lista forskningsfinansiär utan att vara inloggad (gästUser) HAR STÄNGT AV TESTET DÅ DET EJ GÅR IGENOM PÅ BYGGSERVERN(?)
 
 !| Comment |
 | RecordEndpointFixture |

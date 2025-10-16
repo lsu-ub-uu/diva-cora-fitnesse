@@ -23,7 +23,7 @@ Det skall gå att lista och läsa serie via REST API:et.
 *!
 Ej inloggade användare skall inte få lista serier, därför förväntar sig testet FORBIDDEN om en ej inloggad användare försöker lista serie.
 
-!***> Lista serie utan att vara inloggad (guestUser) HAR STÄNGT AV TESTET DÅ DET EJ GÅR IGENOM PÅ BYGGSERVERN(?)
+!***> Lista serie utan att vara inloggad (gästUser) HAR STÄNGT AV TESTET DÅ DET EJ GÅR IGENOM PÅ BYGGSERVERN(?)
 
 !| Comment |
 | RecordEndpointFixture |

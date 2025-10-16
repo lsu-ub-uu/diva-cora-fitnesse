@@ -9,10 +9,10 @@ Static
 !define expectedResponse {!-{"dataList":{"fromNo":"1","data":[],"totalNo":"0","containDataOfType":"recordToRecordLink","toNo":"0"}}-!}
 !define expectedStatus {OK}
 
-!3 !-SystemAdmin-!
+!3 !-Systemadministratör-!
 !define currentAuthToken {$systemAdminAuthToken}
 
-!***> '''!-SystemAdmin-! får en tom lista som svar för alla organisationstyper'''
+!***> '''!-Systemadministratör-! får en tom lista som svar för alla organisationstyper'''
 
 !4 !-RootOrganisation-!
 
@@ -38,10 +38,10 @@ Static
 
 *!
 
-!3 !-DomainAdmin-!
+!3 !-Medlemsadministratör-!
 !define currentAuthToken {$domainAdminUUAuthToken}
 
-!***> '''!-DomainAdmin-! får en tom lista som svar för alla organisationstyper'''
+!***> '''!-Medlemsadministratör-! får en tom lista som svar för alla organisationstyper'''
 
 !4 !-RootOrganisation-!
 
@@ -67,10 +67,10 @@ Static
 
 *!
 
-!3 Guest
+!3 Gäst
 !define currentAuthToken {$guestToken}
 
-!***> '''Guest får en tom lista som svar för alla organisationstyper'''
+!***> '''Gäst får en tom lista som svar för alla organisationstyper'''
 
 !4 !-RootOrganisation-!
 

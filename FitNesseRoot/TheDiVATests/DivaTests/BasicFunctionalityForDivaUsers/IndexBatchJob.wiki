@@ -50,8 +50,8 @@ Validate the '''response''' returned on the '''read''' call contains the expecte
 
 !3 Roller
 
-!4 !-SystemAdmin-!
-!define currentUserRole {!-SystemAdmin-!}
+!4 !-Systemadministratör-!
+!define currentUserRole {!-Systemadministratör-!}
 !define currentAuthToken {$systemAdminAuthToken}
 !***> ${currentUserRole} '''ska''' kunna '''skapa''' en post av typ !-IndexBatchJob-!
 
@@ -90,7 +90,7 @@ Validera att '''svaret''' på '''läs'''anropet innehåller det förväntade dat
 *!
 
 
-!***> Skapa ett !-IndexBatchJob-! för read-, update- och delete-testerna för !-DomainAdmin-! och Guest 
+!***> Skapa ett !-IndexBatchJob-! för read-, update- och delete-testerna för !-Medlemsadministratör-! och Gäst 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getCreatedId? | getStatusType? |
 | $everythingAuthToken | indexBatchJob | ${createData} | | $createdId = | CREATED |
@@ -98,8 +98,8 @@ Validera att '''svaret''' på '''läs'''anropet innehåller det förväntade dat
 *!
 
 
-!4 !-DomainAdmin-!
-!define currentUserRole {!-DomainAdmin-!}
+!4 !-Medlemsadministratör-!
+!define currentUserRole {!-Medlemsadministratör-!}
 !define currentAuthToken {$domainAdminAuthToken}
 !***> ${currentUserRole} '''ska inte''' kunna '''skapa''' en post av typ !-IndexBatchJob-!
 
@@ -129,8 +129,8 @@ Validera att '''svaret''' på '''läs'''anropet innehåller det förväntade dat
 *!
 
 
-!4 !-Guest-!
-!define currentUserRole {!-Guest-!}
+!4 !-Gäst-!
+!define currentUserRole {!-Gäst-!}
 !define currentAuthToken {$guestAuthToken}
 !***> ${currentUserRole} '''ska inte''' kunna '''skapa''' en post av typ !-IndexBatchJob-!
 
@@ -160,7 +160,7 @@ Validera att '''svaret''' på '''läs'''anropet innehåller det förväntade dat
 *!
 
 
-!***> Radera !-IndexBatchJobbet-! som skapades för att testa read-, update- och delete för !-DomainAdmin-! och Guest 
+!***> Radera !-IndexBatchJobbet-! som skapades för att testa read-, update- och delete för !-Medlemsadministratör-! och Gäst 
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
