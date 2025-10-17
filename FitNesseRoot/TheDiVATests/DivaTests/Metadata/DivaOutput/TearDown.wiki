@@ -5,10 +5,10 @@ Static
 !***> Clean up diva-output test data
 !| RecordEndpointFixture |
 |authToken|type|id|testDeleteRecord?|getStatusType?|
-|$divaAdminAuthToken|diva-output|$publishedRecord||OK|
-|$divaAdminAuthToken|diva-output|$unpublishedRecord||OK|
-|$divaAdminAuthToken|diva-output|$hiddenRecord||OK|
-|$divaAdminAuthToken|diva-output|$publishedPublicationReportRecord||OK|
-|$divaAdminAuthToken|diva-output|$unpublishedPublicationReportRecord||OK|
-|$divaAdminAuthToken|diva-output|$hiddenPublicationReportRecord||OK|
+|$systemAdminAuthToken|diva-output|$publishedRecord||OK|
+|$systemAdminAuthToken|diva-output|$unpublishedRecord||OK|
+|$systemAdminAuthToken|diva-output|$hiddenRecord||OK|
+|$systemAdminAuthToken|diva-output|$publishedPublicationReportRecord||OK|
+|$systemAdminAuthToken|diva-output|$unpublishedPublicationReportRecord||OK|
+|$systemAdminAuthToken|diva-output|$hiddenPublicationReportRecord||OK|
 *!
