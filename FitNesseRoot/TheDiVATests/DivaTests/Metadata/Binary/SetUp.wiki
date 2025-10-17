@@ -6,15 +6,15 @@ Static
 ### Setup binary record
 !define expectedFileSize {316188}
 !define publishedBinary {!-{"name":"binary","children":[{"name":"recordInfo","children":[{"name":"visibility","value":"published"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"divaData"}]},{"name":"validationType","children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"genericBinary"}]}]},{"name":"originalFileName","value":"TiffImage1.tiff"},{"name":"expectedFileSize","value":"-!${expectedFileSize}!-"}],"attributes":{"type":"generic"}}-!}
+
 !define unpublishedBinary {!-{"name":"binary","children":[{"name":"recordInfo","children":[{"name":"visibility","value":"unpublished"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"divaData"}]},{"name":"validationType","children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"genericBinary"}]}]},{"name":"originalFileName","value":"TiffImage2.tiff"},{"name":"expectedFileSize","value":"-!${expectedFileSize}!-"}],"attributes":{"type":"generic"}}-!}
-!define hiddenBinary {!-{"name":"binary","children":[{"name":"recordInfo","children":[{"name":"visibility","value":"hidden"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"divaData"}]},{"name":"validationType","children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"genericBinary"}]}]},{"name":"originalFileName","value":"TiffImage3.tiff"},{"name":"expectedFileSize","value":"-!${expectedFileSize}!-"}],"attributes":{"type":"generic"}}-!}
+
 
 Create binary records
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? | getCreatedId? |
 | $systemAdminAuthToken | binary | ${publishedBinary} | | CREATED | $publishedRecordId= |
 | $systemAdminAuthToken | binary | ${unpublishedBinary} | | CREATED | $unpublishedRecordId= |
-| $systemAdminAuthToken | binary | ${hiddenBinary} | | CREATED | $hiddenRecordId= |
 
 ----
 
@@ -27,12 +27,10 @@ Create binary records
 | authToken | type | id | fileName | testUpload? | getStatusType? |
 | $systemAdminAuthToken | binary | $publishedRecordId | aTiff.tiff | ${expectedUploadAnswer} | ${expectedUploadResult} |
 | $systemAdminAuthToken | binary | $unpublishedRecordId | aTiff.tiff | ${expectedUploadAnswer} | ${expectedUploadResult} |
-| $systemAdminAuthToken | binary | $hiddenRecordId | aTiff.tiff | ${expectedUploadAnswer} | ${expectedUploadResult} |
 
 !| WaitForRegExReadResultFixture |
 | authToken | recordType | recordId | sleepTime | maxNumberOfCalls | regEx | waitUntilUntilRegExpFoundInReadRecord? |
 | $systemAdminAuthToken | binary | $publishedRecordId | 250 | 50 | \"name\":\"jp2\" | Found |
 | $systemAdminAuthToken | binary | $unpublishedRecordId | 250 | 50 | \"name\":\"jp2\" | Found |
-| $systemAdminAuthToken | binary | $hiddenRecordId | 250 | 50 | \"name\":\"jp2\" | Found |
 *!
 *!

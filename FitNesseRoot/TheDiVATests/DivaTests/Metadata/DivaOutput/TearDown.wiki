@@ -7,8 +7,6 @@ Static
 |authToken|type|id|testDeleteRecord?|getStatusType?|
 |$systemAdminAuthToken|diva-output|$publishedRecord||OK|
 |$systemAdminAuthToken|diva-output|$unpublishedRecord||OK|
-|$systemAdminAuthToken|diva-output|$hiddenRecord||OK|
 |$systemAdminAuthToken|diva-output|$publishedPublicationReportRecord||OK|
 |$systemAdminAuthToken|diva-output|$unpublishedPublicationReportRecord||OK|
-|$systemAdminAuthToken|diva-output|$hiddenPublicationReportRecord||OK|
 *!

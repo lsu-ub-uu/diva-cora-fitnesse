@@ -7,7 +7,6 @@ Static
 | authToken | type | id | testDeleteRecord? | getStatusType? |
 | $systemAdminAuthToken | binary | $publishedRecordId | | OK |
 | $systemAdminAuthToken | binary | $unpublishedRecordId | | OK |
-| $systemAdminAuthToken | binary | $hiddenRecordId | | OK |
 
 Reset headers for smartrics fixture
 | Table:smartrics.rest.fitnesse.fixture.RestFixtureConfig | |
