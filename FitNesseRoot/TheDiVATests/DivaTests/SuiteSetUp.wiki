@@ -14,5 +14,8 @@ Suite
 | | fitnesseDomainAdminUU@user.uu.se | $domainAdminUUAuthToken= | OK |
 | | fitnesseDomainAdminKTH@user.uu.se | $domainAdminKTHAuthToken= | OK |
 | | userNotInDb@user.uu.se | $guestToken= | OK |
+*!
 
+!***> SuiteSetUp for Fitnesse Example
+!include -seamless .HelperPages.Data.fitnesseData
 *!
