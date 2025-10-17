@@ -11,9 +11,8 @@ Suite
 !| AuthenticationFixture |
 | idpLogin? | EPPN | getAuthToken? | getStatusType? |
 | | fitnesseSystemAdmin@user.uu.se | $systemAdminAuthToken= | OK |
-| | fitnesseDomainAdminUU@user.uu.se | $domainAdminUUAuthToken= | OK |
-| | fitnesseDomainAdminKTH@user.uu.se | $domainAdminKTHAuthToken= | OK |
 | | userNotInDb@user.uu.se | $guestToken= | OK |
+| | fitnesseDomainAdminUU@user.uu.se | $domainAdminUUAuthToken= | OK |
 *!
 
 !***> SuiteSetUp for Fitnesse Example
