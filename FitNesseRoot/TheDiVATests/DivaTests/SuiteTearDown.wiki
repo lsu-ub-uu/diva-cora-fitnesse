@@ -1,0 +1,17 @@
+---
+Suite
+---
+!***> Clean up example fitnesse pool
+!define userUpdated_userId {coraUser:542161975513761}
+!define userUpdated_fitnesseSystemAdminUser {${FITNESSE_SYSTEM_ADMIN_USER}}
+
+!include -seamless .HelperPages.Data.updateFitnesseUser
+
+
+
+!| RecordEndpointFixture |
+|authToken|type|id|testDeleteRecord?|getStatusType?|
+|$everythingAuthToken|permissionUnit|fitnesse||OK|
+|$everythingAuthToken|text|fitnesseText||OK|
+
+*!

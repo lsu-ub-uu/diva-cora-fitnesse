@@ -4,8 +4,8 @@ Static
 !2 Read binary data tests
  * '''Admin'''
   * '''Case 1''': An admin should be able to read binary data of any visibility
- * '''Guest'''
-  * '''Case 1''': A guest should be only able to read published binary data
+ * '''Gäst'''
+  * '''Case 1''': A gäst should be only able to read published binary data
 
 !***> Admin tests
 !***> Setup admin test case
@@ -51,11 +51,11 @@ Static
 | ${currentAuthToken} | binary | ${recordId} | jp2 | ${expectedDownloadAnswer} | ${expectedDownloadStatus} |
 *!
 *!
-!***> Guest tests
-!***> Setup guest test case
+!***> Gäst tests
+!***> Setup gäst test case
 !define currentAuthToken {$guestToken}
 *!
-!*** '''Case 1''': A guest should be only able to read published binary data
+!*** '''Case 1''': A gäst should be only able to read published binary data
 !5 '''Read published'''
 !***> Setup published
 !define recordId {$publishedRecordId}

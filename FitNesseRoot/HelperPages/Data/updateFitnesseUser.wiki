@@ -1,0 +1,11 @@
+!***> Update fitnesse user. Add fitnesseBinaryReadOnAllVisibilitiesRole role.
+
+!define currentAuthToken {$everythingAuthToken}
+!define recordType {user}
+!define recordId {${userUpdated_userId}}
+!define updateData {${userUpdated_fitnesseSystemAdminUser}}
+!define expectedAnswer {}
+!define expectedUpdateResult {OK}
+
+!include -seamless .HelperPages.updateRecord
+*!

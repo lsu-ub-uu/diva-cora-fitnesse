@@ -56,14 +56,14 @@ Lista personer inloggad som divaEverything användare, och kontrollera att olika
 *!
 
 !3 Roller
-!4 !-SystemAdmin-!
- * '''Fall1:''' !-SystemAdmin ska kunna lista personer-!
- * '''Fall2:''' !-SystemAdmin ska kunna lista personeDomainPart-!
+!4 !-Systemadministratör-!
+ * '''Fall1:''' !-Systemadministratörska kunna lista personer-!
+ * '''Fall2:''' !-Systemadministratörska kunna lista personeDomainPart-!
 
 !define currentAuthToken {$systemAdminAuthToken}
  
 !***>  '''Fall1'''
-Lista personer inloggad som systemAdmin användare.
+Lista personer inloggad som systemadministratör användare.
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson112
 !define expectedListResult {=~/^(?=.*"name":"linkedRecordId","value":"person").*$/}
 !include -seamless .HelperPages.listStoreRecord
@@ -75,7 +75,7 @@ Säkerställ att den sparade datan överensstämmer med originaldatan.
 !include -seamless .HelperPages.checkOriginal
 *!
 !***>  '''Fall2'''
-Lista personerDomainPart inloggad som systemAdmin användare.
+Lista personerDomainPart inloggad som systemadministratör användare.
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPersonDomainPart112Uu
 !define expectedListResult {=~/^(?=.*"name":"linkedRecordId","value":"personDomainPart").*$/}
 !include -seamless .HelperPages.listStoreRecord
@@ -87,7 +87,7 @@ Säkerställ att den sparade datan överensstämmer med originaldatan.
 !include -seamless .HelperPages.checkOriginal
 *!
 
-!4 !-DomainAdmin-!
+!4 !-Medlemsadministratör-!
  * '''Fall1:''' !-DomainAdmin ska inte kunna lista personer-!
 
 !***> '''Fall1'''
@@ -98,8 +98,8 @@ Säkerställ att den sparade datan överensstämmer med originaldatan.
 | $domainAdminUUAuthToken | personDomainPart | | FORBIDDEN |
 
 *!
-!4 Guest
- * '''Fall1:''' Guest ska inte kunna lista personer
+!4 Gäst
+ * '''Fall1:''' Gäst ska inte kunna lista personer
 
 !***> '''Fall1'''
 

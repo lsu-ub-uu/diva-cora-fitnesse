@@ -1,0 +1,23 @@
+!define currentAuthToken {$everythingAuthToken}
+!define expectedCreateResult {CREATED}
+!define expectedAnswer {!--!}
+
+!***> Creation of a standard fitnesse text
+
+!define recordType {text}
+!define createData {!-{"children":[{"children":[{"name":"id","value":"fitnesseText"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"divaPreview"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"coraText"}],"name":"validationType"}],"name":"recordInfo"},{"children":[{"name":"text","value":"en text"}],"name":"textPart","attributes":{"type":"default","lang":"sv"}},{"children":[{"name":"text","value":"a text"}],"name":"textPart","attributes":{"type":"alternative","lang":"en"}}],"name":"text"}-!}
+
+!include -seamless .HelperPages.createRecord
+*!
+
+!***> Creation of a standard fitnesse permission unit
+!define recordType {permissionUnit}
+!define createData {!-{"name":"permissionUnit","children":[{"name":"recordInfo","children":[{"name":"id","value":"fitnesse"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"divaPreview"}]},{"name":"validationType","children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"permissionUnit"}]}]},{"name":"name","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"fitnesseText"}]}]}-!}
+
+!include -seamless .HelperPages.createRecord
+*!
+
+!define userUpdated_userId {coraUser:542161975513761}
+!define userUpdated_fitnesseSystemAdminUser {!-{"name":"user","children":[{"name":"recordInfo","children":[{"name":"ignoreOverwriteProtection","value":"true"},{"name":"id","value":"coraUser:542161975513761"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"user"}]},{"name":"validationType","children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"coraUser"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"divaPreview"}]}]},{"name":"loginId","value":"fitnesseSystemAdmin@user.uu.se"},{"name":"userFirstname","value":"Fitnesse"},{"name":"userLastname","value":"SystemAdmin"},{"name":"permissionUnit","repeatId":"5","children":[{"name":"linkedRecordType","value":"permissionUnit"},{"name":"linkedRecordId","value":"fitnesse"}]},{"name":"userRole","repeatId":"0","children":[{"name":"userRole","children":[{"name":"linkedRecordType","value":"permissionRole"},{"name":"linkedRecordId","value":"divaSystemAdminRole"}]},{"name":"permissionTermRulePart","repeatId":"0","children":[{"name":"rule","children":[{"name":"linkedRecordType","value":"collectTerm"},{"name":"linkedRecordId","value":"systemPermissionTerm"}]},{"name":"value","repeatId":"0","value":"system.system_diva*"}]}]},{"name":"userRole","repeatId":"2","children":[{"name":"userRole","children":[{"name":"linkedRecordType","value":"permissionRole"},{"name":"linkedRecordId","value":"binaryUserRole"}]},{"name":"permissionTermRulePart","repeatId":"0","children":[{"name":"rule","children":[{"name":"linkedRecordType","value":"collectTerm"},{"name":"linkedRecordId","value":"systemPermissionTerm"}]},{"name":"value","repeatId":"0","value":"system.system_diva*"}]}]},{"name":"userRole","repeatId":"4","children":[{"name":"userRole","children":[{"name":"linkedRecordType","value":"permissionRole"},{"name":"linkedRecordId","value":"metadataAdmin"}]},{"name":"permissionTermRulePart","repeatId":"0","children":[{"name":"rule","children":[{"name":"linkedRecordType","value":"collectTerm"},{"name":"linkedRecordId","value":"systemPermissionTerm"}]},{"name":"value","repeatId":"0","value":"system.system_diva*"}]}]},{"name":"activeStatus","value":"active"},{"name":"usePassword","value":"false"}],"attributes":{"type":"coraUser"}}-!}
+
+!include -seamless .HelperPages.Data.updateFitnesseUser

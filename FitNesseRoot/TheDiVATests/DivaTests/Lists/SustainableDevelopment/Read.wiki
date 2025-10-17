@@ -23,7 +23,7 @@ Det skall gå att lista och läsa hållbar utvecklingspos via REST API:et.
 *!
 Ej inloggade användare skall inte få lista hållbar utvecklingsposter, därför förväntar sig testet FORBIDDEN om en ej inloggad användare försöker lista hållbar utveckling.
 
-!***> Lista hållbar utvecklingsposter utan att vara inloggad (guestUser) HAR STÄNGT AV TESTET DÅ DET EJ GÅR IGENOM PÅ BYGGSERVERN(?)
+!***> Lista hållbar utvecklingsposter utan att vara inloggad (gästUser) HAR STÄNGT AV TESTET DÅ DET EJ GÅR IGENOM PÅ BYGGSERVERN(?)
 
 !| Comment |
 | RecordEndpointFixture |

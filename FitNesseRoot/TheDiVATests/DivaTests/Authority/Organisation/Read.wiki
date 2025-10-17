@@ -52,17 +52,17 @@ Läs subOrganisation
 *!
 
 !3 Roller
-!4 !-SystemAdmin-!
+!4 !-Systemadministratör-!
 Systemadmin får läsa alla begränsade fält.
 
- * '''Fall1:''' !-SystemAdmin ska kunna läsa en organisation oavsett domän, via den abstrakta organisation och se alla begränsade fält.-!
- * '''Fall2:''' !-SystemAdmin ska kunna läsa en organisation oavsett domän, som en rootOrganisation och se alla begränsade fält.-!
- * '''Fall3:''' !-SystemAdmin ska kunna läsa en organisation oavsett domän, som en topOrganisation och se alla begränsade fält.-!
- * '''Fall4:''' !-SystemAdmin ska kunna läsa en organisation oavsett domän, som en subOrganisation och se alla begränsade fält.-!
+ * '''Fall1:''' !-Systemadministratörska kunna läsa en organisation oavsett domän, via den abstrakta organisation och se alla begränsade fält.-!
+ * '''Fall2:''' !-Systemadministratörska kunna läsa en organisation oavsett domän, som en rootOrganisation och se alla begränsade fält.-!
+ * '''Fall3:''' !-Systemadministratörska kunna läsa en organisation oavsett domän, som en topOrganisation och se alla begränsade fält.-!
+ * '''Fall4:''' !-Systemadministratörska kunna läsa en organisation oavsett domän, som en subOrganisation och se alla begränsade fält.-!
  
 !define currentAuthToken {$systemAdminAuthToken}
 !***> '''Fall1'''
-!-Läs en organisation från domän UU, via den abstrakta organisation, som en systemAdmin och se att fälten som systemAdmin får läsa ÄR med i svaret-!
+!-Läs en organisation från domän UU, via den abstrakta organisation, som en systemadministratör och se att fälten som systemadministratör får läsa ÄR med i svaret-!
 (domain)
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750
 !define recordType {organisation}
@@ -88,7 +88,7 @@ Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har re
 
 *!
 !***> '''Fall2'''
-!-Läs en rootOrganisation från domän UU, som en systemAdmin och se att fälten som systemAdmin får läsa ÄR med i svaret-!
+!-Läs en rootOrganisation från domän UU, som en systemadministratör och se att fälten som systemadministratör får läsa ÄR med i svaret-!
 (domain)
 
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataRootOrganisation1748
@@ -115,7 +115,7 @@ Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har re
 
 *!
 !***> '''Fall3'''
-!-Läs en topOrganisation från domän UU, som en systemAdmin och se att fälten som systemAdmin får läsa ÄR med i svaret-!
+!-Läs en topOrganisation från domän UU, som en systemadministratör och se att fälten som systemadministratör får läsa ÄR med i svaret-!
 (domain)
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750
 
@@ -137,7 +137,7 @@ Vi läser en organisation från domänen KTH
 *!
 
 !***> '''Fall4'''
-!-Läs en subOrganisation från domän UU, som en systemAdmin och se att fälten som systemAdmin får läsa ÄR med i svaret-!
+!-Läs en subOrganisation från domän UU, som en systemadministratör och se att fälten som systemadministratör får läsa ÄR med i svaret-!
 (domain)
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataSubOrganisation1455
 
@@ -158,7 +158,7 @@ Vi läser en organisation från domänen KTH
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 *!
 
-!4 !-DomainAdmin-!
+!4 !-Medlemsadministratör-!
 
 !-DomainAdmin får läsa alla begränsade fält men inte skriva några.-!
 
@@ -296,19 +296,19 @@ Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi har re
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.checkOriginal
 *!
 
-!4 Guest
-Guest får varken läsa eller skriva några av de begränsade fälten i organisation.
+!4 Gäst
+Gäst får varken läsa eller skriva några av de begränsade fälten i organisation.
 
- * '''Fall1a:''' Guest ska kunna läsa en organisation, oavsett vilken domän den är knuten till.
- * '''Fall1b:''' Guest ska kunna läsa en rootOrganisation, oavsett vilken domän den är knuten till.
- * '''Fall1c:''' Guest ska kunna läsa en topOrganisation, oavsett vilken domän den är knuten till.
- * '''Fall1d:''' Guest ska kunna läsa en subOrganisation, oavsett vilken domän den är knuten till.
+ * '''Fall1a:''' Gäst ska kunna läsa en organisation, oavsett vilken domän den är knuten till.
+ * '''Fall1b:''' Gäst ska kunna läsa en rootOrganisation, oavsett vilken domän den är knuten till.
+ * '''Fall1c:''' Gäst ska kunna läsa en topOrganisation, oavsett vilken domän den är knuten till.
+ * '''Fall1d:''' Gäst ska kunna läsa en subOrganisation, oavsett vilken domän den är knuten till.
  
 !***> '''Fall1'''
 
-Läs en organisation från domän UU, som en guest och se att fälten som guest får läsa ÄR med i svaret
+Läs en organisation från domän UU, som en gäst och se att fälten som gäst får läsa ÄR med i svaret
 (domain)
-Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi som guest inte har några read eller write permissions.
+Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi som gäst inte har några read eller write permissions.
 
 !define currentAuthToken {$guestToken}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750
@@ -323,9 +323,9 @@ Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi som gu
 *!
 !***> '''Fall1b'''
 
-Läs en rootOrganisation från domän UU, som en guest och se att fälten som guest får läsa ÄR med i svaret
+Läs en rootOrganisation från domän UU, som en gäst och se att fälten som gäst får läsa ÄR med i svaret
 (domain)
-Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi som guest inte har några read eller write permissions.
+Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi som gäst inte har några read eller write permissions.
 
 !define currentAuthToken {$guestToken}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataRootOrganisation1748
@@ -339,9 +339,9 @@ Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi som gu
 *!
 !***> '''Fall1c'''
 
-Läs en topOrganisation från domän UU, som en guest och se att fälten som guest får läsa ÄR med i svaret
+Läs en topOrganisation från domän UU, som en gäst och se att fälten som gäst får läsa ÄR med i svaret
 (domain)
-Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi som guest inte har några read eller write permissions.
+Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi som gäst inte har några read eller write permissions.
 
 !define currentAuthToken {$guestToken}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataTopOrganisation1750
@@ -355,9 +355,9 @@ Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi som gu
 
 !***> '''Fall1d'''
 
-Läs en subOrganisation från domän UU, som en guest och se att fälten som guest får läsa ÄR med i svaret
+Läs en subOrganisation från domän UU, som en gäst och se att fälten som gäst får läsa ÄR med i svaret
 (domain)
-Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi som guest inte har några read eller write permissions.
+Kontrollera att medskickade recordPartPermission är korrekta, dvs att vi som gäst inte har några read eller write permissions.
 
 !define currentAuthToken {$guestToken}
 !include -seamless .TheDiVATests.DivaTests.Authority.Organisation.dataSubOrganisation1455

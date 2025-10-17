@@ -256,7 +256,7 @@ Det ska gå att läsa en personpost som:
 
 !3 Roller
 
-!4 !-SystemAdmin-!
+!4 !-Systemadministratör-!
 !define currentAuthToken {$systemAdminAuthToken}
 
  * '''Fall 1:''' Det ska gå att läsa personposter se alla fält från alla domäner.
@@ -365,7 +365,7 @@ Personposten har ingen domän, men vi borde ärndå kunna se alla fält.
 
 !include -seamless .HelperPages.readCheck
 *!
-!4 !-DomainAdmin-!
+!4 !-Medlemsadministratör-!
 !define currentAuthToken {$domainAdminUUAuthToken}
 
  * '''Fall 1:''' Det ska gå att läsa personposter se alla fält från alla domäner.
@@ -477,13 +477,13 @@ Personposten har ingen domän, men vi borde ärndå kunna se alla fält.
 
 !include -seamless .HelperPages.readCheck
 *!
-!4 !-Guest-!
+!4 !-Gäst-!
 !define currentAuthToken {$guestToken}
- * '''Fall 1:''' Guest får inte läsa födelseår, dödsår, e-postadress och lokalt ID men den får läsa affiliering till organisationer.
- * '''Fall 2:''' Guest får bara läsa authorisedName om personpost är ickePublik 
+ * '''Fall 1:''' Gäst får inte läsa födelseår, dödsår, e-postadress och lokalt ID men den får läsa affiliering till organisationer.
+ * '''Fall 2:''' Gäst får bara läsa authorisedName om personpost är ickePublik 
 
 !***> Fall 1
-Guest får läsa från alla domän däremot får inte se födelseår, dödsår, e-postadress och lokalt ID men den får läsa affiliering till organisationer
+Gäst får läsa från alla domän däremot får inte se födelseår, dödsår, e-postadress och lokalt ID men den får läsa affiliering till organisationer
 !***> Läs personpost
 !include -seamless .TheDiVATests.DivaTests.Authority.Person.data.dataPerson106
 !define expectedCompareResult {Child with nameInData createdBy and type group is missing. Child with nameInData updated and type group and repeatId 0 is missing. Child with nameInData updated and type group and repeatId 1 is missing. Did not find a match for child with nameInData yearOfBirth and value 1918. Did not find a match for child with nameInData yearOfDeath and value 2021. Did not find a match for child with nameInData emailAddress and value pippi.langstrump@villekulla.se.}

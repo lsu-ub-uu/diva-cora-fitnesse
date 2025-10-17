@@ -444,13 +444,13 @@ Vi definierar om updateData och exepected to use updateChangeLocalIdData
 # * '''Fall Z:''' Det ska inte gå att lägga till en personDomainPart med en lokalId i samma domän som redan används av en annan personDomainPart.!style_red[(Ej implementerad)]
 
 !3 Roller 
-!4 !-SystemAdmin-! 
-!-SystemAdmin får ändra alla person och personDomainParts från alla domäner.-!
+!4 !-Systemadministratör-! 
+!-Systemadministratörfår ändra alla person och personDomainParts från alla domäner.-!
 
- * '''Fall 1:''' !-SystemAdmin ska kunna uppdatera en person i alla domäner.-!
- * '''Fall 2:''' !-SystemAdmin ska kunna lägga till en personDomainPart till en befintligt person i alla domäner.-!
- * '''Fall 3:''' !-SystemAdmin ska kunna uppdatera en personDomainPart i alla domäner.-!
- * '''Fall 4:''' !-SystemAdmin ska kunna ta bort en personDomainPart i alla domäner.-!
+ * '''Fall 1:''' !-Systemadministratörska kunna uppdatera en person i alla domäner.-!
+ * '''Fall 2:''' !-Systemadministratörska kunna lägga till en personDomainPart till en befintligt person i alla domäner.-!
+ * '''Fall 3:''' !-Systemadministratörska kunna uppdatera en personDomainPart i alla domäner.-!
+ * '''Fall 4:''' !-Systemadministratörska kunna ta bort en personDomainPart i alla domäner.-!
 
 !***> Fall 1 Det skall gå att uppdatera en person i alla domäner
 !define currentAuthToken {$systemAdminAuthToken}
@@ -526,7 +526,7 @@ Vi definierar om updateData och exepected to use updateChangeLocalIdData
 *!
 
 
-!4 !-DomainAdmin-! 
+!4 !-Medlemsadministratör-! 
 !-DomainAdmin får uppdatera alla personer men bara kunna uppdatera personDomainParts som tillhör sin egen domän.-!
 
  * '''Fall 1:''' !-DomainAdmin ska kunna uppdatera en person från alla domäner.-!
@@ -629,13 +629,13 @@ Vi definierar om updateData och exepected to use updateChangeLocalIdData
 !include -seamless .HelperPages.deleteRecord
 *!
 
-!4 Guest
-!-Guest får INTE uppdatera personer och inte heller personDomainParts-!
+!4 Gäst
+!-Gäst får INTE uppdatera personer och inte heller personDomainParts-!
 
- * '''Fall 1:''' Guest får INTE uppdatera personer.
- * '''Fall 2:''' Guest får INTE lägga till en personDomainPart.
- * '''Fall 3:''' Guest får INTE uppdatera en personDomainPart.
- * '''Fall 4:''' Guest får INTE ta bort en personDomainPart.
+ * '''Fall 1:''' Gäst får INTE uppdatera personer.
+ * '''Fall 2:''' Gäst får INTE lägga till en personDomainPart.
+ * '''Fall 3:''' Gäst får INTE uppdatera en personDomainPart.
+ * '''Fall 4:''' Gäst får INTE ta bort en personDomainPart.
 
 !***> Fall 1
 
