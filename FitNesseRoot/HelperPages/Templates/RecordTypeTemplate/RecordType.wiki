@@ -9,7 +9,7 @@ Static
 !define definition_definition {${template_definitionUpdate}}
 *!
 !4 ${template_recordType}, ${definition_description}
-!include -seamless .HelperPages.definitionCheck
+#!include -seamless .HelperPages.definitionCheck
 
 !3 Roller
 Notera att rättigheterna som kontrolleras i det här avsnittet gäller, vilka rättigheter man har på postTypen inte enstaka poster. Rättigheterna för enstaka poster kontrolleras under de olika testerna för rättigheter så som read, update, etc.

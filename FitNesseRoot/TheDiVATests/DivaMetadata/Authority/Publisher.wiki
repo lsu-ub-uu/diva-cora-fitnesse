@@ -1,0 +1,69 @@
+---
+Test
+---
+!1 Publisher
+Pubilsher is a record type for each publishing house used in outputs in DiVA.
+
+!2 Publisher
+There is only one validation type for publisher.
+
+!*< Setup record type definition
+
+!define recordTypeId {diva-publisher}
+!define recordTypeDefinition {!-publisher (group)
+	recordInfo (group, 1-1, noConstraint)
+		id (textVariable, 1-1, noConstraint, I)
+		type {diva-publisher} (recordLink, 1-1, noConstraint)
+		validationType {diva-publisher} (recordLink, 1-1, noConstraint)
+		dataDivider {divaData} (recordLink, 1-1, noConstraint)
+		createdBy (recordLink, 1-1, noConstraint)
+		tsCreated (textVariable, 1-1, noConstraint)
+		updated (group, 1-X, noConstraint)
+			updatedBy (recordLink, 1-1, noConstraint)
+			tsUpdated (textVariable, 1-1, noConstraint)
+		oldId (textVariable, 0-1, noConstraint, I)
+	name type:{corporate} (group, 1-1, noConstraint, I)
+		namePart (textVariable, 1-1, noConstraint, I)-!}
+
+#idSource (userSupplied/timestamp/sequence) others true/false
+!define recordTypeIdSource {timestamp}
+!define recordTypeIsPublic {true}
+!define recordTypeUsePermissionUnit {false}
+!define recordTypeUseVisibility {false}
+!define recordTypeUseTrashBin {false}
+!define recordTypeStoreInArchive {true}
+
+*!
+!include -seamless .HelperPages.checkRecordType
+
+!*< Setup validation type definition
+
+!define validationTypeId {diva-publisher}
+!define recordTypeId {diva-publisher}
+!define createValidationTypeDefinition {!-publisher (group)
+	recordInfo (group, 1-1, noConstraint)
+		validationType {diva-publisher} (recordLink, 1-1, noConstraint)
+		dataDivider {divaData} (recordLink, 1-1, noConstraint)
+		oldId (textVariable, 0-1, noConstraint)
+	name type:{corporate} (group, 1-1, noConstraint)
+		namePart (textVariable, 1-1, noConstraint, I)-!}
+	
+!define updateValidationTypeDefinition {!-publisher (group)
+	recordInfo (group, 1-1, noConstraint)
+		id (textVariable, 1-1, noConstraint, I)
+		type {diva-publisher} (recordLink, 1-1, noConstraint)
+		validationType {diva-publisher} (recordLink, 1-1, noConstraint)
+		dataDivider {divaData} (recordLink, 1-1, noConstraint)
+		createdBy (recordLink, 1-1, noConstraint)
+		tsCreated (textVariable, 1-1, noConstraint)
+		updated (group, 1-X, noConstraint)
+			updatedBy (recordLink, 1-1, noConstraint)
+			tsUpdated (textVariable, 1-1, noConstraint)
+		oldId (textVariable, 0-1, noConstraint, I)
+	name type:{corporate} (group, 1-1, noConstraint, I)
+		namePart (textVariable, 1-1, noConstraint, I)-!}
+
+*!
+!include -seamless .HelperPages.checkValidationType
+
+----

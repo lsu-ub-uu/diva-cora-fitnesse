@@ -1,0 +1,7 @@
+---
+Suite
+---
+!1 DiVA metadata
+Tests to make sure that DiVAs metadata types are defined as expected.
+
+!contents -R2 -g -p -f -h

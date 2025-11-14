@@ -1,0 +1,136 @@
+---
+Test
+---
+!1 Member
+Member is a record type with settings for DiVA client for each member in the DiVA consortium.
+
+!2 Member
+There is only one validation type for member.
+
+!*< Setup record type definition
+
+!define recordTypeId {diva-member}
+!define recordTypeDefinition {!-diva-member (group)
+	recordInfo (group, 1-1, noConstraint)
+		id (textVariable, 1-1, noConstraint, I)
+		type {diva-member} (recordLink, 1-1, noConstraint)
+		validationType {diva-member} (recordLink, 1-1, noConstraint)
+		dataDivider {diva} (recordLink, 1-1, noConstraint)
+		createdBy (recordLink, 1-1, noConstraint)
+		permissionUnit (recordLink, 1-1, noConstraint)
+		tsCreated (textVariable, 1-1, noConstraint)
+		updated (group, 1-X, noConstraint)
+			updatedBy (recordLink, 1-1, noConstraint)
+			tsUpdated (textVariable, 1-1, noConstraint)
+	memberPermissionUnit (recordLink, 0-1, write)
+	backgroundColor (textVariable, 1-1, noConstraint)
+	textColor (textVariable, 1-1, noConstraint)
+	backgroundColorDarkMode (textVariable, 0-1, noConstraint)
+	textColorDarkMode (textVariable, 0-1, noConstraint)
+	logoSvg (textVariable, 1-1, noConstraint)
+	linkAdmin (group, 0-3, noConstraint)
+		linkSv (group, 1-1, noConstraint)
+			url (textVariable, 1-1, noConstraint)
+			displayLabel (textVariable, 1-1, noConstraint)
+		linkEn (group, 1-1, noConstraint)
+			url (textVariable, 1-1, noConstraint)
+			displayLabel (textVariable, 1-1, noConstraint)
+	linkPublic (group, 0-3, noConstraint)
+		linkSv (group, 1-1, noConstraint)
+			url (textVariable, 1-1, noConstraint)
+			displayLabel (textVariable, 1-1, noConstraint)
+		linkEn (group, 1-1, noConstraint)
+			url (textVariable, 1-1, noConstraint)
+			displayLabel (textVariable, 1-1, noConstraint)
+	pageTitleSv (textVariable, 1-1, noConstraint)
+	pageTitleEn (textVariable, 1-1, noConstraint)
+	hostname (textVariable, 1-X, write, P)
+	loginUnit (recordLink, 1-X, write)-!}
+
+#idSource (userSupplied/timestamp/sequence) others true/false
+!define recordTypeIdSource {userSupplied}
+!define recordTypeIsPublic {true}
+!define recordTypeUsePermissionUnit {true}
+!define recordTypeUseVisibility {false}
+!define recordTypeUseTrashBin {false}
+!define recordTypeStoreInArchive {false}
+
+*!
+!include -seamless .HelperPages.checkRecordType
+
+!*< Setup validation type definition
+
+!define validationTypeId {diva-member}
+!define recordTypeId {diva-member}
+!define createValidationTypeDefinition {!-diva-member (group)
+	recordInfo (group, 1-1, noConstraint)
+		id (textVariable, 1-1, noConstraint)
+		dataDivider {diva} (recordLink, 1-1, noConstraint)
+		validationType {diva-member} (recordLink, 1-1, noConstraint)
+		permissionUnit (recordLink, 1-1, noConstraint)
+	memberPermissionUnit (recordLink, 0-1, noConstraint)
+	backgroundColor (textVariable, 1-1, noConstraint)
+	textColor (textVariable, 1-1, noConstraint)
+	backgroundColorDarkMode (textVariable, 0-1, noConstraint)
+	textColorDarkMode (textVariable, 0-1, noConstraint)
+	logoSvg (textVariable, 1-1, noConstraint)
+	linkPublic (group, 0-3, noConstraint)
+		linkSv (group, 1-1, noConstraint)
+			url (textVariable, 1-1, noConstraint)
+			displayLabel (textVariable, 1-1, noConstraint)
+		linkEn (group, 1-1, noConstraint)
+			url (textVariable, 1-1, noConstraint)
+			displayLabel (textVariable, 1-1, noConstraint)
+	linkAdmin (group, 0-3, noConstraint)
+		linkSv (group, 1-1, noConstraint)
+			url (textVariable, 1-1, noConstraint)
+			displayLabel (textVariable, 1-1, noConstraint)
+		linkEn (group, 1-1, noConstraint)
+			url (textVariable, 1-1, noConstraint)
+			displayLabel (textVariable, 1-1, noConstraint)
+	pageTitleSv (textVariable, 1-1, noConstraint)
+	pageTitleEn (textVariable, 1-1, noConstraint)
+	hostname (textVariable, 1-X, noConstraint)
+	loginUnit (recordLink, 1-X, noConstraint)-!}
+	
+!define updateValidationTypeDefinition {!-diva-member (group)
+	recordInfo (group, 1-1, noConstraint)
+		id (textVariable, 1-1, noConstraint, I)
+		type {diva-member} (recordLink, 1-1, noConstraint)
+		validationType {diva-member} (recordLink, 1-1, noConstraint)
+		dataDivider {diva} (recordLink, 1-1, noConstraint)
+		createdBy (recordLink, 1-1, noConstraint)
+		permissionUnit (recordLink, 1-1, noConstraint)
+		tsCreated (textVariable, 1-1, noConstraint)
+		updated (group, 1-X, noConstraint)
+			updatedBy (recordLink, 1-1, noConstraint)
+			tsUpdated (textVariable, 1-1, noConstraint)
+	memberPermissionUnit (recordLink, 0-1, write)
+	backgroundColor (textVariable, 1-1, noConstraint)
+	textColor (textVariable, 1-1, noConstraint)
+	backgroundColorDarkMode (textVariable, 0-1, noConstraint)
+	textColorDarkMode (textVariable, 0-1, noConstraint)
+	logoSvg (textVariable, 1-1, noConstraint)
+	linkAdmin (group, 0-3, noConstraint)
+		linkSv (group, 1-1, noConstraint)
+			url (textVariable, 1-1, noConstraint)
+			displayLabel (textVariable, 1-1, noConstraint)
+		linkEn (group, 1-1, noConstraint)
+			url (textVariable, 1-1, noConstraint)
+			displayLabel (textVariable, 1-1, noConstraint)
+	linkPublic (group, 0-3, noConstraint)
+		linkSv (group, 1-1, noConstraint)
+			url (textVariable, 1-1, noConstraint)
+			displayLabel (textVariable, 1-1, noConstraint)
+		linkEn (group, 1-1, noConstraint)
+			url (textVariable, 1-1, noConstraint)
+			displayLabel (textVariable, 1-1, noConstraint)
+	pageTitleSv (textVariable, 1-1, noConstraint)
+	pageTitleEn (textVariable, 1-1, noConstraint)
+	hostname (textVariable, 1-X, write, P)
+	loginUnit (recordLink, 1-X, write)-!}
+
+*!
+!include -seamless .HelperPages.checkValidationType
+
+----
