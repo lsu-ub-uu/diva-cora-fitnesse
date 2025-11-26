@@ -64,7 +64,7 @@ Part of organisation is a part of a member organisation.
 !define recordTypeIsPublic {false}
 !define recordTypeUsePermissionUnit {true}
 !define recordTypeUseVisibility {false}
-!define recordTypeUseTrashBin {true}
+!define recordTypeUseTrashBin {false}
 !define recordTypeStoreInArchive {true}
 
 *!
