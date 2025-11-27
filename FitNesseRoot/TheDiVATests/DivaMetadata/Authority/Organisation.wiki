@@ -4,11 +4,11 @@ Test
 !1 Organisation
 Organisation is a record type for each part of the member organisations in DiVA.
 
-!2 Top organisation
-Top organisation is the topmost part of a member organisation.
-
 !2 Part of organisation
 Part of organisation is a part of a member organisation.
+
+!2 Top organisation
+Top organisation is the topmost part of a member organisation.
 
 !*< Setup record type definition
 
@@ -45,7 +45,7 @@ Part of organisation is a part of a member organisation.
 		postOfficeBox (textVariable, 0-1, noConstraint, I)
 		street (textVariable, 0-1, noConstraint, I)
 		postcode (textVariable, 0-1, noConstraint, I)
-		place (textVariable, 0-1, noConstraint, I)
+		city (textVariable, 0-1, noConstraint, I)
 		country (collectionVariable, 0-1, noConstraint, I)
 	identifier type:{localId} (textVariable, 0-1, noConstraint)
 	identifier type:{organisationNumber} (textVariable, 0-1, noConstraint, I)
@@ -66,97 +66,8 @@ Part of organisation is a part of a member organisation.
 !define recordTypeUseVisibility {false}
 !define recordTypeUseTrashBin {false}
 !define recordTypeStoreInArchive {true}
-
 *!
 !include -seamless .HelperPages.checkRecordType
-
-!*< Setup validation type definition
-
-!define validationTypeId {diva-topOrganisation}
-!define recordTypeId {diva-organisation}
-!define createValidationTypeDefinition {!-organisation (group)
-	recordInfo (group, 1-1, noConstraint)
-		validationType {diva-topOrganisation} (recordLink, 1-1, noConstraint)
-		dataDivider {divaData} (recordLink, 1-1, noConstraint)
-		permissionUnit (recordLink, 1-1, noConstraint)
-		oldId (textVariable, 0-1, noConstraint)
-	genre {topOrganisation} type:{organisationType} (collectionVariable, 1-1, noConstraint)
-	authority lang:{swe} (group, 1-1, noConstraint)
-		name type:{corporate} (group, 1-1, noConstraint, I)
-			namePart (textVariable, 1-1, noConstraint, I)
-	variant lang:{eng} (group, 0-1, noConstraint)
-		name type:{corporate} (group, 1-1, noConstraint, I)
-			namePart (textVariable, 1-1, noConstraint, I)
-	startDate (group, 0-1, noConstraint)
-		year (textVariable, 1-1, noConstraint, I)
-		month (textVariable, 0-1, noConstraint, I)
-		day (textVariable, 0-1, noConstraint, I)
-	endDate (group, 0-1, noConstraint)
-		year (textVariable, 1-1, noConstraint, I)
-		month (textVariable, 0-1, noConstraint, I)
-		day (textVariable, 0-1, noConstraint, I)
-	address (group, 0-1, noConstraint)
-		postOfficeBox (textVariable, 0-1, noConstraint, I)
-		street (textVariable, 0-1, noConstraint, I)
-		postcode (textVariable, 0-1, noConstraint, I)
-		place (textVariable, 0-1, noConstraint, I)
-		country (collectionVariable, 0-1, noConstraint, I)
-	identifier type:{localId} (textVariable, 0-1, noConstraint)
-	identifier type:{organisationNumber} (textVariable, 0-1, noConstraint)
-	identifier type:{ror} (textVariable, 0-1, noConstraint)
-	location (group, 0-1, noConstraint)
-		url (textVariable, 1-1, noConstraint, I)
-		displayLabel (textVariable, 0-1, noConstraint, I)
-	note type:{internal} (textVariable, 0-1, readWrite)
-	related type:{earlier} (group, 0-1, noConstraint)
-		organisation (recordLink, 0-1, noConstraint)-!}
-	
-!define updateValidationTypeDefinition {!-organisation (group)
-	recordInfo (group, 1-1, noConstraint)
-		id (textVariable, 1-1, noConstraint, I)
-		type {diva-organisation} (recordLink, 1-1, noConstraint)
-		validationType {diva-topOrganisation} (recordLink, 1-1, noConstraint)
-		dataDivider {divaData} (recordLink, 1-1, noConstraint)
-		createdBy (recordLink, 1-1, noConstraint)
-		tsCreated (textVariable, 1-1, noConstraint)
-		updated (group, 1-X, noConstraint)
-			updatedBy (recordLink, 1-1, noConstraint)
-			tsUpdated (textVariable, 1-1, noConstraint)
-		permissionUnit (recordLink, 1-1, noConstraint)
-		oldId (textVariable, 0-1, noConstraint, I)
-	genre {topOrganisation} type:{organisationType} (collectionVariable, 1-1, noConstraint)
-	authority lang:{swe} (group, 1-1, noConstraint)
-		name type:{corporate} (group, 1-1, noConstraint, I)
-			namePart (textVariable, 1-1, noConstraint, I)
-	variant lang:{eng} (group, 0-1, noConstraint)
-		name type:{corporate} (group, 1-1, noConstraint, I)
-			namePart (textVariable, 1-1, noConstraint, I)
-	startDate (group, 0-1, noConstraint)
-		year (textVariable, 1-1, noConstraint, I)
-		month (textVariable, 0-1, noConstraint, I)
-		day (textVariable, 0-1, noConstraint, I)
-	endDate (group, 0-1, noConstraint)
-		year (textVariable, 1-1, noConstraint, I)
-		month (textVariable, 0-1, noConstraint, I)
-		day (textVariable, 0-1, noConstraint, I)
-	address (group, 0-1, noConstraint)
-		postOfficeBox (textVariable, 0-1, noConstraint, I)
-		street (textVariable, 0-1, noConstraint, I)
-		postcode (textVariable, 0-1, noConstraint, I)
-		place (textVariable, 0-1, noConstraint, I)
-		country (collectionVariable, 0-1, noConstraint, I)
-	identifier type:{localId} (textVariable, 0-1, noConstraint)
-	identifier type:{organisationNumber} (textVariable, 0-1, noConstraint)
-	identifier type:{ror} (textVariable, 0-1, noConstraint)
-	location (group, 0-1, noConstraint)
-		url (textVariable, 1-1, noConstraint, I)
-		displayLabel (textVariable, 0-1, noConstraint, I)
-	note type:{internal} (textVariable, 0-1, readWrite)
-	related type:{earlier} (group, 0-1, noConstraint)
-		organisation (recordLink, 0-1, noConstraint)-!}
-
-*!
-!include -seamless .HelperPages.checkValidationType
 
 !*< Setup validation type definition
 
@@ -187,7 +98,7 @@ Part of organisation is a part of a member organisation.
 		postOfficeBox (textVariable, 0-1, noConstraint, I)
 		street (textVariable, 0-1, noConstraint, I)
 		postcode (textVariable, 0-1, noConstraint, I)
-		place (textVariable, 0-1, noConstraint, I)
+		city (textVariable, 0-1, noConstraint, I)
 		country (collectionVariable, 0-1, noConstraint, I)
 	identifier type:{localId} (textVariable, 0-1, noConstraint)
 	identifier type:{organisationNumber} (textVariable, 0-1, noConstraint)
@@ -199,7 +110,7 @@ Part of organisation is a part of a member organisation.
 		organisation (recordLink, 1-1, noConstraint)
 	related type:{earlier} (group, 0-X, noConstraint)
 		organisation (recordLink, 0-1, noConstraint)-!}
-	
+
 !define updateValidationTypeDefinition {!-organisation (group)
 	recordInfo (group, 1-1, noConstraint)
 		id (textVariable, 1-1, noConstraint, I)
@@ -232,7 +143,7 @@ Part of organisation is a part of a member organisation.
 		postOfficeBox (textVariable, 0-1, noConstraint, I)
 		street (textVariable, 0-1, noConstraint, I)
 		postcode (textVariable, 0-1, noConstraint, I)
-		place (textVariable, 0-1, noConstraint, I)
+		city (textVariable, 0-1, noConstraint, I)
 		country (collectionVariable, 0-1, noConstraint, I)
 	identifier type:{localId} (textVariable, 0-1, noConstraint)
 	identifier type:{organisationNumber} (textVariable, 0-1, noConstraint)
@@ -243,6 +154,94 @@ Part of organisation is a part of a member organisation.
 	related type:{parent} (group, 0-1, noConstraint)
 		organisation (recordLink, 1-1, noConstraint)
 	related type:{earlier} (group, 0-X, noConstraint)
+		organisation (recordLink, 0-1, noConstraint)-!}
+
+*!
+!include -seamless .HelperPages.checkValidationType
+
+!*< Setup validation type definition
+
+!define validationTypeId {diva-topOrganisation}
+!define recordTypeId {diva-organisation}
+!define createValidationTypeDefinition {!-organisation (group)
+	recordInfo (group, 1-1, noConstraint)
+		validationType {diva-topOrganisation} (recordLink, 1-1, noConstraint)
+		dataDivider {divaData} (recordLink, 1-1, noConstraint)
+		permissionUnit (recordLink, 1-1, noConstraint)
+		oldId (textVariable, 0-1, noConstraint)
+	genre {topOrganisation} type:{organisationType} (collectionVariable, 1-1, noConstraint)
+	authority lang:{swe} (group, 1-1, noConstraint)
+		name type:{corporate} (group, 1-1, noConstraint, I)
+			namePart (textVariable, 1-1, noConstraint, I)
+	variant lang:{eng} (group, 0-1, noConstraint)
+		name type:{corporate} (group, 1-1, noConstraint, I)
+			namePart (textVariable, 1-1, noConstraint, I)
+	startDate (group, 0-1, noConstraint)
+		year (textVariable, 1-1, noConstraint, I)
+		month (textVariable, 0-1, noConstraint, I)
+		day (textVariable, 0-1, noConstraint, I)
+	endDate (group, 0-1, noConstraint)
+		year (textVariable, 1-1, noConstraint, I)
+		month (textVariable, 0-1, noConstraint, I)
+		day (textVariable, 0-1, noConstraint, I)
+	address (group, 0-1, noConstraint)
+		postOfficeBox (textVariable, 0-1, noConstraint, I)
+		street (textVariable, 0-1, noConstraint, I)
+		postcode (textVariable, 0-1, noConstraint, I)
+		city (textVariable, 0-1, noConstraint, I)
+		country (collectionVariable, 0-1, noConstraint, I)
+	identifier type:{localId} (textVariable, 0-1, noConstraint)
+	identifier type:{organisationNumber} (textVariable, 0-1, noConstraint)
+	identifier type:{ror} (textVariable, 0-1, noConstraint)
+	location (group, 0-1, noConstraint)
+		url (textVariable, 1-1, noConstraint, I)
+		displayLabel (textVariable, 0-1, noConstraint, I)
+	note type:{internal} (textVariable, 0-1, readWrite)
+	related type:{earlier} (group, 0-1, noConstraint)
+		organisation (recordLink, 0-1, noConstraint)-!}
+
+!define updateValidationTypeDefinition {!-organisation (group)
+	recordInfo (group, 1-1, noConstraint)
+		id (textVariable, 1-1, noConstraint, I)
+		type {diva-organisation} (recordLink, 1-1, noConstraint)
+		validationType {diva-topOrganisation} (recordLink, 1-1, noConstraint)
+		dataDivider {divaData} (recordLink, 1-1, noConstraint)
+		createdBy (recordLink, 1-1, noConstraint)
+		tsCreated (textVariable, 1-1, noConstraint)
+		updated (group, 1-X, noConstraint)
+			updatedBy (recordLink, 1-1, noConstraint)
+			tsUpdated (textVariable, 1-1, noConstraint)
+		permissionUnit (recordLink, 1-1, noConstraint)
+		oldId (textVariable, 0-1, noConstraint, I)
+	genre {topOrganisation} type:{organisationType} (collectionVariable, 1-1, noConstraint)
+	authority lang:{swe} (group, 1-1, noConstraint)
+		name type:{corporate} (group, 1-1, noConstraint, I)
+			namePart (textVariable, 1-1, noConstraint, I)
+	variant lang:{eng} (group, 0-1, noConstraint)
+		name type:{corporate} (group, 1-1, noConstraint, I)
+			namePart (textVariable, 1-1, noConstraint, I)
+	startDate (group, 0-1, noConstraint)
+		year (textVariable, 1-1, noConstraint, I)
+		month (textVariable, 0-1, noConstraint, I)
+		day (textVariable, 0-1, noConstraint, I)
+	endDate (group, 0-1, noConstraint)
+		year (textVariable, 1-1, noConstraint, I)
+		month (textVariable, 0-1, noConstraint, I)
+		day (textVariable, 0-1, noConstraint, I)
+	address (group, 0-1, noConstraint)
+		postOfficeBox (textVariable, 0-1, noConstraint, I)
+		street (textVariable, 0-1, noConstraint, I)
+		postcode (textVariable, 0-1, noConstraint, I)
+		city (textVariable, 0-1, noConstraint, I)
+		country (collectionVariable, 0-1, noConstraint, I)
+	identifier type:{localId} (textVariable, 0-1, noConstraint)
+	identifier type:{organisationNumber} (textVariable, 0-1, noConstraint)
+	identifier type:{ror} (textVariable, 0-1, noConstraint)
+	location (group, 0-1, noConstraint)
+		url (textVariable, 1-1, noConstraint, I)
+		displayLabel (textVariable, 0-1, noConstraint, I)
+	note type:{internal} (textVariable, 0-1, readWrite)
+	related type:{earlier} (group, 0-1, noConstraint)
 		organisation (recordLink, 0-1, noConstraint)-!}
 
 *!
