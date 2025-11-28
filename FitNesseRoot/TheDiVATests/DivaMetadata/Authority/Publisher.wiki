@@ -26,7 +26,7 @@ There is only one validation type for publisher.
 		namePart (textVariable, 1-1, noConstraint, I)-!}
 
 #idSource (userSupplied/timestamp/sequence) others true/false
-!define recordTypeIdSource {timestamp}
+!define recordTypeIdSource {sequence}
 !define recordTypeIsPublic {true}
 !define recordTypeUsePermissionUnit {false}
 !define recordTypeUseVisibility {false}

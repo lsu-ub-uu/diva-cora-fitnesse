@@ -60,7 +60,7 @@ Top organisation is the topmost part of a member organisation.
 		organisation (recordLink, 0-1, noConstraint)-!}
 
 #idSource (userSupplied/timestamp/sequence) others true/false
-!define recordTypeIdSource {timestamp}
+!define recordTypeIdSource {sequence}
 !define recordTypeIsPublic {false}
 !define recordTypeUsePermissionUnit {true}
 !define recordTypeUseVisibility {false}
