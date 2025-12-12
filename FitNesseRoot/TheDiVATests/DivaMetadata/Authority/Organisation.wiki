@@ -25,6 +25,7 @@ Top organisation is the topmost part of a member organisation.
 			updatedBy (recordLink, 1-1, noConstraint)
 			tsUpdated (textVariable, 1-1, noConstraint)
 		permissionUnit (recordLink, 1-1, noConstraint, P, I)
+		inTrashBin (collectionVariable, 1-1, noConstraint, P, I)
 		oldId (textVariable, 0-1, noConstraint, I)
 	genre type:{organisationType} (collectionVariable, 1-1, noConstraint, P)
 	authority lang:{swe} (group, 1-1, noConstraint)
@@ -64,7 +65,7 @@ Top organisation is the topmost part of a member organisation.
 !define recordTypeIsPublic {false}
 !define recordTypeUsePermissionUnit {true}
 !define recordTypeUseVisibility {false}
-!define recordTypeUseTrashBin {false}
+!define recordTypeUseTrashBin {true}
 !define recordTypeStoreInArchive {true}
 *!
 !include -seamless .HelperPages.checkRecordType
@@ -78,6 +79,7 @@ Top organisation is the topmost part of a member organisation.
 		validationType {diva-partOfOrganisation} (recordLink, 1-1, noConstraint)
 		dataDivider {divaData} (recordLink, 1-1, noConstraint)
 		permissionUnit (recordLink, 1-1, noConstraint)
+		inTrashBin (collectionVariable, 0-1, noConstraint, I)
 		oldId (textVariable, 0-1, noConstraint)
 	genre {partOfOrganisation} type:{organisationType} (collectionVariable, 1-1, noConstraint)
 	authority lang:{swe} (group, 1-1, noConstraint)
@@ -123,6 +125,7 @@ Top organisation is the topmost part of a member organisation.
 			updatedBy (recordLink, 1-1, noConstraint)
 			tsUpdated (textVariable, 1-1, noConstraint)
 		permissionUnit (recordLink, 1-1, noConstraint)
+		inTrashBin (collectionVariable, 1-1, noConstraint)
 		oldId (textVariable, 0-1, noConstraint, I)
 	genre {partOfOrganisation} type:{organisationType} (collectionVariable, 1-1, noConstraint)
 	authority lang:{swe} (group, 1-1, noConstraint)
@@ -168,6 +171,7 @@ Top organisation is the topmost part of a member organisation.
 		validationType {diva-topOrganisation} (recordLink, 1-1, noConstraint)
 		dataDivider {divaData} (recordLink, 1-1, noConstraint)
 		permissionUnit (recordLink, 1-1, noConstraint)
+		inTrashBin (collectionVariable, 0-1, noConstraint)
 		oldId (textVariable, 0-1, noConstraint)
 	genre {topOrganisation} type:{organisationType} (collectionVariable, 1-1, noConstraint)
 	authority lang:{swe} (group, 1-1, noConstraint)
@@ -212,6 +216,7 @@ Top organisation is the topmost part of a member organisation.
 			updatedBy (recordLink, 1-1, noConstraint)
 			tsUpdated (textVariable, 1-1, noConstraint)
 		permissionUnit (recordLink, 1-1, noConstraint)
+		inTrashBin (collectionVariable, 1-1, noConstraint)
 		oldId (textVariable, 0-1, noConstraint, I)
 	genre {topOrganisation} type:{organisationType} (collectionVariable, 1-1, noConstraint)
 	authority lang:{swe} (group, 1-1, noConstraint)

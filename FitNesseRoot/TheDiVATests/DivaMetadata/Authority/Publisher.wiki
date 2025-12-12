@@ -21,16 +21,17 @@ There is only one validation type for publisher.
 		updated (group, 1-X, noConstraint)
 			updatedBy (recordLink, 1-1, noConstraint)
 			tsUpdated (textVariable, 1-1, noConstraint)
+		inTrashBin (collectionVariable, 1-1, noConstraint, P, I)
 		oldId (textVariable, 0-1, noConstraint, I)
 	name type:{corporate} (group, 1-1, noConstraint, I)
 		namePart (textVariable, 1-1, noConstraint, I)-!}
 
 #idSource (userSupplied/timestamp/sequence) others true/false
 !define recordTypeIdSource {sequence}
-!define recordTypeIsPublic {true}
+!define recordTypeIsPublic {false}
 !define recordTypeUsePermissionUnit {false}
 !define recordTypeUseVisibility {false}
-!define recordTypeUseTrashBin {false}
+!define recordTypeUseTrashBin {true}
 !define recordTypeStoreInArchive {true}
 
 *!
@@ -44,6 +45,7 @@ There is only one validation type for publisher.
 	recordInfo (group, 1-1, noConstraint)
 		validationType {diva-publisher} (recordLink, 1-1, noConstraint)
 		dataDivider {divaData} (recordLink, 1-1, noConstraint)
+		inTrashBin (collectionVariable, 0-1, noConstraint)
 		oldId (textVariable, 0-1, noConstraint)
 	name type:{corporate} (group, 1-1, noConstraint)
 		namePart (textVariable, 1-1, noConstraint, I)-!}
@@ -59,6 +61,7 @@ There is only one validation type for publisher.
 		updated (group, 1-X, noConstraint)
 			updatedBy (recordLink, 1-1, noConstraint)
 			tsUpdated (textVariable, 1-1, noConstraint)
+		inTrashBin (collectionVariable, 1-1, noConstraint, P, I)
 		oldId (textVariable, 0-1, noConstraint, I)
 	name type:{corporate} (group, 1-1, noConstraint, I)
 		namePart (textVariable, 1-1, noConstraint, I)-!}
