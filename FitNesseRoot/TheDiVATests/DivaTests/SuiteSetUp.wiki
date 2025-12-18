@@ -5,14 +5,17 @@ Suite
 
 !| AuthenticationFixture |
 | appTokenLogin? | loginId | appToken | getAuthToken? | getStatusType? |
-| | divaFitnesseEverything@system.cora.uu.se | 2714f1e8-77f7-4811-9b6f-683bbb0f2a76 | $everythingAuthToken= | CREATED |
 | | fitnesseUser@system.cora.uu.se | | $userAuthToken= | CREATED |
+
+#| | divaFitnesseEverything@system.cora.uu.se | 2714f1e8-77f7-4811-9b6f-683bbb0f2a76 | $everythingAuthToken= | CREATED |
 
 !| AuthenticationFixture |
 | idpLogin? | EPPN | getAuthToken? | getStatusType? |
 | | fitnesseSystemAdmin@user.uu.se | $systemAdminAuthToken= | OK |
 | | userNotInDb@user.uu.se | $guestToken= | OK |
 | | fitnesseDomainAdminUU@user.uu.se | $domainAdminUUAuthToken= | OK |
+| | divaFitnesseEverything@system.cora.uu.se | $everythingAuthToken= | OK |
+
 *!
 
 !***> SuiteSetUp for Fitnesse Example
