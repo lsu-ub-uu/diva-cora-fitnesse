@@ -9,3 +9,4 @@
 RerunLastFailures_*
 coraLog4j*
 /${sys::catalina.base}/
+/cp.txt
