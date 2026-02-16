@@ -22,7 +22,7 @@ There is only one validation type for publisher.
 			updatedBy (recordLink, 1-1, noConstraint)
 			tsUpdated (textVariable, 1-1, noConstraint)
 		inTrashBin (collectionVariable, 1-1, noConstraint, P, I)
-		oldId (textVariable, 0-1, noConstraint, I)
+		oldId (textVariable, 0-1, noConstraint, S, I)
 	name type:{corporate} (group, 1-1, noConstraint, I)
 		namePart (textVariable, 1-1, noConstraint, I)-!}
 
@@ -62,7 +62,7 @@ There is only one validation type for publisher.
 			updatedBy (recordLink, 1-1, noConstraint)
 			tsUpdated (textVariable, 1-1, noConstraint)
 		inTrashBin (collectionVariable, 1-1, noConstraint, P, I)
-		oldId (textVariable, 0-1, noConstraint, I)
+		oldId (textVariable, 0-1, noConstraint, S, I)
 	name type:{corporate} (group, 1-1, noConstraint, I)
 		namePart (textVariable, 1-1, noConstraint, I)-!}
 

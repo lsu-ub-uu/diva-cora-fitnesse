@@ -26,7 +26,7 @@ Top organisation is the topmost part of a member organisation.
 			tsUpdated (textVariable, 1-1, noConstraint)
 		permissionUnit (recordLink, 1-1, noConstraint, P, I)
 		inTrashBin (collectionVariable, 1-1, noConstraint, P, I)
-		oldId (textVariable, 0-1, noConstraint, I)
+		oldId (textVariable, 0-1, noConstraint, S, I)
 	genre type:{organisationType} (collectionVariable, 1-1, noConstraint, P)
 	authority lang:{swe} (group, 1-1, noConstraint)
 		name type:{corporate} (group, 1-1, noConstraint, I)
