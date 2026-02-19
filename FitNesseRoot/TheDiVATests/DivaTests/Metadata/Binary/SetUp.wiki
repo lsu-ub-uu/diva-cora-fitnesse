@@ -3,11 +3,14 @@ Static
 ---
 !***> Setup for binary tests
  
+
+ 
+ 
 ### Setup binary record
 !define expectedFileSize {316188}
-!define publishedBinary {!-{"name":"binary","children":[{"name":"recordInfo","children":[{"name":"visibility","value":"published"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"divaData"}]},{"name":"validationType","children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"genericBinary"}]}]},{"name":"originalFileName","value":"TiffImage1.tiff"},{"name":"expectedFileSize","value":"-!${expectedFileSize}!-"}],"attributes":{"type":"generic"}}-!}
+!define publishedBinary {!-{"name":"binary","children":[{"name":"recordInfo","children":[{"name":"visibility","value":"published"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"divaData"}]},{"name":"validationType","children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"genericBinary"}]},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"hostRecord"}]},{"name":"originalFileName","value":"TiffImage1.tiff"},{"name":"expectedFileSize","value":"-!${expectedFileSize}!-"}],"attributes":{"type":"generic"}}-!}
 
-!define unpublishedBinary {!-{"name":"binary","children":[{"name":"recordInfo","children":[{"name":"visibility","value":"unpublished"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"divaData"}]},{"name":"validationType","children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"genericBinary"}]}]},{"name":"originalFileName","value":"TiffImage2.tiff"},{"name":"expectedFileSize","value":"-!${expectedFileSize}!-"}],"attributes":{"type":"generic"}}-!}
+!define unpublishedBinary {!-{"name":"binary","children":[{"name":"recordInfo","children":[{"name":"visibility","value":"unpublished"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"divaData"}]},{"name":"validationType","children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"genericBinary"}]},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"diva"}],"name":"hostRecord"}]},{"name":"originalFileName","value":"TiffImage2.tiff"},{"name":"expectedFileSize","value":"-!${expectedFileSize}!-"}],"attributes":{"type":"generic"}}-!}
 
 
 Create binary records
