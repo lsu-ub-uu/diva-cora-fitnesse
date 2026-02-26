@@ -11,7 +11,7 @@ Static
 !***> Setup admin test case
 !define currentAuthToken {$systemAdminAuthToken}
 *!
-!*** '''Case 1''': An admin should be able to read binary data of any visibility
+!***> '''Case 1''': An admin should be able to read binary data of any visibility
 !5 '''Read published'''
 !***> Setup defines
 !define recordId {$publishedRecordId}
@@ -37,13 +37,13 @@ Static
 | ${currentAuthToken} | binary | ${recordId} | medium | ${expectedDownloadAnswer} | ${expectedDownloadStatus} |
 | ${currentAuthToken} | binary | ${recordId} | large | ${expectedDownloadAnswer} | ${expectedDownloadStatus} |
 | ${currentAuthToken} | binary | ${recordId} | jp2 | ${expectedDownloadAnswer} | ${expectedDownloadStatus} |
-
+*!
 
 !***> Gäst tests
 !***> Setup gäst test case
 !define currentAuthToken {$guestToken}
 *!
-!*** '''Case 1''': A gäst should be only able to read published binary data
+!***> '''Case 1''': A gäst should be only able to read published binary data
 !5 '''Read published'''
 !***> Setup published
 !define recordId {$publishedRecordId}
@@ -69,4 +69,4 @@ Static
 | ${currentAuthToken} | binary | ${recordId} | medium | ${expectedDownloadAnswer} | ${expectedDownloadStatus} |
 | ${currentAuthToken} | binary | ${recordId} | large | ${expectedDownloadAnswer} | ${expectedDownloadStatus} |
 | ${currentAuthToken} | binary | ${recordId} | jp2 | ${expectedDownloadAnswer} | ${expectedDownloadStatus} |
-
+*!
