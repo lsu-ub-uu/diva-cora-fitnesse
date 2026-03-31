@@ -18,12 +18,13 @@ https://www.kb.se/pliktleverans-och-isbn/urnnbn/vad-ar-urnnbn.html
      * '''Case 3''': Försök ändra urn:nbn på en existerande post → det ska inte vara möjligt (värdet ska förbli oförändrat).
      * '''Case 4''': Försök ta bort urn:nbn på en existerande post → det ska inte vara möjligt (värdet ska förbli oförändrat).
   
-
+!***> Test setup
 !define recordType {diva-output}
 !define expectedCreateResult {CREATED}
 !define divaOutputCreateUrnTemplate {!-{"name":"output","children":[{"name":"recordInfo","children":[{"name":"validationType","children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"diva-output"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"divaPreview"}]},{"name":"permissionUnit","children":[{"name":"linkedRecordType","value":"permissionUnit"},{"name":"linkedRecordId","value":"fitnesse"}]},{"name":"visibility","value":"unpublished"}-!${urnnbnValue}!-]},{"name":"dataQuality","value":"2026"},{"name":"genre","value":"artistic-work_original-creative-work","attributes":{"type":"outputType"}},{"name":"language","repeatId":"0","children":[{"name":"languageTerm","value":"swe","attributes":{"type":"code","authority":"iso639-2b"}}]},{"name":"artisticWork","value":"true","attributes":{"type":"outputType"}},{"name":"genre","value":"ref","attributes":{"type":"contentType"}},{"name":"titleInfo","children":[{"name":"title","value":"en title"}],"attributes":{"lang":"swe"}},{"name":"originInfo","children":[{"name":"dateIssued","children":[{"name":"year","value":"1982"}]}]},{"name":"classification","repeatId":"0","value":"1","attributes":{"authority":"ssif"}},{"name":"adminInfo","children":[{"name":"reviewed","value":"true"}]}]}-!}
 
 !define divaOutputUpdateUrnTemplate {!-{"children":[{"children":[{"name":"ignoreOverwriteProtection","value":"true"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"diva-output"}],"name":"validationType"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"divaPreview"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"permissionUnit"},{"name":"linkedRecordId","value":"fitnesse"}],"name":"permissionUnit"},{"name":"visibility","value":"unpublished"}-!${urnnbnValue}!-,{"name":"tsVisibility","value":"2026-03-30T14:35:23.218738Z"},{"name":"inTrashBin","value":"false"},{"name":"id","value":"145"},{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"diva-output"}],"name":"type"}],"name":"recordInfo"},{"name":"dataQuality","value":"2026"},{"name":"genre","attributes":{"type":"outputType"},"value":"artistic-work_original-creative-work"},{"repeatId":"0","children":[{"name":"languageTerm","attributes":{"authority":"iso639-2b","type":"code"},"value":"swe"}],"name":"language"},{"name":"artisticWork","attributes":{"type":"outputType"},"value":"true"},{"name":"genre","attributes":{"type":"contentType"},"value":"ref"},{"children":[{"name":"title","value":"en title"}],"name":"titleInfo","attributes":{"lang":"swe"}},{"children":[{"children":[{"name":"year","value":"1982"}],"name":"dateIssued"}],"name":"originInfo"},{"repeatId":"0","name":"classification","attributes":{"authority":"ssif"},"value":"1"},{"children":[{"name":"reviewed","value":"true"}],"name":"adminInfo"}],"name":"output"}-!}
+*!
 
 !***> Case 1: Skapa en DiVA-output post och ange urn:nbn manuellt → värdet ska behållas och inget nytt ska genereras.
 
@@ -38,6 +39,7 @@ https://www.kb.se/pliktleverans-och-isbn/urnnbn/vad-ar-urnnbn.html
 |  {"children":[{"children":[{"name": "id", "value": "$recordIdWithUrn"},{"name":"urn","value":"urn:nbn:se:fitnesse:diva-2200"}],"name":"recordInfo"}]} | OK |
 
 *!
+
 !***> Case 2: Skapa en DiVA-output post utan urn:nbn → systemet ska generera ett nytt enligt formatet urn:nbn:se:diva-{id}.
 
 #!define divaOutputWithoutUrn {${divaOutputUnpublished}}
