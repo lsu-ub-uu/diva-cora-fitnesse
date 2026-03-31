@@ -13,8 +13,10 @@ Tests temporally paused until diva-output is more stable.
 #!include -seamless .TheDiVATests.DivaTests.Metadata.DivaOutput.Definition
 #!include -seamless .TheDiVATests.DivaTests.Metadata.DivaOutput.Read
 
-#### validation types
 #!include -seamless .TheDiVATests.DivaTests.Metadata.DivaOutput.ValidationTypes
+
+!2 Extended functionalities
+!include -seamless .TheDiVATests.DivaTests.Metadata.DivaOutput.UrnNbn
 
 #### Tear down
 #!include -seamless .TheDiVATests.DivaTests.Metadata.DivaOutput.TestEnv.Teardown
