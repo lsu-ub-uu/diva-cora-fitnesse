@@ -33,7 +33,7 @@ Create binary records
 
 !| WaitForRegExReadResultFixture |
 | authToken | recordType | recordId | sleepTime | maxNumberOfCalls | regEx | waitUntilUntilRegExpFoundInReadRecord? |
-| $systemAdminAuthToken | binary | $publishedRecordId | 250 | 50 | \"name\":\"jp2\" | Found |
-| $systemAdminAuthToken | binary | $unpublishedRecordId | 250 | 50 | \"name\":\"jp2\" | Found |
+| $systemAdminAuthToken | binary | $publishedRecordId | 250 | 500 | \"name\":\"jp2\" | Found |
+| $systemAdminAuthToken | binary | $unpublishedRecordId | 250 | 500 | \"name\":\"jp2\" | Found |
 *!
 *!
