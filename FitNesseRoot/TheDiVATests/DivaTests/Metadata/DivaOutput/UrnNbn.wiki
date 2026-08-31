@@ -92,19 +92,49 @@ https://www.kb.se/pliktleverans-och-isbn/urnnbn/vad-ar-urnnbn.html
 
 *!
 
+!3 URN:NBN Hämtningstjänst
+Det finns två endpoints definierade, '''all''', som ger alla poster, och '''current''' som ger de som är publicerade senaste 24h
 
-!***> Case 2
+     * '''Case 1''': Kontrollera att inga poster kommer ut ur urn:nbn tjänsten för fitnesse eller diva
+     * '''Case 2''': Publicera diva posten och se att den dyker upp, ingen fitnesse
+     * '''Case 3''': Avpublicera diva posten och se att den försvinner igen
+     * '''Case 4''': 
+
+!***> Case 1
+!define expectedMimeType {someMediaType}
+#!define expectedXpath {//records/record/header/destinations[0]/destination]}
+!define expectedXpath {records}
+!define recordCount {count(//*[local-name()='record'])}
+
 | Table:smartrics.rest.fitnesse.fixture.RestFixture | ${urnNbnUrl} |
 | setHeaders | Accept: application/xml|
-| GET | /all/diva/ | 200 |     | |
-| let | match | js | response.body.match(/<applicationName>(.*)<\/applicationName>/)[1]                      | systemOne |
-| let | match | js | response.body.match(/<deploymentName>(.*)<\/deploymentName>/)[1]                        | |
+| GET | /all/diva/ | 200 | Content-Type: application/xml | ${recordCount} |
+| let | appName | xpath |  ${expectedXpath} | systemOne |
 
 | Table:smartrics.rest.fitnesse.fixture.RestFixture | ${urnNbnUrl} |
 | setHeaders | Accept: application/xml|
-| GET | /all/fitnesse/ | 200 |     | |
-| let | match | js | response.body.match(/<applicationName>(.*)<\/applicationName>/)[1]                      | systemOne |
-| let | match | js | response.body.match(/<deploymentName>(.*)<\/deploymentName>/)[1]                        | |
+| GET | /all/diva/ | 200 | Content-Type: application/xml | |
+| let | id | body |  //records | systemOne |
+
+
+
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${urnNbnUrl} |
+| setHeaders | Accept: application/xml|
+| GET | /all/diva/ | 200 | Content-Type: application\/xml |  |
+| let | match | js | response.body.match(/<identifier>(.*)<\/identifier>/)[1] | systemOne |
+
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${urnNbnUrl} |
+| setHeaders | Accept: application/xml|
+| GET | /all/fitnesse/ | 200 |  | ${expectedCountEmpty} |
+
+Case X -Non existing serie must return empty records
+!define expectedProtocls {//*[local-name()='records']/*[local-name()='protocol-version'][text()='3.0']}
+!define expectedCountEmpty {count(//*[local-name()='record'])=0}
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${urnNbnUrl} |
+| setHeaders | Accept: application/xml|
+| GET | /all/nonExisting/ | 200 |  | ${expectedCountEmpty} |
+
+
 *!
 
 
