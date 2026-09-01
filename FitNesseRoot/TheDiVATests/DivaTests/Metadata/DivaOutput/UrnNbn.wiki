@@ -22,9 +22,11 @@ https://www.kb.se/pliktleverans-och-isbn/urnnbn/vad-ar-urnnbn.html
 !***> Test setup
 !define recordType {diva-output}
 !define expectedCreateResult {CREATED}
+!define visibility {unpublished}
 !define divaOutputCreateUrnTemplate {!-{"name":"output","children":[{"name":"recordInfo","children":[{"name":"validationType","children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"diva-output"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"divaPreview"}]},{"name":"permissionUnit","children":[{"name":"linkedRecordType","value":"permissionUnit"},{"name":"linkedRecordId","value":"fitnesse"}]},{"name":"visibility","value":"unpublished"}-!${urnnbnValue}!-]},{"name":"dataQuality","value":"2026"},{"name":"genre","value":"artistic-work_original-creative-work","attributes":{"type":"outputType"}},{"name":"language","repeatId":"0","children":[{"name":"languageTerm","value":"swe","attributes":{"type":"code","authority":"iso639-2b"}}]},{"name":"artisticWork","value":"true","attributes":{"type":"outputType"}},{"name":"note","attributes":{"type":"publicationStatus"},"value":"published"},{"name":"genre","value":"ref","attributes":{"type":"contentType"}},{"name":"titleInfo","children":[{"name":"title","value":"en title"}],"attributes":{"lang":"swe"}},{"name":"originInfo","children":[{"name":"dateIssued","children":[{"name":"year","value":"1982"}]}]},{"name":"classification","repeatId":"0","value":"1","attributes":{"authority":"ssif"}},{"name":"adminInfo","children":[{"name":"reviewed","value":"true"}]}]}-!}
 
-!define divaOutputUpdateUrnTemplate {!-{"children":[{"children":[{"name":"ignoreOverwriteProtection","value":"true"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"diva-output"}],"name":"validationType"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"divaPreview"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"permissionUnit"},{"name":"linkedRecordId","value":"fitnesse"}],"name":"permissionUnit"},{"name":"visibility","value":"published"}-!${urnnbnValue}!-,{"name":"tsVisibility","value":"2026-03-30T14:35:23.218738Z"},{"name":"inTrashBin","value":"false"},{"name":"id","value":"145"},{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"diva-output"}],"name":"type"}],"name":"recordInfo"},{"name":"dataQuality","value":"2026"},{"name":"genre","attributes":{"type":"outputType"},"value":"artistic-work_original-creative-work"},{"repeatId":"0","children":[{"name":"languageTerm","attributes":{"authority":"iso639-2b","type":"code"},"value":"swe"}],"name":"language"},{"name":"artisticWork","attributes":{"type":"outputType"},"value":"true"},{"name":"note","attributes":{"type":"publicationStatus"},"value":"published"},{"name":"genre","attributes":{"type":"contentType"},"value":"ref"},{"children":[{"name":"title","value":"en title"}],"name":"titleInfo","attributes":{"lang":"swe"}},{"children":[{"children":[{"name":"year","value":"1982"}],"name":"dateIssued"}],"name":"originInfo"},{"repeatId":"0","name":"classification","attributes":{"authority":"ssif"},"value":"1"},{"children":[{"name":"reviewed","value":"true"}],"name":"adminInfo"}],"name":"output"}-!}
+!define tsVisibility {2026-03-30T14:35:23.218738Z}
+!define divaOutputUpdateUrnTemplate {!-{"children":[{"children":[{"name":"ignoreOverwriteProtection","value":"true"},{"children":[{"name":"linkedRecordType","value":"validationType"},{"name":"linkedRecordId","value":"diva-output"}],"name":"validationType"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"divaPreview"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"permissionUnit"},{"name":"linkedRecordId","value":"fitnesse"}],"name":"permissionUnit"},{"name":"visibility","value":"-!${visibility}!-"}-!${urnnbnValue}!-,{"name":"tsVisibility","value":"-!${tsVisibility}!-"},{"name":"inTrashBin","value":"false"},{"name":"id","value":"145"},{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"diva-output"}],"name":"type"}],"name":"recordInfo"},{"name":"dataQuality","value":"2026"},{"name":"genre","attributes":{"type":"outputType"},"value":"artistic-work_original-creative-work"},{"repeatId":"0","children":[{"name":"languageTerm","attributes":{"authority":"iso639-2b","type":"code"},"value":"swe"}],"name":"language"},{"name":"artisticWork","attributes":{"type":"outputType"},"value":"true"},{"name":"note","attributes":{"type":"publicationStatus"},"value":"published"},{"name":"genre","attributes":{"type":"contentType"},"value":"ref"},{"children":[{"name":"title","value":"en title"}],"name":"titleInfo","attributes":{"lang":"swe"}},{"children":[{"children":[{"name":"year","value":"1982"}],"name":"dateIssued"}],"name":"originInfo"},{"repeatId":"0","name":"classification","attributes":{"authority":"ssif"},"value":"1"},{"children":[{"name":"reviewed","value":"true"}],"name":"adminInfo"}],"name":"output"}-!}
 *!
 
 !***> Case 1: Skapa en DiVA-output post och ange urn:nbn manuellt → värdet ska behållas och inget nytt ska genereras.
@@ -52,8 +54,6 @@ https://www.kb.se/pliktleverans-och-isbn/urnnbn/vad-ar-urnnbn.html
 *!
 
 !***> Case 3: Skapa en DiVA-output post utan urn:nbn → systemet ska generera ett nytt enligt formatet urn:nbn:se:diva-{id}.
-
-#!define divaOutputWithoutUrn {${divaOutputUnpublished}}
 !define urnnbnValue {}
 
 !| ChildComparerFixture |
@@ -93,49 +93,130 @@ https://www.kb.se/pliktleverans-och-isbn/urnnbn/vad-ar-urnnbn.html
 *!
 
 !3 URN:NBN Hämtningstjänst
-Det finns två endpoints definierade, '''all''', som ger alla poster, och '''current''' som ger de som är publicerade senaste 24h
+Det finns två endpoints definierade:
+ * '''all''' – returnerar alla poster.
+ * '''current''' – returnerar poster som har publicerats under de senaste 24 timmarna.
+Alla poster som skapas med Cora får samma serie: urn:nbn:se:diva-[postId].
+Importerade poster från Classic behåller sitt befintliga URN-NBN-id: urn:nbn:se:[classicSerie]:diva-[postId].
 
-     * '''Case 1''': Kontrollera att inga poster kommer ut ur urn:nbn tjänsten för fitnesse eller diva
-     * '''Case 2''': Publicera diva posten och se att den dyker upp, ingen fitnesse
-     * '''Case 3''': Avpublicera diva posten och se att den försvinner igen
-     * '''Case 4''': 
+'''Url'''{{{https://[miljöUrl]/urn-nbn/[current/all]/[classsicSerie|diva]/}}}
+     
+ * '''Case 1''': Opublicerade poster ska inte returneras av URN-NBN-tjänsten.
+ * '''Case 2''': Nya publicerade poster som har formatet urn:nbn:se:diva-[postId] ska returneras av URN-NBN-tjänsten.
+ * '''Case 3''': Publicerade poster som har skapats i Classic, med formatet urn:nbn:se:[classicSerie]:diva-[postId], ska returneras av URN-NBN-tjänsten. ''Obs! För test används classicSerie=fitnesse.''
+ * '''Case 4''': När en post avpubliceras ska den inte längre returneras av URN-NBN-tjänsten.
+ * '''Case 5''': Om man försöker läsa en serie som inte finns ska tjänsten returnera ett tomt records-svar.
 
-!***> Case 1
-!define expectedMimeType {someMediaType}
-#!define expectedXpath {//records/record/header/destinations[0]/destination]}
-!define expectedXpath {records}
-!define recordCount {count(//*[local-name()='record'])}
-
-| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${urnNbnUrl} |
-| setHeaders | Accept: application/xml|
-| GET | /all/diva/ | 200 | Content-Type: application/xml | ${recordCount} |
-| let | appName | xpath |  ${expectedXpath} | systemOne |
-
-| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${urnNbnUrl} |
-| setHeaders | Accept: application/xml|
-| GET | /all/diva/ | 200 | Content-Type: application/xml | |
-| let | id | body |  //records | systemOne |
-
-
+!***> Case 1 Opublicerade poster ska inte returneras av URN-NBN-tjänsten. → det skall inte få nån post.
+#!define expectedProtocls {//*[local-name()='records']/*[local-name()='protocol-version'][text()='3.0']}
+!define expectedRecordsNotPresent {!-count(//*[local-name()='identifier'][text()='urn:nbn:se:fitnesse:diva-2200' or text()='urn:nbn:se:diva--!$recordIdWithoutUrn!-'])=0-!}
 
 | Table:smartrics.rest.fitnesse.fixture.RestFixture | ${urnNbnUrl} |
 | setHeaders | Accept: application/xml|
-| GET | /all/diva/ | 200 | Content-Type: application\/xml |  |
-| let | match | js | response.body.match(/<identifier>(.*)<\/identifier>/)[1] | systemOne |
+| GET | /all/diva/ | 200 |  | ${expectedRecordsNotPresent} |
+*!
 
+!***> Case 2 Nya publicerade poster som har formatet urn:nbn:se:diva-[postId] ska returneras av URN-NBN-tjänsten. → Diva posten publiceras och det ska nu vara med.
+!define visibility {published}
+!define urnnbnValue {!-,{"name":"urn","value":"urn:nbn:se:diva--!$recordIdWithoutUrn!-"}-!}
+!***> Publicera diva posten. 
+!| ChildComparerFixture |
+| authToken | type | id | json | testUpdateAndStoreRecord? | getStatusType? | 
+| $systemAdminAuthToken | ${recordType} | $recordIdWithoutUrn| ${divaOutputUpdateUrnTemplate} |  | OK | 
+*!
+!define identifierExists {!-//*[local-name()='identifier'][text()='urn:nbn:se:diva--!$recordIdWithoutUrn!-']-!}
 | Table:smartrics.rest.fitnesse.fixture.RestFixture | ${urnNbnUrl} |
 | setHeaders | Accept: application/xml|
-| GET | /all/fitnesse/ | 200 |  | ${expectedCountEmpty} |
+| GET | /all/diva/ | 200 |  | ${identifierExists} |
+*!
 
-Case X -Non existing serie must return empty records
-!define expectedProtocls {//*[local-name()='records']/*[local-name()='protocol-version'][text()='3.0']}
+!***> Case 3 Publicerade poster som har skapats i Classic, med formatet urn:nbn:se:[classicSerie]:diva-[postId], ska returneras av URN-NBN-tjänsten. → "Classic(Fitnesse)" posten publiceras och det ska nu vara med.
+!define visibility {published}
+!define urnnbnValue {!-,{"name":"urn","value":"urn:nbn:se:fitnesse:diva-2200"}-!}
+
+!***> Publicera diva posten. 
+!| ChildComparerFixture |
+| authToken | type | id | json | testUpdateAndStoreRecord? | getStatusType? | 
+| $systemAdminAuthToken | ${recordType} | $recordIdWithUrn | ${divaOutputUpdateUrnTemplate} |  | OK | 
+*!
+!define identifierExists {!-//*[local-name()='identifier'][text()='urn:nbn:se:fitnesse:diva-2200']-!}
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${urnNbnUrl} |
+| setHeaders | Accept: application/xml|
+| GET | /all/fitnesse/ | 200 |  | ${identifierExists} |
+*!
+
+!***> Case 4a Avpublicerade poster som har formatet urn:nbn:se:diva-[postId] ska returneras av URN-NBN-tjänsten. → Avpublicerade diva posten ska inte längre vara med.
+!define visibility {unpublished}
+!define urnnbnValue {!-,{"name":"urn","value":"urn:nbn:se:diva--!$recordIdWithoutUrn!-"}-!}
+!***> Publicera diva posten. 
+!| ChildComparerFixture |
+| authToken | type | id | json | testUpdateAndStoreRecord? | getStatusType? | 
+| $systemAdminAuthToken | ${recordType} | $recordIdWithoutUrn| ${divaOutputUpdateUrnTemplate} |  | OK | 
+*!
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${urnNbnUrl} |
+| setHeaders | Accept: application/xml|
+| GET | /all/diva/ | 200 |  | ${expectedRecordsNotPresent} |
+*!
+
+!***> Case 4b Avpublicerade poster som har skapats i Classic, med formatet urn:nbn:se:[classicSerie]:diva-[postId], ska returneras av URN-NBN-tjänsten. → Avpublicerade "Classic(Fitnesse)" posten ska inte längre vara med.
+!define visibility {unpublished}
+!define urnnbnValue {!-,{"name":"urn","value":"urn:nbn:se:fitnesse:diva-2200"}-!}
+
+!***> Publicera diva posten. 
+!| ChildComparerFixture |
+| authToken | type | id | json | testUpdateAndStoreRecord? | getStatusType? | 
+| $systemAdminAuthToken | ${recordType} | $recordIdWithUrn | ${divaOutputUpdateUrnTemplate} |  | OK | 
+*!
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${urnNbnUrl} |
+| setHeaders | Accept: application/xml|
+| GET | /all/fitnesse/ | 200 |  | ${expectedRecordsNotPresent} |
+*!
+
+!***> Case 5
 !define expectedCountEmpty {count(//*[local-name()='record'])=0}
 | Table:smartrics.rest.fitnesse.fixture.RestFixture | ${urnNbnUrl} |
 | setHeaders | Accept: application/xml|
 | GET | /all/nonExisting/ | 200 |  | ${expectedCountEmpty} |
+*!
+
+
+
+
+!***> Case X Current
+!| RememberRecordState |
+| type       | id            | version  | remember? |
+| recordType | diva-output   | original | OK        |
+
+!| UpdateRecordType |
+| id          | idSource | public | usePermissionUnit | useVisibility | useTrashBin | storeInArchive | useHostRecordForPermissions |update? |
+| diva-output | sequence | false  | true              | false         | true        | true           | false					   | OK     |
+
+!define tsVisibility {2006-03-30T14:35:23.218738Z}
+!define visibility {published}
+!define urnnbnValue {!-,{"name":"urn","value":"urn:nbn:se:diva--!$recordIdWithoutUrn!-"}-!}
+!***> Publicera diva posten. 
+!| ChildComparerFixture |
+| authToken | type | id | json | testUpdateAndStoreRecord? | getStatusType? | 
+| $systemAdminAuthToken | ${recordType} | $recordIdWithoutUrn| ${divaOutputUpdateUrnTemplate} |  | OK | 
+*!
+!define identifierExists {!-//*[local-name()='identifier'][text()='urn:nbn:se:diva--!$recordIdWithoutUrn!-']-!}
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${urnNbnUrl} |
+| setHeaders | Accept: application/xml|
+| GET | /all/diva/ | 200 |  | ${identifierExists} |
+
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${urnNbnUrl} |
+| setHeaders | Accept: application/xml|
+| GET | /current/diva/ | 200 |  | ${expectedRecordsNotPresent} |
+
+!| RememberRecordState |
+| type       | id          | version  | memoryToStorage? |
+| recordType | diva-output | original | OK               |
+*!
+
 
 
 *!
+
 
 
 !***> Clean up
