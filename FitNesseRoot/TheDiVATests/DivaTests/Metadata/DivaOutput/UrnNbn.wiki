@@ -93,21 +93,24 @@ https://www.kb.se/pliktleverans-och-isbn/urnnbn/vad-ar-urnnbn.html
 *!
 
 !3 URN:NBN Hämtningstjänst
+Hämtningstjänsten är i första hand till för att KB skall kunna populera sin uppslagstjänst så att den pekar på aktuell url för ett givet URN:NBN, se:
+https://www.kb.se/pliktleverans-och-isbn/urnnbn/sla-upp-och-hitta-en-resurs.html
+
 Det finns två endpoints definierade:
  * '''all''' – returnerar alla poster.
  * '''current''' – returnerar poster som har publicerats under de senaste 24 timmarna.
-Alla poster som skapas med Cora får samma serie: urn:nbn:se:diva-[postId].
-Importerade poster från Classic behåller sitt befintliga URN-NBN-id: urn:nbn:se:[classicSerie]:diva-[postId].
+Alla poster som skapas med DiVA powered by Cora får samma serie: urn:nbn:se:diva-[postId].
+Importerade poster från DiVA Classic behåller sitt befintliga URN-NBN-id: urn:nbn:se:[classicSerie]:diva-[postId].
 
 '''Url'''{{{https://[miljöUrl]/urn-nbn/[current/all]/[classsicSerie|diva]/}}}
-     
+För de här testerna jobbar vi med två poster skapade av testerna ovan.
  * '''Case 1''': Opublicerade poster ska inte returneras av URN-NBN-tjänsten.
  * '''Case 2''': Nya publicerade poster som har formatet urn:nbn:se:diva-[postId] ska returneras av URN-NBN-tjänsten.
  * '''Case 3''': Publicerade poster som har skapats i Classic, med formatet urn:nbn:se:[classicSerie]:diva-[postId], ska returneras av URN-NBN-tjänsten. ''Obs! För test används classicSerie=fitnesse.''
  * '''Case 4''': När en post avpubliceras ska den inte längre returneras av URN-NBN-tjänsten.
  * '''Case 5''': Om man försöker läsa en serie som inte finns ska tjänsten returnera ett tomt records-svar.
 
-!***> Case 1 Opublicerade poster ska inte returneras av URN-NBN-tjänsten. → det skall inte få nån post.
+!***> Case 1 Opublicerade poster ska inte returneras av URN-NBN-tjänsten. → ingen av de två posterna finns med.
 #!define expectedProtocls {//*[local-name()='records']/*[local-name()='protocol-version'][text()='3.0']}
 !define expectedRecordsNotPresent {!-count(//*[local-name()='identifier'][text()='urn:nbn:se:fitnesse:diva-2200' or text()='urn:nbn:se:diva--!$recordIdWithoutUrn!-'])=0-!}
 
@@ -116,7 +119,7 @@ Importerade poster från Classic behåller sitt befintliga URN-NBN-id: urn:nbn:s
 | GET | /all/diva/ | 200 |  | ${expectedRecordsNotPresent} |
 *!
 
-!***> Case 2 Nya publicerade poster som har formatet urn:nbn:se:diva-[postId] ska returneras av URN-NBN-tjänsten. → Diva posten publiceras och det ska nu vara med.
+!***> Case 2 Nya publicerade poster som har formatet urn:nbn:se:diva-[postId] ska returneras av URN-NBN-tjänsten. → Diva posten publiceras och den ska nu vara med.
 !define visibility {published}
 !define urnnbnValue {!-,{"name":"urn","value":"urn:nbn:se:diva--!$recordIdWithoutUrn!-"}-!}
 !***> Publicera diva posten. 
@@ -145,10 +148,10 @@ Importerade poster från Classic behåller sitt befintliga URN-NBN-id: urn:nbn:s
 | GET | /all/fitnesse/ | 200 |  | ${identifierExists} |
 *!
 
-!***> Case 4a Avpublicerade poster som har formatet urn:nbn:se:diva-[postId] ska returneras av URN-NBN-tjänsten. → Avpublicerade diva posten ska inte längre vara med.
+!***> Case 4a Avpublicerade poster som har formatet urn:nbn:se:diva-[postId] ska inte returneras av URN-NBN-tjänsten. → Avpublicerade diva posten ska inte längre vara med.
 !define visibility {unpublished}
 !define urnnbnValue {!-,{"name":"urn","value":"urn:nbn:se:diva--!$recordIdWithoutUrn!-"}-!}
-!***> Publicera diva posten. 
+!***> Avpublicera diva posten. 
 !| ChildComparerFixture |
 | authToken | type | id | json | testUpdateAndStoreRecord? | getStatusType? | 
 | $systemAdminAuthToken | ${recordType} | $recordIdWithoutUrn| ${divaOutputUpdateUrnTemplate} |  | OK | 
@@ -158,11 +161,11 @@ Importerade poster från Classic behåller sitt befintliga URN-NBN-id: urn:nbn:s
 | GET | /all/diva/ | 200 |  | ${expectedRecordsNotPresent} |
 *!
 
-!***> Case 4b Avpublicerade poster som har skapats i Classic, med formatet urn:nbn:se:[classicSerie]:diva-[postId], ska returneras av URN-NBN-tjänsten. → Avpublicerade "Classic(Fitnesse)" posten ska inte längre vara med.
+!***> Case 4b Avpublicerade poster som har skapats i Classic, med formatet urn:nbn:se:[classicSerie]:diva-[postId], ska inte returneras av URN-NBN-tjänsten. → Avpublicerade "Classic(Fitnesse)" posten ska inte längre vara med.
 !define visibility {unpublished}
 !define urnnbnValue {!-,{"name":"urn","value":"urn:nbn:se:fitnesse:diva-2200"}-!}
 
-!***> Publicera diva posten. 
+!***> Avpublicera diva posten. 
 !| ChildComparerFixture |
 | authToken | type | id | json | testUpdateAndStoreRecord? | getStatusType? | 
 | $systemAdminAuthToken | ${recordType} | $recordIdWithUrn | ${divaOutputUpdateUrnTemplate} |  | OK | 
@@ -172,7 +175,7 @@ Importerade poster från Classic behåller sitt befintliga URN-NBN-id: urn:nbn:s
 | GET | /all/fitnesse/ | 200 |  | ${expectedRecordsNotPresent} |
 *!
 
-!***> Case 5
+!***> Case 5 Om man försöker läsa en serie som inte finns ska tjänsten returnera ett tomt records-svar
 !define expectedCountEmpty {count(//*[local-name()='record'])=0}
 | Table:smartrics.rest.fitnesse.fixture.RestFixture | ${urnNbnUrl} |
 | setHeaders | Accept: application/xml|
@@ -182,7 +185,7 @@ Importerade poster från Classic behåller sitt befintliga URN-NBN-id: urn:nbn:s
 
 
 
-!***> Case X Current
+!***> Case 6 Current
 !| RememberRecordState |
 | type       | id            | version  | remember? |
 | recordType | diva-output   | original | OK        |
@@ -215,7 +218,7 @@ Importerade poster från Classic behåller sitt befintliga URN-NBN-id: urn:nbn:s
 
 
 
-*!
+
 
 
 
